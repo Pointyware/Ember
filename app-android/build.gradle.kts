@@ -12,4 +12,9 @@ kotlin {
 
 android {
     namespace = "org.pointyware.artes"
+    compileSdk = 35
+
+    defaultConfig {
+        minSdk = 24
+    }
 }
