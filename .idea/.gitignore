@@ -1,6 +1,7 @@
 # Default ignored files
 /*.iml
 /shelf/
+/artifacts/
 /caches/
 /compiler.xml
 /gradle.xml
