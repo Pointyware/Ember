@@ -25,6 +25,7 @@ include(
 include(
     ":core-data",
     ":core-ui",
+    ":core-entities",
 )
 
 include(
