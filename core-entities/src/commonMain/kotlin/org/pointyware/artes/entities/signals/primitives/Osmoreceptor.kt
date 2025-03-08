@@ -1,6 +1,6 @@
-package org.pointyware.artes.core.entities.signals.primitives
+package org.pointyware.artes.entities.signals.primitives
 
-import org.pointyware.artes.core.entities.Signal
+import org.pointyware.artes.entities.Signal
 
 /**
  * Detects osmotic pressure. Related to chemoreceptors but function more like mechanoreceptors:

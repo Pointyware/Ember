@@ -1,6 +1,6 @@
-package org.pointyware.artes.core.entities.signals.primitives
+package org.pointyware.artes.entities.signals.primitives
 
-import org.pointyware.artes.core.entities.Signal
+import org.pointyware.artes.entities.Signal
 
 /**
  * There are a massive variety of chemoreceptors. In general they sense chemical concentrations.

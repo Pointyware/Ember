@@ -1,4 +1,4 @@
-package org.pointyware.artes.core.entities
+package org.pointyware.artes.entities
 
 /**
  * An external element that allows an entity to interact in a new way with its environment. These

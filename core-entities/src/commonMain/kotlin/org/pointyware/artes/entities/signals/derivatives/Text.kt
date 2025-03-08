@@ -1,6 +1,6 @@
-package org.pointyware.artes.core.entities.signals.derivatives
+package org.pointyware.artes.entities.signals.derivatives
 
-import org.pointyware.artes.core.entities.Signal
+import org.pointyware.artes.entities.Signal
 
 /**
  * A sequence of symbols used to communicate concepts (whatever the hell those are).

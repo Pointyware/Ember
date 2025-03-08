@@ -1,4 +1,4 @@
-package org.pointyware.artes.core.entities
+package org.pointyware.artes.entities
 
 /**
  *

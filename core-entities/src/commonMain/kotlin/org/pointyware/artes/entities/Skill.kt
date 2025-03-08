@@ -1,4 +1,4 @@
-package org.pointyware.artes.core.entities
+package org.pointyware.artes.entities
 
 /**
  * I am conflating skill and ability here because 1) I don't see a significant difference between
