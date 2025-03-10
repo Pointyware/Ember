@@ -3,6 +3,7 @@
 /shelf/
 /artifacts/
 /caches/
+/modules/
 /compiler.xml
 /gradle.xml
 /misc.xml
