@@ -18,6 +18,9 @@ kotlin {
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.material3)
+                implementation(libs.compose.navigation)
+
+                implementation(compose.material3AdaptiveNavigationSuite)
             }
         }
 
