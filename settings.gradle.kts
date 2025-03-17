@@ -25,6 +25,8 @@ include(
 include(
     ":core-data",
     ":core-ui",
+    ":core-interactors",
+    ":core-viewmodels",
     ":core-entities",
 )
 
