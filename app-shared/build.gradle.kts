@@ -19,6 +19,9 @@ kotlin {
 
                 implementation(compose.ui)
                 implementation(compose.material3)
+
+                implementation(libs.koin.core)
+                implementation(libs.koin.coroutines)
             }
         }
 

@@ -3,6 +3,7 @@ package org.pointyware.artes
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import org.pointyware.artes.shared.ui.ArtesApp
 
 /**
  *
@@ -36,6 +37,6 @@ fun main(vararg args: String) = application {
         title = "",
         state = windowState,
     ) {
-
+        ArtesApp()
     }
 }

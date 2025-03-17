@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.ide.kmp.KotlinAndroidSourceSetMarker.Companion.android
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
@@ -21,6 +23,9 @@ kotlin {
                 implementation(libs.compose.navigation)
 
                 implementation(compose.material3AdaptiveNavigationSuite)
+
+                implementation(libs.koin.core)
+                implementation(libs.koin.coroutines)
             }
         }
 
