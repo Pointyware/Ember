@@ -16,6 +16,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(projects.coreUi)
+                api(projects.coreViewmodels)
 
                 implementation(compose.ui)
                 implementation(compose.material3)
