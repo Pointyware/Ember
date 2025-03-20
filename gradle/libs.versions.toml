@@ -21,7 +21,7 @@ compose-uiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "
 compose-uiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-compose" }
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose" }
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
-compose-navigation = { module = "org.jetbrains.androidx.navigation:compose-navigation", version.ref = "compose-navigation" }
+compose-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
 kotlinx-coroutinesAndroid = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx"}
 kotlinx-coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx"}
 kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx"}
