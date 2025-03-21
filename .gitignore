@@ -2,3 +2,5 @@
 /.gradle
 local.properties
 /.kotlin/
+.DS_Store
+/git-rewrite.sh
