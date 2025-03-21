@@ -1,4 +1,4 @@
-package org.pointyware.artes.shared.data
+package org.pointyware.artes.data
 
 import java.io.File
 
