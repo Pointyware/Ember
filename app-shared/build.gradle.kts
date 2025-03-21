@@ -16,6 +16,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                api(projects.services.openAi)
                 api(projects.coreUi)
                 api(projects.coreViewmodels)
                 api(projects.coreData)

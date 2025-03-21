@@ -18,3 +18,6 @@ data class OpenAiCredentials(
     val apiKey: String,
     val orgId: String? = null,
 )
+
+const val API_KEY = "OPENAI_API_KEY"
+const val ORG_ID = "OPENAI_ORG_ID"

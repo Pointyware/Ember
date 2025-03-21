@@ -1,10 +1,9 @@
 package org.pointyware.artes.services.openai.network
+
 import java.io.File
 import java.io.FileInputStream
 import java.util.Properties
 
-const val API_KEY = "OPENAI_API_KEY"
-const val ORG_ID = "OPENAI_ORG_ID"
 
 /**
  * First tries [environmentOpenAiCredentials], then [gradleOpenAiCredentials].
