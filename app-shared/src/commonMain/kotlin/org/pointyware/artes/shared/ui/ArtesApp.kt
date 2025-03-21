@@ -28,7 +28,7 @@ fun ArtesApp() {
             isThinking = false
         ),
         modifier = Modifier.fillMaxSize(),
-        onSubmit = { },
-        onPromptChanged = { },
+        onSubmit = completionViewModel::submit,
+        onPromptChanged = completionViewModel::setQuestion,
     )
 }
