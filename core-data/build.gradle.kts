@@ -15,6 +15,9 @@ kotlin {
             dependencies {
                 api(projects.coreEntities)
 
+                implementation(libs.koin.core)
+                implementation(libs.koin.coroutines)
+
                 api(libs.ktor.clientCore)
                 api(libs.ktor.clientOkhttp)
                 api(libs.ktor.clientLogging)
