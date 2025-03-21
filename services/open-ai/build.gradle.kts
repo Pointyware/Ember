@@ -11,6 +11,9 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.coreData)
+
+                implementation(libs.koin.core)
+                implementation(libs.koin.coroutines)
             }
         }
 
