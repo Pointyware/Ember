@@ -3,12 +3,20 @@ package org.pointyware.artes
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import org.koin.core.context.startKoin
+import org.pointyware.artes.shared.di.sharedModule
 import org.pointyware.artes.shared.ui.ArtesApp
 
 /**
  *
  */
 fun main(vararg args: String) = application {
+
+    startKoin {
+        modules(
+            sharedModule()
+        )
+    }
 
     with(args.iterator()) {
         var exit = false
