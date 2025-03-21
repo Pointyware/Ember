@@ -13,11 +13,17 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(libs.ktor.clientContentNegotiation)
-                implementation(libs.ktor.clientCore)
-                implementation(libs.ktor.clientLogging)
-                implementation(libs.ktor.clientOkhttp)
-                implementation(libs.ktor.clientResources)
+                api(libs.ktor.clientCore)
+                api(libs.ktor.clientOkhttp)
+                api(libs.ktor.clientLogging)
+                api(libs.ktor.clientResources)
+                api(libs.ktor.clientContentNegotiation)
+                api(libs.ktor.serializationKotlinxJson)
+            }
+        }
+        val desktopMain by getting {
+            dependencies {
+//                implementation(libs.ktor)
             }
         }
         val androidMain by getting {
