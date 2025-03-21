@@ -2,8 +2,8 @@ package org.pointyware.artes.shared.workbench.data
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import org.pointyware.artes.data.PersistentDataSource
 import org.pointyware.artes.data.SettingsRepository
-import org.pointyware.artes.shared.data.PersistentDataSource
 
 /**
  *
