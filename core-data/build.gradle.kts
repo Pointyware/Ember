@@ -12,7 +12,18 @@ kotlin {
 
     sourceSets {
         val commonMain by getting {
-
+            dependencies {
+                implementation(libs.ktor.clientContentNegotiation)
+                implementation(libs.ktor.clientCore)
+                implementation(libs.ktor.clientLogging)
+                implementation(libs.ktor.clientOkhttp)
+                implementation(libs.ktor.clientResources)
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+//                implementation(libs.ktor.clientAndroid)
+            }
         }
     }
 }
