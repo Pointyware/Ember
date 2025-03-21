@@ -21,7 +21,7 @@ class OpenAiTextCompletionService(
             header("Authorization", "Bearer ${auth.apiKey}")
             header("OpenAI-Organization", auth.orgId)
             setBody(
-                Completions.Request(model = "text-davinci-003", prompt = prompt)
+                Completions.Request(model = "davinci-002", prompt = prompt)
             )
         }.body<Response>().let {
             return it.choices[0].text
