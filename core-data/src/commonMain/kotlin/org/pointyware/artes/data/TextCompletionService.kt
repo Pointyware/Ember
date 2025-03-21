@@ -1,4 +1,4 @@
-package org.pointyware.artes.text.completion
+package org.pointyware.artes.data
 
 /**
  * Describes the interactions available on all text completion services.

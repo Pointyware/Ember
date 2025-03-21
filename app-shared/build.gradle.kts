@@ -18,6 +18,7 @@ kotlin {
             dependencies {
                 api(projects.coreUi)
                 api(projects.coreViewmodels)
+                api(projects.coreData)
 
                 implementation(compose.ui)
                 implementation(compose.material3)
