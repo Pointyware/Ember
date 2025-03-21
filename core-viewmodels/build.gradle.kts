@@ -26,6 +26,8 @@ kotlin {
 
                 implementation(libs.koin.core)
                 implementation(libs.koin.coroutines)
+
+                implementation(compose.runtime)
             }
         }
 
