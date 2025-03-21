@@ -6,6 +6,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import org.pointyware.artes.data.di.dataModule
 import org.pointyware.artes.data.di.dataQualifier
+import org.pointyware.artes.services.openai.network.di.openAiModule
 import org.pointyware.artes.services.openai.network.openAiHttpClient
 import org.pointyware.artes.text.completion.CompletionViewModel
 
@@ -22,7 +23,9 @@ fun sharedModule() = module {
 
         dataModule(),
 
-        sharedViewModelModule()
+        sharedViewModelModule(),
+
+        openAiModule()
     )
 
     single<HttpClient> { openAiHttpClient() }
