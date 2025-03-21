@@ -26,6 +26,13 @@ kotlin {
                 api(libs.ktor.serializationKotlinxJson)
             }
         }
+        val commonTest by getting {
+            dependencies {
+                implementation(libs.kotlin.test)
+                implementation(libs.kotlinx.coroutinesTest)
+                implementation(libs.truth)
+            }
+        }
         val desktopMain by getting {
             dependencies {
 //                implementation(libs.ktor)
