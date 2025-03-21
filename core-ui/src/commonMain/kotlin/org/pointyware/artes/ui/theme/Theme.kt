@@ -1,12 +1,14 @@
 package org.pointyware.artes.ui.theme
 
 
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
-private val LightColors = lightColorScheme(
+val LightColors = lightColorScheme(
     primary = md_theme_light_primary,
     onPrimary = md_theme_light_onPrimary,
     primaryContainer = md_theme_light_primaryContainer,
@@ -39,7 +41,7 @@ private val LightColors = lightColorScheme(
 )
 
 
-private val DarkColors = darkColorScheme(
+val DarkColors = darkColorScheme(
     primary = md_theme_dark_primary,
     onPrimary = md_theme_dark_onPrimary,
     primaryContainer = md_theme_dark_primaryContainer,
@@ -71,17 +73,21 @@ private val DarkColors = darkColorScheme(
     scrim = md_theme_dark_scrim,
 )
 
+internal fun simpleColorScheme(darkTheme: Boolean): ColorScheme {
+    return if (darkTheme) DarkColors else LightColors
+}
+
+@Composable
+expect fun colorScheme(darkTheme: Boolean, dynamicTheme: Boolean): ColorScheme
+
 @Composable
 fun ArtesTheme(
-    isDark: Boolean,
+    isDark: Boolean = isSystemInDarkTheme(),
+    dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
     MaterialTheme(
-        colorScheme = if (isDark) {
-            DarkColors
-        } else {
-            LightColors
-        },
+        colorScheme = colorScheme(darkTheme = isDark, dynamicTheme = dynamicColor),
         typography = artesTypography,
         shapes = artesShapes,
         content = content
