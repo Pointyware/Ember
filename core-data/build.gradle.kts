@@ -13,6 +13,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                api(projects.coreEntities)
+
                 api(libs.ktor.clientCore)
                 api(libs.ktor.clientOkhttp)
                 api(libs.ktor.clientLogging)

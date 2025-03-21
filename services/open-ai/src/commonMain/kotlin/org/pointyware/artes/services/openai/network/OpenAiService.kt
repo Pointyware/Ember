@@ -1,6 +1,7 @@
 package org.pointyware.artes.services.openai.network
 
-import org.pointyware.artes.core.entities.HostedService
+import org.pointyware.artes.entities.HostedService
+
 
 /**
  */

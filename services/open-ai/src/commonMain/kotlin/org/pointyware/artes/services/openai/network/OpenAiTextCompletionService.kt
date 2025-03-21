@@ -5,7 +5,7 @@ import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.post
 import io.ktor.client.request.header
 import io.ktor.client.request.setBody
-import org.pointyware.artes.feature.text.completion.TextCompletionService
+import org.pointyware.artes.data.TextCompletionService
 
 /**
  * Client interface to interact with OpenAI API text completion endpoint.
