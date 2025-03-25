@@ -1,4 +1,5 @@
 import com.android.build.gradle.internal.ide.kmp.KotlinAndroidSourceSetMarker.Companion.android
+import org.jetbrains.compose.ExperimentalComposeLibrary
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -31,9 +32,25 @@ kotlin {
             }
         }
 
+        val commonTest by getting {
+            dependencies {
+                implementation(libs.kotlin.test)
+                implementation(libs.kotlinx.coroutinesTest)
+
+                @OptIn(ExperimentalComposeLibrary::class)
+                implementation(compose.uiTest)
+            }
+        }
+
         val androidMain by getting {
             dependencies {
                 implementation(libs.compose.uiToolingPreview)
+            }
+        }
+
+        val desktopMain by getting {
+            dependencies {
+                implementation(compose.desktop.currentOs)
             }
         }
     }
