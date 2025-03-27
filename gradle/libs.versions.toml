@@ -7,6 +7,7 @@ compose-compiler = "1.5.4"
 compose-material3 = "1.1.2"
 compose-multiplatform = "1.5.11"
 compose-navigation = "2.8.0-alpha10"
+compose-viewmodels = "2.8.4"
 koin = "3.5.3"
 kotlin = "2.1.10"
 kotlinx = "1.7.3"
@@ -25,6 +26,7 @@ compose-uiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", 
 compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose" }
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
 compose-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
+compose-viewModels = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "compose-viewmodels" }
 kotlinx-coroutinesAndroid = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx"}
 kotlinx-coroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx"}
 kotlinx-coroutinesSwing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx"}

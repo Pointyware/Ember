@@ -50,6 +50,8 @@ kotlin {
         val desktopMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
+
+                implementation(libs.kotlinx.coroutinesSwing)
             }
         }
     }

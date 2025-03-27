@@ -6,6 +6,8 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import org.pointyware.artes.data.di.dataModule
 import org.pointyware.artes.data.di.dataQualifier
+import org.pointyware.artes.hosts.interactors.CreateHostUseCase
+import org.pointyware.artes.hosts.ui.HostViewModel
 import org.pointyware.artes.services.openai.network.di.openAiModule
 import org.pointyware.artes.services.openai.network.openAiHttpClient
 import org.pointyware.artes.text.completion.CompletionViewModel
@@ -24,6 +26,7 @@ fun sharedModule() = module {
         dataModule(),
 
         sharedViewModelModule(),
+        sharedInteractorsModule(),
 
         openAiModule()
     )
@@ -38,5 +41,17 @@ fun sharedViewModelModule() = module {
             get(qualifier = dataQualifier),
             get(qualifier = dataQualifier)
         )
+    }
+
+    single<HostViewModel> {
+        HostViewModel(
+            get(),
+        )
+    }
+}
+
+fun sharedInteractorsModule() = module {
+    single<CreateHostUseCase> {
+        CreateHostUseCase(get())
     }
 }

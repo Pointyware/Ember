@@ -28,6 +28,7 @@ kotlin {
                 implementation(libs.koin.coroutines)
 
                 implementation(compose.runtime)
+                api(libs.compose.viewModels)
             }
         }
 
