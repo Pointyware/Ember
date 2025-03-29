@@ -1,0 +1,13 @@
+CREATE TABLE hosts (
+  id INTEGER NOT NULL PRIMARY KEY,
+  name TEXT NOT NULL
+);
+
+getHost:
+SELECT id, name
+FROM hosts
+WHERE id = ?;
+
+getAllHosts:
+SELECT id, name
+FROM hosts;

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.sqlDelight)
 }
 
 kotlin {
@@ -24,6 +25,8 @@ kotlin {
                 api(libs.ktor.clientResources)
                 api(libs.ktor.clientContentNegotiation)
                 api(libs.ktor.serializationKotlinxJson)
+
+                implementation(libs.sqlDelight.runtime)
             }
         }
         val commonTest by getting {
@@ -36,11 +39,13 @@ kotlin {
         val desktopMain by getting {
             dependencies {
 //                implementation(libs.ktor)
+                implementation(libs.sqlDelight.jvm)
             }
         }
         val androidMain by getting {
             dependencies {
 //                implementation(libs.ktor.clientAndroid)
+                implementation(libs.sqlDelight.android)
             }
         }
     }
@@ -52,5 +57,13 @@ android {
 
     defaultConfig {
         minSdk = 24
+    }
+}
+
+sqldelight {
+    databases {
+        create("HostDb") {
+            packageName = "org.pointyware.artes.data.hosts.db"
+        }
     }
 }
