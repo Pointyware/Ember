@@ -38,6 +38,8 @@ kotlin {
 
                 @OptIn(ExperimentalComposeLibrary::class)
                 implementation(compose.uiTest)
+
+                implementation(libs.koin.test)
             }
         }
 

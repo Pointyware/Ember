@@ -9,7 +9,7 @@ compose-multiplatform = "1.5.11"
 compose-navigation = "2.8.0-alpha10"
 compose-viewmodels = "2.8.4"
 composeBom = "2024.04.01"
-koin = "3.5.3"
+koin = "3.5.6"
 kotlin = "2.1.10"
 kotlinx = "1.7.3"
 ksp = "2.1.10-1.0.29"
@@ -41,6 +41,7 @@ truth = { module = "com.google.truth:truth", version.ref = "truth" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-coroutines = { module = "io.insert-koin:koin-core-coroutines", version.ref = "koin" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
 
 ktor-clientCore = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
 ktor-clientOkhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }

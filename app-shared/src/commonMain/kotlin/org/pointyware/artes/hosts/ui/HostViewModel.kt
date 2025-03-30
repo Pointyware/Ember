@@ -12,6 +12,8 @@ class HostViewModel(
     private val createHostUseCase: CreateHostUseCase,
 ): ViewModel() {
 
+    // TODO: add state for alert/dialog/toast/snackbar to notify of success
+
     fun createHost(title: String, orgId: String, key: String) {
         viewModelScope.launch {
             println("Creating host with title: $title, orgId: $orgId, key: ${"*".repeat(key.length)}")

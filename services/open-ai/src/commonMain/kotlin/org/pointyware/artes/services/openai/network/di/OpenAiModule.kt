@@ -8,5 +8,11 @@ import org.pointyware.artes.services.openai.network.OpenAiCredentials
 expect fun platformDefaultOpenAiCredentials(): OpenAiCredentials
 
 fun openAiModule() = module {
-    single { platformDefaultOpenAiCredentials() }
+    single<OpenAiCredentials> {
+        platformDefaultOpenAiCredentials()
+    }
+
+//    singleOf(::platformDefaultOpenAiCredentials) {
+//        bind<OpenAiCredentials>()
+//    }
 }
