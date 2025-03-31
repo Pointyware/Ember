@@ -1,15 +1,10 @@
 package org.pointyware.artes.shared.di
 
-import io.ktor.client.HttpClient
 import io.ktor.client.HttpClientConfig
 import io.ktor.client.engine.HttpClientEngine
 import org.koin.core.annotation.KoinExperimentalAPI
-import org.koin.core.context.startKoin
-import org.koin.core.context.stopKoin
 import org.koin.core.module.Module
-import org.koin.dsl.module
 import org.koin.test.verify.verify
-import org.pointyware.artes.services.openai.network.OpenAiCredentials
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test

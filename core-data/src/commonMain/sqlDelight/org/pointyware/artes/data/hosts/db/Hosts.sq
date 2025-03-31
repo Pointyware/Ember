@@ -1,13 +1,36 @@
 CREATE TABLE hosts (
-  id INTEGER NOT NULL PRIMARY KEY,
-  name TEXT NOT NULL
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL,
+  orgId TEXT NOT NULL,
+  apiKey TEXT NOT NULL
 );
 
+lastId:
+SELECT last_insert_rowid();
+
+-- Insert a new host
+insertHost:
+INSERT INTO hosts (name, orgId, apiKey)
+VALUES (:name, :orgId, :apiKey);
+
 getHost:
-SELECT id, name
+SELECT id, name, orgId, apiKey
 FROM hosts
 WHERE id = ?;
 
 getAllHosts:
-SELECT id, name
+SELECT id, name, orgId, apiKey
 FROM hosts;
+
+-- Update an existing host
+updateHost:
+UPDATE hosts
+SET name = :name,
+    orgId = :orgId,
+    apiKey = :apiKey
+WHERE id = :id;
+
+-- Delete a host
+deleteHost:
+DELETE FROM hosts
+WHERE id = :id;

@@ -39,7 +39,9 @@ fun dataModule() = module {
     }
 
     single<HostDao> {
-        SqlDelightHostDao()
+        SqlDelightHostDao(
+            get()
+        )
     }
 
 
