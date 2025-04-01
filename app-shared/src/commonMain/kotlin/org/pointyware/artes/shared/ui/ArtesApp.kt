@@ -14,7 +14,7 @@ import org.pointyware.artes.text.completion.CompletionViewModel
 import org.pointyware.artes.text.completion.CompletionViewState
 
 /**
- *
+ * The root for Compose UI.
  */
 @Composable
 fun ArtesApp() {
