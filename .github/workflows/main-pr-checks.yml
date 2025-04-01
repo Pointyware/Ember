@@ -1,0 +1,31 @@
+name: "PR Checks for `main`"
+on:
+  pull_request:
+    types:
+      - opened        # initially opened
+      - reopened      # closed then opened again
+      - synchronize   # any changes pushed
+    branches:
+      - main
+    paths-ignore: # Only run checks on changes to code
+      - "**/docs/*"
+      - "*/README.md"
+
+jobs:
+  build-app-android:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Setup
+        uses: Pointyware/.github/.github/actions/checkout-java-gradle@b70bbae19637171d6cf9311f06a59f1c15e2598b
+      - name: Run Debug Unit Tests
+        run: ./gradlew :app-android:testDebugUnitTest
+
+  build-app-desktop:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Setup
+        uses: Pointyware/.github/.github/actions/checkout-java-gradle@b70bbae19637171d6cf9311f06a59f1c15e2598b
+      - name: Build Desktop App
+        run: ./gradlew :app-desktop:assemble
