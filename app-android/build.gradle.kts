@@ -27,8 +27,21 @@ android {
     namespace = "org.pointyware.artes"
     compileSdk = 35
 
+
     defaultConfig {
         minSdk = 24
+
+        versionCode = 1
+        versionName = "0.1.0"
+        versionNameSuffix = "alpha"
+    }
+    buildTypes {
+        debug {
+
+        }
+        release {
+
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
