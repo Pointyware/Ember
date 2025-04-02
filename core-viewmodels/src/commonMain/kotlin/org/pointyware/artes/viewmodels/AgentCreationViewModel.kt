@@ -17,7 +17,7 @@ import org.pointyware.artes.interactors.CreateAgentUseCase
 interface AgentCreationViewModel {
     data class UiState(
         val agent: AgentInfoUiState = AgentInfoUiState.Empty,
-        val serviceOptions: List<ServiceInfoUiState> = emptyList()
+        val hostOptions: List<HostUiState> = emptyList()
     )
     val state: StateFlow<UiState>
 
@@ -30,9 +30,9 @@ interface AgentCreationViewModel {
      */
     fun onDescriptionChange(description: String)
     /**
-     * Triggered when the user selects one of the services presented from [UiState.serviceOptions].
+     * Triggered when the user selects one of the services presented from [UiState.hostOptions].
      */
-    fun onSelectService(id: String)
+    fun onSelectService(id: Long)
     /**
      * Triggered when the user taps the save button.
      */
@@ -59,9 +59,9 @@ class DefaultAgentCreationViewModel(
         mutableState.update { it.copy(agent = it.agent.copy(model = description)) }
     }
 
-    override fun onSelectService(id: String) {
+    override fun onSelectService(id: Long) {
         mutableState.update {
-            val selected = it.serviceOptions.first { service -> service.id == id }
+            val selected = it.hostOptions.first { service -> service.id == id }
             it.copy(agent = it.agent.copy(service = selected))
         }
     }

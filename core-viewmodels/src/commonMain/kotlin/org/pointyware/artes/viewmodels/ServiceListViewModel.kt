@@ -11,7 +11,7 @@ import org.pointyware.artes.interactors.RemoveServiceConfigUseCase
  */
 interface ServiceListViewModel {
     data class UiState(
-        val accounts: List<ServiceInfoUiState>
+        val accounts: List<HostUiState>
     )
 
     val state: StateFlow<UiState>
