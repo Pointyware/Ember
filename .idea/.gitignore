@@ -1,14 +1,17 @@
 # Default ignored files
 /*.iml
-/shelf/
 /artifacts/
 /caches/
-/inspectionProfiles/
-/modules/
 /compiler.xml
 /gradle.xml
+/inspectionProfiles/
 /misc.xml
 /modules.xml
+/modules/
 /runConfigurations.xml
-vcs.xml
+/shelf/
 /workspace.xml
+AndroidProjectSystem.xml
+assetWizardSettings.xml
+deploymentTargetSelector.xml
+vcs.xml
