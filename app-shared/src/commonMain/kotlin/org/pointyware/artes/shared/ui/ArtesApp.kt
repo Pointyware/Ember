@@ -22,7 +22,7 @@ fun ArtesApp() {
     NewAgentView(
         state = state,
         modifier = Modifier.fillMaxSize(),
-        onSelectHost = {},
-        onSubmit = {_, _, _, _ -> },
+        onSelectHost = agentViewModel::onSelectHost,
+        onSubmit = agentViewModel::onSave,
     )
 }

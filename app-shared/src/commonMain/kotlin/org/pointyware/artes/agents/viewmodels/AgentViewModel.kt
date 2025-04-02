@@ -20,7 +20,15 @@ class AgentViewModel(
         TODO("Not yet implemented")
     }
 
-    fun onSave() {
+    fun loadHosts() {
+        TODO("Not yet implemented")
+    }
+
+    fun onSelectHost(index: Int) {
+        TODO("Not yet implemented")
+    }
+
+    fun onSave(title: String, hostId: Int, modelId: Int, instructions: String) {
         TODO("Not yet implemented")
     }
 }
