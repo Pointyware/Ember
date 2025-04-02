@@ -3,7 +3,6 @@ package org.pointyware.artes.viewmodels
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import org.pointyware.artes.interactors.BeginServiceConfigJourney
-import org.pointyware.artes.interactors.GetServiceConfigListUseCase
 import org.pointyware.artes.interactors.RemoveServiceConfigUseCase
 
 /**
@@ -32,7 +31,6 @@ interface ServiceListViewModel {
  *
  */
 class DefaultServiceListViewModel(
-    private val getServiceConfigListUseCase: GetServiceConfigListUseCase,
     private val beginServiceConfigJourney: BeginServiceConfigJourney,
     private val removeServiceConfigUseCase: RemoveServiceConfigUseCase
 ): ServiceListViewModel {

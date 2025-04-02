@@ -19,7 +19,7 @@ import org.pointyware.artes.interactors.hosts.GetHostServicesUseCase
  * Manages the UI state and responds to events for an Agent View.
  */
 class AgentViewModel(
-    private val getHostsUseCase: GetHostServicesUseCase,
+    private val getAvailableHostsUseCase: GetHostServicesUseCase,
     // TODO: add use cases/repositories
     private val createAgentUseCase: CreateAgentUseCase,
     private val getAgentUseCase: GetAgentUseCase,
@@ -39,7 +39,7 @@ class AgentViewModel(
 
     fun loadHosts() {
         viewModelScope.launch {
-            getHostsUseCase()
+            getAvailableHostsUseCase()
                 .onSuccess { hostList ->
                     mutableState.update {
                         it.copy(
