@@ -18,7 +18,7 @@ import org.pointyware.artes.viewmodels.AgentListViewModel
 /**
  */
 data class AgentListItemState(
-    val id: String,
+    val id: Long,
     val name: String,
     val service: String,
     val model: String
@@ -78,7 +78,7 @@ fun AgentListView(
     state: AgentListViewState,
     modifier: Modifier = Modifier,
     onCreateAgent: ()->Unit,
-    onSelectAgent: (String)->Unit,
+    onSelectAgent: (Long)->Unit,
 ) {
     Box(
         modifier = modifier

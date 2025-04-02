@@ -14,7 +14,7 @@ fun AgentInfoViewPreview() {
             name = "Some Agent",
             description = "An agent",
             service = ServiceListItemState(
-                id = "0",
+                id = 0L,
                 label = "OpenAI Dev",
                 service = "OpenAI"
             )

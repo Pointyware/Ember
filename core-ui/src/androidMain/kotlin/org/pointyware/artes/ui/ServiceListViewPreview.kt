@@ -13,22 +13,22 @@ fun ServiceListViewPreview() {
         state = ServiceListViewState(
             services = listOf(
                 ServiceListItemState(
-                    id = "0",
+                    id = 0L,
                     label = "OpenAi Prod",
                     service = "OpenAi"
                 ),
                 ServiceListItemState(
-                    id = "1",
+                    id = 1L,
                     label = "OpenAi Stage",
                     service = "OpenAi"
                 ),
                 ServiceListItemState(
-                    id = "2",
+                    id = 2L,
                     label = "VertexAi Prod",
                     service = "VertexAi"
                 ),
                 ServiceListItemState(
-                    id = "3",
+                    id = 3L,
                     label = "VertexAi Stage",
                     service = "VertexAi"
                 ),

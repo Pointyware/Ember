@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 
 
 data class ServiceListItemState(
-    val id: String,
+    val id: Long,
     val label: String,
     val service: String,
 )

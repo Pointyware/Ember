@@ -34,7 +34,7 @@ fun AgentCreationView(
     modifier: Modifier = Modifier,
     onNameChange: (String)->Unit = {},
     onDescriptionChange: (String)->Unit = {},
-    onSelectService: (String)->Unit = {},
+    onSelectService: (Long)->Unit = {},
     onCancel: ()->Unit = {},
     onSave: ()->Unit = {},
 ) {
@@ -78,7 +78,7 @@ data class ServiceSelectionDropDownState(
 fun ServiceSelectionDropDown(
     state: ServiceSelectionDropDownState,
     modifier: Modifier = Modifier,
-    onSelectService: (String) -> Unit
+    onSelectService: (Long) -> Unit
 ) {
     var isExpanded by remember { mutableStateOf(false) }
     DropdownMenu(

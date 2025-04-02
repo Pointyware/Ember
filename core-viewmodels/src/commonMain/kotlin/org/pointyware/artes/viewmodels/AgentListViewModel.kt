@@ -24,7 +24,7 @@ interface AgentListViewModel {
     /**
      * Triggered when a user taps on an agent in the list.
      */
-    fun onTapAgent(id: String)
+    fun onTapAgent(id: Long)
 
     /**
      * Triggered when a user taps the new agent button.
@@ -59,7 +59,7 @@ class DefaultAgentListViewModel(
         }
     }
 
-    override fun onTapAgent(id: String) {
+    override fun onTapAgent(id: Long) {
         viewModelScope.launch {
             mutableState.update { uiState ->
                 uiState.copy(selectedAgent = uiState.agents.indexOfFirst { it.id == id })

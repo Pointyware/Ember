@@ -16,17 +16,17 @@ fun AgentCreationViewPreview() {
             serviceSelectionState = ServiceSelectionDropDownState(
                 services = listOf(
                     ServiceListItemState(
-                        id = "0",
+                        id = 0L,
                         label = "Google",
                         service = "VertexAI"
                     ),
                     ServiceListItemState(
-                        id = "1",
+                        id = 1L,
                         label = "OpenAI Stage",
                         service = "OpenAI"
                     ),
                     ServiceListItemState(
-                        id = "2",
+                        id = 2L,
                         label = "OpenAI Prod",
                         service = "OpenAI"
                     )
