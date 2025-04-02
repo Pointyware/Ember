@@ -10,21 +10,19 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.pointyware.artes.hosts.viewmodels.mapToUiState
 import org.pointyware.artes.interactors.CreateAgentUseCase
 import org.pointyware.artes.interactors.agents.GetAgentUseCase
 import org.pointyware.artes.interactors.hosts.GetHostServicesUseCase
+import org.pointyware.artes.viewmodels.toUiState
 
 /**
  * Manages the UI state and responds to events for an Agent View.
  */
 class AgentViewModel(
     private val getAvailableHostsUseCase: GetHostServicesUseCase,
-    // TODO: add use cases/repositories
     private val createAgentUseCase: CreateAgentUseCase,
     private val getAgentUseCase: GetAgentUseCase,
 ): ViewModel() {
-
 
     private val mutableAlert = MutableSharedFlow<String>()
     val alert: SharedFlow<String> get() = mutableAlert.asSharedFlow()
@@ -43,7 +41,7 @@ class AgentViewModel(
                 .onSuccess { hostList ->
                     mutableState.update {
                         it.copy(
-                            hosts = hostList.map(::mapToUiState)
+                            hosts = hostList.map { host -> host.toUiState() }
                         )
                     }
                 }

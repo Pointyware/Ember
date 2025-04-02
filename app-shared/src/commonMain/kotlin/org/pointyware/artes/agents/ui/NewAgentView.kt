@@ -38,7 +38,7 @@ fun NewAgentView(
         )
 
         OptionSelector(
-            state = rememberOptionSelectorState(state.hosts, state.selectedHost),
+            state = rememberOptionSelectorState(state.hosts.map { it.title }, state.selectedHost),
             onOptionSelected = onSelectHost,
         )
 

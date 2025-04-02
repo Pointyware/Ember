@@ -6,20 +6,24 @@ package org.pointyware.artes.entities
  * These are not necessarily remote services, but they will be
  * in the short-term.
  */
-interface Service {
-    val id: String
-    val name: String
-}
+sealed interface Service
 
 /**
  * Execution is managed by a hosted service (though this is not necessarily remote –just out of
  * the same process).
  */
-interface HostedService: Service {
-    val host: String
-}
+interface RemoteService: Service
+data object OpenAi: RemoteService
+data object Google: RemoteService
+data object Anthropic: RemoteService
 
 /**
- * Executed in the same process.
+ * A user-hosted service running externally. TODO: support
  */
-interface LocalService: Service {}
+data class SelfHosted(val url: String): RemoteService
+
+/**
+ * Executed on the same device.
+ */
+interface LocalService: Service
+data object Docker: LocalService
