@@ -1,14 +1,12 @@
-package org.pointyware.artes.shared.workbench.data
+package org.pointyware.artes.data
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import org.pointyware.artes.data.PersistentDataSource
-import org.pointyware.artes.data.SettingsRepository
 
 /**
  *
  */
-class JvmSettingsRepository(
+class PersistentSettingsRepository(
     private val persistentDataSource: PersistentDataSource
 ): SettingsRepository {
 
