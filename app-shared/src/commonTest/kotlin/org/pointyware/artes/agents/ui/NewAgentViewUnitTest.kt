@@ -8,7 +8,6 @@ import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.SemanticsNodeInteractionsProvider
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
-import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onLast
@@ -16,6 +15,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.runComposeUiTest
+import org.pointyware.artes.agents.viewmodels.AgentUiState
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -68,7 +68,7 @@ class NewAgentViewUnitTest {
         Given: An empty new agent view state,
         And: A new agent view
          */
-        val state = NewAgentViewState(
+        val state = AgentUiState(
             agentName = "",
             hosts = emptyList(),
             selectedHost = null,
@@ -115,7 +115,7 @@ class NewAgentViewUnitTest {
         Given: a new agent view state with a non-empty name, and two hosts
         And: no host is selected
          */
-        val state = NewAgentViewState(
+        val state = AgentUiState(
             agentName = "Some agent",
             hosts = listOf("host1", "host2"),
             selectedHost = null,
@@ -167,7 +167,7 @@ class NewAgentViewUnitTest {
         And: two models are available
         And: no model is selected
          */
-        val state = NewAgentViewState(
+        val state = AgentUiState(
             agentName = "Some agent",
             hosts = listOf("host1", "host2"),
             selectedHost = 0,

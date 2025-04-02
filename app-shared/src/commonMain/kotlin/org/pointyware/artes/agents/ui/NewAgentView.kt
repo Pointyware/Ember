@@ -12,24 +12,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import org.pointyware.artes.agents.viewmodels.AgentUiState
 import org.pointyware.artes.ui.components.OptionSelector
 import org.pointyware.artes.ui.components.rememberOptionSelectorState
-
-data class NewAgentViewState(
-    val agentName: String,
-    val hosts: List<String>,
-    val selectedHost: Int?,
-    val hostModels: List<String>,
-    val selectedModel: Int?,
-    val instructions: String,
-)
 
 /**
  *
  */
 @Composable
 fun NewAgentView(
-    state: NewAgentViewState,
+    state: AgentUiState,
     modifier: Modifier = Modifier,
     onSelectHost: (Int)->Unit,
     onSubmit: (String, Int, Int, String)->Unit,
