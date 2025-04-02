@@ -4,7 +4,7 @@ package org.pointyware.artes.entities
  *
  */
 interface Agent {
-    val id: String
+    val id: Long
     val name: String
     val service: Host
     val skills: Set<Skill>

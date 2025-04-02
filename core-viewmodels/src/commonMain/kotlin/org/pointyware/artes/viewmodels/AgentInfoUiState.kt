@@ -5,14 +5,14 @@ package org.pointyware.artes.viewmodels
  * @see [org.pointyware.artes.entities.Agent]
  */
 data class AgentInfoUiState(
-    val id: String,
+    val id: Long,
     val name: String,
     val service: HostUiState,
     val model: String
 ) {
     companion object {
         val Empty = AgentInfoUiState(
-            id = "",
+            id = -1L,
             name = "",
             service = HostUiState(
                 id = 0L,
