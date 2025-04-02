@@ -59,7 +59,7 @@ fun NewAgentView(
         Spacer(modifier = Modifier.weight(1f))
         Button(
             enabled = agentName.isNotBlank() && state.selectedHost != null && selectedModel != null,
-            onClick = { onSubmit(agentName, state.selectedHost!!, selectedModel!!, instructions) }
+            onClick = { onSubmit(agentName, state.selectedHost ?: return@Button, selectedModel ?: return@Button, instructions) }
         ) {
             Text("Submit")
         }
