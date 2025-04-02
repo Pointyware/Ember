@@ -7,11 +7,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import org.koin.mp.KoinPlatform.getKoin
-import org.pointyware.artes.hosts.ui.HostViewModel
-import org.pointyware.artes.hosts.ui.NewHostView
-import org.pointyware.artes.text.completion.CompletionView
-import org.pointyware.artes.text.completion.CompletionViewModel
-import org.pointyware.artes.text.completion.CompletionViewState
+import org.pointyware.artes.agents.ui.NewAgentView
+import org.pointyware.artes.agents.viewmodels.AgentViewModel
 
 /**
  * The root for Compose UI.
@@ -20,9 +17,12 @@ import org.pointyware.artes.text.completion.CompletionViewState
 fun ArtesApp() {
 
     val koin = remember { getKoin() }
-    val hostViewModel = remember { koin.get<HostViewModel>() }
-    NewHostView(
+    val agentViewModel = remember { koin.get<AgentViewModel>() }
+    val state by agentViewModel.state.collectAsState()
+    NewAgentView(
+        state = state,
         modifier = Modifier.fillMaxSize(),
-        onHostCreated = hostViewModel::createHost
+        onSelectHost = {},
+        onSubmit = {_, _, _, _ -> },
     )
 }
