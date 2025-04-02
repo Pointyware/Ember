@@ -1,7 +1,7 @@
 package org.pointyware.artes.data.agents
 
 import org.pointyware.artes.entities.Agent
-import org.pointyware.artes.entities.hosts.Host
+import org.pointyware.artes.entities.Host
 
 /**
  * Entry point to agent aggregate root

@@ -1,7 +1,5 @@
 package org.pointyware.artes.entities
 
-import org.pointyware.artes.entities.hosts.Host
-
 /**
  *
  */

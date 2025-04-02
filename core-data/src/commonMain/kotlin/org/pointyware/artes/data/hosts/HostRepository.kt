@@ -2,7 +2,7 @@ package org.pointyware.artes.data.hosts
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import org.pointyware.artes.entities.hosts.Host
+import org.pointyware.artes.entities.Host
 
 /**
  * Repository for managing hosts. Mediates between multiple data sources.

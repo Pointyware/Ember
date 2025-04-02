@@ -1,4 +1,4 @@
-package org.pointyware.artes.entities.hosts
+package org.pointyware.artes.entities
 
 /**
  *

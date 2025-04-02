@@ -1,11 +1,11 @@
 package org.pointyware.artes.viewmodels
 
-import org.pointyware.artes.entities.hosts.Host
+import org.pointyware.artes.entities.Host
 
 /**
  * Complete information about a service to display in a detailed view.
  *
- * @see [org.pointyware.artes.entities.hosts.Host]
+ * @see [org.pointyware.artes.entities.Host]
  */
 data class HostUiState(
     val id: Long,

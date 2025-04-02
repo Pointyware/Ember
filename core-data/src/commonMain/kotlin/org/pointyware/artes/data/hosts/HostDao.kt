@@ -1,6 +1,6 @@
 package org.pointyware.artes.data.hosts
 
-import org.pointyware.artes.entities.hosts.Host
+import org.pointyware.artes.entities.Host
 
 interface HostDao {
     fun createHost(title: String, orgId: String, apiKey: String): Long

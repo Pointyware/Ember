@@ -1,7 +1,7 @@
 package org.pointyware.artes.interactors.hosts
 
 import org.pointyware.artes.data.hosts.HostRepository
-import org.pointyware.artes.entities.hosts.Host
+import org.pointyware.artes.entities.Host
 
 /**
  */
