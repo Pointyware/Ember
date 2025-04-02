@@ -3,7 +3,7 @@ package org.pointyware.artes.data
 import kotlinx.coroutines.flow.Flow
 
 /**
- *
+ * A repository of application settings that are stored as String key/value pairs.
  */
 interface SettingsRepository {
 
