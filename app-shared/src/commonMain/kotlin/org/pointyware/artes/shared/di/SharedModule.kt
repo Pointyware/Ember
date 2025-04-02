@@ -8,6 +8,8 @@ import org.koin.dsl.module
 import org.pointyware.artes.agents.viewmodels.AgentViewModel
 import org.pointyware.artes.data.di.dataModule
 import org.pointyware.artes.data.di.dataQualifier
+import org.pointyware.artes.data.hosts.HostDao
+import org.pointyware.artes.data.hosts.SqlDelightHostDao
 import org.pointyware.artes.hosts.interactors.CreateHostUseCase
 import org.pointyware.artes.hosts.viewmodels.HostViewModel
 import org.pointyware.artes.interactors.CreateAgentUseCase
@@ -28,6 +30,7 @@ fun sharedModule() = module {
         platformSharedModule(),
 
         dataModule(),
+        sharedDataModule(),
         interactorsModule(),
 
         sharedViewModelModule(),
@@ -66,4 +69,12 @@ fun sharedViewModelModule() = module {
 fun sharedInteractorsModule() = module {
     factoryOf(::CreateHostUseCase)
     factoryOf(::CreateAgentUseCase)
+}
+
+fun sharedDataModule() = module {
+    single<HostDao> {
+        SqlDelightHostDao(
+            get()
+        )
+    }
 }

@@ -6,13 +6,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import org.koin.core.module.Module
-import org.koin.core.module.dsl.singleOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import org.pointyware.artes.data.hosts.HostDao
 import org.pointyware.artes.data.hosts.HostRepository
 import org.pointyware.artes.data.hosts.HostRepositoryImpl
-import org.pointyware.artes.data.hosts.SqlDelightHostDao
 import org.pointyware.artes.data.hosts.db.HostDb
 import org.pointyware.artes.local.DriverFactory
 import org.pointyware.artes.local.Persistence
@@ -37,13 +34,6 @@ fun dataModule() = module {
             ioScope = get(qualifier = dataQualifier)
         )
     }
-
-    single<HostDao> {
-        SqlDelightHostDao(
-            get()
-        )
-    }
-
 
     single<Lazy<HostDb>> { lazy {
         val driver: SqlDriver = get()
