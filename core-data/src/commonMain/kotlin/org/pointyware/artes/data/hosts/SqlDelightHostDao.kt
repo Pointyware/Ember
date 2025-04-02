@@ -14,8 +14,8 @@ class SqlDelightHostDao(
 
     private val db: HostDb by lazyDb
 
-    override fun createHost(title: String, orgId: String, apiKey: String): Result<Long> = runCatching {
-        db.transactionWithResult {
+    override fun createHost(title: String, orgId: String, apiKey: String): Long {
+        return db.transactionWithResult {
             db.hostsQueries.insertHost(title, orgId, apiKey)
             db.hostsQueries.lastId().executeAsOne()
         }
@@ -28,19 +28,19 @@ class SqlDelightHostDao(
         apiKey = result.apiKey,
     )
 
-    override fun getHostById(id: Long): Result<Host> = runCatching {
-        db.hostsQueries.getHost(id).executeAsOne().let(::dtoToEntity)
+    override fun getHostById(id: Long): Host {
+        return db.hostsQueries.getHost(id).executeAsOne().let(::dtoToEntity)
     }
 
-    override fun getAllHosts(): Result<List<Host>> = runCatching {
-        db.hostsQueries.getAllHosts().executeAsList().map(::dtoToEntity)
+    override fun getAllHosts(): List<Host> {
+        return db.hostsQueries.getAllHosts().executeAsList().map(::dtoToEntity)
     }
 
-    override fun updateHost(id: Long, title: String, orgId: String, apiKey: String): Result<Unit> = runCatching {
+    override fun updateHost(id: Long, title: String, orgId: String, apiKey: String) {
         db.hostsQueries.updateHost(title, orgId, apiKey, id)
     }
 
-    override fun deleteHost(id: Long): Result<Unit> = runCatching {
+    override fun deleteHost(id: Long) {
         db.hostsQueries.deleteHost(id)
     }
 }

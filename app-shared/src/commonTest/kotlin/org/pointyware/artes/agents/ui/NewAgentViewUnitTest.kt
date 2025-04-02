@@ -16,6 +16,7 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.runComposeUiTest
 import org.pointyware.artes.agents.viewmodels.AgentUiState
+import org.pointyware.artes.hosts.viewmodels.HostUiState
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -117,7 +118,10 @@ class NewAgentViewUnitTest {
          */
         val state = AgentUiState(
             agentName = "Some agent",
-            hosts = listOf("host1", "host2"),
+            hosts = listOf(
+                HostUiState(0L, "host1"),
+                HostUiState(1L, "host2"),
+            ),
             selectedHost = null,
             hostModels = emptyList(),
             selectedModel = null,
@@ -169,7 +173,10 @@ class NewAgentViewUnitTest {
          */
         val state = AgentUiState(
             agentName = "Some agent",
-            hosts = listOf("host1", "host2"),
+            hosts = listOf(
+                HostUiState(0L, "host1"),
+                HostUiState(1L, "host2"),
+            ),
             selectedHost = 0,
             hostModels = listOf("model1", "model2"),
             selectedModel = null,

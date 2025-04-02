@@ -1,4 +1,4 @@
-package org.pointyware.artes.hosts.ui
+package org.pointyware.artes.hosts.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

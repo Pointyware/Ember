@@ -7,6 +7,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import org.pointyware.artes.agents.viewmodels.AgentUiState
+import org.pointyware.artes.hosts.viewmodels.HostUiState
 
 @Preview
 @Composable
@@ -33,7 +34,10 @@ class AgentUiStateProvider: PreviewParameterProvider<AgentUiState> {
             ),
             AgentUiState(
                 agentName = "NurseBot",
-                hosts = listOf("OpenAI", "Anthropic"),
+                hosts = listOf(
+                    HostUiState(0L, "OpenAI"),
+                    HostUiState(1L, "Anthropic")
+                ),
                 selectedHost = null,
                 hostModels = listOf(),
                 selectedModel = null,
@@ -41,7 +45,10 @@ class AgentUiStateProvider: PreviewParameterProvider<AgentUiState> {
             ),
             AgentUiState(
                 agentName = "NurseBot",
-                hosts = listOf("OpenAI", "Anthropic"),
+                hosts = listOf(
+                    HostUiState(0L, "OpenAI"),
+                    HostUiState(1L, "Anthropic")
+                ),
                 selectedHost = 0,
                 hostModels = listOf("GPT-3.5", "GPT4o"),
                 selectedModel = null,
@@ -49,7 +56,10 @@ class AgentUiStateProvider: PreviewParameterProvider<AgentUiState> {
             ),
             AgentUiState(
                 agentName = "NurseBot",
-                hosts = listOf("OpenAI", "Anthropic"),
+                hosts = listOf(
+                    HostUiState(0L, "OpenAI"),
+                    HostUiState(1L, "Anthropic")
+                ),
                 selectedHost = 0,
                 hostModels = listOf("GPT-3.5", "GPT4o"),
                 selectedModel = 1,
@@ -57,7 +67,10 @@ class AgentUiStateProvider: PreviewParameterProvider<AgentUiState> {
             ),
             AgentUiState(
                 agentName = "NurseBot",
-                hosts = listOf("OpenAI", "Anthropic"),
+                hosts = listOf(
+                    HostUiState(0L, "OpenAI"),
+                    HostUiState(1L, "Anthropic")
+                ),
                 selectedHost = 0,
                 hostModels = listOf("GPT-3.5", "GPT4o"),
                 selectedModel = 1,

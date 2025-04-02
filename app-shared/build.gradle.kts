@@ -22,12 +22,15 @@ kotlin {
                 api(projects.coreUi)
                 api(projects.coreViewmodels)
                 api(projects.coreData)
+                api(projects.coreInteractors)
 
                 implementation(compose.ui)
                 implementation(compose.material3)
 
                 implementation(libs.koin.core)
                 implementation(libs.koin.coroutines)
+
+                implementation(libs.kotlinx.coroutinesCore)
             }
         }
 
@@ -46,6 +49,8 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation(libs.compose.uiToolingPreview)
+
+                implementation(libs.kotlinx.coroutinesAndroid)
             }
         }
 
