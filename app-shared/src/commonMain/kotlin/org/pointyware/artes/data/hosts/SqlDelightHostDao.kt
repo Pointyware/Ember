@@ -3,7 +3,7 @@ package org.pointyware.artes.data.hosts
 import org.pointyware.artes.data.hosts.db.HostDb
 import org.pointyware.artes.data.hosts.db.Hosts
 import org.pointyware.artes.entities.hosts.Host
-import org.pointyware.artes.entities.hosts.OpenAi
+import org.pointyware.artes.services.openai.OpenAi
 
 /**
  *
