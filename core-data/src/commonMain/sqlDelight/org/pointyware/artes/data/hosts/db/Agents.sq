@@ -1,28 +1,33 @@
 CREATE TABLE agents (
   id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-  name TEXT NOT NULL
+  name TEXT NOT NULL,
+  service INTEGER NOT NULL,
+  instructions TEXT NOT NULL,
+  FOREIGN KEY(service) REFERENCES hosts(id) ON DELETE CASCADE
 );
 
 -- Insert a new agent
 createAgent:
-INSERT INTO agents (name)
-VALUES (:name);
+INSERT INTO agents (name, service, instructions)
+VALUES (:name, :service, :instructions);
 
 -- Get agent
 getAgent:
-SELECT id, name
+SELECT id, name, service, instructions
 FROM agents
 WHERE id = :id;
 
 -- Get all agents
 getAllAgents:
-SELECT id, name
+SELECT id, name, service, instructions
 FROM agents;
 
 -- Update an agent
 updateAgent:
 UPDATE agents
-SET name = :name
+SET name = :name,
+    service = :service,
+    instructions = :instructions
 WHERE id = :id;
 
 -- Delete an agent
