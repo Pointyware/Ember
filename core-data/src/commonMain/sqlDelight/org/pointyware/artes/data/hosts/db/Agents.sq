@@ -1,0 +1,31 @@
+CREATE TABLE agents (
+  id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL
+);
+
+-- Insert a new agent
+createAgent:
+INSERT INTO agents (name)
+VALUES (:name);
+
+-- Get agent
+getAgent:
+SELECT id, name
+FROM agents
+WHERE id = :id;
+
+-- Get all agents
+getAllAgents:
+SELECT id, name
+FROM agents;
+
+-- Update an agent
+updateAgent:
+UPDATE agents
+SET name = :name
+WHERE id = :id;
+
+-- Delete an agent
+deleteAgent:
+DELETE FROM agents
+WHERE id = :id;

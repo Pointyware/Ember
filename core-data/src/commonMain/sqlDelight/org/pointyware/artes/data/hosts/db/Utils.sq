@@ -1,0 +1,3 @@
+-- Get the last inserted row id within a transaction
+lastId:
+SELECT last_insert_rowid();

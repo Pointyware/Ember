@@ -5,9 +5,6 @@ CREATE TABLE hosts (
   apiKey TEXT NOT NULL
 );
 
-lastId:
-SELECT last_insert_rowid();
-
 -- Insert a new host
 insertHost:
 INSERT INTO hosts (name, orgId, apiKey)
