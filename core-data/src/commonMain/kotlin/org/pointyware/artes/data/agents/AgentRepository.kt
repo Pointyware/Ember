@@ -1,5 +1,6 @@
 package org.pointyware.artes.data.agents
 
+import org.pointyware.artes.data.hosts.ServiceRepository
 import org.pointyware.artes.data.hosts.db.HostDb
 import org.pointyware.artes.entities.Agent
 import org.pointyware.artes.entities.Host
@@ -16,7 +17,8 @@ interface AgentRepository {
 }
 
 class AgentRepositoryImpl(
-    lazyDb: Lazy<HostDb>
+    lazyDb: Lazy<HostDb>,
+    private val serviceRepository: ServiceRepository
 ): AgentRepository {
 
     private val db by lazyDb
@@ -38,7 +40,7 @@ class AgentRepositoryImpl(
             Agent(
                 id = it.id,
                 name = it.name,
-                host = TODO(),
+                host = serviceRepository.getService(it.service),
                 skills = emptySet()
             )
         }

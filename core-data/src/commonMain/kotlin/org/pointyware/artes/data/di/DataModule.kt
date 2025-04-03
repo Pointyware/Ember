@@ -10,8 +10,8 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import org.pointyware.artes.data.agents.AgentRepository
 import org.pointyware.artes.data.agents.AgentRepositoryImpl
-import org.pointyware.artes.data.hosts.HostRepository
-import org.pointyware.artes.data.hosts.HostRepositoryImpl
+import org.pointyware.artes.data.hosts.ServiceRepository
+import org.pointyware.artes.data.hosts.ServiceRepositoryImpl
 import org.pointyware.artes.data.hosts.db.HostDb
 import org.pointyware.artes.local.DriverFactory
 import org.pointyware.artes.local.Persistence
@@ -29,8 +29,8 @@ fun dataModule() = module {
         CoroutineScope(get<CoroutineDispatcher>(qualifier = dataQualifier) + SupervisorJob())
     }
 
-    single<HostRepository> {
-        HostRepositoryImpl(
+    single<ServiceRepository> {
+        ServiceRepositoryImpl(
             hostDao = get(),
             ioDispatcher = get(qualifier = dataQualifier),
             ioScope = get(qualifier = dataQualifier)
@@ -38,6 +38,7 @@ fun dataModule() = module {
     }
     single<AgentRepository> {
         AgentRepositoryImpl(
+            get(),
             get()
         )
     }

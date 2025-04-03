@@ -10,16 +10,17 @@ import org.pointyware.artes.entities.Host
  * Currently supported hosts:
  * - OpenAI
  */
-interface HostRepository {
+interface ServiceRepository {
     suspend fun createOpenAiHost(title: String, orgId: String, apiKey: String)
     suspend fun getHosts(): List<Host>
+    suspend fun getService(id: Long): Host
 }
 
-class HostRepositoryImpl(
+class ServiceRepositoryImpl(
     private val hostDao: HostDao,
     private val ioDispatcher: CoroutineDispatcher,
     private val ioScope: CoroutineScope,
-): HostRepository {
+): ServiceRepository {
 
     override suspend fun createOpenAiHost(title: String, orgId: String, apiKey: String) {
         hostDao.createHost(title, orgId, apiKey)
@@ -27,5 +28,9 @@ class HostRepositoryImpl(
 
     override suspend fun getHosts(): List<Host> {
         return hostDao.getAllHosts()
+    }
+
+    override suspend fun getService(id: Long): Host {
+        TODO("Not yet implemented")
     }
 }
