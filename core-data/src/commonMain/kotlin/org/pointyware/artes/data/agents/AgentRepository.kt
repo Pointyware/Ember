@@ -9,9 +9,9 @@ import org.pointyware.artes.entities.Host
  */
 interface AgentRepository {
 
-    suspend fun createAgent(name: String, host: Host, model: String, instructions: String)
+    suspend fun createAgent(name: String, host: Host, instructions: String)
     suspend fun getAgent(id: Long): Agent
-    suspend fun updateAgent(id: Long, name: String, host: Host, model: String, instructions: String)
+    suspend fun updateAgent(id: Long, name: String, host: Host, instructions: String)
     suspend fun deleteAgent(id: Long)
 }
 
@@ -24,14 +24,12 @@ class AgentRepositoryImpl(
     override suspend fun createAgent(
         name: String,
         host: Host,
-        model: String,
         instructions: String
     ) {
         db.agentsQueries.createAgent(
             name = name,
-//            hostId = host.id,
-//            model = model,
-//            instructions = instructions
+            service = host.id,
+            instructions = instructions
         )
     }
 
@@ -50,10 +48,9 @@ class AgentRepositoryImpl(
         id: Long,
         name: String,
         host: Host,
-        model: String,
         instructions: String
     ) {
-        TODO("Not yet implemented")
+        db.agentsQueries.updateAgent(id = id, name = name, service = host.id, instructions = instructions)
     }
 
     override suspend fun deleteAgent(id: Long) {
