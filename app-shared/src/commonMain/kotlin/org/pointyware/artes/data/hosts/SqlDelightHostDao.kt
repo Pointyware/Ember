@@ -17,7 +17,7 @@ class SqlDelightHostDao(
     override fun createHost(title: String, orgId: String, apiKey: String): Long {
         return db.transactionWithResult {
             db.hostsQueries.insertHost(title, orgId, apiKey)
-            db.hostsQueries.lastId().executeAsOne()
+            db.utilsQueries.lastId().executeAsOne()
         }
     }
 
