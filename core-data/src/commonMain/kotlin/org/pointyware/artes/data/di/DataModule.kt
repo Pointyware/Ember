@@ -8,6 +8,8 @@ import kotlinx.coroutines.SupervisorJob
 import org.koin.core.module.Module
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import org.pointyware.artes.data.agents.AgentRepository
+import org.pointyware.artes.data.agents.AgentRepositoryImpl
 import org.pointyware.artes.data.hosts.HostRepository
 import org.pointyware.artes.data.hosts.HostRepositoryImpl
 import org.pointyware.artes.data.hosts.db.HostDb
@@ -32,6 +34,11 @@ fun dataModule() = module {
             hostDao = get(),
             ioDispatcher = get(qualifier = dataQualifier),
             ioScope = get(qualifier = dataQualifier)
+        )
+    }
+    single<AgentRepository> {
+        AgentRepositoryImpl(
+            get()
         )
     }
 
