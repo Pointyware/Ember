@@ -1,24 +1,19 @@
 package org.pointyware.artes.entities
 
 /**
- * Describes an AI host/service.
- *
- * These are not necessarily remote services, but they will be
- * in the short-term.
+ * Describes an AI service. In the short-term, we will rely on established AI web services, so these
+ * will be remote web services. In the long-term, we may want to support self-hosted services (e.g.
+ * HuggingFace) and local services (e.g. Docker containers).
  */
 sealed interface Service
 
-/**
- * Execution is managed by a hosted service (though this is not necessarily remote –just out of
- * the same process).
- */
 interface RemoteService: Service
 data object OpenAi: RemoteService
 data object Google: RemoteService
 data object Anthropic: RemoteService
 
 /**
- * A user-hosted service running externally. TODO: support
+ * A user-hosted service running externally.
  */
 data class SelfHosted(val url: String): RemoteService
 
