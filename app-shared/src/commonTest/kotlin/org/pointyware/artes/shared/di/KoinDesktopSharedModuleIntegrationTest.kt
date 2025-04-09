@@ -10,7 +10,7 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 
 @OptIn(KoinExperimentalAPI::class)
-class KoinSharedModuleIntegrationTest {
+class KoinDesktopSharedModuleIntegrationTest {
 
     private lateinit var moduleUnderTest: Module
 
