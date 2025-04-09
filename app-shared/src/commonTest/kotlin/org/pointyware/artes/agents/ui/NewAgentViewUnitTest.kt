@@ -190,8 +190,11 @@ class NewAgentViewUnitTest {
             NewAgentView(
                 state = state,
                 onSelectHost = { throw Exception("onSelectHost should not be called") },
-                onSubmit = { _, _, _, _ ->
-                    throw Exception("onSubmit should not be called")
+                onSubmit = { name, hostIndex, modelIndex, instructions ->
+                    actualName = name
+                    actualHost = hostIndex
+                    actualModel = modelIndex
+                    actualInstructions = instructions
                 }
             )
         }
