@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.pointyware.artes.interactors.CreateAgentUseCase
+import org.pointyware.artes.interactors.GetServiceModelsUseCase
 import org.pointyware.artes.interactors.agents.GetAgentUseCase
 import org.pointyware.artes.interactors.hosts.GetHostServicesUseCase
 import org.pointyware.artes.viewmodels.toUiState
@@ -20,6 +21,7 @@ import org.pointyware.artes.viewmodels.toUiState
  */
 class AgentViewModel(
     private val getAvailableHostsUseCase: GetHostServicesUseCase,
+    private val getServiceModelsUseCase: GetServiceModelsUseCase,
     private val createAgentUseCase: CreateAgentUseCase,
     private val getAgentUseCase: GetAgentUseCase,
 ): ViewModel() {
@@ -52,7 +54,20 @@ class AgentViewModel(
     }
 
     fun onSelectHost(index: Int) {
-        TODO("Not yet implemented")
+        viewModelScope.launch {
+            getServiceModelsUseCase(index)
+                .onSuccess { models ->
+                    mutableState.update {
+                        it.copy(
+                            selectedHost = index,
+                            hostModels = models.map { model -> model.toUiState() }
+                        )
+                    }
+                }
+                .onFailure {
+                    mutableAlert.emit(it.message ?: "Unknown error")
+                }
+        }
     }
 
     fun onSave(title: String, hostId: Int, modelId: Int, instructions: String) {

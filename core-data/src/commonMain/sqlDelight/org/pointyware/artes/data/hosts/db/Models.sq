@@ -1,0 +1,24 @@
+CREATE TABLE models (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    hostId INTEGER NOT NULL,
+    FOREIGN KEY (hostId) REFERENCES hosts(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+-- Insert a new model
+insertModel:
+INSERT INTO models (name, hostId)
+VALUES (:name, :hostId);
+
+-- Get model
+getModel:
+SELECT id, name, hostId
+FROM models
+WHERE id = :id;
+
+-- Get all models
+getAllModels:
+SELECT id, name, hostId
+FROM models;
