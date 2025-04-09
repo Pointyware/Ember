@@ -28,7 +28,7 @@ class KoinSharedModuleIntegrationTest {
     }
 
     @Test
-    fun verify() {
+    fun checkModules() {
         getKoin().checkModules()
     }
 }
