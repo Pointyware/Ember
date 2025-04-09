@@ -8,6 +8,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import org.pointyware.artes.agents.viewmodels.AgentUiState
 import org.pointyware.artes.viewmodels.HostUiState
+import org.pointyware.artes.viewmodels.ModelUiState
 
 @Preview
 @Composable
@@ -50,7 +51,10 @@ class AgentUiStateProvider: PreviewParameterProvider<AgentUiState> {
                     HostUiState(1L, "Anthropic")
                 ),
                 selectedHost = 0,
-                hostModels = listOf("GPT-3.5", "GPT4o"),
+                hostModels = listOf(
+                    ModelUiState(0L, "GPT-3.5"),
+                    ModelUiState(1L, "GPT4o"),
+                ),
                 selectedModel = null,
                 instructions = ""
             ),
@@ -61,7 +65,10 @@ class AgentUiStateProvider: PreviewParameterProvider<AgentUiState> {
                     HostUiState(1L, "Anthropic")
                 ),
                 selectedHost = 0,
-                hostModels = listOf("GPT-3.5", "GPT4o"),
+                hostModels = listOf(
+                    ModelUiState(0L, "GPT-3.5"),
+                    ModelUiState(1L, "GPT4o"),
+                ),
                 selectedModel = 1,
                 instructions = ""
             ),
@@ -72,7 +79,10 @@ class AgentUiStateProvider: PreviewParameterProvider<AgentUiState> {
                     HostUiState(1L, "Anthropic")
                 ),
                 selectedHost = 0,
-                hostModels = listOf("GPT-3.5", "GPT4o"),
+                hostModels = listOf(
+                    ModelUiState(0L, "GPT-3.5"),
+                    ModelUiState(1L, "GPT4o"),
+                ),
                 selectedModel = 1,
                 instructions = "Provide helpful advice to the user, but you aren't a doctor, so don't give a diagnosis.",
             ),

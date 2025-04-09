@@ -18,6 +18,7 @@ import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.runComposeUiTest
 import org.pointyware.artes.agents.viewmodels.AgentUiState
 import org.pointyware.artes.viewmodels.HostUiState
+import org.pointyware.artes.viewmodels.ModelUiState
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -184,7 +185,16 @@ class NewAgentViewUnitTest {
                 HostUiState(1L, "host2"),
             ),
             selectedHost = 0,
-            hostModels = listOf("model1", "model2"),
+            hostModels = listOf(
+                ModelUiState(
+                    id = 0L,
+                    model = "model1"
+                ),
+                ModelUiState(
+                    id = 1L,
+                    model = "model2"
+                )
+            ),
             selectedModel = null,
             instructions = ""
         )

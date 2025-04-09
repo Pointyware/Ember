@@ -4,6 +4,7 @@ import org.pointyware.artes.data.hosts.ServiceRepository
 import org.pointyware.artes.entities.Host
 
 /**
+ * Retrieves a list of registered/configured service host accounts.
  */
 class GetHostServicesUseCase(
     private val serviceRepository: ServiceRepository

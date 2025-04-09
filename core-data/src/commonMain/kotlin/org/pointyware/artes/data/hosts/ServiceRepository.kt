@@ -3,6 +3,7 @@ package org.pointyware.artes.data.hosts
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import org.pointyware.artes.entities.Host
+import org.pointyware.artes.entities.Model
 
 /**
  * Repository for managing hosts. Mediates between multiple data sources.
@@ -14,6 +15,7 @@ interface ServiceRepository {
     suspend fun createOpenAiHost(title: String, orgId: String, apiKey: String)
     suspend fun getHosts(): List<Host>
     suspend fun getService(id: Long): Host
+    suspend fun getModels(host: Host): List<Model>
 }
 
 class ServiceRepositoryImpl(
@@ -31,6 +33,10 @@ class ServiceRepositoryImpl(
     }
 
     override suspend fun getService(id: Long): Host {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getModels(host: Host): List<Model> {
         TODO("Not yet implemented")
     }
 }

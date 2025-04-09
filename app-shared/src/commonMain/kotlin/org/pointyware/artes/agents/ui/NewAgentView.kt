@@ -44,7 +44,7 @@ fun NewAgentView(
 
         var selectedModel by remember { mutableStateOf(state.selectedModel) }
         OptionSelector(
-            state = rememberOptionSelectorState(state.hostModels, selectedModel),
+            state = rememberOptionSelectorState(state.hostModels.map { it.model }, selectedModel),
             onOptionSelected = { selectedModel = it },
         )
 
