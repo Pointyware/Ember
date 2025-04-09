@@ -6,6 +6,7 @@ import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.SemanticsNodeInteractionsProvider
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.onAllNodesWithText
@@ -34,7 +35,12 @@ class NewAgentViewUnitTest {
     private val SemanticsNodeInteractionsProvider.submitButton: SemanticsNodeInteraction
         get() = onNodeWithText("Submit")
 
+
     private fun SemanticsNodeInteraction.assertEditableTextEquals(
+        expected: String
+    ): SemanticsNodeInteraction = assert(editableTextEquals(expected))
+
+    private fun editableTextEquals(
         expected: String
     ): SemanticsMatcher {
         val propertyName = SemanticsProperties.EditableText.name
@@ -205,7 +211,7 @@ class NewAgentViewUnitTest {
         And: the model selector is enabled
         And: the submit button is disabled
          */
-        agentNameField.assertEditableTextEquals("")
+        agentNameField.assertEditableTextEquals("Some agent")
         hostSelector.assertIsEnabled()
         modelSelector.assertIsEnabled()
         submitButton.assertIsNotEnabled()
@@ -215,13 +221,13 @@ class NewAgentViewUnitTest {
         And: The user selects a model
          */
         modelSelector.performClick()
-        onNodeWithText("model1").performClick()
+        onNodeWithText("model2").performClick()
 
         /*
         Then: The selected model is reflected
         And: the submit button is enabled
          */
-        onNodeWithText("model1")
+        onNodeWithText("model2")
             .assertExists()
         submitButton.assertIsEnabled()
 
@@ -233,7 +239,7 @@ class NewAgentViewUnitTest {
         /*
         Then: The onSubmit callback is called with the agent name, host, model, and instructions
          */
-        assertEquals("agent1", actualName)
+        assertEquals("Some agent", actualName)
         assertEquals(0, actualHost)
         assertEquals(1, actualModel)
         assertEquals("", actualInstructions)
