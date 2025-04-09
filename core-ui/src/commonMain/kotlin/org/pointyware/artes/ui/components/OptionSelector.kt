@@ -31,7 +31,7 @@ fun rememberOptionSelectorState(
     options: List<String>,
     selectedOption: Int?,
 ): OptionSelectorState {
-    return remember { if (options.isEmpty()) {
+    return remember(options, selectedOption) { if (options.isEmpty()) {
         OptionSelectorState.Empty
     } else {
         if (selectedOption == null) {
