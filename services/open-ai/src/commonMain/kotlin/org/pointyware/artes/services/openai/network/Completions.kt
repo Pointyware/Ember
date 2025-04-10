@@ -3,7 +3,7 @@ package org.pointyware.artes.services.openai.network
 import io.ktor.resources.Resource
 import kotlinx.serialization.Serializable
 
-@Resource("/completions")
+@Resource("completions/")
 object Completions {
 
     /**
