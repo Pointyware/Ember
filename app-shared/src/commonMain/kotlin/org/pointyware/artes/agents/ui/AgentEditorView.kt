@@ -24,7 +24,7 @@ fun AgentEditorView(
     state: AgentEditorUiState,
     modifier: Modifier = Modifier,
     onSelectHost: (Int)->Unit,
-    onSubmit: (String, Int, Int, String)->Unit,
+    onSubmit: (String, Long, String)->Unit,
 ) {
     Column(
         modifier = modifier
@@ -59,7 +59,7 @@ fun AgentEditorView(
         Spacer(modifier = Modifier.weight(1f))
         Button(
             enabled = agentName.isNotBlank() && state.selectedHost != null && selectedModel != null,
-            onClick = { onSubmit(agentName, state.selectedHost ?: return@Button, selectedModel ?: return@Button, instructions) }
+            onClick = { onSubmit(agentName, selectedModel?.let { state.hostModels[it].id } ?: return@Button, instructions) }
         ) {
             Text("Submit")
         }

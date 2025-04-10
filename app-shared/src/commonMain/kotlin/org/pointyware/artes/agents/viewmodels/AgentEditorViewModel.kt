@@ -74,7 +74,9 @@ class AgentEditorViewModel(
         }
     }
 
-    fun onSave(title: String, hostId: Int, modelId: Int, instructions: String) {
-        TODO("Not yet implemented")
+    fun onSave(title: String, modelId: Long, instructions: String) {
+        viewModelScope.launch {
+            createAgentUseCase(title, modelId, instructions)
+        }
     }
 }

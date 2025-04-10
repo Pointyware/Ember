@@ -3,7 +3,7 @@ package org.pointyware.artes.interactors
 class CreateAgentUseCase(
 
 ) {
-    suspend operator fun invoke(name: String, description: String, serviceId: Long) {
+    suspend operator fun invoke(name: String, modelId: Long, instructions: String) {
         TODO("Not yet implemented")
     }
 }
