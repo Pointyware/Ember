@@ -6,4 +6,5 @@ package org.pointyware.artes.entities
 interface HostConfig {
     val id: Long
     val title: String
+    val host: Host
 }

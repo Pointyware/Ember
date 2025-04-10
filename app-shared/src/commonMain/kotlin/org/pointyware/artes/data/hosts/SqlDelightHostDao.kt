@@ -3,7 +3,7 @@ package org.pointyware.artes.data.hosts
 import org.pointyware.artes.data.hosts.db.HostDb
 import org.pointyware.artes.data.hosts.db.Hosts
 import org.pointyware.artes.entities.HostConfig
-import org.pointyware.artes.services.openai.OpenAi
+import org.pointyware.artes.services.openai.OpenAiConfig
 
 /**
  *
@@ -21,7 +21,7 @@ class SqlDelightHostDao(
         }
     }
 
-    private fun dtoToEntity(result: Hosts): HostConfig = OpenAi(
+    private fun dtoToEntity(result: Hosts): HostConfig = OpenAiConfig(
         id = result.id,
         title = result.name,
         orgId = result.orgId,
