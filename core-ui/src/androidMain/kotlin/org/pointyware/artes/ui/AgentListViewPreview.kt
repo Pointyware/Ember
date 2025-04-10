@@ -12,25 +12,25 @@ fun AgentListViewPreview() {
                 AgentListItemState(
                     id = 0L,
                     name = "Suzy",
-                    service = "OpenAi",
+                    host = "OpenAi",
                     model = "gpt-3.5-turbo",
                 ),
                 AgentListItemState(
                     id = 1L,
                     name = "Ranger",
-                    service = "VertexAi",
+                    host = "VertexAi",
                     model = "chat-bison",
                 ),
                 AgentListItemState(
                     id = 2L,
                     name = "Copilot",
-                    service = "VertexAi",
+                    host = "VertexAi",
                     model = "code-gecko",
                 ),
                 AgentListItemState(
                     id = 3L,
                     name = "Preview",
-                    service = "OpenAi",
+                    host = "OpenAi",
                     model = "gpt-4-preview",
                 )
             )
