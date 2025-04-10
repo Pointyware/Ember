@@ -20,7 +20,7 @@ import org.pointyware.artes.viewmodels.AgentListViewModel
 data class AgentListItemState(
     val id: Long,
     val name: String,
-    val service: String,
+    val host: String,
     val model: String
 )
 
@@ -63,7 +63,7 @@ fun AgentListViewModel.UiState.mapToViewState(): AgentListViewState {
                 id = it.id,
                 name = it.name,
                 service = it.service.title,
-                model = it.model
+                model = it.model.name
             )
         }
     )

@@ -188,11 +188,11 @@ class NewAgentViewUnitTest {
             hostModels = listOf(
                 ModelUiState(
                     id = 0L,
-                    model = "model1"
+                    name = "model1"
                 ),
                 ModelUiState(
                     id = 1L,
-                    model = "model2"
+                    name = "model2"
                 )
             ),
             selectedModel = null,

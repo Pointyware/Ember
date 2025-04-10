@@ -22,7 +22,7 @@ data class AgentInfoUiState(
             ),
             model = ModelUiState(
                 id = 0L,
-                model = ""
+                name = ""
             )
         )
     }
