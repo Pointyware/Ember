@@ -55,6 +55,9 @@ class AgentEditorViewModel(
     }
 
     fun onSelectHost(index: Int) {
+        mutableState.update {
+            it.copy(selectedHost = index)
+        }
         viewModelScope.launch {
             getServiceModelsUseCase(index)
                 .onSuccess { models ->
