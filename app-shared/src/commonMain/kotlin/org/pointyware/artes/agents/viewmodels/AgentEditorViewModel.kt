@@ -77,6 +77,7 @@ class AgentEditorViewModel(
                     }
                 }
                 .onFailure {
+                    it.printStackTrace()
                     mutableAlert.emit(it.message ?: "Unknown error")
                 }
         }
