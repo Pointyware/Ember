@@ -19,7 +19,7 @@ fun NewAgentViewPreview(
         modifier = Modifier.fillMaxSize(),
         state = state,
         onSelectHost = {},
-        onSubmit = { _, _, _, _ -> }
+        onSubmit = { _, _, _ -> }
     )
 }
 class AgentUiStateProvider: PreviewParameterProvider<AgentEditorUiState> {
