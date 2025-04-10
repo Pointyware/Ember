@@ -35,7 +35,15 @@ class AgentEditorViewModel(
         get() = mutableState.asStateFlow()
 
     fun loadAgent(agentId: Long) {
-        TODO("Not yet implemented")
+        viewModelScope.launch {
+            getAgentUseCase.invoke(agentId)
+                .onSuccess {
+                    TODO("Handle agent loading")
+                }
+                .onFailure {
+                    mutableAlert.emit(it.message ?: "Unknown error")
+                }
+        }
     }
 
     fun loadHosts() {
