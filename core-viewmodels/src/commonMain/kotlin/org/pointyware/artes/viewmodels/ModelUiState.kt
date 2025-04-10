@@ -7,7 +7,7 @@ import org.pointyware.artes.entities.Model
  */
 data class ModelUiState(
     val id: Long,
-    val name: String // TODO: rename to name
+    val name: String
 )
 
 fun Model.toUiState(): ModelUiState {
