@@ -1,6 +1,6 @@
 package org.pointyware.artes.services.openai
 
-import org.pointyware.artes.entities.Host
+import org.pointyware.artes.entities.HostConfig
 
 /**
  *
@@ -10,6 +10,6 @@ class OpenAi(
     override val title: String,
     val orgId: String,
     val apiKey: String,
-): Host {
+): HostConfig {
 
 }

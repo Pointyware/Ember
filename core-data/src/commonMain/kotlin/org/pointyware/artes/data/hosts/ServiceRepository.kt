@@ -2,7 +2,7 @@ package org.pointyware.artes.data.hosts
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import org.pointyware.artes.entities.Host
+import org.pointyware.artes.entities.HostConfig
 import org.pointyware.artes.entities.Model
 
 /**
@@ -13,8 +13,8 @@ import org.pointyware.artes.entities.Model
  */
 interface ServiceRepository {
     suspend fun createOpenAiHost(title: String, orgId: String, apiKey: String)
-    suspend fun getHosts(): List<Host>
-    suspend fun getService(id: Long): Host
+    suspend fun getHosts(): List<HostConfig>
+    suspend fun getService(id: Long): HostConfig
     suspend fun getModel(id: Long): Model
     suspend fun getModels(hostId: Long): List<Model>
 }
@@ -29,11 +29,11 @@ class ServiceRepositoryImpl(
         hostDao.createHost(title, orgId, apiKey)
     }
 
-    override suspend fun getHosts(): List<Host> {
+    override suspend fun getHosts(): List<HostConfig> {
         return hostDao.getAllHosts()
     }
 
-    override suspend fun getService(id: Long): Host {
+    override suspend fun getService(id: Long): HostConfig {
         TODO("Not yet implemented")
     }
 

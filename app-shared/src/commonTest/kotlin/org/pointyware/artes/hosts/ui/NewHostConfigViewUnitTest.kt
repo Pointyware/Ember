@@ -11,7 +11,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @OptIn(ExperimentalTestApi::class)
-class NewHostViewUnitTest {
+class NewHostConfigViewUnitTest {
 
     private var enteredHostName: String? = null
     private var enteredOrgId: String? = null

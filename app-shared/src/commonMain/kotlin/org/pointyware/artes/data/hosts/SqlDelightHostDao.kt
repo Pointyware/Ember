@@ -2,7 +2,7 @@ package org.pointyware.artes.data.hosts
 
 import org.pointyware.artes.data.hosts.db.HostDb
 import org.pointyware.artes.data.hosts.db.Hosts
-import org.pointyware.artes.entities.Host
+import org.pointyware.artes.entities.HostConfig
 import org.pointyware.artes.services.openai.OpenAi
 
 /**
@@ -21,18 +21,18 @@ class SqlDelightHostDao(
         }
     }
 
-    private fun dtoToEntity(result: Hosts): Host = OpenAi(
+    private fun dtoToEntity(result: Hosts): HostConfig = OpenAi(
         id = result.id,
         title = result.name,
         orgId = result.orgId,
         apiKey = result.apiKey,
     )
 
-    override fun getHostById(id: Long): Host {
+    override fun getHostById(id: Long): HostConfig {
         return db.hostsQueries.getHost(id).executeAsOne().let(::dtoToEntity)
     }
 
-    override fun getAllHosts(): List<Host> {
+    override fun getAllHosts(): List<HostConfig> {
         return db.hostsQueries.getAllHosts().executeAsList().map(::dtoToEntity)
     }
 
