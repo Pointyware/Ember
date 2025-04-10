@@ -42,7 +42,7 @@ fun AgentListItem(
         Spacer(modifier = Modifier.weight(1f))
         Text(
             modifier = Modifier.weight(1f),
-            text = state.service,
+            text = state.host,
             style = MaterialTheme.typography.bodySmall
         )
         Text(
@@ -62,7 +62,7 @@ fun AgentListViewModel.UiState.mapToViewState(): AgentListViewState {
             AgentListItemState(
                 id = it.id,
                 name = it.name,
-                service = it.service.title,
+                host = it.host.title,
                 model = it.model.name
             )
         }
