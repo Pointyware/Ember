@@ -15,7 +15,8 @@ interface ServiceRepository {
     suspend fun createOpenAiHost(title: String, orgId: String, apiKey: String)
     suspend fun getHosts(): List<Host>
     suspend fun getService(id: Long): Host
-    suspend fun getModels(host: Host): List<Model>
+    suspend fun getModel(id: Long): Model
+    suspend fun getModels(hostId: Long): List<Model>
 }
 
 class ServiceRepositoryImpl(
@@ -36,7 +37,11 @@ class ServiceRepositoryImpl(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getModels(host: Host): List<Model> {
+    override suspend fun getModel(id: Long): Model {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getModels(hostId: Long): List<Model> {
         TODO("Not yet implemented")
     }
 }

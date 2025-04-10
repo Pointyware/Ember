@@ -3,16 +3,15 @@ package org.pointyware.artes.data.agents
 import org.pointyware.artes.data.hosts.ServiceRepository
 import org.pointyware.artes.data.hosts.db.HostDb
 import org.pointyware.artes.entities.Agent
-import org.pointyware.artes.entities.Host
+import org.pointyware.artes.entities.Model
 
 /**
  * Entry point to agent aggregate root
  */
 interface AgentRepository {
-
-    suspend fun createAgent(name: String, host: Host, instructions: String)
+    suspend fun createAgent(name: String, model: Model, instructions: String)
     suspend fun getAgent(id: Long): Agent
-    suspend fun updateAgent(id: Long, name: String, host: Host, instructions: String)
+    suspend fun updateAgent(id: Long, name: String, model: Model, instructions: String)
     suspend fun deleteAgent(id: Long)
 }
 
@@ -23,36 +22,29 @@ class AgentRepositoryImpl(
 
     private val db by lazyDb
 
-    override suspend fun createAgent(
-        name: String,
-        host: Host,
-        instructions: String
-    ) {
+    override suspend fun createAgent(name: String, model: Model, instructions: String) {
         db.agentsQueries.createAgent(
             name = name,
-            service = host.id,
+            model = model.id,
             instructions = instructions
         )
     }
 
     override suspend fun getAgent(id: Long): Agent {
         return db.agentsQueries.getAgent(id).executeAsOne().let {
+//            val host = serviceRepository.getService(it.service)
+//            val model = serviceRepository.getModels(host).get(it.service)
             Agent(
                 id = it.id,
                 name = it.name,
-                host = serviceRepository.getService(it.service),
+                model = serviceRepository.getModel(it.model),
                 skills = emptySet()
             )
         }
     }
 
-    override suspend fun updateAgent(
-        id: Long,
-        name: String,
-        host: Host,
-        instructions: String
-    ) {
-        db.agentsQueries.updateAgent(id = id, name = name, service = host.id, instructions = instructions)
+    override suspend fun updateAgent(id: Long, name: String, model: Model, instructions: String) {
+        db.agentsQueries.updateAgent(id = id, name = name, model = model.id, instructions = instructions)
     }
 
     override suspend fun deleteAgent(id: Long) {
