@@ -18,6 +18,10 @@ class ServiceRepositoryImpl(
         hostDao.createHost(title, orgId, apiKey)
     }
 
+    override suspend fun createGeminiHost(title: String, apiKey: String) {
+        hostDao.createGeminiHost(title, apiKey)
+    }
+
     override suspend fun getHosts(): List<HostConfig> {
         return hostDao.getAllHosts()
     }

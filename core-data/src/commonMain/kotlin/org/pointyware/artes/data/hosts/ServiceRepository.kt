@@ -8,9 +8,11 @@ import org.pointyware.artes.entities.Model
  *
  * Currently supported hosts:
  * - OpenAI
+ * - Gemini
  */
 interface ServiceRepository {
     suspend fun createOpenAiHost(title: String, orgId: String, apiKey: String)
+    suspend fun createGeminiHost(title: String, apiKey: String)
     suspend fun getHosts(): List<HostConfig>
     suspend fun getService(id: Long): HostConfig
     suspend fun getModel(id: Long): Model
