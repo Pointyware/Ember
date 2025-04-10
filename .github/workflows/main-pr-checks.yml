@@ -19,7 +19,9 @@ jobs:
       - name: Setup
         uses: Pointyware/.github/.github/actions/checkout-java-gradle@b70bbae19637171d6cf9311f06a59f1c15e2598b
       - name: Run Debug Unit Tests
-        run: ./gradlew :core-data:generateSqlDelightInterface :app-android:testDebugUnitTest
+        run: |
+          ./gradlew :core-data:generateSqlDelightInterface && \
+            ./gradlew :app-android:testDebugUnitTest
 
   build-app-desktop:
     if: github.event.pull_request.draft == false
@@ -28,4 +30,6 @@ jobs:
       - name: Setup
         uses: Pointyware/.github/.github/actions/checkout-java-gradle@b70bbae19637171d6cf9311f06a59f1c15e2598b
       - name: Build Desktop App
-        run: ./gradlew :core-data:generateSqlDelightInterface :app-desktop:desktopTest
+        run: |
+          ./gradlew :core-data:generateSqlDelightInterface && \
+            ./gradlew :app-desktop:desktopTest
