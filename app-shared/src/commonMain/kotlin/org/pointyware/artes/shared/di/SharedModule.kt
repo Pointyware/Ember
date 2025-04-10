@@ -5,7 +5,7 @@ import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import org.pointyware.artes.agents.viewmodels.AgentViewModel
+import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
 import org.pointyware.artes.data.di.dataModule
 import org.pointyware.artes.data.di.dataQualifier
 import org.pointyware.artes.data.hosts.HostDao
@@ -57,8 +57,8 @@ fun sharedViewModelModule() = module {
         )
     }
 
-    factory<AgentViewModel> {
-        AgentViewModel(
+    factory<AgentEditorViewModel> {
+        AgentEditorViewModel(
             get(),
             get(),
             get(),

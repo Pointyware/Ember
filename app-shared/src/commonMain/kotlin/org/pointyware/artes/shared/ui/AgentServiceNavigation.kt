@@ -5,7 +5,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import org.pointyware.artes.agents.ui.NewAgentView
-import org.pointyware.artes.agents.viewmodels.AgentViewModel
+import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
 import org.pointyware.artes.ui.AgentInfoView
 import org.pointyware.artes.ui.AgentInfoViewState
 import org.pointyware.artes.ui.AgentListView
@@ -32,7 +32,7 @@ enum class Destination {
 fun AgentServiceNavigation(
     agentListViewModel: AgentListViewModel,
     agentInfoViewModel: AgentInfoViewModel,
-    agentViewModel: AgentViewModel,
+    agentEditorViewModel: AgentEditorViewModel,
     serviceListViewModel: ServiceListViewModel,
     modifier: Modifier = Modifier,
 ) {
@@ -70,10 +70,10 @@ fun AgentServiceNavigation(
         }
         Destination.AgentEditor -> {
             NewAgentView(
-                state = agentViewModel.state.collectAsState().value,
+                state = agentEditorViewModel.state.collectAsState().value,
                 modifier = modifier,
-                onSelectHost = agentViewModel::onSelectHost,
-                onSubmit = agentViewModel::onSave
+                onSelectHost = agentEditorViewModel::onSelectHost,
+                onSubmit = agentEditorViewModel::onSave
             )
         }
         Destination.ServiceList -> {

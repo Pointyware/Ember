@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Dialog
 import org.koin.mp.KoinPlatform.getKoin
 import org.pointyware.artes.agents.ui.NewAgentView
-import org.pointyware.artes.agents.viewmodels.AgentViewModel
+import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
 
 /**
  * The root for Compose UI.
@@ -22,19 +22,19 @@ import org.pointyware.artes.agents.viewmodels.AgentViewModel
 fun ArtesApp() {
 
     val koin = remember { getKoin() }
-    val agentViewModel = remember { koin.get<AgentViewModel>() }
+    val agentEditorViewModel = remember { koin.get<AgentEditorViewModel>() }
     LaunchedEffect(Unit) {
-        agentViewModel.loadHosts()
+        agentEditorViewModel.loadHosts()
     }
-    val state by agentViewModel.state.collectAsState()
+    val state by agentEditorViewModel.state.collectAsState()
     NewAgentView(
         state = state,
         modifier = Modifier.fillMaxSize(),
-        onSelectHost = agentViewModel::onSelectHost,
-        onSubmit = agentViewModel::onSave,
+        onSelectHost = agentEditorViewModel::onSelectHost,
+        onSubmit = agentEditorViewModel::onSave,
     )
 
-    val alert by agentViewModel.alert.collectAsState(null)
+    val alert by agentEditorViewModel.alert.collectAsState(null)
     var dialogState by remember { mutableStateOf(alert) }
     val safeDialogState = dialogState
     if (safeDialogState != null) {

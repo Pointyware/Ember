@@ -20,7 +20,7 @@ import org.pointyware.artes.viewmodels.toUiState
 /**
  * Manages the UI state and responds to events for an Agent View.
  */
-class AgentViewModel( // TODO: rename to AgentEditorViewModel
+class AgentEditorViewModel(
     private val getAvailableHostsUseCase: GetHostServicesUseCase,
     private val getServiceModelsUseCase: GetServiceModelsUseCase,
     private val createAgentUseCase: CreateAgentUseCase,
