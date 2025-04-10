@@ -61,6 +61,7 @@ fun sharedViewModelModule() = module {
         AgentViewModel(
             get(),
             get(),
+            get(),
             get()
         )
     }
