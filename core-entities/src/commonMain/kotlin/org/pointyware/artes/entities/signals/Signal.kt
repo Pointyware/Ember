@@ -1,4 +1,4 @@
-package org.pointyware.artes.entities
+package org.pointyware.artes.entities.signals
 
 /**
  * An input or output type of some system.

@@ -1,6 +1,6 @@
 package org.pointyware.artes.entities.signals.primitives
 
-import org.pointyware.artes.entities.Signal
+import org.pointyware.artes.entities.signals.Signal
 
 /**
  * I'm not sure how this would be implemented in practice. Nociceptors can be polymodal, responding

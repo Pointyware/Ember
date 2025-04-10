@@ -1,6 +1,6 @@
 package org.pointyware.artes.entities.signals.derivatives
 
-import org.pointyware.artes.entities.Signal
+import org.pointyware.artes.entities.signals.Signal
 
 /**
  * A series of related images, usually continuous, that depict visual information across time.

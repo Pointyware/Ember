@@ -1,6 +1,6 @@
 package org.pointyware.artes.entities.signals.derivatives
 
-import org.pointyware.artes.entities.Signal
+import org.pointyware.artes.entities.signals.Signal
 
 /**
  * A sequence of signals corresponding to pressure waves.

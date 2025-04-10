@@ -1,6 +1,6 @@
 package org.pointyware.artes.entities.signals.primitives
 
-import org.pointyware.artes.entities.Signal
+import org.pointyware.artes.entities.signals.Signal
 
 /**
  * Senses light a.k.a. electromagnetic radiation (in near visible spectrum).
