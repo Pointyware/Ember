@@ -9,6 +9,7 @@ import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
 import org.pointyware.artes.data.di.dataModule
 import org.pointyware.artes.data.di.dataQualifier
 import org.pointyware.artes.data.hosts.HostDao
+import org.pointyware.artes.data.hosts.ServiceRepository
 import org.pointyware.artes.data.hosts.SqlDelightHostDao
 import org.pointyware.artes.hosts.interactors.CreateHostUseCase
 import org.pointyware.artes.hosts.viewmodels.HostViewModel
@@ -78,6 +79,14 @@ fun sharedDataModule() = module {
     single<HostDao> {
         SqlDelightHostDao(
             get()
+        )
+    }
+
+    single<ServiceRepository> {
+        org.pointyware.artes.services.ServiceRepositoryImpl(
+            hostDao = get(),
+            ioDispatcher = get(qualifier = dataQualifier),
+            ioScope = get(qualifier = dataQualifier)
         )
     }
 }
