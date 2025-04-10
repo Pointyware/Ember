@@ -4,6 +4,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.resources.get
 import io.ktor.client.request.header
+import io.ktor.client.request.url
 import org.pointyware.artes.services.openai.OpenAiConfig
 
 /**
@@ -16,6 +17,8 @@ class OpenAiModelFetcher(
         client.get(Models) {
             header("Authorization", "Bearer ${config.apiKey}")
             header("OpenAI-Organization", config.orgId)
+
+            url("http://coreapi-api.unified-35.api.openai.com/v1/models")
         }.body<ModelsResponse>().let {
             return it.data
         }
