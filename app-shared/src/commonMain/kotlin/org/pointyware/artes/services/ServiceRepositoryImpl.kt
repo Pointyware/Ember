@@ -6,10 +6,13 @@ import org.pointyware.artes.data.hosts.HostDao
 import org.pointyware.artes.data.hosts.ServiceRepository
 import org.pointyware.artes.entities.HostConfig
 import org.pointyware.artes.entities.Model
+import org.pointyware.artes.entities.ModelImpl
 import org.pointyware.artes.services.openai.OpenAiConfig
+import org.pointyware.artes.services.openai.network.OpenAiModelFetcher
 
 class ServiceRepositoryImpl(
     private val hostDao: HostDao,
+    private val openAiModelFetcher: OpenAiModelFetcher,
     private val ioDispatcher: CoroutineDispatcher,
     private val ioScope: CoroutineScope,
 ): ServiceRepository {
@@ -35,9 +38,16 @@ class ServiceRepositoryImpl(
     }
 
     override suspend fun getModels(hostId: Long): List<Model> {
-        when (val hostConfig = hostDao.getHostById(hostId)) {
+        return when (val hostConfig = hostDao.getHostById(hostId)) {
             is OpenAiConfig -> {
-                TODO("Make models request using given configuration")
+                openAiModelFetcher.invoke(hostConfig)
+                    .map {
+                        ModelImpl(
+                            id = it.created,
+                            name = it.id,
+                            hostConfig = hostConfig
+                        )
+                    }
             }
             else -> {
                 throw IllegalArgumentException("Unsupported host type: ${hostConfig::class.simpleName}")
