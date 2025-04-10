@@ -16,6 +16,7 @@ import org.pointyware.artes.hosts.viewmodels.HostViewModel
 import org.pointyware.artes.interactors.CreateAgentUseCase
 import org.pointyware.artes.interactors.GetServiceModelsUseCase
 import org.pointyware.artes.interactors.di.interactorsModule
+import org.pointyware.artes.services.ServiceRepositoryImpl
 import org.pointyware.artes.services.openai.network.di.openAiModule
 import org.pointyware.artes.services.openai.network.openAiHttpClient
 import org.pointyware.artes.text.completion.CompletionViewModel
@@ -83,8 +84,9 @@ fun sharedDataModule() = module {
     }
 
     single<ServiceRepository> {
-        org.pointyware.artes.services.ServiceRepositoryImpl(
+        ServiceRepositoryImpl(
             hostDao = get(),
+            openAiModelFetcher = get(),
             ioDispatcher = get(qualifier = dataQualifier),
             ioScope = get(qualifier = dataQualifier)
         )
