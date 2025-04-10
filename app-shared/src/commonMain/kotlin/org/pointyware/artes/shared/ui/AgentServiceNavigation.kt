@@ -4,17 +4,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import org.pointyware.artes.ui.AgentCreationView
-import org.pointyware.artes.ui.AgentCreationViewState
+import org.pointyware.artes.agents.ui.NewAgentView
+import org.pointyware.artes.agents.viewmodels.AgentViewModel
 import org.pointyware.artes.ui.AgentInfoView
 import org.pointyware.artes.ui.AgentInfoViewState
 import org.pointyware.artes.ui.AgentListView
 import org.pointyware.artes.ui.ServiceListItemState
 import org.pointyware.artes.ui.ServiceListView
 import org.pointyware.artes.ui.ServiceListViewState
-import org.pointyware.artes.ui.ServiceSelectionDropDownState
 import org.pointyware.artes.ui.mapToViewState
-import org.pointyware.artes.viewmodels.AgentCreationViewModel
 import org.pointyware.artes.viewmodels.AgentInfoViewModel
 import org.pointyware.artes.viewmodels.AgentListViewModel
 import org.pointyware.artes.viewmodels.ServiceListViewModel
@@ -34,7 +32,7 @@ enum class Destination {
 fun AgentServiceNavigation(
     agentListViewModel: AgentListViewModel,
     agentInfoViewModel: AgentInfoViewModel,
-    agentCreationViewModel: AgentCreationViewModel,
+    agentViewModel: AgentViewModel,
     serviceListViewModel: ServiceListViewModel,
     modifier: Modifier = Modifier,
 ) {
@@ -71,26 +69,11 @@ fun AgentServiceNavigation(
             )
         }
         Destination.AgentEditor -> {
-            AgentCreationView(
-                state = AgentCreationViewState(
-                    name = "Some name",
-                    description = "Create a new agent",
-                    serviceSelectionState = ServiceSelectionDropDownState(
-                        services = listOf(),
-                        selectedIndex = 0
-                    )
-                ),
+            NewAgentView(
+                state = agentViewModel.state.collectAsState().value,
                 modifier = modifier,
-                onNameChange = agentCreationViewModel::onNameChange,
-                onDescriptionChange = agentCreationViewModel::onDescriptionChange,
-                onSelectService = agentCreationViewModel::onSelectService,
-                onCancel = {
-//                    navController.navigateBack()
-                },
-                onSave = {
-                    agentCreationViewModel.onSaveAgent()
-//                    navController.navigateBack()
-                }
+                onSelectHost = agentViewModel::onSelectHost,
+                onSubmit = agentViewModel::onSave
             )
         }
         Destination.ServiceList -> {
