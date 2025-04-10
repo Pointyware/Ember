@@ -1,7 +1,7 @@
 package org.pointyware.artes.entities
 
 /**
- * A registered/known instance of a service.
+ * A registered/known instance of a [Service].
  *
  * TODO: rename to-
  *   ServiceHostConfig?
