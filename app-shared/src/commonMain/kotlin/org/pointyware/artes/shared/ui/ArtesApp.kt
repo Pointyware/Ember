@@ -34,8 +34,8 @@ fun ArtesApp() {
         onSubmit = agentEditorViewModel::onSave,
     )
 
-    val alert by agentEditorViewModel.alert.collectAsState(null)
-    var dialogState by remember { mutableStateOf(alert) }
+    val alert: String? by agentEditorViewModel.alert.collectAsState(null)
+    var dialogState by remember(alert) { mutableStateOf(alert) }
     val safeDialogState = dialogState
     if (safeDialogState != null) {
         Dialog(
