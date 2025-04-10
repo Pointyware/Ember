@@ -1,32 +1,32 @@
 CREATE TABLE agents (
   id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   name TEXT NOT NULL,
-  service INTEGER NOT NULL,
+  model INTEGER NOT NULL,
   instructions TEXT NOT NULL,
-  FOREIGN KEY(service) REFERENCES hosts(id) ON DELETE CASCADE
+  FOREIGN KEY(model) REFERENCES models(id) ON DELETE CASCADE
 );
 
 -- Insert a new agent
 createAgent:
-INSERT INTO agents (name, service, instructions)
-VALUES (:name, :service, :instructions);
+INSERT INTO agents (name, model, instructions)
+VALUES (:name, :model, :instructions);
 
 -- Get agent
 getAgent:
-SELECT id, name, service, instructions
+SELECT id, name, model, instructions
 FROM agents
 WHERE id = :id;
 
 -- Get all agents
 getAllAgents:
-SELECT id, name, service, instructions
+SELECT id, name, model, instructions
 FROM agents;
 
 -- Update an agent
 updateAgent:
 UPDATE agents
 SET name = :name,
-    service = :service,
+    model = :model,
     instructions = :instructions
 WHERE id = :id;
 
