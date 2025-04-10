@@ -12,12 +12,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import org.pointyware.artes.agents.viewmodels.AgentUiState
 import org.pointyware.artes.ui.components.OptionSelector
 import org.pointyware.artes.ui.components.rememberOptionSelectorState
+import org.pointyware.artes.viewmodels.AgentUiState
 
 /**
- *
+ * TODO: rename to AgentEditorView
  */
 @Composable
 fun NewAgentView(

@@ -9,7 +9,7 @@ fun Agent.toUiState(): AgentInfoUiState {
     return AgentInfoUiState(
         id = this.id,
         name = this.name,
-        service = this.host.toUiState(),
-        model = ""
+        host = this.model.host.toUiState(),
+        model = this.model.toUiState(),
     )
 }

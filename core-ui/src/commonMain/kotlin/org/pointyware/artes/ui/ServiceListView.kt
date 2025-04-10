@@ -14,6 +14,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 
+/**
+ * Redundant with [HostUiState]
+ */
 data class ServiceListItemState(
     val id: Long,
     val label: String,

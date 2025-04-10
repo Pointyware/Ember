@@ -6,7 +6,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import org.pointyware.artes.agents.viewmodels.AgentUiState
+import org.pointyware.artes.viewmodels.AgentUiState
 import org.pointyware.artes.viewmodels.HostUiState
 import org.pointyware.artes.viewmodels.ModelUiState
 

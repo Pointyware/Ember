@@ -14,12 +14,13 @@ import org.pointyware.artes.interactors.CreateAgentUseCase
 import org.pointyware.artes.interactors.GetServiceModelsUseCase
 import org.pointyware.artes.interactors.agents.GetAgentUseCase
 import org.pointyware.artes.interactors.hosts.GetHostServicesUseCase
+import org.pointyware.artes.viewmodels.AgentUiState
 import org.pointyware.artes.viewmodels.toUiState
 
 /**
  * Manages the UI state and responds to events for an Agent View.
  */
-class AgentViewModel(
+class AgentViewModel( // TODO: rename to AgentEditorViewModel
     private val getAvailableHostsUseCase: GetHostServicesUseCase,
     private val getServiceModelsUseCase: GetServiceModelsUseCase,
     private val createAgentUseCase: CreateAgentUseCase,

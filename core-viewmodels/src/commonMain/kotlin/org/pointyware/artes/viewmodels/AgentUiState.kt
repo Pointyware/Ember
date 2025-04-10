@@ -1,10 +1,9 @@
-package org.pointyware.artes.agents.viewmodels
-
-import org.pointyware.artes.viewmodels.HostUiState
-import org.pointyware.artes.viewmodels.ModelUiState
+package org.pointyware.artes.viewmodels
 
 /**
  * Represents the UI state of the Agent View for creating new agents and modifying existing ones.
+ *
+ * TODO: rename to AgentEditorUiState
  */
 data class AgentUiState(
     val agentName: String,
