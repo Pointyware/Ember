@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import org.pointyware.artes.agents.ui.NewAgentView
+import org.pointyware.artes.agents.ui.AgentEditorView
 import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
 import org.pointyware.artes.ui.AgentInfoView
 import org.pointyware.artes.ui.AgentInfoViewState
@@ -69,7 +69,7 @@ fun AgentServiceNavigation(
             )
         }
         Destination.AgentEditor -> {
-            NewAgentView(
+            AgentEditorView(
                 state = agentEditorViewModel.state.collectAsState().value,
                 modifier = modifier,
                 onSelectHost = agentEditorViewModel::onSelectHost,

@@ -14,7 +14,7 @@ import org.pointyware.artes.interactors.CreateAgentUseCase
 import org.pointyware.artes.interactors.GetServiceModelsUseCase
 import org.pointyware.artes.interactors.agents.GetAgentUseCase
 import org.pointyware.artes.interactors.hosts.GetHostServicesUseCase
-import org.pointyware.artes.viewmodels.AgentUiState
+import org.pointyware.artes.viewmodels.AgentEditorUiState
 import org.pointyware.artes.viewmodels.toUiState
 
 /**
@@ -30,8 +30,8 @@ class AgentEditorViewModel(
     private val mutableAlert = MutableSharedFlow<String>()
     val alert: SharedFlow<String> get() = mutableAlert.asSharedFlow()
 
-    private val mutableState = MutableStateFlow(AgentUiState.Empty)
-    val state: StateFlow<AgentUiState>
+    private val mutableState = MutableStateFlow(AgentEditorUiState.Empty)
+    val state: StateFlow<AgentEditorUiState>
         get() = mutableState.asStateFlow()
 
     fun loadAgent(agentId: Long) {

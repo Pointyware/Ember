@@ -6,26 +6,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import org.pointyware.artes.viewmodels.AgentUiState
+import org.pointyware.artes.viewmodels.AgentEditorUiState
 import org.pointyware.artes.viewmodels.HostUiState
 import org.pointyware.artes.viewmodels.ModelUiState
 
 @Preview
 @Composable
 fun NewAgentViewPreview(
-    @PreviewParameter(AgentUiStateProvider::class) state: AgentUiState
+    @PreviewParameter(AgentUiStateProvider::class) state: AgentEditorUiState
 ) {
-    NewAgentView(
+    AgentEditorView(
         modifier = Modifier.fillMaxSize(),
         state = state,
         onSelectHost = {},
         onSubmit = { _, _, _, _ -> }
     )
 }
-class AgentUiStateProvider: PreviewParameterProvider<AgentUiState> {
-    override val values: Sequence<AgentUiState>
+class AgentUiStateProvider: PreviewParameterProvider<AgentEditorUiState> {
+    override val values: Sequence<AgentEditorUiState>
         get() = sequenceOf(
-            AgentUiState(
+            AgentEditorUiState(
                 agentName = "",
                 hosts = listOf(),
                 selectedHost = null,
@@ -33,7 +33,7 @@ class AgentUiStateProvider: PreviewParameterProvider<AgentUiState> {
                 selectedModel = null,
                 instructions = ""
             ),
-            AgentUiState(
+            AgentEditorUiState(
                 agentName = "NurseBot",
                 hosts = listOf(
                     HostUiState(0L, "OpenAI"),
@@ -44,7 +44,7 @@ class AgentUiStateProvider: PreviewParameterProvider<AgentUiState> {
                 selectedModel = null,
                 instructions = ""
             ),
-            AgentUiState(
+            AgentEditorUiState(
                 agentName = "NurseBot",
                 hosts = listOf(
                     HostUiState(0L, "OpenAI"),
@@ -58,7 +58,7 @@ class AgentUiStateProvider: PreviewParameterProvider<AgentUiState> {
                 selectedModel = null,
                 instructions = ""
             ),
-            AgentUiState(
+            AgentEditorUiState(
                 agentName = "NurseBot",
                 hosts = listOf(
                     HostUiState(0L, "OpenAI"),
@@ -72,7 +72,7 @@ class AgentUiStateProvider: PreviewParameterProvider<AgentUiState> {
                 selectedModel = 1,
                 instructions = ""
             ),
-            AgentUiState(
+            AgentEditorUiState(
                 agentName = "NurseBot",
                 hosts = listOf(
                     HostUiState(0L, "OpenAI"),

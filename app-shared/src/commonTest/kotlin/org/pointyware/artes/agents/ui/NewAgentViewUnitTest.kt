@@ -16,7 +16,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.runComposeUiTest
-import org.pointyware.artes.viewmodels.AgentUiState
+import org.pointyware.artes.viewmodels.AgentEditorUiState
 import org.pointyware.artes.viewmodels.HostUiState
 import org.pointyware.artes.viewmodels.ModelUiState
 import kotlin.test.AfterTest
@@ -76,7 +76,7 @@ class NewAgentViewUnitTest {
         Given: An empty new agent view state,
         And: A new agent view
          */
-        val state = AgentUiState(
+        val state = AgentEditorUiState(
             agentName = "",
             hosts = emptyList(),
             selectedHost = null,
@@ -89,7 +89,7 @@ class NewAgentViewUnitTest {
         When: A new agent view is displayed with given state
          */
         setContent {
-            NewAgentView(
+            AgentEditorView(
                 state = state,
                 onSelectHost = {},
                 onSubmit = { _, _, _, _ -> }
@@ -123,7 +123,7 @@ class NewAgentViewUnitTest {
         Given: a new agent view state with a non-empty name, and two hosts
         And: no host is selected
          */
-        val state = AgentUiState(
+        val state = AgentEditorUiState(
             agentName = "Some agent",
             hosts = listOf(
                 HostUiState(0L, "host1"),
@@ -139,7 +139,7 @@ class NewAgentViewUnitTest {
         When: A new agent view is displayed with given state
          */
         setContent {
-            NewAgentView(
+            AgentEditorView(
                 state = state,
                 onSelectHost = { actualHost = it},
                 onSubmit = { _, _, _, _ ->
@@ -178,7 +178,7 @@ class NewAgentViewUnitTest {
         And: two models are available
         And: no model is selected
          */
-        val state = AgentUiState(
+        val state = AgentEditorUiState(
             agentName = "Some agent",
             hosts = listOf(
                 HostUiState(0L, "host1"),
@@ -203,7 +203,7 @@ class NewAgentViewUnitTest {
         When: A new agent view is displayed with given state
          */
         setContent {
-            NewAgentView(
+            AgentEditorView(
                 state = state,
                 onSelectHost = { throw Exception("onSelectHost should not be called") },
                 onSubmit = { name, hostIndex, modelIndex, instructions ->

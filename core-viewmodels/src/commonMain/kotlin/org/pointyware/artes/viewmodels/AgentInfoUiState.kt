@@ -2,7 +2,7 @@ package org.pointyware.artes.viewmodels
 /**
  * General information about an agent to display in a detailed view.
  *
- * Compare with [AgentUiState].
+ * Compare with [AgentEditorUiState].
  *
  * @see [org.pointyware.artes.entities.Agent]
  */
