@@ -54,7 +54,7 @@ class NewAgentViewUnitTest {
 
     private var actualName: String? = null
     private var actualHost: Int? = null
-    private var actualModel: Int? = null
+    private var actualModel: Long? = null
     private var actualInstructions: String? = null
 
     @BeforeTest
@@ -92,7 +92,7 @@ class NewAgentViewUnitTest {
             AgentEditorView(
                 state = state,
                 onSelectHost = {},
-                onSubmit = { _, _, _, _ -> }
+                onSubmit = { _, _, _ -> }
             )
         }
 
@@ -141,8 +141,8 @@ class NewAgentViewUnitTest {
         setContent {
             AgentEditorView(
                 state = state,
-                onSelectHost = { actualHost = it},
-                onSubmit = { _, _, _, _ ->
+                onSelectHost = { actualHost = it },
+                onSubmit = { _, _, _ ->
                     throw Exception("onSubmit should not be called")
                 }
             )
@@ -206,9 +206,8 @@ class NewAgentViewUnitTest {
             AgentEditorView(
                 state = state,
                 onSelectHost = { throw Exception("onSelectHost should not be called") },
-                onSubmit = { name, hostIndex, modelIndex, instructions ->
+                onSubmit = { name, modelIndex, instructions ->
                     actualName = name
-                    actualHost = hostIndex
                     actualModel = modelIndex
                     actualInstructions = instructions
                 }
