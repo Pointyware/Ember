@@ -25,7 +25,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @OptIn(ExperimentalTestApi::class)
-class NewAgentViewUnitTest {
+class AgentEditorViewUnitTest {
 
     private val SemanticsNodeInteractionsProvider.agentNameField: SemanticsNodeInteraction
         get() = onNodeWithText("Agent Name")
