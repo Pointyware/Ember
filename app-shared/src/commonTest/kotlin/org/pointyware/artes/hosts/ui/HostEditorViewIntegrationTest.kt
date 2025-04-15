@@ -29,7 +29,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertIs
 
 @OptIn(ExperimentalTestApi::class, ExperimentalCoroutinesApi::class)
-class NewHostConfigViewIntegrationTest {
+class HostEditorViewIntegrationTest {
 
     @BeforeTest
     fun setUp() {
@@ -66,7 +66,7 @@ class NewHostConfigViewIntegrationTest {
         val viewModel = koin.get<HostViewModel>()
         val repository = koin.get<ServiceRepository>()
         setContent {
-            NewHostView(
+            HostEditorView(
                 onHostCreated = viewModel::createHost
             )
         }

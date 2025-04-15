@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
  *
  */
 @Composable
-fun NewHostView(
+fun HostEditorView(
     // TODO: create state object and generalize to existing hosts
     modifier: Modifier = Modifier,
     onHostCreated: (String, String, String) -> Unit

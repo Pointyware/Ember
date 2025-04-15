@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 @Preview(name = " (Night)", showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun NewHostPreview() {
-    NewHostView(
+    HostEditorView(
         modifier = Modifier.fillMaxSize()
     ) { _, _, _ -> }
 }
