@@ -19,6 +19,7 @@ import org.koin.mp.KoinPlatform.getKoin
 import org.pointyware.artes.data.di.dataQualifier
 import org.pointyware.artes.data.hosts.ServiceRepository
 import org.pointyware.artes.hosts.viewmodels.HostViewModel
+import org.pointyware.artes.local.Persistence
 import org.pointyware.artes.services.openai.OpenAiConfig
 import org.pointyware.artes.shared.di.appQualifier
 import org.pointyware.artes.shared.di.sharedModule
@@ -45,6 +46,9 @@ class HostEditorViewIntegrationTest {
                     }
                     single<CoroutineDispatcher>(qualifier = appQualifier) {
                         testDispatcher
+                    }
+                    single<Persistence> {
+                        Persistence.InMemory
                     }
                 }
             )
