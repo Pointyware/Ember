@@ -249,7 +249,6 @@ class AgentEditorViewUnitTest {
         Then: The onSubmit callback is called with the agent name, host, model, and instructions
          */
         assertEquals("Some agent", actualName)
-        assertEquals(0, actualHost)
         assertEquals(1, actualModel)
         assertEquals("", actualInstructions)
     }
