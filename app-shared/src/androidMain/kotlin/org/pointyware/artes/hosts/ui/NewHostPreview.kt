@@ -5,12 +5,24 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import org.pointyware.artes.hosts.viewmodels.ExtraOptionsUiState
+import org.pointyware.artes.hosts.viewmodels.HostConfigUiState
+import org.pointyware.artes.viewmodels.LoadingUiState
 
 @Preview(name = "", showBackground = true)
 @Preview(name = " (Night)", showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun NewHostPreview() {
     HostEditorView(
-        modifier = Modifier.fillMaxSize()
-    ) { _, _, _ -> }
+        state = HostConfigUiState(
+            title = "Some Host",
+            extraOptions = ExtraOptionsUiState.OpenAi(
+                orgId = "0987654321",
+                apiKey = "1234567890",
+            ),
+            loading = LoadingUiState.Idle,
+        ),
+        modifier = Modifier.fillMaxSize(),
+        onCreateHost = { _, _ -> }
+    )
 }
