@@ -12,11 +12,10 @@ import org.pointyware.artes.agents.ui.AgentListScreen
 import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
 import org.pointyware.artes.ui.AgentInfoView
 import org.pointyware.artes.ui.AgentInfoViewState
-import org.pointyware.artes.ui.ServiceListItemState
 import org.pointyware.artes.ui.ServiceListView
-import org.pointyware.artes.ui.ServiceListViewState
 import org.pointyware.artes.viewmodels.AgentInfoViewModel
 import org.pointyware.artes.viewmodels.AgentListViewModel
+import org.pointyware.artes.viewmodels.HostUiState
 import org.pointyware.artes.viewmodels.ServiceListViewModel
 
 enum class Destination {
@@ -34,7 +33,6 @@ enum class Destination {
 fun AgentServiceNavigation(
     agentInfoViewModel: AgentInfoViewModel,
     agentEditorViewModel: AgentEditorViewModel,
-    serviceListViewModel: ServiceListViewModel,
     modifier: Modifier = Modifier,
 ) {
     val navController = rememberNavController()
@@ -52,10 +50,9 @@ fun AgentServiceNavigation(
                 state = AgentInfoViewState(
                     name = "Sam",
                     description = "A helpful agent",
-                    service = ServiceListItemState(
+                    service = HostUiState(
                         id = 0L,
-                        label = "Dev",
-                        service = "OpenAI"
+                        title = "Dev - OpenAI",
                     )
                 ),
                 modifier = modifier,
@@ -72,12 +69,13 @@ fun AgentServiceNavigation(
             )
         }
         Destination.ServiceList -> {
+            val koin = remember { getKoin() }
+            val serviceListViewModel = remember { koin.get<ServiceListViewModel>() }
+            val state by serviceListViewModel.state.collectAsState()
             ServiceListView(
-                state = ServiceListViewState(
-                    services = listOf()
-                ),
+                state = state,
                 modifier = modifier,
-                onRegisterService = serviceListViewModel::onRegisterService
+                onRegisterService = { TODO("Navigate to New Host") }
             )
         }
     }
