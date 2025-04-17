@@ -5,7 +5,7 @@ import org.pointyware.artes.entities.HostConfig
 /**
  * Complete information about a service to display in a detailed view.
  *
- * TODO: rename to HostInfoUiState - or other after rename
+ * TODO: rename to HostConfigUiState
  *
  * @see [org.pointyware.artes.entities.HostConfig]
  */
