@@ -12,50 +12,38 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import org.pointyware.artes.viewmodels.HostConfigListUiState
+import org.pointyware.artes.viewmodels.HostUiState
 
-
-/**
- * Redundant with [HostUiState]
- */
-data class ServiceListItemState(
-    val id: Long,
-    val label: String,
-    val service: String,
-)
 
 @Composable
 fun ServiceListItem(
-    state: ServiceListItemState,
+    state: HostUiState,
     modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
     ) {
         Text(
-            text = state.label,
+            text = state.title,
             style = MaterialTheme.typography.titleSmall
         )
         Spacer(modifier = Modifier.weight(1f))
         Text(
-            text = state.service,
+            text = state.host.localizedName(),
             style = MaterialTheme.typography.labelSmall
         )
     }
 }
-
-data class ServiceListViewState(
-    val services: List<ServiceListItemState>
-)
-
 
 /**
  *
  */
 @Composable
 fun ServiceListView(
-    state: ServiceListViewState,
+    state: HostConfigListUiState,
     modifier: Modifier = Modifier,
-    onRegisterService: ()->Unit,
+    onRegisterService: ()->Unit
 ) {
     Box(
         modifier = modifier
@@ -63,7 +51,7 @@ fun ServiceListView(
         LazyColumn(
             modifier = Modifier.fillMaxSize()
         ) {
-            items(state.services) {
+            items(state.hostConfigs) {
                 ServiceListItem(it)
             }
         }
