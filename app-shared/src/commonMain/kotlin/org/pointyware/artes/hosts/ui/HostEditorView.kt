@@ -15,19 +15,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import org.pointyware.artes.hosts.viewmodels.ExtraOptionsUiState
+import org.pointyware.artes.hosts.viewmodels.HostConfigUiState
 
 /**
  *
  */
 @Composable
 fun HostEditorView(
-    // TODO: create state object and generalize to existing hosts
+    state: HostConfigUiState,
     modifier: Modifier = Modifier,
-    onHostCreated: (String, String, String) -> Unit
+    onCreateHost: (String, ExtraOptionsUiState) -> Unit
 ) {
-    var hostName by remember { mutableStateOf("") }
-    var orgId by remember { mutableStateOf("") }
-    var apiKey by remember { mutableStateOf("") }
+    var hostName by remember(state.title) { mutableStateOf(state.title) }
     Column(
         modifier = modifier
             .padding(8.dp),
@@ -39,24 +39,32 @@ fun HostEditorView(
             label = { Text("Host Name") },
             modifier = Modifier.fillMaxWidth()
         )
-        TextField(
-            value = orgId,
-            onValueChange = { orgId = it },
-            label = { Text("Organization Id") },
-            modifier = Modifier.fillMaxWidth()
-        )
-        TextField(
-            value = apiKey,
-            onValueChange = { apiKey = it },
-            label = { Text("API Key") },
-            modifier = Modifier.fillMaxWidth()
-        )
+        var extraOptionsState by remember(state.extraOptions) { mutableStateOf(state.extraOptions) }
+        when (val capture = extraOptionsState) {
+            is ExtraOptionsUiState.OpenAi -> {
+                TextField(
+                    value = capture.orgId,
+                    onValueChange = { extraOptionsState = capture.copy(orgId = it) },
+                    label = { Text("Organization Id") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                TextField(
+                    value = capture.apiKey,
+                    onValueChange = { extraOptionsState = capture.copy(apiKey = it) },
+                    label = { Text("API Key") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+            is ExtraOptionsUiState.Gemini -> {
+                Text("Gemini options are not yet implemented")
+            }
+        }
         Spacer(
             modifier = Modifier.weight(1f)
         )
         Button(
             onClick = {
-                onHostCreated(hostName, orgId, apiKey)
+                onCreateHost(hostName, extraOptionsState)
             }
         ) {
             Text("Create Host")
