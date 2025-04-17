@@ -20,10 +20,12 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(projects.coreViewmodels)
+                implementation(projects.coreEntities)
 
                 implementation(compose.ui)
                 implementation(compose.foundation)
                 implementation(compose.material3)
+                implementation(compose.components.resources)
                 api(libs.compose.navigation)
 
                 implementation(compose.material3AdaptiveNavigationSuite)
@@ -72,4 +74,10 @@ android {
 
 dependencies {
     debugImplementation(libs.compose.uiTooling)
+}
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "org.pointyware.artes.ui"
+    generateResClass = always
 }
