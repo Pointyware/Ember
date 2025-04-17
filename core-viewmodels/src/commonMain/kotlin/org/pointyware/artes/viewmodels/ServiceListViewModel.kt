@@ -1,48 +1,55 @@
 package org.pointyware.artes.viewmodels
 
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import org.pointyware.artes.interactors.BeginServiceConfigJourney
-import org.pointyware.artes.interactors.RemoveServiceConfigUseCase
+import kotlinx.coroutines.launch
+import org.pointyware.artes.interactors.hosts.GetHostServicesUseCase
 
 /**
  * Allows a user to view existing service accounts and edit or remove them, or add new service
  * accounts.
  */
 interface ServiceListViewModel {
-    data class UiState(
-        val accounts: List<HostUiState>
-    )
 
-    val state: StateFlow<UiState>
+    val state: StateFlow<HostConfigListUiState>
 
     /**
-     * Triggered when a user selects a service to be removed.
+     * Triggered when a view is initialized.
      */
-    fun onRemoveService(id: String)
-
-    /**
-     * Triggered when a user wants to register a new service.
-     */
-    fun onRegisterService()
+    fun onInit()
 }
 
 /**
  *
  */
 class DefaultServiceListViewModel(
-    private val beginServiceConfigJourney: BeginServiceConfigJourney,
-    private val removeServiceConfigUseCase: RemoveServiceConfigUseCase
-): ServiceListViewModel {
-    private val mutableState = MutableStateFlow(ServiceListViewModel.UiState(emptyList()))
-    override val state: StateFlow<ServiceListViewModel.UiState>
+    private val getHostServicesUseCase: GetHostServicesUseCase
+): ViewModel(), ServiceListViewModel {
+    private val mutableState = MutableStateFlow(HostConfigListUiState(emptyList()))
+    override val state: StateFlow<HostConfigListUiState>
         get() = mutableState
 
-    override fun onRemoveService(id: String) {
-        println("removeService: $id")
-    }
-
-    override fun onRegisterService() {
-        println("onRegisterService")
+    override fun onInit() {
+        viewModelScope.launch {
+            mutableState.value = HostConfigListUiState(
+                loadingUiState = LoadingUiState.Loading
+            )
+            getHostServicesUseCase()
+                .onSuccess {
+                    mutableState.value = HostConfigListUiState(
+                        hostConfigs = it.map { hostConfig ->
+                            hostConfig.toUiState()
+                        },
+                        loadingUiState = LoadingUiState.Idle
+                    )
+                }
+                .onFailure {  error ->
+                    mutableState.value = HostConfigListUiState(
+                        loadingUiState = LoadingUiState.Error(error.message ?: "Unknown error")
+                    )
+                }
+        }
     }
 }
