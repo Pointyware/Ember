@@ -1,6 +1,7 @@
 package org.pointyware.artes.viewmodels
 
-import kotlinx.coroutines.CoroutineScope
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -38,8 +39,7 @@ interface AgentListViewModel {
 class DefaultAgentListViewModel(
     private val getAgentListUseCase: GetAgentListUseCase,
     private val beginAgentCreationJourney: BeginAgentCreationJourney,
-    private val viewModelScope: CoroutineScope
-): AgentListViewModel {
+): ViewModel(), AgentListViewModel {
 
     private val mutableState = MutableStateFlow(AgentListUiState())
     override val state: StateFlow<AgentListUiState>
