@@ -5,7 +5,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.rememberWindowState
-import org.pointyware.artes.shared.ui.Destination
+import org.pointyware.artes.navigation.Destination
 import org.pointyware.artes.text.completion.CompletionView
 import org.pointyware.artes.text.completion.CompletionViewModel
 import org.pointyware.artes.text.completion.CompletionViewState

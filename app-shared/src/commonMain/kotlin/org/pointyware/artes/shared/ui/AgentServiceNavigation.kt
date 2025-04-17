@@ -10,6 +10,8 @@ import org.koin.mp.KoinPlatform.getKoin
 import org.pointyware.artes.agents.ui.AgentEditorView
 import org.pointyware.artes.agents.ui.AgentListScreen
 import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
+import org.pointyware.artes.entities.OpenAi
+import org.pointyware.artes.navigation.Destination
 import org.pointyware.artes.ui.AgentInfoView
 import org.pointyware.artes.ui.AgentInfoViewState
 import org.pointyware.artes.ui.ServiceListView
@@ -18,21 +20,12 @@ import org.pointyware.artes.viewmodels.AgentListViewModel
 import org.pointyware.artes.viewmodels.HostUiState
 import org.pointyware.artes.viewmodels.ServiceListViewModel
 
-enum class Destination {
-    AgentList,
-    AgentInfo,
-    AgentEditor,
-    ServiceList
-}
-
 
 /**
  *
  */
 @Composable
 fun AgentServiceNavigation(
-    agentInfoViewModel: AgentInfoViewModel,
-    agentEditorViewModel: AgentEditorViewModel,
     modifier: Modifier = Modifier,
 ) {
     val navController = rememberNavController()
@@ -46,6 +39,7 @@ fun AgentServiceNavigation(
             )
         }
         Destination.AgentInfo -> {
+            val agentInfoViewModel: AgentInfoViewModel = remember { getKoin().get() }
             AgentInfoView(
                 state = AgentInfoViewState(
                     name = "Sam",
@@ -53,6 +47,7 @@ fun AgentServiceNavigation(
                     service = HostUiState(
                         id = 0L,
                         title = "Dev - OpenAI",
+                        host = OpenAi
                     )
                 ),
                 modifier = modifier,
@@ -61,6 +56,7 @@ fun AgentServiceNavigation(
             )
         }
         Destination.AgentEditor -> {
+            val agentEditorViewModel: AgentEditorViewModel = remember { getKoin().get() }
             AgentEditorView(
                 state = agentEditorViewModel.state.collectAsState().value,
                 modifier = modifier,
