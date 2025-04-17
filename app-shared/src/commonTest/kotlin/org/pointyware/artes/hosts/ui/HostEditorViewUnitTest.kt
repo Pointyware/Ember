@@ -5,6 +5,9 @@ import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.runComposeUiTest
+import org.pointyware.artes.hosts.viewmodels.ExtraOptionsUiState
+import org.pointyware.artes.hosts.viewmodels.HostConfigUiState
+import org.pointyware.artes.viewmodels.LoadingUiState
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -35,11 +38,20 @@ class HostEditorViewUnitTest {
         Given: A NewHostView
          */
         setContent {
-            HostEditorView(
-                onHostCreated = { hostName, orgId, apiKey ->
-                    enteredHostName = hostName
-                    enteredOrgId = orgId
-                    enteredApiKey = apiKey
+            HostEditorView( // TODO: rescript tests after changes in behavior
+                state = HostConfigUiState(
+                    title = "",
+                    extraOptions = ExtraOptionsUiState.OpenAi(
+                        orgId = "",
+                        apiKey = "",
+                    ),
+                    loading = LoadingUiState.Idle
+                ),
+                onCreateHost = { title, extras ->
+                    enteredHostName = title
+                    extras as ExtraOptionsUiState.OpenAi
+                    enteredOrgId = extras.orgId
+                    enteredApiKey = extras.apiKey
                 }
             )
         }
