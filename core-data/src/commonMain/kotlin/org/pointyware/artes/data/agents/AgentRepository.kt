@@ -13,6 +13,7 @@ interface AgentRepository {
     suspend fun getAgent(id: Long): Agent
     suspend fun updateAgent(id: Long, name: String, model: Model, instructions: String)
     suspend fun deleteAgent(id: Long)
+    suspend fun getAgentList(): List<Agent>
 }
 
 class AgentRepositoryImpl(
@@ -40,6 +41,19 @@ class AgentRepositoryImpl(
                 model = serviceRepository.getModel(it.model),
                 skills = emptySet()
             )
+        }
+    }
+
+    override suspend fun getAgentList(): List<Agent> {
+        return db.agentsQueries.getAllAgents().executeAsList().let {
+            it.map { agent ->
+                Agent(
+                    id = agent.id,
+                    name = agent.name,
+                    model = serviceRepository.getModel(agent.model),
+                    skills = emptySet()
+                )
+            }
         }
     }
 
