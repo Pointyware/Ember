@@ -21,14 +21,14 @@ fun ArtesApp() {
         Row {
             Button(
                 onClick = {
-                    navController.navigate(Destination.AgentList)
+                    navController.navigate(Destination.AgentList.name)
                 }
             ) {
                 Text("Agents")
             }
             Button(
                 onClick = {
-                    navController.navigate(Destination.ServiceList)
+                    navController.navigate(Destination.ServiceList.name)
                 }
             ) {
                 Text("Services")

@@ -33,7 +33,7 @@ fun AgentServiceNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Destination.AgentList,
+        startDestination = Destination.AgentList.name,
         modifier = modifier
     ) {
         composable(Destination.AgentList.name) {
