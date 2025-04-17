@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.rememberWindowState
 import org.pointyware.artes.data.SettingsRepository
-import org.pointyware.artes.shared.navigation.Destination
+import org.pointyware.artes.navigation.Destination
 import org.pointyware.artes.shared.settings.SettingsWindow
 import org.pointyware.artes.shared.viewmodels.SettingsViewModel
 
