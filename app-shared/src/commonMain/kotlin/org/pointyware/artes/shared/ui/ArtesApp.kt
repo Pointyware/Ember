@@ -3,8 +3,8 @@ package org.pointyware.artes.shared.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import org.koin.mp.KoinPlatform.getKoin
-import org.pointyware.artes.agents.ui.AgentEditorScreen
-import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
+import org.pointyware.artes.agents.ui.AgentListScreen
+import org.pointyware.artes.viewmodels.AgentListViewModel
 
 /**
  * The root for Compose UI.
@@ -13,7 +13,7 @@ import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
 fun ArtesApp() {
 
     val koin = remember { getKoin() }
-    AgentEditorScreen(
-        viewModel = remember { koin.get<AgentEditorViewModel>() },
+    AgentListScreen(
+        viewModel = remember { koin.get<AgentListViewModel>() },
     )
 }
