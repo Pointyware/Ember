@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Setup
-        uses: Pointyware/.github/.github/actions/checkout-java-gradle@b70bbae19637171d6cf9311f06a59f1c15e2598b
+        uses: Pointyware/.github/.github/actions/checkout-java-gradle@dec30a7f0acba9fbd9b935a1b3dfb4a4f11ff353
       - name: Run Debug Unit Tests
         run: |
           ./gradlew :core-data:generateSqlDelightInterface --no-build-cache && \
@@ -28,7 +28,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Setup
-        uses: Pointyware/.github/.github/actions/checkout-java-gradle@b70bbae19637171d6cf9311f06a59f1c15e2598b
+        uses: Pointyware/.github/.github/actions/checkout-java-gradle@dec30a7f0acba9fbd9b935a1b3dfb4a4f11ff353
       - name: Build Desktop App
         run: |
           ./gradlew :core-data:generateSqlDelightInterface --no-build-cache && \
