@@ -13,17 +13,19 @@ import org.pointyware.artes.viewmodels.AgentListViewModel
  */
 @Composable
 fun AgentListScreen(
-    viewModel: AgentListViewModel
+    viewModel: AgentListViewModel,
+    onShowAgent: (Long)->Unit,
+    onNewAgent: ()->Unit,
 ) {
     val viewState by viewModel.state.collectAsState()
     AgentListView(
         state = viewState.mapToViewState(),
         modifier = Modifier.fillMaxSize(),
         onSelectAgent = {
-//                    navController.navigateTo(Destination.AgentInfo)
+            onShowAgent(it)
         },
         onCreateAgent = {
-//                    navController.navigateTo(Destination.AgentEditor)
+            onNewAgent()
         }
     )
 }

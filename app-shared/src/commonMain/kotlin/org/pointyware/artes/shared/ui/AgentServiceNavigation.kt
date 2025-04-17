@@ -41,6 +41,12 @@ fun AgentServiceNavigation(
             val agentListViewModel: AgentListViewModel = remember { koin.get() }
             AgentListScreen(
                 viewModel = agentListViewModel,
+                onNewAgent = {
+                    navController.navigate(Destination.AgentEditor.name)
+                },
+                onShowAgent = { agent ->
+                    navController.navigate(Destination.AgentInfo.name) // TODO: pass agent id with type-safe args
+                },
             )
         }
         composable(Destination.AgentInfo.name) {
