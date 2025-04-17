@@ -6,6 +6,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import org.pointyware.artes.entities.Anthropic
+import org.pointyware.artes.entities.OpenAi
 import org.pointyware.artes.viewmodels.AgentEditorUiState
 import org.pointyware.artes.viewmodels.HostUiState
 import org.pointyware.artes.viewmodels.ModelUiState
@@ -36,8 +38,8 @@ class AgentUiStateProvider: PreviewParameterProvider<AgentEditorUiState> {
             AgentEditorUiState(
                 agentName = "NurseBot",
                 hosts = listOf(
-                    HostUiState(0L, "OpenAI"),
-                    HostUiState(1L, "Anthropic")
+                    HostUiState(0L, "OpenAI", OpenAi),
+                    HostUiState(1L, "Anthropic", Anthropic)
                 ),
                 selectedHost = null,
                 hostModels = listOf(),
@@ -47,8 +49,8 @@ class AgentUiStateProvider: PreviewParameterProvider<AgentEditorUiState> {
             AgentEditorUiState(
                 agentName = "NurseBot",
                 hosts = listOf(
-                    HostUiState(0L, "OpenAI"),
-                    HostUiState(1L, "Anthropic")
+                    HostUiState(0L, "OpenAI", OpenAi),
+                    HostUiState(1L, "Anthropic", Anthropic)
                 ),
                 selectedHost = 0,
                 hostModels = listOf(
@@ -61,8 +63,8 @@ class AgentUiStateProvider: PreviewParameterProvider<AgentEditorUiState> {
             AgentEditorUiState(
                 agentName = "NurseBot",
                 hosts = listOf(
-                    HostUiState(0L, "OpenAI"),
-                    HostUiState(1L, "Anthropic")
+                    HostUiState(0L, "OpenAI", OpenAi),
+                    HostUiState(1L, "Anthropic", Anthropic)
                 ),
                 selectedHost = 0,
                 hostModels = listOf(
@@ -75,8 +77,8 @@ class AgentUiStateProvider: PreviewParameterProvider<AgentEditorUiState> {
             AgentEditorUiState(
                 agentName = "NurseBot",
                 hosts = listOf(
-                    HostUiState(0L, "OpenAI"),
-                    HostUiState(1L, "Anthropic")
+                    HostUiState(0L, "OpenAI", OpenAi),
+                    HostUiState(1L, "Anthropic", Anthropic)
                 ),
                 selectedHost = 0,
                 hostModels = listOf(

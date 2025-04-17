@@ -1,4 +1,7 @@
 package org.pointyware.artes.viewmodels
+
+import org.pointyware.artes.entities.OpenAi
+
 /**
  * General information about an agent to display in a detailed view.
  *
@@ -18,7 +21,8 @@ data class AgentInfoUiState(
             name = "",
             host = HostUiState(
                 id = 0L,
-                title = ""
+                title = "",
+                host = OpenAi
             ),
             model = ModelUiState(
                 id = 0L,
