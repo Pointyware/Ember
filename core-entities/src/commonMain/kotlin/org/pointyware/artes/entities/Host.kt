@@ -7,6 +7,12 @@ package org.pointyware.artes.entities
  */
 sealed interface Host
 
+/**
+ * This can happen when a host/service is removed but an agent previously using that host is
+ * retained.
+ */
+data object None: Host
+
 interface RemoteHost: Host
 data object OpenAi: RemoteHost
 data object Google: RemoteHost
