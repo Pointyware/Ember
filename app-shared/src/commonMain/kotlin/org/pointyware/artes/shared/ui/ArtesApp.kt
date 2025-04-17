@@ -1,10 +1,8 @@
 package org.pointyware.artes.shared.ui
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import org.koin.mp.KoinPlatform.getKoin
-import org.pointyware.artes.agents.ui.AgentListScreen
-import org.pointyware.artes.viewmodels.AgentListViewModel
+import androidx.compose.ui.Modifier
 
 /**
  * The root for Compose UI.
@@ -12,8 +10,7 @@ import org.pointyware.artes.viewmodels.AgentListViewModel
 @Composable
 fun ArtesApp() {
 
-    val koin = remember { getKoin() }
-    AgentListScreen(
-        viewModel = remember { koin.get<AgentListViewModel>() },
+    AgentServiceNavigation(
+        modifier = Modifier.fillMaxSize()
     )
 }
