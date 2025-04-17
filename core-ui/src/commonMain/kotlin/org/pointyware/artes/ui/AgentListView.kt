@@ -13,7 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import org.pointyware.artes.viewmodels.AgentListViewModel
+import org.pointyware.artes.viewmodels.AgentListUiState
 
 /**
  */
@@ -56,7 +56,7 @@ data class AgentListViewState(
     val agents: List<AgentListItemState>
 )
 
-fun AgentListViewModel.UiState.mapToViewState(): AgentListViewState {
+fun AgentListUiState.mapToViewState(): AgentListViewState {
     return AgentListViewState(
         agents = this.agents.map {
             AgentListItemState(
