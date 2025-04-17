@@ -14,12 +14,12 @@ import org.pointyware.artes.interactors.GetAgentListUseCase
  */
 interface AgentListViewModel {
 
-    val state: StateFlow<UiState>
+    val state: StateFlow<AgentListUiState>
 
-    data class UiState(
-        val agents: List<AgentInfoUiState> = emptyList(),
-        val selectedAgent: Int? = null
-    )
+    /**
+     * Triggered when the user taps on an agent in the list.
+     */
+    fun onInit()
 
     /**
      * Triggered when a user taps on an agent in the list.
@@ -41,29 +41,40 @@ class DefaultAgentListViewModel(
     private val viewModelScope: CoroutineScope
 ): AgentListViewModel {
 
-    private val mutableState = MutableStateFlow(AgentListViewModel.UiState())
-    override val state: StateFlow<AgentListViewModel.UiState>
+    private val mutableState = MutableStateFlow(AgentListUiState())
+    override val state: StateFlow<AgentListUiState>
         get() = mutableState
 
-    init {
+    override fun onInit() {
         viewModelScope.launch {
-            getAgentListUseCase.invoke().collect { agentList ->
-                val agentInfoList = agentList.map(Agent::toUiState)
-                mutableState.update { uiState ->
-                    uiState.copy(
-                        agents = agentInfoList,
-                        selectedAgent = uiState.selectedAgent?.takeIf { it < agentInfoList.size }
-                    )
-                }
+            mutableState.update {
+                it.copy(
+                    loading = LoadingUiState.Loading,
+                )
             }
+            getAgentListUseCase.invoke()
+                .onSuccess { agentList ->
+                    val agentInfoList = agentList.map(Agent::toUiState)
+                    mutableState.update {
+                        it.copy(
+                            agents = agentInfoList,
+                            loading = LoadingUiState.Idle,
+                        )
+                    }
+                }
+                .onFailure {  error ->
+                    mutableState.update {
+                        it.copy(
+                            loading = LoadingUiState.Error(error.message ?: "Unknown error"),
+                        )
+                    }
+                }
         }
     }
 
     override fun onTapAgent(id: Long) {
         viewModelScope.launch {
-            mutableState.update { uiState ->
-                uiState.copy(selectedAgent = uiState.agents.indexOfFirst { it.id == id })
-            }
+            TODO("Navigate to agent details screen")
         }
     }
 
