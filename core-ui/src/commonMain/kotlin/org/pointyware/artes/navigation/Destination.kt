@@ -10,6 +10,7 @@ enum class Destination {
     AgentInfo,
     AgentEditor,
     ServiceList,
+    ServiceEditor,
 
     Workbench,
     Lab,

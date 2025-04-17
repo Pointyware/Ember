@@ -13,6 +13,8 @@ import org.pointyware.artes.agents.ui.AgentEditorView
 import org.pointyware.artes.agents.ui.AgentListScreen
 import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
 import org.pointyware.artes.entities.OpenAi
+import org.pointyware.artes.hosts.ui.HostEditorView
+import org.pointyware.artes.hosts.viewmodels.HostViewModel
 import org.pointyware.artes.navigation.Destination
 import org.pointyware.artes.ui.AgentInfoView
 import org.pointyware.artes.ui.AgentInfoViewState
@@ -82,7 +84,19 @@ fun AgentServiceNavigation(
             ServiceListView(
                 state = state,
                 modifier = modifier,
-                onRegisterService = { TODO("Navigate to New Host") }
+                onRegisterService = {
+                    navController.navigate(Destination.ServiceEditor.name)
+                }
+            )
+        }
+        composable(Destination.ServiceEditor.name) {
+            val koin = remember { getKoin() }
+            val hostViewModel = remember { koin.get<HostViewModel>() }
+            val state by hostViewModel.state.collectAsState()
+            HostEditorView(
+                state = state,
+                modifier = modifier,
+                onCreateHost = hostViewModel::createHost
             )
         }
     }
