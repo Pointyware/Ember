@@ -16,6 +16,7 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.runComposeUiTest
+import org.pointyware.artes.entities.OpenAi
 import org.pointyware.artes.viewmodels.AgentEditorUiState
 import org.pointyware.artes.viewmodels.HostUiState
 import org.pointyware.artes.viewmodels.ModelUiState
@@ -126,8 +127,8 @@ class AgentEditorViewUnitTest {
         val state = AgentEditorUiState(
             agentName = "Some agent",
             hosts = listOf(
-                HostUiState(0L, "host1"),
-                HostUiState(1L, "host2"),
+                HostUiState(0L, "host1", OpenAi),
+                HostUiState(1L, "host2", OpenAi),
             ),
             selectedHost = null,
             hostModels = emptyList(),
@@ -181,8 +182,8 @@ class AgentEditorViewUnitTest {
         val state = AgentEditorUiState(
             agentName = "Some agent",
             hosts = listOf(
-                HostUiState(0L, "host1"),
-                HostUiState(1L, "host2"),
+                HostUiState(0L, "host1", OpenAi),
+                HostUiState(1L, "host2", OpenAi),
             ),
             selectedHost = 0,
             hostModels = listOf(
