@@ -20,6 +20,7 @@ import org.pointyware.artes.services.ServiceRepositoryImpl
 import org.pointyware.artes.services.openai.network.di.openAiModule
 import org.pointyware.artes.services.openai.network.openAiHttpClient
 import org.pointyware.artes.text.completion.CompletionViewModel
+import org.pointyware.artes.viewmodels.di.viewModelModule
 
 /**
  */
@@ -34,9 +35,9 @@ fun sharedModule() = module {
 
         dataModule(),
         sharedDataModule(),
-        interactorsModule(),
-
+        viewModelModule(),
         sharedViewModelModule(),
+        interactorsModule(),
         sharedInteractorsModule(),
 
         openAiModule()
