@@ -1,5 +1,6 @@
 package org.pointyware.artes.viewmodels
 
+import org.pointyware.artes.entities.Host
 import org.pointyware.artes.entities.HostConfig
 
 /**
@@ -11,7 +12,8 @@ import org.pointyware.artes.entities.HostConfig
  */
 data class HostUiState(
     val id: Long,
-    val title: String
+    val title: String,
+    val host: Host
 )
 
 /**
@@ -21,5 +23,6 @@ fun HostConfig.toUiState(): HostUiState {
     return HostUiState(
         id = this.id,
         title = this.title,
+        host = this.host
     )
 }
