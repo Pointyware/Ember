@@ -54,4 +54,8 @@ class ServiceRepositoryImpl(
             }
         }
     }
+
+    override suspend fun removeService(id: Long) {
+        TODO("Not yet implemented")
+    }
 }

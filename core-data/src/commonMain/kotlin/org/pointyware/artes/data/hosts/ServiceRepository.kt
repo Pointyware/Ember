@@ -17,4 +17,5 @@ interface ServiceRepository {
     suspend fun getService(id: Long): HostConfig
     suspend fun getModel(id: Long): Model
     suspend fun getModels(hostId: Long): List<Model>
+    suspend fun removeService(id: Long)
 }
