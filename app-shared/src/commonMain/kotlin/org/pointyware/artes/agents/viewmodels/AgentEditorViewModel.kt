@@ -19,6 +19,8 @@ import org.pointyware.artes.viewmodels.toUiState
 
 /**
  * Manages the UI state and responds to events for an Agent View.
+ *
+ * Must call [loadHosts] to start loading the host list.
  */
 class AgentEditorViewModel(
     private val getAvailableHostsUseCase: GetHostServicesUseCase,
