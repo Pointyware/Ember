@@ -1,14 +1,14 @@
 package org.pointyware.artes.shared.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import org.koin.mp.KoinPlatform.getKoin
+import org.pointyware.artes.agents.ui.AgentEditorScreen
 import org.pointyware.artes.agents.ui.AgentEditorView
 import org.pointyware.artes.agents.ui.AgentListScreen
 import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
@@ -67,10 +67,16 @@ fun AgentServiceNavigation(
                 onSelectHost = agentEditorViewModel::onSelectHost,
                 onSubmit = agentEditorViewModel::onSave
             )
+            AgentEditorScreen(
+                viewModel = agentEditorViewModel
+            )
         }
         composable(Destination.ServiceList.name) {
-            val serviceListViewModel = rememberViewModel<DefaultServiceListViewModel>()
-            val state by serviceListViewModel.state.collectAsState()
+            val viewModel = rememberViewModel<DefaultServiceListViewModel>()
+            val state by viewModel.state.collectAsState()
+            LaunchedEffect(Unit) {
+                viewModel.onInit()
+            }
             ServiceListView(
                 state = state,
                 modifier = modifier,
