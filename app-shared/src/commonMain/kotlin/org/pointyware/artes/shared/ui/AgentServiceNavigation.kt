@@ -64,6 +64,23 @@ fun AgentServiceNavigation(
                 },
             )
         }
+        composable<Destination.ServiceList> {
+            Surface {
+                val viewModel = rememberViewModel<DefaultServiceListViewModel>()
+                val state by viewModel.state.collectAsState()
+                LaunchedEffect(Unit) {
+                    viewModel.onInit()
+                }
+                HostConfigListView(
+                    state = state,
+                    modifier = modifier,
+                    onRegisterService = {
+                        navController.navigate(Destination.ServiceEditor(null))
+                    }
+                )
+            }
+        }
+
         composable<Destination.AgentInfo> {
             val agentInfoViewModel = rememberViewModel<DefaultAgentInfoViewModel>()
             val state by agentInfoViewModel.state.collectAsState()
@@ -83,22 +100,6 @@ fun AgentServiceNavigation(
                     navController.popBackStack()
                 }
             )
-        }
-        composable<Destination.ServiceList> {
-            Surface {
-                val viewModel = rememberViewModel<DefaultServiceListViewModel>()
-                val state by viewModel.state.collectAsState()
-                LaunchedEffect(Unit) {
-                    viewModel.onInit()
-                }
-                HostConfigListView(
-                    state = state,
-                    modifier = modifier,
-                    onRegisterService = {
-                        navController.navigate(Destination.ServiceEditor(null))
-                    }
-                )
-            }
         }
         composable<Destination.ServiceEditor> {
             HostEditorScreen(
