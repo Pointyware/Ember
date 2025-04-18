@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.composePlugin)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlinxSerialization)
 }
 
 kotlin {
@@ -32,6 +33,8 @@ kotlin {
 
                 implementation(libs.koin.core)
                 implementation(libs.koin.coroutines)
+
+                implementation(libs.kotlinx.serialization.json)
             }
         }
 
