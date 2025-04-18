@@ -19,6 +19,7 @@ import kotlinx.serialization.json.Json
  *
  */
 actual fun openAiHttpClient(): HttpClient = HttpClient(OkHttp) {
+    followRedirects = true
     expectSuccess = true
     install(Resources)
     install(ContentNegotiation) {
