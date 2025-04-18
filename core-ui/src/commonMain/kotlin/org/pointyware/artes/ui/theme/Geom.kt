@@ -6,10 +6,9 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-val LocalGeometry =
-    staticCompositionLocalOf<Geometry> {
-        error("No geometry provided")
-    }
+val LocalGeometry = staticCompositionLocalOf<Geometry> {
+    error("No geometry provided")
+}
 
 val DefaultLocalGeometry = Geometry(
     4.dp, 8.dp, 16.dp

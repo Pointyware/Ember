@@ -7,6 +7,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 
 val LightColors = lightColorScheme(
@@ -87,13 +88,16 @@ fun ArtesTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    MaterialTheme.shapes
-    MaterialTheme(
-        colorScheme = colorScheme(darkTheme = isDark, dynamicTheme = dynamicColor),
-        typography = artesTypography,
-        shapes = artesShapes,
-        content = content
-    )
+    CompositionLocalProvider(
+        LocalGeometry provides DefaultLocalGeometry
+    ) {
+        MaterialTheme(
+            colorScheme = colorScheme(darkTheme = isDark, dynamicTheme = dynamicColor),
+            typography = artesTypography,
+            shapes = artesShapes,
+            content = content
+        )
+    }
 }
 
 object ArtesTheme {
