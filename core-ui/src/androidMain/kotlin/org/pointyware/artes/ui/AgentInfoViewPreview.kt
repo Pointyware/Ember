@@ -15,7 +15,7 @@ fun AgentInfoViewPreview() {
         state = AgentInfoViewState(
             name = "Some Agent",
             description = "An agent",
-            service = HostConfigUiState(
+            hostConfig = HostConfigUiState(
                 id = 0L,
                 title = "OpenAI Dev",
                 host = OpenAi

@@ -18,7 +18,7 @@ import org.pointyware.artes.viewmodels.HostConfigUiState
 data class AgentInfoViewState(
     val name: String,
     val description: String,
-    val service: HostConfigUiState
+    val hostConfig: HostConfigUiState
 )
 
 /**
@@ -45,7 +45,7 @@ fun AgentInfoView(
 
         HostConfigListItem(
             modifier = Modifier.border(1.dp, Color.Black),
-            state = state.service,
+            state = state.hostConfig,
         )
 
         Row {
