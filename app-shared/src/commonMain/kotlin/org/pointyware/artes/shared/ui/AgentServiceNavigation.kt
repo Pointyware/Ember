@@ -12,13 +12,14 @@ import org.koin.mp.KoinPlatform.getKoin
 import org.pointyware.artes.agents.ui.AgentEditorView
 import org.pointyware.artes.agents.ui.AgentListScreen
 import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
+import org.pointyware.artes.entities.Agent
 import org.pointyware.artes.entities.OpenAi
-import org.pointyware.artes.hosts.ui.HostEditorView
-import org.pointyware.artes.hosts.viewmodels.HostViewModel
+import org.pointyware.artes.hosts.ui.HostEditorScreen
 import org.pointyware.artes.navigation.Destination
 import org.pointyware.artes.ui.AgentInfoView
 import org.pointyware.artes.ui.AgentInfoViewState
 import org.pointyware.artes.ui.ServiceListView
+import org.pointyware.artes.ui.rememberViewModel
 import org.pointyware.artes.viewmodels.AgentInfoViewModel
 import org.pointyware.artes.viewmodels.AgentListViewModel
 import org.pointyware.artes.viewmodels.HostUiState
@@ -39,10 +40,9 @@ fun AgentServiceNavigation(
         modifier = modifier
     ) {
         composable(Destination.AgentList.name) {
-            val koin = remember { getKoin() }
-            val agentListViewModel: AgentListViewModel = remember { koin.get() }
+            val viewModel = rememberViewModel<AgentListViewModel>()
             AgentListScreen(
-                viewModel = agentListViewModel,
+                viewModel = viewModel,
                 onNewAgent = {
                     navController.navigate(Destination.AgentEditor.name)
                 },
@@ -69,7 +69,7 @@ fun AgentServiceNavigation(
             )
         }
         composable(Destination.AgentEditor.name) {
-            val agentEditorViewModel: AgentEditorViewModel = remember { getKoin().get() }
+            val agentEditorViewModel = rememberViewModel<AgentEditorViewModel>()
             AgentEditorView(
                 state = agentEditorViewModel.state.collectAsState().value,
                 modifier = modifier,
