@@ -1,5 +1,6 @@
 package org.pointyware.artes.viewmodels
 
+import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -35,7 +36,7 @@ class DefaultAgentInfoViewModel(
     private val beginEditingAgentUseCase: BeginEditingAgentUseCase,
     private val removeAgentUseCase: RemoveAgentUseCase,
     private val viewModelScope: CoroutineScope
-): AgentInfoViewModel {
+): ViewModel(), AgentInfoViewModel {
     private val mutableState = MutableStateFlow(AgentInfoViewModel.UiState(AgentInfoUiState.Empty))
     override val state: StateFlow<AgentInfoViewModel.UiState>
         get() = mutableState

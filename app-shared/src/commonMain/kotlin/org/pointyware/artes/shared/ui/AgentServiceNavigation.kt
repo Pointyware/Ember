@@ -12,17 +12,14 @@ import org.koin.mp.KoinPlatform.getKoin
 import org.pointyware.artes.agents.ui.AgentEditorView
 import org.pointyware.artes.agents.ui.AgentListScreen
 import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
-import org.pointyware.artes.entities.OpenAi
 import org.pointyware.artes.hosts.ui.HostEditorScreen
 import org.pointyware.artes.navigation.Destination
 import org.pointyware.artes.ui.AgentInfoView
-import org.pointyware.artes.ui.AgentInfoViewState
 import org.pointyware.artes.ui.ServiceListView
 import org.pointyware.artes.ui.rememberViewModel
-import org.pointyware.artes.viewmodels.AgentInfoViewModel
+import org.pointyware.artes.viewmodels.DefaultAgentInfoViewModel
 import org.pointyware.artes.viewmodels.DefaultAgentListViewModel
-import org.pointyware.artes.viewmodels.HostUiState
-import org.pointyware.artes.viewmodels.ServiceListViewModel
+import org.pointyware.artes.viewmodels.DefaultServiceListViewModel
 
 
 /**
@@ -51,17 +48,12 @@ fun AgentServiceNavigation(
             )
         }
         composable(Destination.AgentInfo.name) {
-            val agentInfoViewModel: AgentInfoViewModel = remember { getKoin().get() }
+            val agentInfoViewModel = rememberViewModel<DefaultAgentInfoViewModel>()
+            val state by agentInfoViewModel.state.collectAsState()
             AgentInfoView(
-                state = AgentInfoViewState(
-                    name = "Sam",
-                    description = "A helpful agent",
-                    service = HostUiState(
-                        id = 0L,
-                        title = "Dev - OpenAI",
-                        host = OpenAi
-                    )
-                ),
+                state = state.let {
+                    TODO("Replace ViewModel.UiState with UiState")
+                },
                 modifier = modifier,
                 onDelete = agentInfoViewModel::onDelete,
                 onEdit = agentInfoViewModel::onEdit
@@ -77,8 +69,7 @@ fun AgentServiceNavigation(
             )
         }
         composable(Destination.ServiceList.name) {
-            val koin = remember { getKoin() }
-            val serviceListViewModel = remember { koin.get<ServiceListViewModel>() }
+            val serviceListViewModel = rememberViewModel<DefaultServiceListViewModel>()
             val state by serviceListViewModel.state.collectAsState()
             ServiceListView(
                 state = state,
