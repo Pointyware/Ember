@@ -37,7 +37,8 @@ fun HostEditorView(
             value = hostName,
             onValueChange = { hostName = it },
             label = { Text("Host Name") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true
         )
         var extraOptionsState by remember(state.extraOptions) { mutableStateOf(state.extraOptions) }
         when (val capture = extraOptionsState) {
@@ -46,13 +47,15 @@ fun HostEditorView(
                     value = capture.orgId,
                     onValueChange = { extraOptionsState = capture.copy(orgId = it) },
                     label = { Text("Organization Id") },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true
                 )
                 TextField(
                     value = capture.apiKey,
                     onValueChange = { extraOptionsState = capture.copy(apiKey = it) },
                     label = { Text("API Key") },
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true
                 )
             }
             is ExtraOptionsUiState.Gemini -> {

@@ -1,5 +1,6 @@
 package org.pointyware.artes.agents.ui
 
+import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -34,7 +35,8 @@ fun AgentEditorView(
             value = agentName,
             onValueChange = { agentName = it },
             label = { Text("Agent Name") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true
         )
 
         OptionSelector(
@@ -53,13 +55,15 @@ fun AgentEditorView(
             value = instructions,
             onValueChange = { instructions = it },
             label = { Text("System Instructions") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true
         )
 
         Spacer(modifier = Modifier.weight(1f))
         Button(
             enabled = agentName.isNotBlank() && state.selectedHost != null && selectedModel != null,
-            onClick = { onSubmit(agentName, selectedModel?.let { state.hostModels[it].id } ?: return@Button, instructions) }
+            onClick = { onSubmit(agentName, selectedModel?.let { state.hostModels[it].id } ?: return@Button, instructions) },
+            modifier = Modifier.focusable()
         ) {
             Text("Submit")
         }
