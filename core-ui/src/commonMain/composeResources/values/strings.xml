@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
+    <string name="title_app">Artes</string>
+
     <string name="title_host_open_ai">OpenAI</string>
     <string name="title_host_google">Google</string>
     <string name="title_host_self_hosted">Self Hosted %s</string>
     <string name="title_host_unsupported">Not Yet Unsupported</string>
     <string name="title_host_none">None</string>
+
+    <string name="acc_desc_agents">Agents Screen</string>
+    <string name="acc_desc_services">Services Screen</string>
 </resources>
