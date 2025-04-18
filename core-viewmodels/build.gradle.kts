@@ -3,8 +3,6 @@ import com.android.build.gradle.internal.ide.kmp.KotlinAndroidSourceSetMarker.Co
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.composePlugin)
-    alias(libs.plugins.composeCompiler)
 }
 
 kotlin {
@@ -27,14 +25,12 @@ kotlin {
                 implementation(libs.koin.core)
                 implementation(libs.koin.coroutines)
 
-                implementation(compose.runtime)
                 api(libs.compose.viewModels)
             }
         }
 
         val androidMain by getting {
             dependencies {
-                implementation(libs.compose.uiToolingPreview)
             }
         }
     }
@@ -47,12 +43,7 @@ android {
     defaultConfig {
         minSdk = 24
     }
-
-    buildFeatures {
-        compose = true
-    }
 }
 
 dependencies {
-    debugImplementation(libs.compose.uiTooling)
 }
