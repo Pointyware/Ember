@@ -59,3 +59,51 @@ class ServiceRepositoryImpl(
         TODO("Not yet implemented")
     }
 }
+
+data class TestServiceRepository(
+    val hostConfigs: MutableList<HostConfig> = mutableListOf(),
+    val hostModels: MutableMap<Long, List<Model>> = mutableMapOf(),
+): ServiceRepository {
+    override suspend fun createOpenAiHost(title: String, orgId: String, apiKey: String) {
+        hostConfigs.add(
+            OpenAiConfig(
+                id = hostConfigs.size.toLong(),
+                title = title,
+                orgId = orgId,
+                apiKey = apiKey,
+            )
+        )
+    }
+
+    override suspend fun createGeminiHost(title: String, apiKey: String) {
+        hostConfigs.add(
+            GeminiConfig(
+                id = hostConfigs.size.toLong(),
+                title = title,
+                apiKey = apiKey,
+            )
+        )
+    }
+
+    override suspend fun getHosts(): List<HostConfig> {
+        return hostConfigs
+    }
+
+    override suspend fun getService(id: Long): HostConfig {
+        return hostConfigs.first { it.id == id }
+    }
+
+    override suspend fun getModel(id: Long): Model {
+        return hostModels.values.flatten().first { it.id == id }
+    }
+
+    override suspend fun getModels(hostId: Long): List<Model> {
+        delay(2000)
+        return hostModels.get(hostId)
+            ?: throw IllegalArgumentException("No models found for host with id $hostId")
+    }
+
+    override suspend fun removeService(id: Long) {
+        TODO("Not yet implemented")
+    }
+}
