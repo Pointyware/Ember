@@ -25,7 +25,7 @@ fun ArtesApp() {
     val selectedItem = backStackEntry?.destination
     NavigationSuiteScaffold(
         navigationSuiteItems = {
-            TopLevelDestination.All.forEach {
+            TopLevelDestination.entries.forEach {
                 item(
                     selected = selectedItem == it.destination,
                     onClick = {

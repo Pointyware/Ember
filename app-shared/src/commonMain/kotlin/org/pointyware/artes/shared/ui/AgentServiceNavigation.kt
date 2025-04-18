@@ -42,7 +42,7 @@ fun AgentServiceNavigation(
                     navController.navigate(Destination.AgentEditor)
                 },
                 onShowAgent = { agent ->
-                    navController.navigate(Destination.AgentInfo) // TODO: pass agent id with type-safe args
+                    navController.navigate(Destination.AgentInfo(agent))
                 },
             )
         }
