@@ -18,8 +18,6 @@ class OpenAiModelFetcher(
         val response = client.get(Models) {
             header("Authorization", "Bearer ${config.apiKey}")
             header("OpenAI-Organization", config.orgId)
-
-            url("http://coreapi-api.unified-35.api.openai.com/v1/models")
         }
         if (response.status.isSuccess()) {
             return response.body<ModelsResponse>().data
