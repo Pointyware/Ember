@@ -65,3 +65,39 @@ class AgentRepositoryImpl(
         db.agentsQueries.deleteAgent(id)
     }
 }
+
+data class TestAgentRepository(
+    val agents: MutableList<Agent> = mutableListOf()
+): AgentRepository {
+
+    override suspend fun createAgent(name: String, model: Model, instructions: String) {
+        agents.add(
+            Agent(
+                id = agents.size.toLong(),
+                name = name,
+                model = model,
+                skills = emptySet()
+            )
+        )
+    }
+
+    override suspend fun getAgent(id: Long): Agent {
+        return agents.first { it.id == id }
+    }
+
+    override suspend fun updateAgent(id: Long, name: String, model: Model, instructions: String) {
+        agents.indexOfFirst { it.id == id }.takeIf { it>= 0 }?.let {
+            agents.removeAt(it)
+        } ?: throw IllegalArgumentException("Agent with id $id not found")
+    }
+
+    override suspend fun deleteAgent(id: Long) {
+        agents.indexOfFirst { it.id == id }.takeIf { it >= 0 }?.let {
+            agents.removeAt(it)
+        } ?: throw IllegalArgumentException("Agent with id $id not found")
+    }
+
+    override suspend fun getAgentList(): List<Agent> {
+        return agents.toList()
+    }
+}
