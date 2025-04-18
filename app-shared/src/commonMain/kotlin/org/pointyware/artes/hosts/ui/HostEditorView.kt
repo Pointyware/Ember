@@ -16,14 +16,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.pointyware.artes.hosts.viewmodels.ExtraOptionsUiState
-import org.pointyware.artes.hosts.viewmodels.HostConfigUiState
+import org.pointyware.artes.hosts.viewmodels.HostConfigEditorUiState
 
 /**
  *
  */
 @Composable
 fun HostEditorView(
-    state: HostConfigUiState,
+    state: HostConfigEditorUiState,
     modifier: Modifier = Modifier,
     onCreateHost: (String, ExtraOptionsUiState) -> Unit
 ) {

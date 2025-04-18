@@ -5,7 +5,7 @@ package org.pointyware.artes.viewmodels
  */
 data class AgentEditorUiState(
     val agentName: String,
-    val hosts: List<HostUiState>,
+    val hosts: List<HostConfigUiState>,
     val selectedHost: Int?,
     val hostModels: List<ModelUiState>,
     val selectedModel: Int?,

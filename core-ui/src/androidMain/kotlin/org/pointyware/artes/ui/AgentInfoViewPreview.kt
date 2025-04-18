@@ -3,7 +3,7 @@ package org.pointyware.artes.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import org.pointyware.artes.entities.OpenAi
-import org.pointyware.artes.viewmodels.HostUiState
+import org.pointyware.artes.viewmodels.HostConfigUiState
 
 /**
  *
@@ -15,7 +15,7 @@ fun AgentInfoViewPreview() {
         state = AgentInfoViewState(
             name = "Some Agent",
             description = "An agent",
-            service = HostUiState(
+            service = HostConfigUiState(
                 id = 0L,
                 title = "OpenAI Dev",
                 host = OpenAi

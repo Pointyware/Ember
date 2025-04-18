@@ -13,12 +13,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.pointyware.artes.viewmodels.HostConfigListUiState
-import org.pointyware.artes.viewmodels.HostUiState
+import org.pointyware.artes.viewmodels.HostConfigUiState
 
-
+/**
+ *
+ */
 @Composable
 fun ServiceListItem(
-    state: HostUiState,
+    state: HostConfigUiState,
     modifier: Modifier = Modifier,
 ) {
     Row(

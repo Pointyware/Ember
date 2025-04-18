@@ -19,7 +19,7 @@ import org.koin.mp.KoinPlatform.getKoin
 import org.pointyware.artes.data.di.dataQualifier
 import org.pointyware.artes.data.hosts.ServiceRepository
 import org.pointyware.artes.hosts.viewmodels.ExtraOptionsUiState
-import org.pointyware.artes.hosts.viewmodels.HostConfigUiState
+import org.pointyware.artes.hosts.viewmodels.HostConfigEditorUiState
 import org.pointyware.artes.hosts.viewmodels.HostViewModel
 import org.pointyware.artes.local.Persistence
 import org.pointyware.artes.services.openai.OpenAiConfig
@@ -74,7 +74,7 @@ class HostEditorViewIntegrationTest {
         val repository = koin.get<ServiceRepository>()
         setContent {
             HostEditorView(
-                state = HostConfigUiState(
+                state = HostConfigEditorUiState(
                     title = "",
                     extraOptions = ExtraOptionsUiState.OpenAi(
                         orgId = "",

@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import org.pointyware.artes.hosts.viewmodels.ExtraOptionsUiState
-import org.pointyware.artes.hosts.viewmodels.HostConfigUiState
+import org.pointyware.artes.hosts.viewmodels.HostConfigEditorUiState
 import org.pointyware.artes.viewmodels.LoadingUiState
 
 @Preview(name = "", showBackground = true)
@@ -14,7 +14,7 @@ import org.pointyware.artes.viewmodels.LoadingUiState
 @Composable
 fun NewHostPreview() {
     HostEditorView(
-        state = HostConfigUiState(
+        state = HostConfigEditorUiState(
             title = "Some Host",
             extraOptions = ExtraOptionsUiState.OpenAi(
                 orgId = "0987654321",

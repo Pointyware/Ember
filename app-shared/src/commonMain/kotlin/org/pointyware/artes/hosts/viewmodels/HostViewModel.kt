@@ -23,8 +23,8 @@ class HostViewModel(
     private val _onHostCreated = Channel<Unit>(1)
     val onHostCreated: Flow<Unit> get() = _onHostCreated.consumeAsFlow()
 
-    private val _state = MutableStateFlow(HostConfigUiState(loading = LoadingUiState.Idle))
-    val state: StateFlow<HostConfigUiState> get() = _state.asStateFlow()
+    private val _state = MutableStateFlow(HostConfigEditorUiState(loading = LoadingUiState.Idle))
+    val state: StateFlow<HostConfigEditorUiState> get() = _state.asStateFlow()
 
     fun createHost(title: String, extraOptions: ExtraOptionsUiState) {
         viewModelScope.launch {

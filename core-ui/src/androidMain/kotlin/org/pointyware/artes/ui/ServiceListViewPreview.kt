@@ -5,7 +5,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import org.pointyware.artes.entities.Google
 import org.pointyware.artes.entities.OpenAi
 import org.pointyware.artes.viewmodels.HostConfigListUiState
-import org.pointyware.artes.viewmodels.HostUiState
+import org.pointyware.artes.viewmodels.HostConfigUiState
 
 /**
  *
@@ -16,22 +16,22 @@ fun ServiceListViewPreview() {
     ServiceListView(
         state = HostConfigListUiState(
             hostConfigs = listOf(
-                HostUiState(
+                HostConfigUiState(
                     id = 0L,
                     title = "OpenAi Prod",
                     OpenAi
                 ),
-                HostUiState(
+                HostConfigUiState(
                     id = 1L,
                     title = "OpenAi Stage",
                     OpenAi
                 ),
-                HostUiState(
+                HostConfigUiState(
                     id = 2L,
                     title = "VertexAi Prod",
                     Google
                 ),
-                HostUiState(
+                HostConfigUiState(
                     id = 3L,
                     title = "VertexAi Stage",
                     Google

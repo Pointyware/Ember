@@ -12,14 +12,14 @@ import org.pointyware.artes.entities.OpenAi
 data class AgentInfoUiState(
     val id: Long,
     val name: String,
-    val host: HostUiState,
+    val host: HostConfigUiState,
     val model: ModelUiState
 ) {
     companion object {
         val Empty = AgentInfoUiState(
             id = -1L,
             name = "",
-            host = HostUiState(
+            host = HostConfigUiState(
                 id = 0L,
                 title = "",
                 host = OpenAi

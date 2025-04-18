@@ -6,11 +6,9 @@ import org.pointyware.artes.entities.HostConfig
 /**
  * Complete information about a service to display in a detailed view.
  *
- * TODO: rename to HostConfigUiState
- *
  * @see [org.pointyware.artes.entities.HostConfig]
  */
-data class HostUiState(
+data class HostConfigUiState(
     val id: Long,
     val title: String,
     val host: Host
@@ -19,8 +17,8 @@ data class HostUiState(
 /**
  *
  */
-fun HostConfig.toUiState(): HostUiState {
-    return HostUiState(
+fun HostConfig.toUiState(): HostConfigUiState {
+    return HostConfigUiState(
         id = this.id,
         title = this.title,
         host = this.host

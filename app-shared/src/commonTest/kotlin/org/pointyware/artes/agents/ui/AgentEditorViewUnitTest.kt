@@ -18,7 +18,7 @@ import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.runComposeUiTest
 import org.pointyware.artes.entities.OpenAi
 import org.pointyware.artes.viewmodels.AgentEditorUiState
-import org.pointyware.artes.viewmodels.HostUiState
+import org.pointyware.artes.viewmodels.HostConfigUiState
 import org.pointyware.artes.viewmodels.ModelUiState
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -127,8 +127,8 @@ class AgentEditorViewUnitTest {
         val state = AgentEditorUiState(
             agentName = "Some agent",
             hosts = listOf(
-                HostUiState(0L, "host1", OpenAi),
-                HostUiState(1L, "host2", OpenAi),
+                HostConfigUiState(0L, "host1", OpenAi),
+                HostConfigUiState(1L, "host2", OpenAi),
             ),
             selectedHost = null,
             hostModels = emptyList(),
@@ -182,8 +182,8 @@ class AgentEditorViewUnitTest {
         val state = AgentEditorUiState(
             agentName = "Some agent",
             hosts = listOf(
-                HostUiState(0L, "host1", OpenAi),
-                HostUiState(1L, "host2", OpenAi),
+                HostConfigUiState(0L, "host1", OpenAi),
+                HostConfigUiState(1L, "host2", OpenAi),
             ),
             selectedHost = 0,
             hostModels = listOf(

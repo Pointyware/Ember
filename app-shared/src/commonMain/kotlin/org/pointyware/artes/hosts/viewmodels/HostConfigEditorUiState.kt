@@ -3,14 +3,17 @@ package org.pointyware.artes.hosts.viewmodels
 import org.pointyware.artes.viewmodels.LoadingUiState
 
 /**
- * Represents the UI state for a host configuration.
+ * Represents the UI state for a host configuration editor.
  */
-data class HostConfigUiState(
+data class HostConfigEditorUiState(
     val title: String = "",
     val extraOptions: ExtraOptionsUiState = ExtraOptionsUiState.OpenAi(),
     val loading: LoadingUiState
 )
 
+/**
+ * UI state for host-specific configuration options.
+ */
 sealed class ExtraOptionsUiState {
     data class OpenAi(
         val orgId: String = "",
