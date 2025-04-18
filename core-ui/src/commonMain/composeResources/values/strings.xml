@@ -4,7 +4,7 @@
 
     <string name="title_host_open_ai">OpenAI</string>
     <string name="title_host_google">Google</string>
-    <string name="title_host_self_hosted">Self Hosted %s</string>
+    <string name="title_host_self_hosted">Self Hosted %1%s</string>
     <string name="title_host_unsupported">Not Yet Unsupported</string>
     <string name="title_host_none">None</string>
 
