@@ -12,7 +12,6 @@ import org.koin.mp.KoinPlatform.getKoin
 import org.pointyware.artes.agents.ui.AgentEditorView
 import org.pointyware.artes.agents.ui.AgentListScreen
 import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
-import org.pointyware.artes.entities.Agent
 import org.pointyware.artes.entities.OpenAi
 import org.pointyware.artes.hosts.ui.HostEditorScreen
 import org.pointyware.artes.navigation.Destination
@@ -90,13 +89,8 @@ fun AgentServiceNavigation(
             )
         }
         composable(Destination.ServiceEditor.name) {
-            val koin = remember { getKoin() }
-            val hostViewModel = remember { koin.get<HostViewModel>() }
-            val state by hostViewModel.state.collectAsState()
-            HostEditorView(
-                state = state,
-                modifier = modifier,
-                onCreateHost = hostViewModel::createHost
+            HostEditorScreen(
+                viewModel = rememberViewModel()
             )
         }
     }
