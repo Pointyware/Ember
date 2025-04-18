@@ -1,4 +1,3 @@
-import com.android.build.gradle.internal.ide.kmp.KotlinAndroidSourceSetMarker.Companion.android
 import org.jetbrains.compose.ExperimentalComposeLibrary
 
 plugins {
