@@ -20,7 +20,7 @@ import org.pointyware.artes.ui.AgentInfoViewState
 import org.pointyware.artes.ui.ServiceListView
 import org.pointyware.artes.ui.rememberViewModel
 import org.pointyware.artes.viewmodels.AgentInfoViewModel
-import org.pointyware.artes.viewmodels.AgentListViewModel
+import org.pointyware.artes.viewmodels.DefaultAgentListViewModel
 import org.pointyware.artes.viewmodels.HostUiState
 import org.pointyware.artes.viewmodels.ServiceListViewModel
 
@@ -39,7 +39,7 @@ fun AgentServiceNavigation(
         modifier = modifier
     ) {
         composable(Destination.AgentList.name) {
-            val viewModel = rememberViewModel<AgentListViewModel>()
+            val viewModel = rememberViewModel<DefaultAgentListViewModel>()
             AgentListScreen(
                 viewModel = viewModel,
                 onNewAgent = {
@@ -90,7 +90,10 @@ fun AgentServiceNavigation(
         }
         composable(Destination.ServiceEditor.name) {
             HostEditorScreen(
-                viewModel = rememberViewModel()
+                viewModel = rememberViewModel(),
+                onBack = {
+                    navController.popBackStack()
+                }
             )
         }
     }
