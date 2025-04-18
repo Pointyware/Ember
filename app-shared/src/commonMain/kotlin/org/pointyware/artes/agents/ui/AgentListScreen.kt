@@ -1,6 +1,7 @@
 package org.pointyware.artes.agents.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -18,18 +19,20 @@ fun AgentListScreen(
     onShowAgent: (Long)->Unit,
     onNewAgent: ()->Unit,
 ) {
-    val viewState by viewModel.state.collectAsState()
-    LaunchedEffect(Unit) {
-        viewModel.onInit()
-    }
-    AgentListView(
-        state = viewState.mapToViewState(),
-        modifier = Modifier.fillMaxSize(),
-        onSelectAgent = {
-            onShowAgent(it)
-        },
-        onCreateAgent = {
-            onNewAgent()
+    Surface {
+        val viewState by viewModel.state.collectAsState()
+        LaunchedEffect(Unit) {
+            viewModel.onInit()
         }
-    )
+        AgentListView(
+            state = viewState.mapToViewState(),
+            modifier = Modifier.fillMaxSize(),
+            onSelectAgent = {
+                onShowAgent(it)
+            },
+            onCreateAgent = {
+                onNewAgent()
+            }
+        )
+    }
 }
