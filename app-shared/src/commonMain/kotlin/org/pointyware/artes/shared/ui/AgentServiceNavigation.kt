@@ -61,7 +61,10 @@ fun AgentServiceNavigation(
         }
         composable(Destination.AgentEditor.name) {
             AgentEditorScreen(
-                viewModel = rememberViewModel<AgentEditorViewModel>()
+                viewModel = rememberViewModel<AgentEditorViewModel>(),
+                onBack = {
+                    navController.popBackStack()
+                }
             )
         }
         composable(Destination.ServiceList.name) {

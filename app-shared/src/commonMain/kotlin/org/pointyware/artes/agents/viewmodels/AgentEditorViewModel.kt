@@ -2,12 +2,15 @@ package org.pointyware.artes.agents.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.pointyware.artes.entities.HostConfig
@@ -29,6 +32,9 @@ class AgentEditorViewModel(
     private val createAgentUseCase: CreateAgentUseCase,
     private val getAgentUseCase: GetAgentUseCase,
 ): ViewModel() {
+
+    private val _onBack = Channel<Unit>(1)
+    val onBack: Flow<Unit> get() = _onBack.consumeAsFlow()
 
     private val mutableAlert = MutableSharedFlow<String>()
     val alert: SharedFlow<String> get() = mutableAlert.asSharedFlow()
@@ -89,6 +95,7 @@ class AgentEditorViewModel(
     fun onSave(title: String, modelId: Long, instructions: String) {
         viewModelScope.launch {
             createAgentUseCase(title, modelId, instructions)
+            _onBack.send(Unit)
         }
     }
 }

@@ -11,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Dialog
+import kotlinx.coroutines.launch
 import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
 import org.pointyware.artes.ui.rememberViewModel
 
@@ -19,10 +20,18 @@ import org.pointyware.artes.ui.rememberViewModel
  */
 @Composable
 fun AgentEditorScreen(
-    viewModel: AgentEditorViewModel = rememberViewModel()
+    viewModel: AgentEditorViewModel = rememberViewModel(),
+    onBack: ()->Unit,
 ) {
     LaunchedEffect(Unit) {
-        viewModel.loadHosts()
+        launch {
+            viewModel.loadHosts()
+        }
+        launch {
+            viewModel.onBack.collect {
+                onBack()
+            }
+        }
     }
     val state by viewModel.state.collectAsState()
     AgentEditorView(
