@@ -22,7 +22,7 @@ import org.pointyware.artes.viewmodels.DefaultServiceListViewModel
 
 
 /**
- *
+ * Localizes navigation logic for the Agent and Service screens.
  */
 @Composable
 fun AgentServiceNavigation(
