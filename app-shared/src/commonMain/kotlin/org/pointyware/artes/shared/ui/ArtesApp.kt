@@ -1,8 +1,8 @@
 package org.pointyware.artes.shared.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -11,12 +11,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.pointyware.artes.navigation.Destination
-import org.pointyware.artes.ui.Res
-import org.pointyware.artes.ui.acc_desc_agents
-import org.pointyware.artes.ui.acc_desc_services
-import org.pointyware.artes.ui.agent_24
-import org.pointyware.artes.ui.services_24
+import org.pointyware.artes.navigation.TopLevelDestination
 
 /**
  * The root for Compose UI.
@@ -30,30 +25,21 @@ fun ArtesApp() {
         ?.route
     NavigationSuiteScaffold(
         navigationSuiteItems = {
-            item(
-                selected = selectedItem == Destination.AgentList.name,
-                onClick = {
-                    navController.navigate(Destination.AgentList.name)
-                },
-                icon = {
-                    Icon(
-                        painter = painterResource(Res.drawable.agent_24),
-                        contentDescription = stringResource(Res.string.acc_desc_agents)
-                    )
-                }
-            )
-            item(
-                selected = selectedItem == Destination.ServiceList.name,
-                onClick = {
-                    navController.navigate(Destination.ServiceList.name)
-                },
-                icon = {
-                    Icon(
-                        painter = painterResource(Res.drawable.services_24),
-                        contentDescription = stringResource(Res.string.acc_desc_services)
-                    )
-                }
-            )
+            TopLevelDestination.All.forEach {
+                item(
+                    selected = selectedItem == it.destination.name,
+                    onClick = {
+                        navController.navigate(TopLevelDestination.AgentList)
+                    },
+                    icon = {
+                        Icon(
+                            painter = painterResource(it.iconRes),
+                            contentDescription = stringResource(it.contentDescriptionRes)
+                        )
+                    },
+                    label = { Text(text = stringResource(it.labelRes)) }
+                )
+            }
         }
     ) {
         AgentServiceNavigation(
