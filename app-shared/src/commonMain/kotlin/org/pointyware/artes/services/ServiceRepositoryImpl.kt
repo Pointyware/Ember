@@ -2,11 +2,14 @@ package org.pointyware.artes.services
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import org.pointyware.artes.data.hosts.HostDao
 import org.pointyware.artes.data.hosts.ServiceRepository
 import org.pointyware.artes.entities.HostConfig
 import org.pointyware.artes.entities.Model
 import org.pointyware.artes.entities.ModelImpl
+import org.pointyware.artes.services.openai.GeminiConfig
 import org.pointyware.artes.services.openai.OpenAiConfig
 import org.pointyware.artes.services.openai.network.OpenAiModelFetcher
 
@@ -18,15 +21,17 @@ class ServiceRepositoryImpl(
 ): ServiceRepository {
 
     override suspend fun createOpenAiHost(title: String, orgId: String, apiKey: String) {
-        hostDao.createHost(title, orgId, apiKey)
+        withContext(ioDispatcher) {
+            hostDao.createHost(title, orgId, apiKey)
+        }
     }
 
     override suspend fun createGeminiHost(title: String, apiKey: String) {
-        hostDao.createGeminiHost(title, apiKey)
+        withContext(ioDispatcher) { hostDao.createGeminiHost(title, apiKey) }
     }
 
-    override suspend fun getHosts(): List<HostConfig> {
-        return hostDao.getAllHosts()
+    override suspend fun getHosts(): List<HostConfig> = withContext(ioDispatcher) {
+        hostDao.getAllHosts()
     }
 
     override suspend fun getService(id: Long): HostConfig {
@@ -37,8 +42,8 @@ class ServiceRepositoryImpl(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getModels(hostId: Long): List<Model> {
-        return when (val hostConfig = hostDao.getHostById(hostId)) {
+    override suspend fun getModels(hostId: Long): List<Model> = withContext(ioDispatcher) {
+        when (val hostConfig = hostDao.getHostById(hostId)) {
             is OpenAiConfig -> {
                 openAiModelFetcher.invoke(hostConfig)
                     .map {
