@@ -7,6 +7,8 @@ import org.pointyware.artes.ui.Res
 import org.pointyware.artes.ui.acc_desc_agents
 import org.pointyware.artes.ui.acc_desc_services
 import org.pointyware.artes.ui.agent_24
+import org.pointyware.artes.ui.label_agents
+import org.pointyware.artes.ui.label_services
 import org.pointyware.artes.ui.services_24
 
 /**
@@ -19,13 +21,13 @@ enum class TopLevelDestination(
 ) {
     AgentList(
         destination = Destination.AgentList,
-        labelRes = Res.string.acc_desc_agents,
+        labelRes = Res.string.label_agents,
         iconRes = Res.drawable.agent_24,
         contentDescriptionRes = Res.string.acc_desc_agents
     ),
     ServiceList(
         destination = Destination.ServiceList,
-        labelRes = Res.string.acc_desc_services,
+        labelRes = Res.string.label_services,
         iconRes = Res.drawable.services_24,
         contentDescriptionRes = Res.string.acc_desc_services
     )

@@ -8,6 +8,9 @@
     <string name="title_host_unsupported">Not Yet Unsupported</string>
     <string name="title_host_none">None</string>
 
+    <string name="label_agents">Agents</string>
     <string name="acc_desc_agents">Agents Screen</string>
+
+    <string name="label_services">Services</string>
     <string name="acc_desc_services">Services Screen</string>
 </resources>
