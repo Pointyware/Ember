@@ -2,6 +2,7 @@ package org.pointyware.artes.shared.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.adaptive.navigationsuite.NavigationSuiteScaffold
 import androidx.compose.runtime.Composable
@@ -41,7 +42,9 @@ fun ArtesApp() {
                     label = { Text(text = stringResource(it.labelRes)) }
                 )
             }
-        }
+        },
+        containerColor = MaterialTheme.colorScheme.primaryContainer,
+        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
     ) {
         AgentServiceNavigation(
             modifier = Modifier.fillMaxSize(),
