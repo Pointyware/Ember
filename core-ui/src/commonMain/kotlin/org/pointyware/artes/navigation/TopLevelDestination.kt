@@ -37,7 +37,7 @@ data class TopLevelDestination(
     }
 }
 
-fun NavController.navigate(
+fun NavController.navigateTo(
     destination: TopLevelDestination,
 ) {
     this.navigate(destination.destination.name) {

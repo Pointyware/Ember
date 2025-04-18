@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.pointyware.artes.navigation.TopLevelDestination
+import org.pointyware.artes.navigation.navigateTo
 
 /**
  * The root for Compose UI.
@@ -29,7 +30,7 @@ fun ArtesApp() {
                 item(
                     selected = selectedItem == it.destination.name,
                     onClick = {
-                        navController.navigate(TopLevelDestination.AgentList)
+                        navController.navigateTo(it)
                     },
                     icon = {
                         Icon(
