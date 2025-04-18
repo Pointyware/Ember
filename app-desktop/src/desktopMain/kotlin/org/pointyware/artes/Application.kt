@@ -3,9 +3,13 @@ package org.pointyware.artes
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import org.jetbrains.compose.resources.stringResource
 import org.koin.core.context.startKoin
 import org.pointyware.artes.shared.di.sharedModule
 import org.pointyware.artes.shared.ui.ArtesApp
+import org.pointyware.artes.ui.Res
+import org.pointyware.artes.ui.theme.ArtesTheme
+import org.pointyware.artes.ui.title_app
 
 /**
  *
@@ -42,9 +46,11 @@ fun main(vararg args: String) = application {
     val windowState = rememberWindowState()
     Window(
         onCloseRequest = ::exitApplication,
-        title = "",
+        title = stringResource(Res.string.title_app),
         state = windowState,
     ) {
-        ArtesApp()
+        ArtesTheme {
+            ArtesApp()
+        }
     }
 }
