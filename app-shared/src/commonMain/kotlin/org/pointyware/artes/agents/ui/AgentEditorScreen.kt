@@ -15,7 +15,7 @@ import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
 import org.pointyware.artes.ui.rememberViewModel
 
 /**
- *
+ * Presents a screen for creating a new agent or modifying an existing one.
  */
 @Composable
 fun AgentEditorScreen(

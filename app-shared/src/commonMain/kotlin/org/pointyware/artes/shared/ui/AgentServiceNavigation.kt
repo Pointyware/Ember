@@ -60,15 +60,8 @@ fun AgentServiceNavigation(
             )
         }
         composable(Destination.AgentEditor.name) {
-            val agentEditorViewModel = rememberViewModel<AgentEditorViewModel>()
-            AgentEditorView(
-                state = agentEditorViewModel.state.collectAsState().value,
-                modifier = modifier,
-                onSelectHost = agentEditorViewModel::onSelectHost,
-                onSubmit = agentEditorViewModel::onSave
-            )
             AgentEditorScreen(
-                viewModel = agentEditorViewModel
+                viewModel = rememberViewModel<AgentEditorViewModel>()
             )
         }
         composable(Destination.ServiceList.name) {
