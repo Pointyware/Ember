@@ -31,22 +31,22 @@ fun AgentServiceNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Destination.AgentList.name,
+        startDestination = Destination.AgentList,
         modifier = modifier
     ) {
-        composable(Destination.AgentList.name) {
+        composable<Destination.AgentList> {
             val viewModel = rememberViewModel<DefaultAgentListViewModel>()
             AgentListScreen(
                 viewModel = viewModel,
                 onNewAgent = {
-                    navController.navigate(Destination.AgentEditor.name)
+                    navController.navigate(Destination.AgentEditor)
                 },
                 onShowAgent = { agent ->
-                    navController.navigate(Destination.AgentInfo.name) // TODO: pass agent id with type-safe args
+                    navController.navigate(Destination.AgentInfo) // TODO: pass agent id with type-safe args
                 },
             )
         }
-        composable(Destination.AgentInfo.name) {
+        composable<Destination.AgentInfo> {
             val agentInfoViewModel = rememberViewModel<DefaultAgentInfoViewModel>()
             val state by agentInfoViewModel.state.collectAsState()
             AgentInfoView(
@@ -58,7 +58,7 @@ fun AgentServiceNavigation(
                 onEdit = agentInfoViewModel::onEdit
             )
         }
-        composable(Destination.AgentEditor.name) {
+        composable<Destination.AgentEditor> {
             AgentEditorScreen(
                 viewModel = rememberViewModel<AgentEditorViewModel>(),
                 onBack = {
@@ -66,7 +66,7 @@ fun AgentServiceNavigation(
                 }
             )
         }
-        composable(Destination.ServiceList.name) {
+        composable<Destination.ServiceList> {
             val viewModel = rememberViewModel<DefaultServiceListViewModel>()
             val state by viewModel.state.collectAsState()
             LaunchedEffect(Unit) {
@@ -76,11 +76,11 @@ fun AgentServiceNavigation(
                 state = state,
                 modifier = modifier,
                 onRegisterService = {
-                    navController.navigate(Destination.ServiceEditor.name)
+                    navController.navigate(Destination.ServiceEditor)
                 }
             )
         }
-        composable(Destination.ServiceEditor.name) {
+        composable<Destination.ServiceEditor> {
             HostEditorScreen(
                 viewModel = rememberViewModel(),
                 onBack = {

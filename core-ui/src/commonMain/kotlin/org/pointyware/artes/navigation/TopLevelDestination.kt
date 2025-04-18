@@ -40,7 +40,7 @@ data class TopLevelDestination(
 fun NavController.navigateTo(
     destination: TopLevelDestination,
 ) {
-    this.navigate(destination.destination.name) {
+    this.navigate(destination.destination) {
         popUpTo(graph.startDestinationId) {
             saveState = true
         }

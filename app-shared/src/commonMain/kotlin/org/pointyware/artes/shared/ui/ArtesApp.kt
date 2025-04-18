@@ -22,14 +22,12 @@ import org.pointyware.artes.navigation.navigateTo
 fun ArtesApp() {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
-    val selectedItem = backStackEntry
-        ?.destination
-        ?.route
+    val selectedItem = backStackEntry?.destination
     NavigationSuiteScaffold(
         navigationSuiteItems = {
             TopLevelDestination.All.forEach {
                 item(
-                    selected = selectedItem == it.destination.name,
+                    selected = selectedItem == it.destination,
                     onClick = {
                         navController.navigateTo(it)
                     },
