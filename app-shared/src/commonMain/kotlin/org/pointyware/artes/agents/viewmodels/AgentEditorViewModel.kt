@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.pointyware.artes.entities.HostConfig
 import org.pointyware.artes.interactors.CreateAgentUseCase
 import org.pointyware.artes.interactors.GetServiceModelsUseCase
 import org.pointyware.artes.interactors.agents.GetAgentUseCase
@@ -54,7 +55,7 @@ class AgentEditorViewModel(
                 .onSuccess { hostList ->
                     mutableState.update {
                         it.copy(
-                            hosts = hostList.map { host -> host.toUiState() }
+                            hosts = hostList.map(HostConfig::toUiState)
                         )
                     }
                 }
