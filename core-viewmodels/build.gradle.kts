@@ -1,5 +1,3 @@
-import com.android.build.gradle.internal.ide.kmp.KotlinAndroidSourceSetMarker.Companion.android
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
