@@ -10,6 +10,8 @@ import org.pointyware.artes.interactors.hosts.GetHostServicesUseCase
 /**
  * Allows a user to view existing service accounts and edit or remove them, or add new service
  * accounts.
+ *
+ * Must call [onInit] to start loading the data.
  */
 interface ServiceListViewModel {
 

@@ -11,7 +11,7 @@ import org.pointyware.artes.interactors.BeginAgentCreationJourney
 import org.pointyware.artes.interactors.GetAgentListUseCase
 
 /**
- *
+ * Must call [onInit] to start loading the agent list.
  */
 interface AgentListViewModel {
 
