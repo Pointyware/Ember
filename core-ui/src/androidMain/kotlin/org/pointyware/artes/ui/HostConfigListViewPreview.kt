@@ -12,8 +12,8 @@ import org.pointyware.artes.viewmodels.HostConfigUiState
  */
 @Preview
 @Composable
-fun ServiceListViewPreview() {
-    ServiceListView(
+fun HostConfigListViewPreview() {
+    HostConfigListView(
         state = HostConfigListUiState(
             hostConfigs = listOf(
                 HostConfigUiState(

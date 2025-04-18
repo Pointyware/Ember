@@ -14,7 +14,7 @@ import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
 import org.pointyware.artes.hosts.ui.HostEditorScreen
 import org.pointyware.artes.navigation.Destination
 import org.pointyware.artes.ui.AgentInfoView
-import org.pointyware.artes.ui.ServiceListView
+import org.pointyware.artes.ui.HostConfigListView
 import org.pointyware.artes.ui.rememberViewModel
 import org.pointyware.artes.viewmodels.DefaultAgentInfoViewModel
 import org.pointyware.artes.viewmodels.DefaultAgentListViewModel
@@ -72,7 +72,7 @@ fun AgentServiceNavigation(
             LaunchedEffect(Unit) {
                 viewModel.onInit()
             }
-            ServiceListView(
+            HostConfigListView(
                 state = state,
                 modifier = modifier,
                 onRegisterService = {

@@ -43,7 +43,7 @@ fun AgentInfoView(
             style = MaterialTheme.typography.labelMedium
         )
 
-        ServiceListItem(
+        HostConfigListItem(
             modifier = Modifier.border(1.dp, Color.Black),
             state = state.service,
         )

@@ -19,7 +19,7 @@ import org.pointyware.artes.viewmodels.HostConfigUiState
  *
  */
 @Composable
-fun ServiceListItem(
+fun HostConfigListItem(
     state: HostConfigUiState,
     modifier: Modifier = Modifier,
 ) {
@@ -42,7 +42,7 @@ fun ServiceListItem(
  *
  */
 @Composable
-fun ServiceListView(
+fun HostConfigListView(
     state: HostConfigListUiState,
     modifier: Modifier = Modifier,
     onRegisterService: ()->Unit
@@ -54,7 +54,7 @@ fun ServiceListView(
             modifier = Modifier.fillMaxSize()
         ) {
             items(state.hostConfigs) {
-                ServiceListItem(it)
+                HostConfigListItem(it)
             }
         }
 
