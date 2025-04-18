@@ -12,6 +12,7 @@ import org.pointyware.artes.ui.label_services
 import org.pointyware.artes.ui.services_24
 
 /**
+ * Defines the top-level destinations in the app that will be shown in the bottom navigation bar.
  */
 enum class TopLevelDestination(
     val destination: Destination,
@@ -33,6 +34,9 @@ enum class TopLevelDestination(
     )
 }
 
+/**
+ * Extension function to navigate to a top-level destination.
+ */
 fun NavController.navigateTo(
     destination: TopLevelDestination,
 ) {
