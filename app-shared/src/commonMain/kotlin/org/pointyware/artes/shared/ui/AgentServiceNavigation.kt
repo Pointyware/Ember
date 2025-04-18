@@ -39,7 +39,7 @@ fun AgentServiceNavigation(
             AgentListScreen(
                 viewModel = viewModel,
                 onNewAgent = {
-                    navController.navigate(Destination.AgentEditor)
+                    navController.navigate(Destination.AgentEditor(null))
                 },
                 onShowAgent = { agent ->
                     navController.navigate(Destination.AgentInfo(agent))
@@ -76,7 +76,7 @@ fun AgentServiceNavigation(
                 state = state,
                 modifier = modifier,
                 onRegisterService = {
-                    navController.navigate(Destination.ServiceEditor)
+                    navController.navigate(Destination.ServiceEditor(null))
                 }
             )
         }
