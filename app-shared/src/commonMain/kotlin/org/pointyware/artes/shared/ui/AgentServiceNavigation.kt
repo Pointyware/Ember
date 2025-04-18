@@ -1,6 +1,8 @@
 package org.pointyware.artes.shared.ui
 
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.material3.Surface
@@ -38,11 +40,17 @@ fun AgentServiceNavigation(
         startDestination = Destination.AgentList,
         modifier = modifier,
         enterTransition = {
-            slideInVertically(animationSpec = tween(300))
+            fadeIn(animationSpec = tween(700))
         },
         exitTransition = {
-            slideOutVertically(animationSpec = tween(300))
+            fadeOut(animationSpec = tween(700))
         },
+        popEnterTransition = {
+            slideInVertically(animationSpec = tween(300))
+        },
+        popExitTransition = {
+            slideOutVertically(animationSpec = tween(300))
+        }
     ) {
         composable<Destination.AgentList> {
             val viewModel = rememberViewModel<DefaultAgentListViewModel>()
