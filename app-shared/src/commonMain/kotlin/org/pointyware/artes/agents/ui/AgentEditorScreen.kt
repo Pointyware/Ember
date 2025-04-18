@@ -11,15 +11,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Dialog
-import org.koin.mp.KoinPlatform.getKoin
 import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
+import org.pointyware.artes.ui.rememberViewModel
 
 /**
  *
  */
 @Composable
 fun AgentEditorScreen(
-    viewModel: AgentEditorViewModel = remember { getKoin().get<AgentEditorViewModel>() },
+    viewModel: AgentEditorViewModel = rememberViewModel()
 ) {
     LaunchedEffect(Unit) {
         viewModel.loadHosts()
