@@ -20,7 +20,7 @@ jobs:
         uses: Pointyware/.github/.github/actions/checkout-java-gradle@69eb71701edc0705172789b1299946fd27fcadac
       - name: Run Debug Unit Tests
         run: |
-          ./gradlew :core-data:generateSqlDelightInterface --no-build-cache && \
+          ./gradlew :core-data:generateSqlDelightInterface --no-build-cache --no-configuration-cache && \
             ./gradlew :app-android:testDebugUnitTest
 
   build-app-desktop:
@@ -31,5 +31,5 @@ jobs:
         uses: Pointyware/.github/.github/actions/checkout-java-gradle@69eb71701edc0705172789b1299946fd27fcadac
       - name: Build Desktop App
         run: |
-          ./gradlew :core-data:generateSqlDelightInterface --no-build-cache && \
+          ./gradlew :core-data:generateSqlDelightInterface --no-build-cache --no-configuration-cache && \
             ./gradlew :app-desktop:desktopTest
