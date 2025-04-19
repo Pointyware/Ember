@@ -20,7 +20,7 @@ import kotlinx.serialization.json.Json
  */
 actual fun openAiHttpClient(): HttpClient = HttpClient(OkHttp) {
     followRedirects = true
-    expectSuccess = true
+    expectSuccess = false
     install(Resources)
     install(ContentNegotiation) {
         json(Json {
@@ -34,7 +34,7 @@ actual fun openAiHttpClient(): HttpClient = HttpClient(OkHttp) {
     install(Logging) {
         logger = Logger.SIMPLE
         level = LogLevel.HEADERS
-        sanitizeHeader { header -> header == HttpHeaders.Authorization }
+//        sanitizeHeader { header -> header == HttpHeaders.Authorization }
     }
     engine {
         config {
