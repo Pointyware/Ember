@@ -3,6 +3,7 @@ import com.android.build.gradle.internal.ide.kmp.KotlinAndroidSourceSetMarker.Co
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinxKover)
 }
 
 kotlin {

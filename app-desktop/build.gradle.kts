@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.composePlugin)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlinxKover)
 }
 
 kotlin {

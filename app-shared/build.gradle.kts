@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composePlugin)
+    alias(libs.plugins.kotlinxKover)
 }
 
 kotlin {
