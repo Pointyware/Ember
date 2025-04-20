@@ -1,6 +1,9 @@
 package org.pointyware.artes.shared.ui
 
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -45,7 +48,9 @@ fun ArtesApp() {
         contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
     ) {
         AgentServiceNavigation(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.safeDrawing),
             navController = navController
         )
     }
