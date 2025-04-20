@@ -57,15 +57,15 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 
 [plugins]
-androidApplication = { id = "com.android.application", version.ref = "agp" }
-androidLibrary = { id = "com.android.library", version.ref = "agp" }
-composePlugin = { id = "org.jetbrains.compose", version.ref = "compose" }
-composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
-kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-kotlinCocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
-kotlinxKover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
-kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-sqlDelight          = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
+androidApplication      = { id = "com.android.application", version.ref = "agp" }
+androidLibrary          = { id = "com.android.library", version.ref = "agp" }
+composePlugin           = { id = "org.jetbrains.compose", version.ref = "compose" }
+composeCompiler         = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlinAndroid           = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinJvm               = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlinMultiplatform     = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinCocoapods         = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+kotlinxKover            = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
+kotlinxSerialization    = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+ksp                     = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+sqlDelight              = { id = "app.cash.sqldelight", version.ref = "sqlDelight" }
