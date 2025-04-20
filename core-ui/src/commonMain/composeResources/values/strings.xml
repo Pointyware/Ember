@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resources>
     <string name="title_app">Artes</string>
+    <string name="acc_desc_back">Back</string>
 
     <string name="title_host_open_ai">OpenAI</string>
     <string name="title_host_google">Google</string>
