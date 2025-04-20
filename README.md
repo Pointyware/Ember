@@ -15,6 +15,7 @@ Related: https://github.com/Pointyware/AI-Licensing
     * Closed models - some or all information may be unstated and/or unverified; may be complete models for local hosting or APIs that remotely host models
 * Local and Remote execution support - models that are available for user-execution (local hosting) can also be hosted remotely if a user does not have enough local resources. This distinction will be transparent to the user, withholding network-delayed query speeds.
 * Cost estimation and logging - the cost of a query can often be estimated before sending a request; if a request is served by an API, the cost is often returned in the response body or headers.
+* Supports MCP https://modelcontextprotocol.io/introduction https://www.anthropic.com/news/model-context-protocol 
 
 ### Services
 1. OpenAI
