@@ -23,6 +23,7 @@ include(
 )
 
 include(
+    ":core-common",
     ":core-data",
     ":core-ui",
     ":core-interactors",
