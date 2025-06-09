@@ -74,19 +74,28 @@ fun AgentServiceNavigation(
             startDestination = Destination.AgentList,
             modifier = modifier,
             enterTransition = {
-                fadeIn(animationSpec = tween(700))
-            },
-            exitTransition = {
-                fadeOut(animationSpec = tween(700))
-            },
-            popEnterTransition = {
                 slideInVertically(
                     animationSpec = tween(300),
                     initialOffsetY = { it }
-                ) + fadeIn(animationSpec = tween(700))
+                )
+            },
+            exitTransition = {
+                fadeOut(
+                    animationSpec = tween(0),
+                    targetAlpha = 1f
+                )
+            },
+            popEnterTransition = {
+                fadeIn(
+                    animationSpec = tween(0),
+                    initialAlpha = 1f
+                )
             },
             popExitTransition = {
-                fadeOut(animationSpec = tween(700))
+                slideOutVertically(
+                    animationSpec = tween(300),
+                    targetOffsetY = { it }
+                )
             }
         ) {
             composable<Destination.AgentList> {
