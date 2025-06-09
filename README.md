@@ -52,11 +52,25 @@ graph
     :app-android --> :app-shared
     :app-desktop --> :app-shared
     end
-    
-    subgraph core
-    :app-shared --> :core-common
-    :app-shared --> :core-data
-    :app-shared --> :core-ui
+
+    subgraph services
+    :services-openai
+    :services-google
+    :services-anthropic
     end
-    
+    :app-shared --> services
+
+    subgraph feature
+    :feature-agents
+    :feature-text-chat
+    end
+    :app-shared --> feature
+    services --> feature
+
+    subgraph core
+    :core-common
+    :core-data
+    :core-ui
+    end
+    feature --> core
 ```
