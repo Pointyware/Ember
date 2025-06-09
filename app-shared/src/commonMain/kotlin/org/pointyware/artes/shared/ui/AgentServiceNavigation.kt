@@ -68,7 +68,7 @@ fun AgentServiceNavigation(
         )
         NavHost(
             navController = navController,
-            startDestination = Destination.AgentInfo(0L),
+            startDestination = Destination.AgentList,
             modifier = modifier,
             enterTransition = {
                 fadeIn(animationSpec = tween(700))
