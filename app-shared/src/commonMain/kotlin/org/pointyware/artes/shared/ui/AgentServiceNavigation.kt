@@ -18,12 +18,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.toRoute
 import org.jetbrains.compose.resources.stringResource
 import org.pointyware.artes.agents.ui.AgentEditorScreen
 import org.pointyware.artes.agents.ui.AgentListScreen
@@ -31,6 +30,7 @@ import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
 import org.pointyware.artes.hosts.ui.HostEditorScreen
 import org.pointyware.artes.navigation.Destination
 import org.pointyware.artes.ui.AgentInfoView
+import org.pointyware.artes.ui.AgentInfoViewState
 import org.pointyware.artes.ui.HostConfigListView
 import org.pointyware.artes.ui.Res
 import org.pointyware.artes.ui.acc_desc_back
@@ -51,12 +51,13 @@ fun AgentServiceNavigation(
     navController: NavHostController,
 ) {
     Column {
-        val backStackEntry by navController.currentBackStackEntryAsState()
+        val backStack by navController.currentBackStack.collectAsState()
+        println("Back stack: $backStack")
         TopAppBar(
             title = { Text(text = stringResource(Res.string.title_app)) },
             navigationIcon = {
                 // Show back button if we are not at the root of the back stack
-                if (backStackEntry != null) {
+                if (backStack.isNotEmpty()) {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
