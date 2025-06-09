@@ -32,6 +32,7 @@ include(
 )
 
 include(
+    ":feature-agents",
     ":feature-text-chat",
 )
 
