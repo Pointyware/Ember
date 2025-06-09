@@ -18,11 +18,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import org.jetbrains.compose.resources.stringResource
 import org.pointyware.artes.agents.ui.AgentEditorScreen
 import org.pointyware.artes.agents.ui.AgentListScreen
@@ -51,13 +51,12 @@ fun AgentServiceNavigation(
     navController: NavHostController,
 ) {
     Column {
-        val backStack by navController.currentBackStack.collectAsState()
-        println("Back stack: $backStack")
+        val currentBackStack by navController.currentBackStackEntryAsState()
         TopAppBar(
             title = { Text(text = stringResource(Res.string.title_app)) },
             navigationIcon = {
-                // Show back button if we are not at the root of the back stack
-                if (backStack.isNotEmpty()) {
+                // nav graph is always the first entry
+                if (currentBackStack?.destination?.id != navController.graph.startDestinationId) {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
