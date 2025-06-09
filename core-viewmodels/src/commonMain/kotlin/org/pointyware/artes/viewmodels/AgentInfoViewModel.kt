@@ -13,10 +13,7 @@ import org.pointyware.artes.interactors.RemoveAgentUseCase
  * remove this agent.
  */
 interface AgentInfoViewModel {
-    data class UiState (
-        val info: AgentInfoUiState
-    )
-    val state: StateFlow<UiState>
+    val state: StateFlow<AgentInfoUiState>
 
     /**
      * Triggered when the user wants to edit this agent.
@@ -37,19 +34,19 @@ class DefaultAgentInfoViewModel(
     private val removeAgentUseCase: RemoveAgentUseCase,
     private val viewModelScope: CoroutineScope
 ): ViewModel(), AgentInfoViewModel {
-    private val mutableState = MutableStateFlow(AgentInfoViewModel.UiState(AgentInfoUiState.Empty))
-    override val state: StateFlow<AgentInfoViewModel.UiState>
+    private val mutableState = MutableStateFlow(AgentInfoUiState.Empty)
+    override val state: StateFlow<AgentInfoUiState>
         get() = mutableState
 
     override fun onEdit() {
         viewModelScope.launch {
-            beginEditingAgentUseCase.invoke(state.value.info.id)
+            beginEditingAgentUseCase.invoke(state.value.id)
         }
     }
 
     override fun onDelete() {
         viewModelScope.launch {
-            removeAgentUseCase.invoke(state.value.info.id)
+            removeAgentUseCase.invoke(state.value.id)
         }
     }
 }

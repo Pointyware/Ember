@@ -117,7 +117,11 @@ fun AgentServiceNavigation(
                 val state by agentInfoViewModel.state.collectAsState()
                 AgentInfoView(
                     state = state.let {
-                        TODO("Replace ViewModel.UiState with UiState")
+                        AgentInfoViewState(
+                            name = it.name,
+                            description = "Model: ${it.model.name}",
+                            hostConfig = it.host
+                        )
                     },
                     modifier = modifier,
                     onDelete = agentInfoViewModel::onDelete,
