@@ -1,17 +1,4 @@
-# Default ignored files
-/*.iml
-/artifacts/
-/caches/
-/compiler.xml
-/gradle.xml
-/inspectionProfiles/
-/misc.xml
-/modules.xml
-/modules/
-/runConfigurations.xml
-/shelf/
-/workspace.xml
-AndroidProjectSystem.xml
-assetWizardSettings.xml
-deploymentTargetSelector.xml
-vcs.xml
+# Ignore all files in the .idea directory except for the specified ones
+/*
+# Allow specific files and directories
+/license/
