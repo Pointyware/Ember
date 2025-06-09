@@ -3,7 +3,10 @@ package org.pointyware.artes.shared.ui
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
@@ -19,6 +22,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.IntOffset
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -76,10 +80,13 @@ fun AgentServiceNavigation(
                 fadeOut(animationSpec = tween(700))
             },
             popEnterTransition = {
-                slideInVertically(animationSpec = tween(300))
+                slideInVertically(
+                    animationSpec = tween(300),
+                    initialOffsetY = { it }
+                ) + fadeIn(animationSpec = tween(700))
             },
             popExitTransition = {
-                slideOutVertically(animationSpec = tween(300))
+                fadeOut(animationSpec = tween(700))
             }
         ) {
             composable<Destination.AgentList> {
