@@ -25,12 +25,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import org.jetbrains.compose.resources.stringResource
 import org.pointyware.artes.agents.ui.AgentEditorScreen
+import org.pointyware.artes.agents.ui.AgentInfoScreen
 import org.pointyware.artes.agents.ui.AgentListScreen
 import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
 import org.pointyware.artes.hosts.ui.HostEditorScreen
 import org.pointyware.artes.navigation.Destination
-import org.pointyware.artes.ui.AgentInfoView
-import org.pointyware.artes.ui.AgentInfoViewState
 import org.pointyware.artes.ui.HostConfigListView
 import org.pointyware.artes.ui.Res
 import org.pointyware.artes.ui.acc_desc_back
@@ -113,20 +112,13 @@ fun AgentServiceNavigation(
             }
 
             composable<Destination.AgentInfo> {
-                val agentInfoViewModel = rememberViewModel<DefaultAgentInfoViewModel>()
-                val state by agentInfoViewModel.state.collectAsState()
-                AgentInfoView(
-                    state = state.let {
-                        AgentInfoViewState(
-                            name = it.name,
-                            description = "Model: ${it.model.name}",
-                            hostConfig = it.host
-                        )
+                AgentInfoScreen(
+                    viewModel = rememberViewModel<DefaultAgentInfoViewModel>(),
+                    onEditAgent = {
+                        navController.navigate(Destination.AgentEditor(it))
                     },
-                    modifier = modifier,
-                    onDelete = agentInfoViewModel::onDelete,
-                    onEdit = {
-                        navController.navigate(Destination.AgentEditor(state.id))
+                    onBack = {
+                        navController.popBackStack()
                     }
                 )
             }
