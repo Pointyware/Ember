@@ -12,6 +12,7 @@ import org.pointyware.artes.ui.mapToViewState
 import org.pointyware.artes.viewmodels.AgentListViewModel
 
 /**
+ *
  */
 @Composable
 fun AgentListScreen(
@@ -19,7 +20,9 @@ fun AgentListScreen(
     onShowAgent: (Long)->Unit,
     onNewAgent: ()->Unit,
 ) {
-    Surface {
+    Surface(
+        modifier = Modifier.fillMaxSize()
+    ) {
         val viewState by viewModel.state.collectAsState()
         LaunchedEffect(Unit) {
             viewModel.onInit()
