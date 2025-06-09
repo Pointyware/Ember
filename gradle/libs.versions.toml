@@ -1,11 +1,11 @@
 [versions]
 agp = "8.8.2"
 androidx-activityCompose = "1.10.1"
-androidx-compose = "1.7.8"
-compose = "1.7.3"
-compose-material3 = "1.3.2"
-compose-navigation = "2.8.0-alpha10"
-compose-viewmodels = "2.8.4"
+androidx-compose = "1.8.2"
+androidx-material3 = "1.3.2"
+compose = "1.8.1"
+compose-navigation = "2.9.0-beta02"
+compose-viewmodels = "2.9.0"
 composeBom = "2025.04.00"
 koin = "3.5.6"
 kotlin = "2.1.10"
@@ -20,12 +20,12 @@ truth = "1.1.3"
 
 [libraries]
 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose" }
-compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
+androidx-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "androidx-compose" }
+androidx-material3 = { module = "androidx.compose.material3:material3", version.ref = "androidx-material3" }
+androidx-ui = { module = "androidx.compose.ui:ui", version.ref = "androidx-compose" }
+androidx-uiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-compose" }
+androidx-uiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-compose" }
 compose-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "compose-navigation" }
-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "androidx-compose" }
-compose-uiTooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "androidx-compose" }
-compose-uiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "androidx-compose" }
 compose-viewModels = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "compose-viewmodels" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlinx-coroutinesAndroid = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx"}

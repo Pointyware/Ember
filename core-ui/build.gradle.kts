@@ -50,7 +50,7 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                implementation(libs.compose.uiToolingPreview)
+                implementation(libs.androidx.uiToolingPreview)
             }
         }
 
@@ -76,7 +76,7 @@ android {
 }
 
 dependencies {
-    debugImplementation(libs.compose.uiTooling)
+    debugImplementation(libs.androidx.uiTooling)
 }
 
 compose.resources {

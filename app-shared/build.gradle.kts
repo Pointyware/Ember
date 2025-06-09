@@ -27,6 +27,7 @@ kotlin {
 
                 implementation(compose.ui)
                 implementation(compose.material3)
+                implementation(compose.materialIconsExtended)
                 implementation(compose.material3AdaptiveNavigationSuite)
 
                 implementation(libs.koin.core)
@@ -50,7 +51,7 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                implementation(libs.compose.uiToolingPreview)
+                implementation(libs.androidx.uiToolingPreview)
 
                 implementation(libs.kotlinx.coroutinesAndroid)
             }
@@ -80,5 +81,5 @@ android {
 }
 
 dependencies {
-    debugImplementation(libs.compose.uiTooling)
+    debugImplementation(libs.androidx.uiTooling)
 }
