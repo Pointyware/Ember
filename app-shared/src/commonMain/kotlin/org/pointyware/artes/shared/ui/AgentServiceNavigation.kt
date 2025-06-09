@@ -68,7 +68,7 @@ fun AgentServiceNavigation(
         )
         NavHost(
             navController = navController,
-            startDestination = Destination.AgentList,
+            startDestination = Destination.AgentInfo(0L),
             modifier = modifier,
             enterTransition = {
                 fadeIn(animationSpec = tween(700))
@@ -125,7 +125,9 @@ fun AgentServiceNavigation(
                     },
                     modifier = modifier,
                     onDelete = agentInfoViewModel::onDelete,
-                    onEdit = agentInfoViewModel::onEdit
+                    onEdit = {
+                        navController.navigate(Destination.AgentEditor(state.id))
+                    }
                 )
             }
             composable<Destination.AgentEditor> {
