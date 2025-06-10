@@ -23,6 +23,10 @@ include(
 )
 
 include(
+    ":scratch"
+)
+
+include(
     ":core-common",
     ":core-data",
     ":core-ui",
