@@ -63,6 +63,8 @@ graph
     subgraph feature
     :feature-agents
     :feature-text-chat
+
+    :feature-agents --> :feature-text-chat
     end
     :app-shared --> feature
     services --> feature
