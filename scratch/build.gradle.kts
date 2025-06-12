@@ -26,5 +26,5 @@ kotlin {
 }
 
 application {
-    mainClass.set("org.pointyware.artes.scratch.TensorKt")
+    mainClass.set("org.pointyware.artes.scratch.MainKt")
 }
