@@ -25,4 +25,22 @@ class LearningTensor(
     override fun computeLoss(): Double {
         TODO("Not yet implemented")
     }
+
+    companion object {
+        /**
+         * Creates a LearningTensor with random values.
+         */
+        fun random(vararg dimensions: Int): LearningTensor {
+            TODO("Initialize all components with Gaussian randoms")
+            return LearningTensor()
+        }
+
+        /**
+         * Creates a LearningTensor initialized to zeros.
+         */
+        fun zeros(vararg dimensions: Int): LearningTensor {
+            TODO("Initialize all components to zero")
+            return LearningTensor()
+        }
+    }
 }
