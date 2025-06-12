@@ -1,12 +1,17 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-//    alias(libs.plugins.androidLibrary)
-    application
 }
 
 kotlin {
     jvmToolchain(21)
-    jvm("desktop")
+    jvm("desktop") {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        mainRun {
+            mainClass = "org.pointyware.artes.scratch.MainKt"
+        }
+    }
 
     sourceSets {
         val commonMain by getting {
@@ -23,8 +28,4 @@ kotlin {
             }
         }
     }
-}
-
-application {
-    mainClass.set("org.pointyware.artes.scratch.MainKt")
 }
