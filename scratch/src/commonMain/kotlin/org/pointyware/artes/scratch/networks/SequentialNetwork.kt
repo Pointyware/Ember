@@ -1,6 +1,6 @@
 package org.pointyware.artes.scratch.networks
 
-import org.pointyware.artes.scratch.layers.Layer
+import org.pointyware.artes.scratch.layers.LinearLayer
 import org.pointyware.artes.scratch.tensors.Tensor
 
 /**
@@ -8,7 +8,7 @@ import org.pointyware.artes.scratch.tensors.Tensor
  * without branches or skips.
  */
 class SequentialNetwork(
-    val layers: List<Layer>,
+    val layers: List<LinearLayer>,
 ) : Network {
     override fun predict(input: Tensor): Tensor {
         return layers.fold(input) { acc, layer ->
