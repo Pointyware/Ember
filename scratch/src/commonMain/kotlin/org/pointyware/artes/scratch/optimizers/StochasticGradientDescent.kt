@@ -20,7 +20,7 @@ class StochasticGradientDescent(
         TODO("Not yet implemented")
     }
 
-    override fun update(layer: Layer, gradient: Tensor) {
+    override fun update(layer: Layer, weightGradient: Tensor, biasGradient: Tensor) {
         TODO("Not yet implemented")
     }
 }

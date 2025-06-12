@@ -15,5 +15,5 @@ interface Optimizer {
     /**
      * Updates the parameters of the model based on the gradients computed during the forward pass.
      */
-    fun update(layer: Layer, gradient: Tensor)
+    fun update(layer: Layer, weightGradient: Tensor, biasGradient: Tensor)
 }
