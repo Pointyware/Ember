@@ -1,10 +1,14 @@
 package org.pointyware.artes.scratch.optimizers
 
 import org.pointyware.artes.scratch.layers.Layer
+import org.pointyware.artes.scratch.layers.LinearLayer
 import org.pointyware.artes.scratch.tensors.Tensor
 
 /**
- * Stochastic Gradient Descent optimizer with adjustable learning rate.
+ * Stochastic Gradient Descent (SGD) optimizer with adjustable learning rate.
+ *
+ * SGD operates on a subset of the training data (a single sample or a mini-batch) randomly
+ * selected from the entire dataset.
  *
  * @param learningRate The learning rate for the optimizer.
  */
@@ -21,6 +25,15 @@ class StochasticGradientDescent(
     }
 
     override fun update(layer: Layer, weightGradient: Tensor, biasGradient: Tensor) {
-        TODO("Not yet implemented")
+        when (layer) {
+            is LinearLayer -> {
+                layer.weights.mapEachIndexed { indices, input ->
+                    input - learningRate * weightGradient[indices]
+                }
+                layer.biases.mapEachIndexed { indices, input ->
+                    input - learningRate * biasGradient[indices]
+                }
+            }
+        }
     }
 }
