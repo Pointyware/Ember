@@ -1,13 +1,14 @@
 package org.pointyware.artes.scratch.activations
 
-import org.pointyware.artes.scratch.tensors.Tensor
-
+/**
+ * Rectified Linear Unit (ReLU) activation function.
+ */
 object ReLU: ActivationFunction {
-    override fun calculate(input: Tensor): Tensor {
-        TODO("Not yet implemented")
+    override fun calculate(input: Double): Double {
+        return if (input > 0) input else 0.0
     }
 
-    override fun derivative(input: Tensor): Tensor {
-        TODO("Not yet implemented")
+    override fun derivative(input: Double): Double {
+        return if (input > 0) 1.0 else 0.0
     }
 }

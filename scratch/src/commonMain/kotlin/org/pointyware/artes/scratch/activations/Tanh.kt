@@ -1,13 +1,17 @@
 package org.pointyware.artes.scratch.activations
 
-import org.pointyware.artes.scratch.tensors.Tensor
+import kotlin.math.pow
+import kotlin.math.tanh
 
+/**
+ * Calculates the hyperbolic tangent of the input value.
+ */
 object Tanh: ActivationFunction {
-    override fun calculate(input: Tensor): Tensor {
-        TODO("Not yet implemented")
+    override fun calculate(input: Double): Double {
+        return tanh(input)
     }
 
-    override fun derivative(input: Tensor): Tensor {
-        TODO("Not yet implemented")
+    override fun derivative(input: Double): Double {
+        return 1 - tanh(input).pow(2)
     }
 }
