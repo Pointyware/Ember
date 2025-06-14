@@ -4,12 +4,12 @@ package org.pointyware.artes.scratch.activations
  * Logistic function, also known as "the" sigmoid function; although,
  * a sigmoid function is any function that has an "S" shaped curve.
  */
-object Sigmoid: ActivationFunction {
-    override fun calculate(input: Double): Double {
+object Sigmoid: ScalarActivationFunction {
+    override fun scalarActivation(input: Double): Double {
         TODO("Not yet implemented")
     }
 
-    override fun derivative(input: Double): Double {
+    override fun scalarDerivative(input: Double): Double {
         TODO("Not yet implemented")
     }
 }
