@@ -10,19 +10,13 @@ object MeanSquaredError : LossFunction {
             )
         }
 
-        val diffs = Tensor(actual.dimensions).apply {
-            mapEachIndexed { indices, _ ->
-                actual[indices] - expected[indices]
-            }
+        val diffs = Tensor(actual.dimensions).mapEachFlatIndexed { index, _ ->
+            actual[index] - expected[index]
         }
-        val squared = Tensor(actual.dimensions).apply {
-            mapEachIndexed { indices, _ ->
-                diffs[indices] * diffs[indices]
-            }
+        val squared = Tensor(actual.dimensions).mapEachFlatIndexed { index, _ ->
+            diffs[index] * diffs[index]
         }
 
-        val mean = squared.values.asSequence().average()
-
-        return mean
+        return squared.values.asSequence().average()
     }
 }
