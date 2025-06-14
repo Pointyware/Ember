@@ -105,33 +105,27 @@ data class Tensor(
             }
         }
 
-    operator fun set(index: Int, value: Double) {
-        data[index] = value
-    }
     operator fun get(index: Int): Double {
         return data[index]
     }
-    operator fun set(indices: IntArray, value: Double) {
-        set(absoluteIndex(dimensions, indices), value)
+    operator fun set(index: Int, value: Double) {
+        data[index] = value
     }
     operator fun get(indices: IntArray): Double {
         return get(absoluteIndex(dimensions, indices))
     }
-
-
-    fun matrixMultiply(other: Tensor): Tensor {
-        require(isMatrix && other.isMatrix) { "Both tensors must be matrices for matrix multiplication." }
-        require(dimensions[1] == other.dimensions[0]) { "Matrix dimensions do not match for multiplication." }
-
-        val m = dimensions[0]
-        val n = dimensions[1]
-        val p = other.dimensions[1]
-        TODO("Implement matrix multiplication")
-
+    operator fun set(indices: IntArray, value: Double) {
+        set(absoluteIndex(dimensions, indices), value)
+    }
+    operator fun get(vararg indices: Int): Double {
+        return get(absoluteIndex(dimensions, indices))
+    }
+    operator fun set(vararg indices: Int, value: Double) {
+        set(absoluteIndex(dimensions, indices), value)
     }
 
     @Suppress("OVERRIDE_BY_INLINE")
-    override inline fun mapEach(function: (Double)->Double): Tensor {
+    override inline fun mapEach(function: (value:Double)->Double): Tensor {
         for (index in indices) {
             this[index] = function(this[index])
         }
@@ -139,7 +133,7 @@ data class Tensor(
     }
 
     @Suppress("OVERRIDE_BY_INLINE")
-    override inline fun mapEachIndexed(function: (IntArray, Double)->Double): Tensor {
+    override inline fun mapEachIndexed(function: (indices:IntArray, value:Double)->Double): Tensor {
         for (index in indices) {
             this[index] = function(index, this[index])
         }
@@ -147,7 +141,7 @@ data class Tensor(
     }
 
     @Suppress("OVERRIDE_BY_INLINE")
-    override inline fun mapEachFlatIndexed(function: (Int, Double) -> Double): Tensor {
+    override inline fun mapEachFlatIndexed(function: (index:Int, value:Double) -> Double): Tensor {
         for (i in 0 until totalSize) {
             this[i] = function(i, this[i])
         }
@@ -188,16 +182,13 @@ data class Tensor(
 
     // region Tensor Arithmetic operations ➕➖✖️➗
 
-
     /**
      * Adds two tensors element-wise. The tensors must have the same shape.
      */
     operator fun plus(other: Tensor): Tensor {
         require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for addition." }
-        return Tensor(dimensions).apply {
-            for (i in 0 until totalSize) {
-                this[i] = this@Tensor[i] + other[i]
-            }
+        return shape(*dimensions).mapEachFlatIndexed { index, _ ->
+            this[index] + other[index]
         }
     }
 
@@ -206,10 +197,8 @@ data class Tensor(
      */
     operator fun times(other: Tensor): Tensor {
         require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for element-wise multiplication." }
-        return Tensor(dimensions).apply {
-            for (i in 0 until totalSize) {
-                this[i] = this@Tensor[i] * other[i]
-            }
+        return shape(*dimensions).mapEachFlatIndexed { index, _ ->
+            this[index] * other[index]
         }
     }
 
