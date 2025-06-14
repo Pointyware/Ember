@@ -54,9 +54,14 @@ interface Tensor {
     /**
      * Adds two tensors element-wise. The tensors must have the same shape.
      */
-    operator fun plus(other: Tensor): Tensor
-
-    fun computeLoss(): Double
+    operator fun plus(other: Tensor): Tensor {
+        require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for addition." }
+        return SimpleTensor(dimensions).apply {
+            for (i in 0 until totalSize) {
+                this[i] = this@Tensor[i] + other[i]
+            }
+        }
+    }
 
     /**
      * Applies a function to each element of the tensor, modifying it in place.
