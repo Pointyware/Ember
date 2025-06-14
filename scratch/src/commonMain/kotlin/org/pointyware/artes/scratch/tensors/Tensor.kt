@@ -12,6 +12,7 @@ interface Tensor {
 
     val dimensions: IntArray
     val order: Int get () = dimensions.size
+    val totalSize: Int get() = dimensions.fold(1) { acc, dim -> acc * dim }
 
     val isScalar: Boolean get() = order == 0
     val isVector: Boolean get() = order == 1
@@ -32,9 +33,9 @@ interface Tensor {
      * Performs element-wise multiplication or matrix multiplication depending on the context.
      */
     operator fun times(other: Tensor): Tensor {
-        require(dimensions == other.dimensions) { "Tensors must have the same dimensions for element-wise multiplication." }
+        require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for element-wise multiplication." }
         return SimpleTensor(dimensions).apply {
-            for (i in 0 until size) {
+            for (i in 0 until totalSize) {
                 this[i] = this@Tensor[i] * other[i]
             }
         }

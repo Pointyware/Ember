@@ -7,9 +7,7 @@ class SimpleTensor(
     override val dimensions: IntArray,
     initializer: Double = 0.0,
 ): Tensor {
-    val size: Int = dimensions.fold(1) { acc, dim -> acc * dim }
-
-    private val data: DoubleArray = DoubleArray(size) {
+    private val data: DoubleArray = DoubleArray(totalSize) {
         initializer
     }
 
