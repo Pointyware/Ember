@@ -20,10 +20,6 @@ class StochasticGradientDescent(
         require(learningRate > 0) { "Learning rate must be positive." }
     }
 
-    override fun reset(layer: Layer) {
-        TODO("Not yet implemented")
-    }
-
     override fun update(layer: Layer, weightGradient: Tensor, biasGradient: Tensor) {
         when (layer) {
             is LinearLayer -> {
