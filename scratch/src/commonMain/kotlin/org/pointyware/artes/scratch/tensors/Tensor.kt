@@ -6,11 +6,33 @@ fun absoluteIndex(dimensions: IntArray, indices: IntArray): Int {
 }
 
 /**
+ * An interface for iterating over tensors, allowing for element-wise operations.
+ */
+interface TensorIterator {
+    /**
+     * Applies a function to each element of the tensor, modifying it in place.
+     */
+    fun mapEach(function: (Double)->Double): Tensor
+
+    /**
+     * Applies an indexed function to each element of the tensor, modifying it in place.
+     */
+    fun mapEachIndexed(function: (IntArray, Double)->Double): Tensor
+
+    /**
+     * Applies a flat-indexed function to each element of the tensor, modifying it in place.
+     *
+     * The flat index is the linear index in the flattened array representation of the tensor.
+     */
+    fun mapEachFlatIndexed(function: (Int, Double)->Double): Tensor
+}
+
+/**
  * A tensor is a generalization of vectors and matrices to higher dimensions.
  */
 data class Tensor(
     val dimensions: IntArray,
-) {
+): TensorIterator {
     init {
         require(dimensions.size >= 0) { "Dimensions must be non-negative." }
     }
@@ -131,33 +153,58 @@ data class Tensor(
         }
     }
 
-    /**
-     * Applies a function to each element of the tensor, modifying it in place.
-     */
-    inline fun mapEach(function: (Double)->Double): Tensor {
+    @Suppress("OVERRIDE_BY_INLINE")
+    override inline fun mapEach(function: (Double)->Double): Tensor {
         for (index in indices) {
             this[index] = function(this[index])
         }
         return this
     }
 
-    /**
-     * Applies a function to each element of the tensor, modifying it in place.
-     */
-    inline fun mapEachIndexed(function: (IntArray, Double)->Double): Tensor {
+    @Suppress("OVERRIDE_BY_INLINE")
+    override inline fun mapEachIndexed(function: (IntArray, Double)->Double): Tensor {
         for (index in indices) {
             this[index] = function(index, this[index])
         }
         return this
     }
 
-    // region Arithmetic operations
+    @Suppress("OVERRIDE_BY_INLINE")
+    override inline fun mapEachFlatIndexed(function: (Int, Double) -> Double): Tensor {
+        for (i in 0 until totalSize) {
+            this[i] = function(i, this[i])
+        }
+        return this
+    }
+
+    // region Scalar Arithmetic operations 🧮
+
+    /**
+     * Performs element-wise addition of this tensor by the given [scalar].
+     */
+    operator fun times(scalar: Double) {
+        mapEach { it + scalar }
+    }
 
     /**
      * Performs element-wise division of this tensor by the given [scalar].
      */
     operator fun div(scalar: Double) {
         mapEach { it / scalar }
+    }
+
+    /**
+     * Performs element-wise addition of this tensor by the given [scalar].
+     */
+    operator fun plus(scalar: Double) {
+        mapEach { it + scalar }
+    }
+
+    /**
+     * Performs element-wise addition of this tensor by the given [scalar].
+     */
+    operator fun minus(scalar: Double) {
+        mapEach { it - scalar }
     }
 
     // endregion
