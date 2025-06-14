@@ -40,10 +40,17 @@ data class Tensor(
 
     val order: Int get () = dimensions.size
     val totalSize: Int get() = dimensions.fold(1) { acc, dim -> acc * dim }
-    val basisSize: Int get() = dimensions.lastOrNull() ?: 1
 
+    /**
+     * The size of the last dimension. For scalars with empty dimensions, returns 1.
+     */
+    val lastDimensionSize: Int get() = dimensions.lastOrNull() ?: 1
 
-
+    /**
+     * The area of the foundation of the tensor, which is the accumulated size of all dimensions
+     * except the last one. This is useful for normalizing values across a tensor.
+     */
+    val area: Int get() = totalSize / lastDimensionSize
 
     val isScalar: Boolean get() = order == 0
     val isVector: Boolean get() = order == 1

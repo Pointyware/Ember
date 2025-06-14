@@ -12,7 +12,6 @@ object CrossEntropyLoss : LossFunction {
             }
         }
 
-        val basis = actual.totalSize / actual.basisSize
-        return logProbs.values.asSequence().sum() / basis
+        return logProbs.values.asSequence().sum() / actual.area
     }
 }
