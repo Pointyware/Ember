@@ -118,17 +118,6 @@ data class Tensor(
         return get(absoluteIndex(dimensions, indices))
     }
 
-    /**
-     * Performs element-wise multiplication or matrix multiplication depending on the context.
-     */
-    operator fun times(other: Tensor): Tensor {
-        require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for element-wise multiplication." }
-        return Tensor(dimensions).apply {
-            for (i in 0 until totalSize) {
-                this[i] = this@Tensor[i] * other[i]
-            }
-        }
-    }
 
     fun matrixMultiply(other: Tensor): Tensor {
         require(isMatrix && other.isMatrix) { "Both tensors must be matrices for matrix multiplication." }
@@ -139,18 +128,6 @@ data class Tensor(
         val p = other.dimensions[1]
         TODO("Implement matrix multiplication")
 
-    }
-
-    /**
-     * Adds two tensors element-wise. The tensors must have the same shape.
-     */
-    operator fun plus(other: Tensor): Tensor {
-        require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for addition." }
-        return Tensor(dimensions).apply {
-            for (i in 0 until totalSize) {
-                this[i] = this@Tensor[i] + other[i]
-            }
-        }
     }
 
     @Suppress("OVERRIDE_BY_INLINE")
@@ -182,29 +159,58 @@ data class Tensor(
     /**
      * Performs element-wise addition of this tensor by the given [scalar].
      */
-    operator fun times(scalar: Double) {
-        mapEach { it + scalar }
+    operator fun plus(scalar: Double): Tensor {
+        return shape(*dimensions).mapEachFlatIndexed { _, value -> value + scalar }
+    }
+
+    /**
+     * Performs element-wise addition of this tensor by the given [scalar].
+     */
+    operator fun minus(scalar: Double): Tensor {
+        return shape(*dimensions).mapEachFlatIndexed { _, value -> value - scalar }
+    }
+
+    /**
+     * Performs element-wise addition of this tensor by the given [scalar].
+     */
+    operator fun times(scalar: Double): Tensor {
+        return shape(*dimensions).mapEachFlatIndexed { _, value -> value * scalar }
     }
 
     /**
      * Performs element-wise division of this tensor by the given [scalar].
      */
-    operator fun div(scalar: Double) {
-        mapEach { it / scalar }
+    operator fun div(scalar: Double): Tensor {
+        return shape(*dimensions).mapEachFlatIndexed { _, value -> value / scalar }
+    }
+
+    // endregion
+
+    // region Tensor Arithmetic operations ➕➖✖️➗
+
+
+    /**
+     * Adds two tensors element-wise. The tensors must have the same shape.
+     */
+    operator fun plus(other: Tensor): Tensor {
+        require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for addition." }
+        return Tensor(dimensions).apply {
+            for (i in 0 until totalSize) {
+                this[i] = this@Tensor[i] + other[i]
+            }
+        }
     }
 
     /**
-     * Performs element-wise addition of this tensor by the given [scalar].
+     * Performs element-wise multiplication or matrix multiplication depending on the context.
      */
-    operator fun plus(scalar: Double) {
-        mapEach { it + scalar }
-    }
-
-    /**
-     * Performs element-wise addition of this tensor by the given [scalar].
-     */
-    operator fun minus(scalar: Double) {
-        mapEach { it - scalar }
+    operator fun times(other: Tensor): Tensor {
+        require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for element-wise multiplication." }
+        return Tensor(dimensions).apply {
+            for (i in 0 until totalSize) {
+                this[i] = this@Tensor[i] * other[i]
+            }
+        }
     }
 
     // endregion
