@@ -67,10 +67,18 @@ interface Tensor {
     /**
      * Applies a function to each element of the tensor, modifying it in place.
      */
-    fun mapEach(function: (Double)->Double)
+    fun mapEach(function: (Double)->Double) {
+        for (index in indices) {
+            this[index] = function(this[index])
+        }
+    }
 
     /**
      * Applies a function to each element of the tensor, modifying it in place.
      */
-    fun mapEachIndexed(function: (IntArray, Double)->Double)
+    fun mapEachIndexed(function: (IntArray, Double)->Double) {
+        for (index in indices) {
+            this[index] = function(index, this[index])
+        }
+    }
 }
