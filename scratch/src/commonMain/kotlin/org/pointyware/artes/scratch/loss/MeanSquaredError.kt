@@ -1,6 +1,5 @@
 package org.pointyware.artes.scratch.loss
 
-import org.pointyware.artes.scratch.tensors.SimpleTensor
 import org.pointyware.artes.scratch.tensors.Tensor
 
 object MeanSquaredError : LossFunction {
@@ -11,12 +10,12 @@ object MeanSquaredError : LossFunction {
             )
         }
 
-        val diffs = SimpleTensor(actual.dimensions).apply {
+        val diffs = Tensor(actual.dimensions).apply {
             mapEachIndexed { indices, _ ->
                 actual[indices] - expected[indices]
             }
         }
-        val squared = SimpleTensor(actual.dimensions).apply {
+        val squared = Tensor(actual.dimensions).apply {
             mapEachIndexed { indices, _ ->
                 diffs[indices] * diffs[indices]
             }

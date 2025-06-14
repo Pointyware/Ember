@@ -1,6 +1,5 @@
 package org.pointyware.artes.scratch.activations
 
-import org.pointyware.artes.scratch.tensors.SimpleTensor
 import org.pointyware.artes.scratch.tensors.Tensor
 
 /**
@@ -23,7 +22,7 @@ interface ScalarActivationFunction: ActivationFunction {
     fun scalarDerivative(input: Double): Double
 
     override fun calculate(input: Tensor): Tensor {
-        return SimpleTensor(input.dimensions).apply {
+        return Tensor(input.dimensions).apply {
             mapEach { value ->
                 scalarActivation(value)
             }
@@ -31,7 +30,7 @@ interface ScalarActivationFunction: ActivationFunction {
     }
 
     override fun derivative(input: Tensor): Tensor {
-        return SimpleTensor(input.dimensions).apply {
+        return Tensor(input.dimensions).apply {
             mapEach { value ->
                 scalarDerivative(value)
             }

@@ -6,7 +6,7 @@ import org.pointyware.artes.scratch.layers.LinearLayer
 import org.pointyware.artes.scratch.loss.MeanSquaredError
 import org.pointyware.artes.scratch.networks.SequentialNetwork
 import org.pointyware.artes.scratch.optimizers.StochasticGradientDescent
-import org.pointyware.artes.scratch.tensors.SimpleTensor
+import org.pointyware.artes.scratch.tensors.Tensor
 import org.pointyware.artes.scratch.training.SequentialTrainer
 import org.pointyware.artes.scratch.training.StudyCase
 
@@ -16,17 +16,17 @@ import org.pointyware.artes.scratch.training.StudyCase
 fun main(vararg args: String) {
     // Create simple NN with 2 inputs, 1 hidden layer, and 1 output.
     val inputs = listOf(
-        SimpleTensor.from(doubleArrayOf(0.0, 0.0)),
-        SimpleTensor.from(doubleArrayOf(0.0, 1.0)),
-        SimpleTensor.from(doubleArrayOf(1.0, 0.0)),
-        SimpleTensor.from(doubleArrayOf(1.0, 1.0))
+        Tensor.from(doubleArrayOf(0.0, 0.0)),
+        Tensor.from(doubleArrayOf(0.0, 1.0)),
+        Tensor.from(doubleArrayOf(1.0, 0.0)),
+        Tensor.from(doubleArrayOf(1.0, 1.0))
     )
 
     val targets = listOf(
-        SimpleTensor.from(doubleArrayOf(0.0)),
-        SimpleTensor.from(doubleArrayOf(1.0)),
-        SimpleTensor.from(doubleArrayOf(1.0)),
-        SimpleTensor.from(doubleArrayOf(0.0))
+        Tensor.from(doubleArrayOf(0.0)),
+        Tensor.from(doubleArrayOf(1.0)),
+        Tensor.from(doubleArrayOf(1.0)),
+        Tensor.from(doubleArrayOf(0.0))
     )
 
     val network = SequentialNetwork(
@@ -46,7 +46,7 @@ fun main(vararg args: String) {
     trainer.train(iterations = 1000)
 
     // Test the trained network
-    val testInput = SimpleTensor.from(doubleArrayOf(1.0, 1.0))
+    val testInput = Tensor.from(doubleArrayOf(1.0, 1.0))
     val testOutput = network.predict(testInput)
     val expected = 0.0 // XOR(1, 1) should be 0
     println("\nFinal predictions:")

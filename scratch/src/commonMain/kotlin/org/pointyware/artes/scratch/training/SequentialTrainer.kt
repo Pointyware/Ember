@@ -3,7 +3,7 @@ package org.pointyware.artes.scratch.training
 import org.pointyware.artes.scratch.loss.LossFunction
 import org.pointyware.artes.scratch.networks.SequentialNetwork
 import org.pointyware.artes.scratch.optimizers.Optimizer
-import org.pointyware.artes.scratch.tensors.SimpleTensor
+import org.pointyware.artes.scratch.tensors.Tensor
 
 /**
  *
@@ -17,8 +17,8 @@ class SequentialTrainer(
 ) {
 
     fun train(iterations: Int) {
-        val activations = network.layers.map { SimpleTensor.from(it.weights.dimensions[0]) }
-        val derivativeActivations = network.layers.map { SimpleTensor.from(it.weights.dimensions[0]) }
+        val activations = network.layers.map { Tensor.from(it.weights.dimensions[0]) }
+        val derivativeActivations = network.layers.map { Tensor.from(it.weights.dimensions[0]) }
 
         repeat(iterations) { epoch ->
             // Zero Gradients

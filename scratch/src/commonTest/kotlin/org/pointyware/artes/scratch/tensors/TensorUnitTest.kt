@@ -21,7 +21,7 @@ class TensorUnitTest {
     @Test
     fun values_iterator_returns_indices_in_row_major_order() {
         // Given a 6D tensor with dimensions 2x3x4x5x6x7
-        val tensor = SimpleTensor(intArrayOf(2, 3, 1, 1, 1, 2))
+        val tensor = Tensor(intArrayOf(2, 3, 1, 1, 1, 2))
 
         // When we iterate over the indices
         val valuesIterator = tensor.indices
