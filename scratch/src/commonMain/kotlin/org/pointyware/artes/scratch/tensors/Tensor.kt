@@ -242,9 +242,10 @@ data class Tensor(
             }
         }
 
-        fun shape(vararg dimensions: Int): Tensor  = from(*dimensions)
-        @Deprecated("Use Tensor.shape instead", ReplaceWith("Tensor.shape(*dimensions)"))
-        fun from(vararg dimensions: Int): Tensor {
+        /**
+         * Creates a tensor with the specified dimensions, initialized to zero.
+         */
+        fun shape(vararg dimensions: Int): Tensor {
             return Tensor(dimensions)
         }
     }
