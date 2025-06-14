@@ -22,6 +22,61 @@ interface Tensor {
     operator fun set(index: Int, value: Double)
     operator fun get(index: Int): Double
 
+    /**
+     * This order of indices provided by this iterator is row-major, meaning that the last
+     * index changes the fastest.
+     *
+     * The following tensor will index in the order A, B, C, D:
+     * ```
+     * | A  B  |
+     * | C  D  |
+     * ```
+     *
+     * The returned iterator reuses the same list of indices, so it is not thread-safe and should
+     * not be modified or stored.
+     */
+    val indices: Iterator<IntArray>
+        get() = object : Iterator<IntArray> {
+            private val dimensions: IntArray = this@Tensor.dimensions
+            private val indexList = IntArray(dimensions.size).apply {
+                // Prime first index with -1
+                this[dimensions.size - 1] = -1
+            }
+            private var finished = false
+
+            override fun hasNext(): Boolean {
+                return !finished
+            }
+
+            override fun next(): IntArray {
+                if (finished) throw NoSuchElementException("No more indices available.")
+
+                // Starting at right-most index
+                for (axis in indexList.indices.reversed()) {
+                    // If we can increment this axis, do so and break
+                    if (indexList[axis] < dimensions[axis] - 1) {
+                        indexList[axis]++
+                        break
+                    } else { // Otherwise, reset this axis and attempt to increment the next axis
+                        indexList[axis] = 0
+                        // If we are at the left-most axis, we have finished iterating
+                        if (axis == 0) finished = true
+                    }
+                }
+
+                return indexList
+            }
+        }
+
+    val values: Iterator<Double>
+        get() = object : Iterator<Double> {
+            private val indexIterator = indices
+            override fun hasNext(): Boolean = indexIterator.hasNext()
+            override fun next(): Double {
+                return get(indexIterator.next())
+            }
+        }
+
     operator fun set(indices: IntArray, value: Double) {
         set(absoluteIndex(dimensions, indices), value)
     }
