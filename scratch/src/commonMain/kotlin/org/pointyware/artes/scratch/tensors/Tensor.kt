@@ -1,6 +1,6 @@
 package org.pointyware.artes.scratch.tensors
 
-inline fun absoluteIndex(dimensions: List<Int>, indices: IntArray): Int {
+fun absoluteIndex(dimensions: IntArray, indices: IntArray): Int {
     require(indices.size == dimensions.size) { "Indices must match the tensor order." }
     return indices.foldIndexed(0) { index, acc, offset -> acc * dimensions[index] + offset }
 }
@@ -10,7 +10,7 @@ inline fun absoluteIndex(dimensions: List<Int>, indices: IntArray): Int {
  */
 interface Tensor {
 
-    val dimensions: List<Int>
+    val dimensions: IntArray
     val order: Int get () = dimensions.size
 
     val isScalar: Boolean get() = order == 0

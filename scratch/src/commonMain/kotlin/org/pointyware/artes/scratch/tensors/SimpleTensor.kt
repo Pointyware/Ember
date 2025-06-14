@@ -4,7 +4,7 @@ package org.pointyware.artes.scratch.tensors
  * This is just a regular tensor without any learning capabilities.
  */
 class SimpleTensor(
-    override val dimensions: List<Int>,
+    override val dimensions: IntArray,
     initializer: Double = 0.0,
 ): Tensor {
     val size: Int = dimensions.fold(1) { acc, dim -> acc * dim }
