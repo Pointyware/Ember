@@ -18,10 +18,6 @@ class LinearLayer(
         return input.matrixMultiply(weights) + biases
     }
 
-    override fun backward(gradient: Tensor): Tensor {
-        TODO("Not yet implemented")
-    }
-
     companion object {
         /**
          * Creates a LinearLayer with the specified input and output dimensions.

@@ -14,9 +14,4 @@ interface Layer {
      * @return The output tensor after calculations.
      */
     fun forward(input: Tensor): Tensor
-
-    /**
-     * Backward pass through the layer.
-     */
-    fun backward(gradient: Tensor): Tensor
 }
