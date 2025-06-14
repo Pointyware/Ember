@@ -13,6 +13,7 @@ interface Tensor {
     val dimensions: IntArray
     val order: Int get () = dimensions.size
     val totalSize: Int get() = dimensions.fold(1) { acc, dim -> acc * dim }
+    val basisSize: Int get() = dimensions.lastOrNull() ?: 1
 
     val isScalar: Boolean get() = order == 0
     val isVector: Boolean get() = order == 1
