@@ -15,7 +15,7 @@ class LinearLayer(
 ): Layer {
 
     override fun forward(input: Tensor): Tensor {
-        return input.matrixMultiply(weights) + biases
+        return weights * input + biases
     }
 
     companion object {
