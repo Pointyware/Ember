@@ -161,21 +161,35 @@ data class Tensor(
     }
 
     // endregion
-        companion object {
-            fun from(data: Double): Tensor {
-                return Tensor(intArrayOf()).mapEach { data }
-            }
 
-            fun from(vector: DoubleArray): Tensor {
-                return Tensor(intArrayOf(vector.size)).apply {
-                    for (i in vector.indices) {
-                        this[i] = vector[i]
-                    }
+    companion object {
+        fun from(vector: DoubleArray): Tensor {
+            return Tensor(intArrayOf(vector.size)).apply {
+                for (i in vector.indices) {
+                    this[i] = vector[i]
                 }
             }
-
-            fun from(vararg dimensions: Int): Tensor {
-                return Tensor(dimensions)
-            }
         }
+
+        fun shape(vararg dimensions: Int): Tensor  = from(*dimensions)
+        @Deprecated("Use Tensor.shape instead", ReplaceWith("Tensor.shape(*dimensions)"))
+        fun from(vararg dimensions: Int): Tensor {
+            return Tensor(dimensions)
+        }
+    }
+}
+
+fun scalar(value: Double): Tensor {
+    return Tensor.shape().mapEach { value }
+}
+
+fun vector(length: Int, initializer: (Int)->Double = { 0.0 }): Tensor {
+    return Tensor.shape(length).mapEachIndexed { indices, _ -> initializer(indices[0]) }
+}
+
+fun matrixOf(rows: Int, columns: Int, initializer: (Int,Int)->Double = { _, _ -> 0.0 }): Tensor {
+    require(rows > 0 && columns > 0) { "Matrix dimensions must be positive." }
+    return Tensor.shape(rows, columns).mapEachIndexed { indices, _ ->
+        initializer(indices[0], indices[1])
+    }
 }
