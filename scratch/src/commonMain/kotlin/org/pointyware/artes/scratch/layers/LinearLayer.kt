@@ -22,8 +22,8 @@ class LinearLayer(
          * Creates a LinearLayer with the specified input and output dimensions.
          */
         fun create(inputSize: Int, outputSize: Int, activation: ActivationFunction): LinearLayer {
-            val weights = Tensor.from(outputSize, inputSize).apply { mapEach { Marsaglia.getNormal() }}
-            val biases = Tensor.from(outputSize)
+            val weights = Tensor.shape(outputSize, inputSize).apply { mapEach { Marsaglia.getNormal() }}
+            val biases = Tensor.shape(outputSize)
             return LinearLayer(weights, biases, activation)
         }
     }
