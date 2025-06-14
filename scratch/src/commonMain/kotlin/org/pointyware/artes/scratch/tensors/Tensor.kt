@@ -8,20 +8,25 @@ fun absoluteIndex(dimensions: IntArray, indices: IntArray): Int {
 /**
  * A tensor is a generalization of vectors and matrices to higher dimensions.
  */
-interface Tensor {
+data class Tensor(
+    val dimensions: IntArray,
+) {
+    init {
+        require(dimensions.size >= 0) { "Dimensions must be non-negative." }
+    }
+    val data: DoubleArray = DoubleArray(totalSize)
 
-    val dimensions: IntArray
     val order: Int get () = dimensions.size
     val totalSize: Int get() = dimensions.fold(1) { acc, dim -> acc * dim }
     val basisSize: Int get() = dimensions.lastOrNull() ?: 1
+
+
+
 
     val isScalar: Boolean get() = order == 0
     val isVector: Boolean get() = order == 1
     val isMatrix: Boolean get() = order == 2
     val isTensor: Boolean get() = order > 2
-
-    operator fun set(index: Int, value: Double)
-    operator fun get(index: Int): Double
 
     /**
      * This order of indices provided by this iterator is row-major, meaning that the last
@@ -78,6 +83,12 @@ interface Tensor {
             }
         }
 
+    operator fun set(index: Int, value: Double) {
+        data[index] = value
+    }
+    operator fun get(index: Int): Double {
+        return data[index]
+    }
     operator fun set(indices: IntArray, value: Double) {
         set(absoluteIndex(dimensions, indices), value)
     }
@@ -90,7 +101,7 @@ interface Tensor {
      */
     operator fun times(other: Tensor): Tensor {
         require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for element-wise multiplication." }
-        return SimpleTensor(dimensions).apply {
+        return Tensor(dimensions).apply {
             for (i in 0 until totalSize) {
                 this[i] = this@Tensor[i] * other[i]
             }
@@ -113,7 +124,7 @@ interface Tensor {
      */
     operator fun plus(other: Tensor): Tensor {
         require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for addition." }
-        return SimpleTensor(dimensions).apply {
+        return Tensor(dimensions).apply {
             for (i in 0 until totalSize) {
                 this[i] = this@Tensor[i] + other[i]
             }
@@ -123,18 +134,48 @@ interface Tensor {
     /**
      * Applies a function to each element of the tensor, modifying it in place.
      */
-    fun mapEach(function: (Double)->Double) {
+    inline fun mapEach(function: (Double)->Double): Tensor {
         for (index in indices) {
             this[index] = function(this[index])
         }
+        return this
     }
 
     /**
      * Applies a function to each element of the tensor, modifying it in place.
      */
-    fun mapEachIndexed(function: (IntArray, Double)->Double) {
+    inline fun mapEachIndexed(function: (IntArray, Double)->Double): Tensor {
         for (index in indices) {
             this[index] = function(index, this[index])
         }
+        return this
     }
+
+    // region Arithmetic operations
+
+    /**
+     * Performs element-wise division of this tensor by the given [scalar].
+     */
+    operator fun div(scalar: Double) {
+        mapEach { it / scalar }
+    }
+
+    // endregion
+        companion object {
+            fun from(data: Double): Tensor {
+                return Tensor(intArrayOf()).mapEach { data }
+            }
+
+            fun from(vector: DoubleArray): Tensor {
+                return Tensor(intArrayOf(vector.size)).apply {
+                    for (i in vector.indices) {
+                        this[i] = vector[i]
+                    }
+                }
+            }
+
+            fun from(vararg dimensions: Int): Tensor {
+                return Tensor(dimensions)
+            }
+        }
 }
