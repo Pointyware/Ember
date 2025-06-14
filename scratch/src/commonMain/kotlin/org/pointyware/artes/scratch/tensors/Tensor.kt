@@ -202,6 +202,28 @@ data class Tensor(
         }
     }
 
+    /**
+     * Performs matrix multiplication, assuming both tensors are matrices with compatible dimensions.
+     */
+    fun matrixMultiply(other: Tensor): Tensor {
+        require(isMatrix && other.isMatrix) { "Both tensors must be matrices for matrix multiplication." }
+        require(dimensions[1] == other.dimensions[0]) { "Matrix dimensions do not match for multiplication." }
+
+        val m = dimensions[0]
+        val n = dimensions[1]
+        val p = other.dimensions[1]
+
+        return shape(m, p).mapEachIndexed { indices, value ->
+            val i = indices[0]
+            val j = indices[1]
+            var sum = 0.0
+            for (k in 0 until n) {
+                sum += this[i, k] * other[k, j]
+            }
+            value + sum
+        }
+    }
+
     // endregion
 
     companion object {
