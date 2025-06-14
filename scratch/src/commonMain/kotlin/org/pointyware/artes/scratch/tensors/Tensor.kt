@@ -108,7 +108,7 @@ data class Tensor(
             private val indexIterator = indices
             override fun hasNext(): Boolean = indexIterator.hasNext()
             override fun next(): Double {
-                return get(indexIterator.next())
+                return get(*indexIterator.next())
             }
         }
 
@@ -117,12 +117,6 @@ data class Tensor(
     }
     operator fun set(index: Int, value: Double) {
         data[index] = value
-    }
-    operator fun get(indices: IntArray): Double {
-        return get(absoluteIndex(dimensions, indices))
-    }
-    operator fun set(indices: IntArray, value: Double) {
-        set(absoluteIndex(dimensions, indices), value)
     }
     operator fun get(vararg indices: Int): Double {
         return get(absoluteIndex(dimensions, indices))
@@ -134,7 +128,7 @@ data class Tensor(
     @Suppress("OVERRIDE_BY_INLINE")
     override inline fun mapEach(function: (value:Double)->Double): Tensor {
         for (index in indices) {
-            this[index] = function(this[index])
+            this.set(indices = index, function(this.get(*index)))
         }
         return this
     }
@@ -142,7 +136,7 @@ data class Tensor(
     @Suppress("OVERRIDE_BY_INLINE")
     override inline fun mapEachIndexed(function: (indices:IntArray, value:Double)->Double): Tensor {
         for (index in indices) {
-            this[index] = function(index, this[index])
+            this.set(indices = index, function(index, this.get(*index)))
         }
         return this
     }
@@ -247,6 +241,18 @@ data class Tensor(
         var result = dimensions.contentHashCode()
         result = 31 * result + data.contentHashCode()
         return result
+    }
+
+    override fun toString(): String {
+        return "Tensor(dimensions=${dimensions.joinToString(
+            prefix = "[",
+            postfix = "]",
+            separator = ", "
+        )}, data=${data.joinToString(
+            prefix = "[",
+            postfix = "]",
+            separator = ", "
+        )})"
     }
 
     // endregion
