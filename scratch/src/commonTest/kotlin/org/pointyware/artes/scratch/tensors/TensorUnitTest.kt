@@ -4,6 +4,8 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
 
 class TensorUnitTest {
 
@@ -16,6 +18,17 @@ class TensorUnitTest {
     @AfterTest
     fun tearDown() {
 
+    }
+
+    @Test
+    fun tensor_creation_with_dimensions() {
+        assertFailsWith<IllegalArgumentException> {
+            Tensor(intArrayOf(2, 3, 1, 1, 1, -2))
+        }
+
+        val dimensions = intArrayOf(2, 3, 1, 1, 1, 2)
+        val tensor = Tensor(dimensions)
+        assertContentEquals(dimensions, tensor.dimensions)
     }
 
     @Test
