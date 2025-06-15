@@ -57,5 +57,13 @@ class TensorUnitTest {
         ).forEach { expected ->
             assertContentEquals(expected, valuesIterator.next())
         }
+
+        val hasNext = valuesIterator.hasNext()
+        assertFalse(hasNext,
+            "Iterator should not have more elements after exhausting all indices;" +
+                    " found: " +
+                    if (hasNext) valuesIterator.next().joinToString(separator = ",")
+                    else ""
+        )
     }
 }
