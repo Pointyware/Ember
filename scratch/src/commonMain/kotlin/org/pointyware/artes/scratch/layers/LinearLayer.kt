@@ -8,8 +8,8 @@ import org.pointyware.artes.scratch.tensors.matrixOf
 /**
  * Performs a linear transformation on the input with weights, biases, and activation function.
  *
- * Given a vector 'x' as input, m x n matrix of weights W, m x 1 matrix of biases B, the output 'y' is computed as:
- * y = W * x + B
+ * Given a vector 'x' as input, m x n matrix of weights W, m x 1 matrix of biases B,
+ * the output 'y' is computed as: `y = W * x + B`
  */
 class LinearLayer(
     val weights: Tensor,
