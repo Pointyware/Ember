@@ -34,7 +34,7 @@ data class Tensor(
     val dimensions: IntArray,
 ): TensorIterator {
     init {
-        require(dimensions.size >= 0) { "Dimensions must be non-negative." }
+        require(dimensions.all { it > 0 }) { "Dimensions must be positive." }
     }
     val data: DoubleArray = DoubleArray(totalSize)
 
