@@ -77,26 +77,21 @@ data class Tensor(
                 // Prime first index with -1
                 this[dimensions.size - 1] = -1
             }
-            private var finished = false
+            private var currentIndex = 0
+            private val totalIndices = totalSize
 
             override fun hasNext(): Boolean {
-                return !finished
+                return currentIndex < totalIndices
             }
 
             override fun next(): IntArray {
-                if (finished) throw NoSuchElementException("No more indices available.")
+                if (!hasNext()) throw NoSuchElementException("No more indices available.")
 
+                var rankIndex = currentIndex++
                 // Starting at right-most index
                 for (axis in indexList.indices.reversed()) {
-                    // If we can increment this axis, do so and break
-                    if (indexList[axis] < dimensions[axis] - 1) {
-                        indexList[axis]++
-                        break
-                    } else { // Otherwise, reset this axis and attempt to increment the next axis
-                        indexList[axis] = 0
-                        // If we are at the left-most axis, we have finished iterating
-                        if (axis == 0) finished = true
-                    }
+                    indexList[axis] = rankIndex % dimensions[axis]
+                    rankIndex /= dimensions[axis]
                 }
 
                 return indexList
