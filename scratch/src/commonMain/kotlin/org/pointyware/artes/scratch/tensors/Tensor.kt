@@ -214,12 +214,12 @@ data class Tensor(
         val n = dimensions[1]
         val p = other.dimensions[1]
 
-        return shape(m, p).mapEachIndexed { indices, value ->
-            val i = indices[0]
-            val j = indices[1]
+        return shape(m, p).mapEachFlatIndexed { index, value ->
+            val row = index / p
+            val column = index % p
             var sum = 0.0
             for (k in 0 until n) {
-                sum += this[i, k] * other[k, j]
+                sum += this[row, k] * other[k, column]
             }
             value + sum
         }
