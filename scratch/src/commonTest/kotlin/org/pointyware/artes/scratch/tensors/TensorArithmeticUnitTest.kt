@@ -63,4 +63,25 @@ class TensorArithmeticUnitTest {
             "Operand 2 data should remain unchanged"
         )
     }
+
+    @Test
+    fun scalar_multiplication_returns_new_tensor() {
+        val tensor1 = Tensor.from(
+            doubleArrayOf(1.0, 2.0, 3.0, 4.0),
+            2, 2
+        )
+        val scalar = 2.0
+        val result = tensor1 * scalar
+
+        val expected = Tensor.from(
+            doubleArrayOf(2.0, 4.0, 6.0, 8.0),
+            2, 2
+        )
+        assertContentEquals(expected.data, result.data)
+        assertContentEquals(
+            doubleArrayOf(1.0, 2.0, 3.0, 4.0),
+            tensor1.data,
+            "Operand data should remain unchanged"
+        )
+    }
 }

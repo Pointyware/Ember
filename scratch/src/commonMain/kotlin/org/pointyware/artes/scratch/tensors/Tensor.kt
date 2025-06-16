@@ -173,7 +173,7 @@ data class Tensor(
      * Performs element-wise addition of this tensor by the given [scalar].
      */
     operator fun times(scalar: Double): Tensor {
-        return shape(*dimensions).mapEachFlatIndexed { _, value -> value * scalar }
+        return shape(*dimensions).mapEachFlatIndexed { index, _ -> this[index] * scalar }
     }
 
     /**
@@ -298,6 +298,14 @@ data class Tensor(
             return Tensor(dimensions)
         }
     }
+}
+
+/**
+ * Multiplies a scalar with a tensor, returning a new tensor. Delegates to [Tensor.times] since
+ * scalar multiplication is commutative.
+ */
+operator fun Double.times(tensor: Tensor): Tensor {
+    return tensor * this
 }
 
 fun scalar(value: Double): Tensor {
