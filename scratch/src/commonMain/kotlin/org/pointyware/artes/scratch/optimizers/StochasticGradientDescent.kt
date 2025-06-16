@@ -29,6 +29,13 @@ class StochasticGradientDescent(
                 layer.biases.mapEachFlatIndexed { index, input ->
                     input - learningRate * biasGradient[index]
                 }
+                Tensor.shape(*layer.weights.dimensions).mapEachFlatIndexed { index, value ->
+                    value - learningRate * derivative[index]
+                }
+            }
+
+            else -> {
+                throw IllegalArgumentException("Unsupported layer type: ${layer::class.simpleName}")
             }
         }
     }
