@@ -13,10 +13,12 @@ import org.pointyware.artes.scratch.tensors.Tensor
  * @param learningRate The learning rate for the optimizer.
  */
 class StochasticGradientDescent(
+    val samplingRate: Double = 1.0,
     val learningRate: Double
 ): Optimizer {
 
     init {
+        require(samplingRate in 0.0..1.0) { "Sampling rate must be between 0.0 and 1.0." }
         require(learningRate > 0) { "Learning rate must be positive." }
     }
 
