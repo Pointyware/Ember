@@ -23,11 +23,11 @@ class StochasticGradientDescent(
     override fun update(layer: Layer, activation: Tensor, derivative: Tensor): Tensor {
         return when (layer) {
             is LinearLayer -> {
-                layer.weights.mapEachFlatIndexed { index, input ->
-                    input - learningRate * weightGradient[index]
+                layer.weights.mapEachFlatIndexed { index, value ->
+                    value - learningRate * derivative[index]
                 }
-                layer.biases.mapEachFlatIndexed { index, input ->
-                    input - learningRate * biasGradient[index]
+                layer.biases.mapEachFlatIndexed { index, value ->
+                    value - learningRate * derivative[index]
                 }
                 Tensor.shape(*layer.weights.dimensions).mapEachFlatIndexed { index, value ->
                     value - learningRate * derivative[index]
