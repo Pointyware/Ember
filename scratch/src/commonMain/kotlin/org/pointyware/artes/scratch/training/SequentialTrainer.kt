@@ -13,10 +13,10 @@ class SequentialTrainer(
     val cases: List<StudyCase>,
     val lossFunction: LossFunction,
     val optimizer: Optimizer,
-    private val updatePeriod: Int = 100
-) {
+    override val updatePeriod: Int = 100
+): Trainer {
 
-    fun train(iterations: Int) {
+    override fun train(iterations: Int) {
         val activations = network.layers.map { Tensor.shape(*it.weights.dimensions) }
         val derivativeActivations = network.layers.map { Tensor.shape(*it.weights.dimensions) }
 

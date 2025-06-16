@@ -12,6 +12,8 @@ This module is a small attempt to recreate some machine learning primitives from
   - Cross Entropy
 - Gradient Descent
   - Stochastic
+- Training
+  - 
 
 ```mermaid
 classDiagram
