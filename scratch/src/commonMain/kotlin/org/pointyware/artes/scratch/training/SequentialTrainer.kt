@@ -55,17 +55,6 @@ class SequentialTrainer(
                         derivative = layerDerivative
                     )
                 }
-                aggregateLoss += lossFunction.compute(expected = it.output, output)
-
-                // Backward Pass
-                for (index in network.layers.indices.reversed()) {
-                    // Update Weights and Biases
-                    optimizer.update(
-                        network.layers[index],
-                        activations[index],
-                        derivativeActivations[index]
-                    )
-                }
             }
 
             if (epoch % updatePeriod == 0) {
