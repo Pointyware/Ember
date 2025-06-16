@@ -29,14 +29,19 @@ class SequentialTrainer(
             // Process Each Case
             var aggregateLoss = 0.0
             cases.forEach {
-                var output = it.input
+                // initialize accumulator to input case
+                var networkLayerState = it.input
 
                 // Forward Pass
-                network.layers.forEachIndexed { index, layer ->
-                    output = layer.forward(output)
-                    val activationOutput = layer.activation.calculate(output)
-                    activations[index].plus(output)
-                    derivativeActivations[index].plus(layer.activation.derivative(output))
+                network.layers.forEachIndexed { layerIndex, layer ->
+                    networkLayerState = layer.forward(networkLayerState)
+                    activations[layerIndex] += layer.activation.calculate(networkLayerState)
+                    derivativeActivations[layerIndex] += layer.activation.derivative(networkLayerState)
+                }
+                aggregateLoss += lossFunction.compute(expected = it.output, networkLayerState)
+
+                // initialize loss gradient
+                var backwardOutput = Tensor.shape(*networkLayerState.dimensions).mapEach { 1.0 }
 
                 }
                 aggregateLoss += lossFunction.compute(expected = it.output, output)
