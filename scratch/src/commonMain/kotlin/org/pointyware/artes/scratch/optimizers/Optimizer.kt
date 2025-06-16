@@ -8,7 +8,9 @@ import org.pointyware.artes.scratch.tensors.Tensor
  */
 interface Optimizer {
     /**
-     * Updates the parameters of the model based on the gradients computed during the forward pass.
+     * Updates the parameters of the model based on the outputs computed during the forward pass.
+     *
+     * @return The updated tensor after applying the optimizer.
      */
-    fun update(layer: Layer, weightGradient: Tensor, biasGradient: Tensor)
+    fun update(layer: Layer, activation: Tensor, derivative: Tensor): Tensor
 }
