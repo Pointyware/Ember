@@ -17,8 +17,8 @@ class SequentialTrainer(
 ) {
 
     fun train(iterations: Int) {
-        val activations = network.layers.map { Tensor.shape(it.weights.dimensions[0]) }
-        val derivativeActivations = network.layers.map { Tensor.shape(it.weights.dimensions[0]) }
+        val activations = network.layers.map { Tensor.shape(*it.weights.dimensions) }
+        val derivativeActivations = network.layers.map { Tensor.shape(*it.weights.dimensions) }
 
         repeat(iterations) { epoch ->
             // Zero Gradients
