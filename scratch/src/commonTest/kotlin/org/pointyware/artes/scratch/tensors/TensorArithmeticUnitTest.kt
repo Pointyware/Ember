@@ -229,7 +229,7 @@ class TensorArithmeticUnitTest {
             "Operand 1 data should remain unchanged"
         )
         assertContentEquals(
-            doubleArrayOf(1.0, 1.0, 1.0, 1.0),
+            doubleArrayOf(7.0, 8.0, 9.0, 10.0),
             tensor2.data,
             "Operand 2 data should remain unchanged"
         )
