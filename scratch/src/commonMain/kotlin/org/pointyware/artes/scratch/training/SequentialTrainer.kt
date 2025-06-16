@@ -43,6 +43,17 @@ class SequentialTrainer(
                 // initialize loss gradient
                 var backwardOutput = Tensor.shape(*networkLayerState.dimensions).mapEach { 1.0 }
 
+                // Backward Pass
+                network.layers.asReversed().forEachIndexed { layerIndex, layer ->
+                    val reversedIndex = network.layers.size - 1 - layerIndex
+                    val layerOutput = activations[reversedIndex]
+                    val layerDerivative = derivativeActivations[reversedIndex]
+
+                    backwardOutput = optimizer.update(
+                        layer = layer,
+                        activation = layerOutput,
+                        derivative = layerDerivative
+                    )
                 }
                 aggregateLoss += lossFunction.compute(expected = it.output, output)
 
