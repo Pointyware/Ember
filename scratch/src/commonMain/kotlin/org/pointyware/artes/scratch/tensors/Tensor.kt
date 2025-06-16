@@ -197,6 +197,11 @@ data class Tensor(
         }
     }
 
+    operator fun plusAssign(other: Tensor) {
+        require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for addition." }
+        mapEachFlatIndexed { index, value -> value + other[index] }
+    }
+
     /**
      * Performs element-wise multiplication or matrix multiplication depending on the context.
      */
