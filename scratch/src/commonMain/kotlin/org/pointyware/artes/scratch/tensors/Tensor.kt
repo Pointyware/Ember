@@ -159,14 +159,14 @@ data class Tensor(
      * Performs element-wise addition of this tensor by the given [scalar].
      */
     operator fun plus(scalar: Double): Tensor {
-        return shape(*dimensions).mapEachFlatIndexed { _, value -> value + scalar }
+        return shape(*dimensions).mapEachFlatIndexed { index, _ -> this[index] + scalar }
     }
 
     /**
      * Performs element-wise addition of this tensor by the given [scalar].
      */
     operator fun minus(scalar: Double): Tensor {
-        return shape(*dimensions).mapEachFlatIndexed { _, value -> value - scalar }
+        return shape(*dimensions).mapEachFlatIndexed { index, _ -> this[index] - scalar }
     }
 
     /**
@@ -180,7 +180,7 @@ data class Tensor(
      * Performs element-wise division of this tensor by the given [scalar].
      */
     operator fun div(scalar: Double): Tensor {
-        return shape(*dimensions).mapEachFlatIndexed { _, value -> value / scalar }
+        return shape(*dimensions).mapEachFlatIndexed { index, _ -> this[index] / scalar }
     }
 
     // endregion
@@ -240,6 +240,8 @@ data class Tensor(
             value + sum
         }
     }
+
+    // endregion
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
