@@ -120,6 +120,15 @@ data class Tensor(
         set(absoluteIndex(dimensions, indices), value)
     }
 
+    fun transpose(): Tensor {
+        require(isMatrix) { "Transpose is only defined for matrices." }
+        val rows = dimensions[0]
+        val columns = dimensions[1]
+        return shape(columns, rows).mapEachIndexed { (row, column), _ ->
+            this[column, row]
+        }
+    }
+
     @Suppress("OVERRIDE_BY_INLINE")
     override inline fun mapEach(function: (value:Double)->Double): Tensor {
         for (index in indices) {
@@ -259,6 +268,15 @@ data class Tensor(
                     this[i] = vector[i]
                 }
             }
+        }
+
+        /**
+         * Creates a tensor from a [values] array and specified [dimensions].
+         *
+         * The [values] must have a length equal to the product of the [dimensions].
+         */
+        fun from(values: DoubleArray, vararg dimensions: Int): Tensor {
+            return Tensor(dimensions).mapEachFlatIndexed { index, _ -> values[index] }
         }
 
         /**

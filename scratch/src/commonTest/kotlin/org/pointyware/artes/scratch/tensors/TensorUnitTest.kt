@@ -66,4 +66,32 @@ class TensorUnitTest {
                     else ""
         )
     }
+
+    @Test
+    fun transpose_returns_transposed_tensor() {
+        // Given a 2D tensor
+        val tensor = Tensor.from(
+            values = doubleArrayOf(
+                1.0, 2.0, 3.0,
+                4.0, 5.0, 6.0
+            ),
+            2, 3
+        )
+
+        // When we transpose
+        val result = tensor.transpose()
+
+        // Then the dimensions should be swapped
+        assertContentEquals(intArrayOf(3, 2), result.dimensions)
+        // And the values should be transposed
+        val expectedTensor = Tensor.from(
+            values = doubleArrayOf(
+                1.0, 4.0,
+                2.0, 5.0,
+                3.0, 6.0
+            ),
+            3, 2
+        )
+        assertContentEquals(expectedTensor.data, result.data)
+    }
 }
