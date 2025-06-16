@@ -12,6 +12,90 @@ class TensorArithmeticUnitTest {
             doubleArrayOf(1.0, 2.0, 3.0, 4.0),
             2, 2
         )
+        val scalar = 5.0
+        val result = tensor1 + scalar
+
+        val expected = Tensor.from(
+            doubleArrayOf(6.0, 7.0, 8.0, 9.0),
+            2, 2
+        )
+        assertContentEquals(expected.data, result.data)
+        assertContentEquals(
+            doubleArrayOf(1.0, 2.0, 3.0, 4.0),
+            tensor1.data,
+            "Operand data should remain unchanged"
+        )
+    }
+
+    @Test
+    fun scalar_subtraction_returns_new_tensor() {
+        val tensor1 = Tensor.from(
+            doubleArrayOf(5.0, 6.0, 7.0, 8.0),
+            2, 2
+        )
+        val scalar = 3.0
+        val result = tensor1 - scalar
+
+        val expected = Tensor.from(
+            doubleArrayOf(2.0, 3.0, 4.0, 5.0),
+            2, 2
+        )
+        assertContentEquals(expected.data, result.data)
+        assertContentEquals(
+            doubleArrayOf(5.0, 6.0, 7.0, 8.0),
+            tensor1.data,
+            "Operand data should remain unchanged"
+        )
+    }
+
+    @Test
+    fun scalar_multiplication_returns_new_tensor() {
+        val tensor1 = Tensor.from(
+            doubleArrayOf(1.0, 2.0, 3.0, 4.0),
+            2, 2
+        )
+        val scalar = 2.0
+        val result = tensor1 * scalar
+
+        val expected = Tensor.from(
+            doubleArrayOf(2.0, 4.0, 6.0, 8.0),
+            2, 2
+        )
+        assertContentEquals(expected.data, result.data)
+        assertContentEquals(
+            doubleArrayOf(1.0, 2.0, 3.0, 4.0),
+            tensor1.data,
+            "Operand data should remain unchanged"
+        )
+    }
+
+    @Test
+    fun scalar_division_returns_new_tensor() {
+        val tensor1 = Tensor.from(
+            doubleArrayOf(2.0, 4.0, 6.0, 8.0),
+            2, 2
+        )
+        val scalar = 2.0
+        val result = tensor1 / scalar
+
+        val expected = Tensor.from(
+            doubleArrayOf(1.0, 2.0, 3.0, 4.0),
+            2, 2
+        )
+        assertContentEquals(expected.data, result.data)
+        assertContentEquals(
+            doubleArrayOf(2.0, 4.0, 6.0, 8.0),
+            tensor1.data,
+            "Operand data should remain unchanged"
+        )
+    }
+
+    @Test
+    fun tensor_addition_returns_new_tensor() {
+        val tensor1 = Tensor.from(
+            doubleArrayOf(1.0, 2.0, 3.0, 4.0),
+            2, 2
+        )
         val tensor2 = Tensor.from(
             doubleArrayOf(1.0, 1.0, 1.0, 1.0),
             2, 2
@@ -36,7 +120,7 @@ class TensorArithmeticUnitTest {
     }
 
     @Test
-    fun scalar_subtraction_returns_new_tensor() {
+    fun tensor_subtraction_returns_new_tensor() {
         val tensor1 = Tensor.from(
             doubleArrayOf(5.0, 6.0, 7.0, 8.0),
             4, 1
@@ -61,27 +145,6 @@ class TensorArithmeticUnitTest {
             doubleArrayOf(1.0, 1.0, 1.0, 1.0),
             tensor2.data,
             "Operand 2 data should remain unchanged"
-        )
-    }
-
-    @Test
-    fun scalar_multiplication_returns_new_tensor() {
-        val tensor1 = Tensor.from(
-            doubleArrayOf(1.0, 2.0, 3.0, 4.0),
-            2, 2
-        )
-        val scalar = 2.0
-        val result = tensor1 * scalar
-
-        val expected = Tensor.from(
-            doubleArrayOf(2.0, 4.0, 6.0, 8.0),
-            2, 2
-        )
-        assertContentEquals(expected.data, result.data)
-        assertContentEquals(
-            doubleArrayOf(1.0, 2.0, 3.0, 4.0),
-            tensor1.data,
-            "Operand data should remain unchanged"
         )
     }
 }
