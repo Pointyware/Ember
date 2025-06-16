@@ -202,6 +202,13 @@ data class Tensor(
         mapEachFlatIndexed { index, value -> value + other[index] }
     }
 
+    operator fun minus(other: Tensor): Tensor {
+        require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for subtraction." }
+        return shape(*dimensions).mapEachFlatIndexed { index, _ ->
+            this[index] - other[index]
+        }
+    }
+
     /**
      * Performs element-wise multiplication or matrix multiplication depending on the context.
      */
