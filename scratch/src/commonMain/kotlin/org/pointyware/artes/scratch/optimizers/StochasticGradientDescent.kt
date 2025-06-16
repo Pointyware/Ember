@@ -20,8 +20,8 @@ class StochasticGradientDescent(
         require(learningRate > 0) { "Learning rate must be positive." }
     }
 
-    override fun update(layer: Layer, weightGradient: Tensor, biasGradient: Tensor) {
-        when (layer) {
+    override fun update(layer: Layer, activation: Tensor, derivative: Tensor): Tensor {
+        return when (layer) {
             is LinearLayer -> {
                 layer.weights.mapEachFlatIndexed { index, input ->
                     input - learningRate * weightGradient[index]
