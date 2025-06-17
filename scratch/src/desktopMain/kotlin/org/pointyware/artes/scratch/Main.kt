@@ -36,12 +36,12 @@ fun main(vararg args: String) {
         )
     )
     val trainer = SequentialTrainer(
-        optimizer = StochasticGradientDescent(0.1),
-        lossFunction = MeanSquaredError,
+        network = network,
         cases = inputs.zip(targets) { input, target ->
             StudyCase(input, target)
         },
-        network = network
+        lossFunction = MeanSquaredError,
+        optimizer = StochasticGradientDescent(0.1),
     )
     trainer.train(iterations = 1000)
 
