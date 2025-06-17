@@ -16,8 +16,8 @@ This module is a small attempt to recreate some machine learning primitives from
   - Mean Squared Error
   - Cross Entropy
 - Optimizers
-  - Gradient Descent
-    - Stochastic
+  - Stochastic (Gradient Descent)
+  - Exp: Adam
 - Training
   - Sequential Trainer
   - Exp: Organic Trainer
