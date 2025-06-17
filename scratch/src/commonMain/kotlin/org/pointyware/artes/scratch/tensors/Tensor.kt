@@ -76,17 +76,12 @@ data class Tensor(
         get() = object : Iterator<IntArray> {
             private val dimensions: IntArray = this@Tensor.dimensions
             private val indexList = IntArray(dimensions.size)
-            private var currentIndex = 0
-            private val totalIndices = totalSize
+            private val flatIterator = flatIndices
 
-            override fun hasNext(): Boolean {
-                return currentIndex < totalIndices
-            }
+            override fun hasNext(): Boolean = flatIterator.hasNext()
 
             override fun next(): IntArray {
-                if (!hasNext()) throw NoSuchElementException("No more indices available.")
-
-                var rankIndex = currentIndex++
+                var rankIndex = flatIterator.next()
                 // Starting at right-most index
                 for (axis in indexList.indices.reversed()) {
                     indexList[axis] = rankIndex % dimensions[axis]
@@ -94,6 +89,21 @@ data class Tensor(
                 }
 
                 return indexList
+            }
+        }
+
+    val flatIndices: Iterator<Int>
+        get() = object : Iterator<Int> {
+            private var currentIndex = 0
+            private val totalIndices = totalSize
+
+            override fun hasNext(): Boolean {
+                return currentIndex < totalIndices
+            }
+
+            override fun next(): Int {
+                if (!hasNext()) throw NoSuchElementException("No more indices available.")
+                return currentIndex++
             }
         }
 
