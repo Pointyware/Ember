@@ -238,6 +238,9 @@ data class Tensor(
         }
     }
 
+    /**
+     * Performs in-place addition of this tensor by the given [other] tensor.
+     */
     operator fun plusAssign(other: Tensor) {
         require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for addition." }
         mapEachFlatIndexed { index, value -> value + other[index] }
