@@ -8,7 +8,8 @@ This module is a small attempt to recreate some machine learning primitives from
   - Sigmoid
   - Tanh
 - Layers
-  - Linear
+  - Linear (Fully Connected)
+  - Exp: Convolutional
 - Networks
   - Sequential Networks
 - Loss Functions
