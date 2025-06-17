@@ -239,7 +239,7 @@ data class Tensor(
     }
 
     /**
-     * Performs element-wise multiplication or matrix multiplication depending on the context.
+     * Performs element-wise multiplication, .a.k.a. Hadamard product.
      */
     operator fun times(other: Tensor): Tensor {
         require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for element-wise multiplication." }
