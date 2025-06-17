@@ -1,6 +1,5 @@
 package org.pointyware.artes.scratch.layers
 
-import org.pointyware.artes.scratch.Marsaglia
 import org.pointyware.artes.scratch.activations.ActivationFunction
 import org.pointyware.artes.scratch.tensors.Tensor
 import org.pointyware.artes.scratch.tensors.matrixOf
@@ -31,7 +30,7 @@ class LinearLayer(
          * Creates a LinearLayer with the specified input and output dimensions.
          */
         fun create(inputSize: Int, outputSize: Int, activation: ActivationFunction): LinearLayer {
-            val weights = matrixOf(outputSize, inputSize).mapEachFlatIndexed { _, _ -> Marsaglia.getNormal() * 0.1 }
+            val weights = Tensor.random(mean = 0.0, stdDev = 0.1, dimensions = intArrayOf(outputSize, inputSize))
             val biases = matrixOf(outputSize, 1)
             return LinearLayer(weights, biases, activation)
         }
