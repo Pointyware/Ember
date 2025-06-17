@@ -7,6 +7,9 @@ import kotlin.random.Random
 /**
  * Generates normally distributed random numbers using the Marsaglia polar method.
  * This method generates pairs of random numbers to ensure uniform distribution.
+ *
+ * The `getNormal` function retrieves a standard normally distributed random number,
+ * with mean 0 and standard deviation 1.
  */
 object Marsaglia {
 
