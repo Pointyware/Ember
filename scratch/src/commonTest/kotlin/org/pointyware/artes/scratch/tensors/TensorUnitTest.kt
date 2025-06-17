@@ -68,6 +68,41 @@ class TensorUnitTest {
     }
 
     @Test
+    fun inverse_indices_iterator_returns_indices_in_column_major_order() {
+        // Given a 6D tensor with dimensions 2x3x1x1x1x2 => count = 12
+        val tensor = Tensor(intArrayOf(2, 3, 1, 1, 1, 2))
+
+        // When we iterate over the inverse indices
+        val indicesIterator = tensor.inverseIndices
+
+        // Then the indices should be in column-major order
+        listOf(
+            intArrayOf(0, 0, 0, 0, 0, 0),
+            intArrayOf(1, 0, 0, 0, 0, 0),
+            intArrayOf(0, 1, 0, 0, 0, 0),
+            intArrayOf(1, 1, 0, 0, 0, 0),
+            intArrayOf(0, 2, 0, 0, 0, 0),
+            intArrayOf(1, 2, 0, 0, 0, 0),
+            intArrayOf(0, 0, 0, 0, 0, 1),
+            intArrayOf(1, 0, 0, 0, 0, 1),
+            intArrayOf(0, 1, 0, 0, 0, 1),
+            intArrayOf(1, 1, 0, 0, 0, 1),
+            intArrayOf(0, 2, 0, 0, 0, 1),
+            intArrayOf(1, 2, 0, 0, 0, 1)
+        ).forEach { expected ->
+            assertContentEquals(expected, indicesIterator.next())
+        }
+
+        val hasNext = indicesIterator.hasNext()
+        assertFalse(hasNext,
+            "Iterator should not have more elements after exhausting all indices;" +
+                    " found: " +
+                    if (hasNext) indicesIterator.next().joinToString(separator = ",")
+                    else ""
+        )
+    }
+
+    @Test
     fun transpose_returns_transposed_tensor() {
         // Given a 2D tensor
         val tensor = Tensor.from(

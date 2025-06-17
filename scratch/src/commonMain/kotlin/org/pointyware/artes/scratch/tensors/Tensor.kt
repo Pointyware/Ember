@@ -73,10 +73,7 @@ data class Tensor(
     val indices: Iterator<IntArray>
         get() = object : Iterator<IntArray> {
             private val dimensions: IntArray = this@Tensor.dimensions
-            private val indexList = IntArray(dimensions.size).apply {
-                // Prime first index with -1
-                this[dimensions.size - 1] = -1
-            }
+            private val indexList = IntArray(dimensions.size)
             private var currentIndex = 0
             private val totalIndices = totalSize
 
@@ -90,6 +87,38 @@ data class Tensor(
                 var rankIndex = currentIndex++
                 // Starting at right-most index
                 for (axis in indexList.indices.reversed()) {
+                    indexList[axis] = rankIndex % dimensions[axis]
+                    rankIndex /= dimensions[axis]
+                }
+
+                return indexList
+            }
+        }
+
+    /**
+     * An iterator that provides the indices in reverse order, which is useful for
+     * iterating over tensors in a way that the first index changes the fastest.
+     *
+     * This is a generalization of a matrix transpose operation, where the first index
+     * changes the fastest, effectively swapping the first and last dimensions.
+     */
+    val inverseIndices: Iterator<IntArray>
+        get() = object : Iterator<IntArray> {
+            private val dimensions: IntArray = this@Tensor.dimensions
+            private val indexList = IntArray(dimensions.size)
+            private var currentIndex = 0
+            private val totalIndices = totalSize
+
+            override fun hasNext(): Boolean {
+                return currentIndex < totalIndices
+            }
+
+            override fun next(): IntArray {
+                if (!hasNext()) throw NoSuchElementException("No more indices available.")
+
+                var rankIndex = currentIndex++
+                // Starting at left-most index
+                for (axis in indexList.indices) {
                     indexList[axis] = rankIndex % dimensions[axis]
                     rankIndex /= dimensions[axis]
                 }
