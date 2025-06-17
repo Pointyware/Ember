@@ -32,12 +32,12 @@ class TensorUnitTest {
     }
 
     @Test
-    fun values_iterator_returns_indices_in_row_major_order() {
+    fun indices_iterator_returns_indices_in_row_major_order() {
         // Given a 6D tensor with dimensions 2x3x1x1x1x2 => count = 12
         val tensor = Tensor(intArrayOf(2, 3, 1, 1, 1, 2))
 
         // When we iterate over the indices
-        val valuesIterator = tensor.indices
+        val indicesIterator = tensor.indices
 
         // Then the indices should be in row-major order
 
@@ -55,14 +55,14 @@ class TensorUnitTest {
             intArrayOf(1, 2, 0, 0, 0, 0),
             intArrayOf(1, 2, 0, 0, 0, 1)
         ).forEach { expected ->
-            assertContentEquals(expected, valuesIterator.next())
+            assertContentEquals(expected, indicesIterator.next())
         }
 
-        val hasNext = valuesIterator.hasNext()
+        val hasNext = indicesIterator.hasNext()
         assertFalse(hasNext,
             "Iterator should not have more elements after exhausting all indices;" +
                     " found: " +
-                    if (hasNext) valuesIterator.next().joinToString(separator = ",")
+                    if (hasNext) indicesIterator.next().joinToString(separator = ",")
                     else ""
         )
     }
