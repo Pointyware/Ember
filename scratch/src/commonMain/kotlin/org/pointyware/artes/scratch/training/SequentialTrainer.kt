@@ -41,9 +41,12 @@ class SequentialTrainer(
 
                 // Forward Pass
                 network.layers.forEachIndexed { layerIndex, layer ->
-                    networkLayerState = layer.forward(networkLayerState)
-                    activations[layerIndex] += layer.activation.calculate(networkLayerState)
-                    derivativeActivations[layerIndex] += layer.activation.derivative(networkLayerState)
+                    val weightedInputs = layer.forward(networkLayerState)
+                    val activation = layer.activation.calculate(weightedInputs)
+                    val derivativeActivation = layer.activation.derivative(weightedInputs)
+                    activations[layerIndex] += activation
+                    derivativeActivations[layerIndex] += derivativeActivation
+                    networkLayerState = activation
                 }
                 aggregateLoss += lossFunction.compute(expected = it.output, networkLayerState)
 
