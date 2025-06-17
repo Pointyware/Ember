@@ -7,4 +7,11 @@ import org.pointyware.artes.scratch.tensors.Tensor
  */
 interface LossFunction {
     fun compute(expected: Tensor, actual: Tensor): Double
+
+    /**
+     * Calculates the derivative of the loss function with respect to the actual output.
+     *
+     * Conceptually the same as the gradient of the loss function.
+     */
+    fun derivative(expected: Tensor, actual: Tensor): Tensor
 }

@@ -2,6 +2,9 @@ package org.pointyware.artes.scratch.loss
 
 import org.pointyware.artes.scratch.tensors.Tensor
 
+/**
+ * Computes the mean squared error (MSE) between the expected and actual tensors.
+ */
 object MeanSquaredError : LossFunction {
     override fun compute(expected: Tensor, actual: Tensor): Double {
         require(actual.dimensions.size == expected.dimensions.size) {
@@ -18,5 +21,12 @@ object MeanSquaredError : LossFunction {
         }
 
         return squared.values.asSequence().average()
+    }
+
+    override fun derivative(expected: Tensor, actual: Tensor): Tensor {
+        val area = actual.area
+        return Tensor(actual.dimensions).mapEachFlatIndexed { index, _ ->
+            2 * (actual[index] - expected[index]) / area
+        }
     }
 }

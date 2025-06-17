@@ -3,6 +3,9 @@ package org.pointyware.artes.scratch.loss
 import org.pointyware.artes.scratch.tensors.Tensor
 import kotlin.math.ln
 
+/**
+ * Cross-entropy loss function.
+ */
 object CrossEntropyLoss : LossFunction {
     override fun compute(expected: Tensor, actual: Tensor): Double {
         val logProbs = Tensor.zeros(*actual.dimensions).mapEachFlatIndexed { index, _ ->
@@ -10,5 +13,17 @@ object CrossEntropyLoss : LossFunction {
         }
 
         return logProbs.values.asSequence().sum() / actual.area
+    }
+
+    override fun derivative(expected: Tensor, actual: Tensor): Tensor {
+        require(actual.dimensions.size == expected.dimensions.size) {
+            "Expected and actual tensors must have the same dimensions. %i != %i".format(
+                actual.dimensions, expected.dimensions
+            )
+        }
+
+        return Tensor(actual.dimensions).mapEachFlatIndexed { index, _ ->
+            -expected[index] / (actual[index] + 1e-15)
+        }
     }
 }
