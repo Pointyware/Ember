@@ -218,6 +218,13 @@ data class Tensor(
     }
 
     /**
+     * Performs in-place element-wise multiplication of this tensor by the given [scalar].
+     */
+    operator fun timesAssign(scalar: Double) {
+        mapEach { value -> value * scalar }
+    }
+
+    /**
      * Performs element-wise division of this tensor by the given [scalar].
      */
     operator fun div(scalar: Double): Tensor {
