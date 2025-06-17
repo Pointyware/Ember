@@ -356,7 +356,7 @@ fun scalar(value: Double): Tensor {
 }
 
 fun vector(length: Int, initializer: (Int)->Double = { 0.0 }): Tensor {
-    return Tensor.shape(length).mapEachIndexed { indices, _ -> initializer(indices[0]) }
+    return Tensor.shape(length).mapEachFlatIndexed { index, _ -> initializer(index) }
 }
 
 fun matrixOf(rows: Int, columns: Int, initializer: (Int,Int)->Double = { _, _ -> 0.0 }): Tensor {
