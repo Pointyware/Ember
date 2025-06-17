@@ -3,17 +3,23 @@ This module is a small attempt to recreate some machine learning primitives from
 
 ## Features
 - Tensors
-- Activations
-  - Linear
+- Activation Functions
   - ReLU
+  - Sigmoid
+  - Tanh
 - Layers
-- Loss Function
+  - Linear
+- Networks
+  - Sequential Networks
+- Loss Functions
   - Mean Squared Error
   - Cross Entropy
-- Gradient Descent
-  - Stochastic
+- Optimizers
+  - Gradient Descent
+    - Stochastic
 - Training
-  - 
+  - Sequential Trainer
+  - Exp: Organic Trainer
 
 ```mermaid
 classDiagram
