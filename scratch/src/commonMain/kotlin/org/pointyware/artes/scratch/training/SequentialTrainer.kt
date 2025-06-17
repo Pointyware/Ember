@@ -20,11 +20,11 @@ class SequentialTrainer(
         // x = z^0
         // z^L = W^L \dot a^(L-1) + b^L
         // f(z^L) = a^L
-        val activations = network.layers.map { Tensor.zeros(*it.weights.dimensions) }
+        val activations = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
         // f'(z^L) = a'^L
-        val derivativeActivations = network.layers.map { Tensor.zeros(*it.weights.dimensions) }
+        val derivativeActivations = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
         // ∂^L = (f^L)' \dot (a^L - y)
-        val errors = network.layers.map { Tensor.zeros(*it.weights.dimensions) }
+        val errors = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
 
         repeat(iterations) { epoch ->
             // Zero Gradients
