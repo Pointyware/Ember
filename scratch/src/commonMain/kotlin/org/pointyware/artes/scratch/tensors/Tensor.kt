@@ -1,5 +1,7 @@
 package org.pointyware.artes.scratch.tensors
 
+import org.pointyware.artes.scratch.Marsaglia
+
 fun absoluteIndex(dimensions: IntArray, indices: IntArray): Int {
     require(indices.size == dimensions.size) { "Indices must match the tensor order." }
     return indices.foldIndexed(0) { index, acc, offset -> acc * dimensions[index] + offset }
@@ -327,6 +329,16 @@ data class Tensor(
          */
         fun shape(vararg dimensions: Int): Tensor {
             return Tensor(dimensions)
+        }
+
+        /**
+         * Creates a tensor with the specified dimensions, initialized with random values.
+         *
+         * The values are generated using a normal distribution with [mean] default 0 and
+         * [stdDev] default 0.1.
+         */
+        fun random(mean: Double = 0.0, stdDev: Double = 0.1, vararg dimensions: Int): Tensor {
+            return Tensor(dimensions).mapEach { _ -> mean + Marsaglia.getNormal() * stdDev }
         }
     }
 }
