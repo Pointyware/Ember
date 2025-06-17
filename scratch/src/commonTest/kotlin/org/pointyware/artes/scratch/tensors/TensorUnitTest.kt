@@ -4,6 +4,7 @@ import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
+import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
 
@@ -63,6 +64,31 @@ class TensorUnitTest {
             "Iterator should not have more elements after exhausting all indices;" +
                     " found: " +
                     if (hasNext) indicesIterator.next().joinToString(separator = ",")
+                    else ""
+        )
+    }
+
+    @Test
+    fun flat_indices_iterator_returns_flat_indices_in_order() {
+        // Given a 6D tensor with dimensions 2x3x1x1x1x2 => count = 12
+        val tensor = Tensor(intArrayOf(2, 3, 1, 1, 1, 2))
+
+        // When we iterate over the flat indices
+        val flatIndicesIterator = tensor.flatIndices
+
+        // Then the flat indices should be in row-major order
+        listOf(
+            0, 1, 2, 3, 4, 5,
+            6, 7, 8, 9, 10, 11
+        ).forEach { expected ->
+            assertEquals(expected, flatIndicesIterator.next())
+        }
+
+        val hasNext = flatIndicesIterator.hasNext()
+        assertFalse(hasNext,
+            "Iterator should not have more elements after exhausting all indices;" +
+                    " found: " +
+                    if (hasNext) flatIndicesIterator.next().toString()
                     else ""
         )
     }
