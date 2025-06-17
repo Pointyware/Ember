@@ -39,7 +39,7 @@ class StochasticGradientDescent(
                 layer.biases.mapEachFlatIndexed { index, value ->
                     value - learningRate * derivative[index]
                 }
-                Tensor.shape(*layer.weights.dimensions).mapEachFlatIndexed { index, value ->
+                Tensor.zeros(*layer.weights.dimensions).mapEachFlatIndexed { index, value ->
                     value - learningRate * derivative[index]
                 }
             }

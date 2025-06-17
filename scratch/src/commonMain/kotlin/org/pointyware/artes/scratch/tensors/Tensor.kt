@@ -155,7 +155,7 @@ data class Tensor(
         require(isMatrix) { "Transpose is only defined for matrices." }
         val rows = dimensions[0]
         val columns = dimensions[1]
-        return shape(columns, rows).mapEachIndexed { (row, column), _ ->
+        return zeros(columns, rows).mapEachIndexed { (row, column), _ ->
             this[column, row]
         }
     }
@@ -190,28 +190,28 @@ data class Tensor(
      * Performs element-wise addition of this tensor by the given [scalar].
      */
     operator fun plus(scalar: Double): Tensor {
-        return shape(*dimensions).mapEachFlatIndexed { index, _ -> this[index] + scalar }
+        return zeros(*dimensions).mapEachFlatIndexed { index, _ -> this[index] + scalar }
     }
 
     /**
      * Performs element-wise addition of this tensor by the given [scalar].
      */
     operator fun minus(scalar: Double): Tensor {
-        return shape(*dimensions).mapEachFlatIndexed { index, _ -> this[index] - scalar }
+        return zeros(*dimensions).mapEachFlatIndexed { index, _ -> this[index] - scalar }
     }
 
     /**
      * Performs element-wise addition of this tensor by the given [scalar].
      */
     operator fun times(scalar: Double): Tensor {
-        return shape(*dimensions).mapEachFlatIndexed { index, _ -> this[index] * scalar }
+        return zeros(*dimensions).mapEachFlatIndexed { index, _ -> this[index] * scalar }
     }
 
     /**
      * Performs element-wise division of this tensor by the given [scalar].
      */
     operator fun div(scalar: Double): Tensor {
-        return shape(*dimensions).mapEachFlatIndexed { index, _ -> this[index] / scalar }
+        return zeros(*dimensions).mapEachFlatIndexed { index, _ -> this[index] / scalar }
     }
 
     // endregion
@@ -223,7 +223,7 @@ data class Tensor(
      */
     operator fun plus(other: Tensor): Tensor {
         require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for addition." }
-        return shape(*dimensions).mapEachFlatIndexed { index, _ ->
+        return zeros(*dimensions).mapEachFlatIndexed { index, _ ->
             this[index] + other[index]
         }
     }
@@ -235,7 +235,7 @@ data class Tensor(
 
     operator fun minus(other: Tensor): Tensor {
         require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for subtraction." }
-        return shape(*dimensions).mapEachFlatIndexed { index, _ ->
+        return zeros(*dimensions).mapEachFlatIndexed { index, _ ->
             this[index] - other[index]
         }
     }
@@ -245,7 +245,7 @@ data class Tensor(
      */
     operator fun times(other: Tensor): Tensor {
         require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for element-wise multiplication." }
-        return shape(*dimensions).mapEachFlatIndexed { index, _ ->
+        return zeros(*dimensions).mapEachFlatIndexed { index, _ ->
             this[index] * other[index]
         }
     }
@@ -261,7 +261,7 @@ data class Tensor(
         val n = dimensions[1]
         val p = other.dimensions[1]
 
-        return shape(m, p).mapEachFlatIndexed { index, value ->
+        return zeros(m, p).mapEachFlatIndexed { index, value ->
             val row = index / p
             val column = index % p
             var sum = 0.0
@@ -327,7 +327,7 @@ data class Tensor(
         /**
          * Creates a tensor with the specified dimensions, initialized to zero.
          */
-        fun shape(vararg dimensions: Int): Tensor {
+        fun zeros(vararg dimensions: Int): Tensor {
             return Tensor(dimensions)
         }
 
@@ -349,19 +349,4 @@ data class Tensor(
  */
 operator fun Double.times(tensor: Tensor): Tensor {
     return tensor * this
-}
-
-fun scalar(value: Double): Tensor {
-    return Tensor.shape().mapEach { value }
-}
-
-fun vector(length: Int, initializer: (Int)->Double = { 0.0 }): Tensor {
-    return Tensor.shape(length).mapEachFlatIndexed { index, _ -> initializer(index) }
-}
-
-fun matrixOf(rows: Int, columns: Int, initializer: (Int,Int)->Double = { _, _ -> 0.0 }): Tensor {
-    require(rows > 0 && columns > 0) { "Matrix dimensions must be positive." }
-    return Tensor.shape(rows, columns).mapEachIndexed { indices, _ ->
-        initializer(indices[0], indices[1])
-    }
 }

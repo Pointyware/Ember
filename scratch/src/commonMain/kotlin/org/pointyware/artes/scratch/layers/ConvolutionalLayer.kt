@@ -24,7 +24,7 @@ data class ConvolutionalLayer(
         require(kernel.dimensions[0] == channels) { "Kernel channels must match input channels" }
         val outputWidth = (width + 2 * padding - kernel.dimensions[2]) / stride + 1
         val outputHeight = (height + 2 * padding - kernel.dimensions[1]) / stride + 1
-        return Tensor.shape(1, outputHeight, outputWidth).mapEachIndexed { (c, h, w), value ->
+        return Tensor.zeros(1, outputHeight, outputWidth).mapEachIndexed { (c, h, w), value ->
             var sum = 0.0
             TODO("Implement convolution operation")
             activationFunction.scalarActivation(sum)
