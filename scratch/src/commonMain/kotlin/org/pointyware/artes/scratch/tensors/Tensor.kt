@@ -172,8 +172,8 @@ data class Tensor(
 
     @Suppress("OVERRIDE_BY_INLINE")
     override inline fun mapEach(function: (value:Double)->Double): Tensor {
-        for (index in indices) {
-            this.set(indices = index, function(this.get(*index)))
+        for (index in flatIndices) {
+            this[index] = function(this[index])
         }
         return this
     }
@@ -188,7 +188,7 @@ data class Tensor(
 
     @Suppress("OVERRIDE_BY_INLINE")
     override inline fun mapEachFlatIndexed(function: (index:Int, value:Double) -> Double): Tensor {
-        for (i in 0 until totalSize) {
+        for (i in flatIndices) {
             this[i] = function(i, this[i])
         }
         return this
