@@ -22,18 +22,14 @@ interface ScalarActivationFunction: ActivationFunction {
     fun scalarDerivative(input: Double): Double
 
     override fun calculate(input: Tensor): Tensor {
-        return Tensor(input.dimensions).apply {
-            mapEach { value ->
-                scalarActivation(value)
-            }
+        return Tensor(input.dimensions).mapEachFlatIndexed { index, _ ->
+            scalarActivation(input[index])
         }
     }
 
     override fun derivative(input: Tensor): Tensor {
-        return Tensor(input.dimensions).apply {
-            mapEach { value ->
-                scalarDerivative(value)
-            }
+        return Tensor(input.dimensions).mapEachFlatIndexed { index, _ ->
+            scalarDerivative(input[index])
         }
     }
 }
