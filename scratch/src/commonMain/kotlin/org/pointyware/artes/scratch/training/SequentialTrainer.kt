@@ -29,16 +29,18 @@ class SequentialTrainer(
         val derivativeActivations = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
         // ∂^L = (f^L)' \dot (a^L - y)
         val errors = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
+        // Accumulates final output gradient for each epoch
+        val aggregateLoss = Tensor.zeros(*network.layers.last().biases.dimensions)
 
         repeat(iterations) { epoch ->
             // Zero Gradients
             activations.forEach { it.mapEach { 0.0 } }
             derivativeActivations.forEach { it.mapEach { 0.0 } }
             errors.forEach { it.mapEach { 0.0 } }
+            aggregateLoss.mapEach { 0.0 }
 
             // TODO: process by layer instead of by case
             // Process Each Case
-            var aggregateLoss = 0.0
             cases.forEach {
                 // initialize accumulator to input case
                 var networkLayerState = it.input
