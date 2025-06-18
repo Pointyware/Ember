@@ -54,34 +54,44 @@ class SequentialTrainer(
                     derivativeActivations[layerIndex] += derivativeActivation
                     networkLayerState = activation
                 }
-                aggregateLoss += lossFunction.compute(expected = it.output, networkLayerState)
+                // $\nabla_{a_L} C$ is the gradient of the loss function with respect to the final layer's output
+                val lossGradient = lossFunction.derivative(expected = it.output, networkLayerState)
+                // aggregate loss gradient across all cases
+                aggregateLoss += lossGradient
+            }
 
-                // initialize loss gradient
-                val lossGradient = networkLayerState - it.output
-                var layerError = derivativeActivations.last() * lossGradient
+            var layerError = derivativeActivations.last() * aggregateLoss
+            errors.last() += layerError
 
-                // Backward Pass
-                network.layers.asReversed().forEachIndexed { layerIndex, layer ->
-                    val reversedIndex = network.layers.size - 1 - layerIndex
-                    val layerOutput = activations[reversedIndex]
-                    val previousLayerDerivative = derivativeActivations[reversedIndex - 1]
-                    if (layerIndex == 0) {
-                        // For the last layer, we use the loss gradient directly
-                        layerError = lossGradient * layer.activation.derivative(networkLayerState)
-                    } else {
-                        // For other layers, we calculate the error based on the previous layer's output
-                        val previousLayerOutput = activations[network.layers.size - 1 - (layerIndex - 1)]
-                        layerError = layerError * layer.activation.derivative(previousLayerOutput)
-                    }
+            // Backward Pass
+            network.layers.indices.reversed().forEach back_pass@ { layerIndex ->
+                // Skip the first layer as it has no previous layer to propagate error to
+                if (layerIndex == 0) return@back_pass
 
-                    layerError = previousLayerDerivative * layer.weights.transpose() * layerError
+                val layer = network.layers[layerIndex]
+                val weightsTranspose = layer.weights.transpose()
+                val layerActivation = activations[layerIndex]
+                val layerDerivativeActivation = derivativeActivations[layerIndex]
 
-                    layerError = optimizer.update(
-                        layer = layer,
-                        activation = layerOutput,
-                        derivative = previousLayerDerivative
-                    )
-                }
+                // Adjust weights here
+                val errorContribution = layerActivation.matrixMultiply(layerError).transpose()
+                errorContribution *= 0.01 // Learning rate
+//                    layer.weights -= layerActivation.matrixMultiply(layerError).transpose() * lr
+//                    layer.bias -= layerError * lr
+//                    optimizer.update(
+//                        layer = layer,
+//                        activation = layerActivation,
+//                        derivative = layerDerivativeActivation
+//                    )
+
+                val priorLayer = network.layers[layerIndex - 1]
+                val previousLayerDerivativeActivation = derivativeActivations[layerIndex - 1]
+
+                // Propagate the error to the previous layer
+                val previousError = previousLayerDerivativeActivation *
+                        weightsTranspose.matrixMultiply(layerError)
+
+                layerError = previousError
             }
 
             if (epoch % updatePeriod == 0) {
