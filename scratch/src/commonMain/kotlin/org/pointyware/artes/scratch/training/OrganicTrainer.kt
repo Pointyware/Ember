@@ -25,6 +25,10 @@ class OrganicTrainer(
         TODO("Not yet implemented")
     }
 
+    override fun selectSamples(): List<StudyCase> {
+        TODO("Not yet implemented")
+    }
+
     /**
      * Triggers a pruning operation on the network to remove unused or redundant layers and
      * connections.

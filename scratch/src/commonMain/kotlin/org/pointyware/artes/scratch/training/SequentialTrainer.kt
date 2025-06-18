@@ -16,6 +16,10 @@ class SequentialTrainer(
     override val updatePeriod: Int = 100
 ): Trainer {
 
+    override fun selectSamples(): List<StudyCase> {
+        TODO("Delegate to optimizer")
+    }
+
     override fun train(iterations: Int) {
         // x = z^0
         // z^L = W^L \dot a^(L-1) + b^L

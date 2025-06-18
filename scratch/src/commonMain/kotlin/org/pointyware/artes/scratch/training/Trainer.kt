@@ -5,6 +5,9 @@ package org.pointyware.artes.scratch.training
  *
  * All trainers are run incrementally, meaning that they can be run multiple times.
  *
+ * For each epoch, the trainer has an opportunity to review the training data with or without
+ * the student model to select a subset of data to train on.
+ *
  */
 interface Trainer {
     /**
@@ -14,9 +17,14 @@ interface Trainer {
     val updatePeriod: Int
 
     /**
-     * Train the model for a number of iterations.
+     * Controls which samples will be used for each epoch.
+     */
+    fun selectSamples(): List<StudyCase>
+
+    /**
+     * Train the model for a number of [iterations], a.k.a. epochs.
      *
-     * @param iterations The number of iterations to train the model for. Defaults to 1.
+     * @param iterations The number of epochs to train the model for. Defaults to 1.
      */
     fun train(iterations: Int = 1)
 }
