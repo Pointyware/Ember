@@ -264,7 +264,10 @@ data class Tensor(
      * Performs element-wise multiplication, .a.k.a. Hadamard product.
      */
     operator fun times(other: Tensor): Tensor {
-        require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for element-wise multiplication." }
+        require(dimensions.contentEquals(other.dimensions)) {
+            "Tensors must have the same dimensions for element-wise multiplication. " +
+                    "Found [${dimensions.joinToString()}], and [${other.dimensions.joinToString()}]"
+        }
         return zeros(*dimensions).mapEachFlatIndexed { index, _ ->
             this[index] * other[index]
         }
