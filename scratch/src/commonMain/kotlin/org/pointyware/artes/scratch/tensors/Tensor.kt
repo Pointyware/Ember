@@ -379,3 +379,13 @@ data class Tensor(
 operator fun Double.times(tensor: Tensor): Tensor {
     return tensor * this
 }
+
+fun rowVector(vararg values: Double): Tensor {
+    require(values.isNotEmpty()) { "At least one value is required to create a vector." }
+    return Tensor.from(values, dimensions = intArrayOf(1, values.size))
+}
+
+fun columnVector(vararg values: Double): Tensor {
+    require(values.isNotEmpty()) { "At least one value is required to create a vector." }
+    return Tensor.from(values, dimensions = intArrayOf(values.size, 1))
+}
