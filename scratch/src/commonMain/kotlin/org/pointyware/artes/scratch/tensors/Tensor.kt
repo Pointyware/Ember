@@ -277,8 +277,14 @@ data class Tensor(
      * Performs matrix multiplication, assuming both tensors are matrices with compatible dimensions.
      */
     fun matrixMultiply(other: Tensor): Tensor {
-        require(isMatrix && other.isMatrix) { "Both tensors must be matrices for matrix multiplication." }
-        require(dimensions[1] == other.dimensions[0]) { "Matrix dimensions do not match for multiplication." }
+        require(isMatrix && other.isMatrix) {
+            "Both tensors must be matrices for matrix multiplication. " +
+                "Found [${dimensions.joinToString()}], and [${other.dimensions.joinToString()}]"
+        }
+        require(dimensions[1] == other.dimensions[0]) {
+            "Matrix dimensions do not match for multiplication." +
+                "Found [${dimensions.joinToString()}], and [${other.dimensions.joinToString()}]"
+        }
 
         val m = dimensions[0]
         val n = dimensions[1]
