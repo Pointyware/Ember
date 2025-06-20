@@ -73,25 +73,17 @@ class SequentialTrainer(
                 val layerActivation = activations[layerIndex]
                 val layerDerivativeActivation = derivativeActivations[layerIndex]
 
-                // Adjust weights here
-                val errorContribution = layerActivation.matrixMultiply(layerError).transpose()
-                errorContribution *= 0.01 // Learning rate
-//                    layer.weights -= layerActivation.matrixMultiply(layerError).transpose() * lr
-//                    layer.bias -= layerError * lr
-//                    optimizer.update(
-//                        layer = layer,
-//                        activation = layerActivation,
-//                        derivative = layerDerivativeActivation
-//                    )
-
-                val priorLayer = network.layers[layerIndex - 1]
-                val previousLayerDerivativeActivation = derivativeActivations[layerIndex - 1]
+                // Adjust parameters using the optimizer
+                optimizer.update(
+                    layer = layer,
+                    activation = layerActivation,
+                    derivative = layerDerivativeActivation,
+                    error = layerError
+                )
 
                 // Propagate the error to the previous layer
-                val previousError = previousLayerDerivativeActivation *
+                layerError = derivativeActivations[layerIndex - 1] *
                         weightsTranspose.matrixMultiply(layerError)
-
-                layerError = previousError
             }
 
             if (epoch % updatePeriod == 0) {
