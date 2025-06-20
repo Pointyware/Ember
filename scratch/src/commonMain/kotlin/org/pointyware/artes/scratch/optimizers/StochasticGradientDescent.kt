@@ -42,11 +42,13 @@ class StochasticGradientDescent(
                     layer.weights -= layerActivation.matrixMultiply(layerError).transpose() * lr
                     layer.bias -= layerError * lr
                  */
+                val weightAdjustments = layer.weights.transpose().matrixMultiply(error).transpose()
+                val biasAdjustments = error
                 layer.weights.mapEachFlatIndexed { index, value ->
-                    value - learningRate * error[index]
+                    value - learningRate * weightAdjustments[index]
                 }
                 layer.biases.mapEachFlatIndexed { index, value ->
-                    value - learningRate * error[index]
+                    value - learningRate * biasAdjustments[index]
                 }
             }
 
