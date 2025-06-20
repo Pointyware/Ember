@@ -19,7 +19,10 @@ interface Optimizer {
     /**
      * Updates the parameters of the model based on the outputs computed during the forward pass.
      *
-     * @return The updated tensor after applying the optimizer.
+     * @param layer The layer whose parameters are being updated.
+     * @param activation The activation tensor from the forward pass.
+     * @param derivative The derivative tensor from the forward pass.
+     * @param error The error tensor computed from the loss function.
      */
-    fun update(layer: Layer, activation: Tensor, derivative: Tensor): Tensor
+    fun update(layer: Layer, activation: Tensor, derivative: Tensor, error: Tensor)
 }

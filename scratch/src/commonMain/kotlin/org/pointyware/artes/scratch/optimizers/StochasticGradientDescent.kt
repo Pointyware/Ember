@@ -30,17 +30,23 @@ class StochasticGradientDescent(
         }
     }
 
-    override fun update(layer: Layer, activation: Tensor, derivative: Tensor): Tensor {
-        return when (layer) {
+    override fun update(layer: Layer, activation: Tensor, derivative: Tensor, error: Tensor) {
+        when (layer) {
             is LinearLayer -> {
+                /*
+
+                errorContribution *= 0.01 // Learning rate
+
+                val errorContribution = layerActivation.matrixMultiply(layerError).transpose()
+
+                    layer.weights -= layerActivation.matrixMultiply(layerError).transpose() * lr
+                    layer.bias -= layerError * lr
+                 */
                 layer.weights.mapEachFlatIndexed { index, value ->
-                    value - learningRate * derivative[index]
+                    value - learningRate * error[index]
                 }
                 layer.biases.mapEachFlatIndexed { index, value ->
-                    value - learningRate * derivative[index]
-                }
-                Tensor.zeros(*layer.weights.dimensions).mapEachFlatIndexed { index, value ->
-                    value - learningRate * derivative[index]
+                    value - learningRate * error[index]
                 }
             }
 
