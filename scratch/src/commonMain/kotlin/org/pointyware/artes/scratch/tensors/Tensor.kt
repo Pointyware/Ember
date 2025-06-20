@@ -161,15 +161,6 @@ data class Tensor(
         set(absoluteIndex(dimensions, indices), value)
     }
 
-    fun transpose(): Tensor {
-        require(isMatrix) { "Transpose is only defined for matrices." }
-        val rows = dimensions[0]
-        val columns = dimensions[1]
-        return zeros(columns, rows).mapEachIndexed { (row, column), _ ->
-            this[column, row]
-        }
-    }
-
     @Suppress("OVERRIDE_BY_INLINE")
     override inline fun mapEach(function: (value:Double)->Double): Tensor {
         for (index in flatIndices) {
@@ -273,6 +264,10 @@ data class Tensor(
         }
     }
 
+    // endregion
+
+    // region Matrix Arithmetic operations
+
     /**
      * Performs matrix multiplication, assuming both tensors are matrices with compatible dimensions.
      */
@@ -298,6 +293,15 @@ data class Tensor(
                 sum += this[row, k] * other[k, column]
             }
             value + sum
+        }
+    }
+
+    fun transpose(): Tensor {
+        require(isMatrix) { "Transpose is only defined for matrices." }
+        val rows = dimensions[0]
+        val columns = dimensions[1]
+        return zeros(columns, rows).mapEachIndexed { (row, column), _ ->
+            this[column, row]
         }
     }
 
