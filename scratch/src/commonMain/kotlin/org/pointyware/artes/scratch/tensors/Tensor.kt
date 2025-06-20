@@ -42,6 +42,8 @@ data class Tensor(
 
     val order: Int get () = dimensions.size
     val totalSize: Int get() = dimensions.fold(1) { acc, dim -> acc * dim }
+    val shapeString: String
+        get() = dimensions.joinToString(prefix = "[", postfix = "]", separator = ", ")
 
     /**
      * The size of the last dimension. For scalars with empty dimensions, returns 1.
@@ -257,7 +259,7 @@ data class Tensor(
     operator fun times(other: Tensor): Tensor {
         require(dimensions.contentEquals(other.dimensions)) {
             "Tensors must have the same dimensions for element-wise multiplication. " +
-                    "Found [${dimensions.joinToString()}], and [${other.dimensions.joinToString()}]"
+                    "Found [${shapeString}], and [${other.shapeString}]"
         }
         return zeros(*dimensions).mapEachFlatIndexed { index, _ ->
             this[index] * other[index]
@@ -274,11 +276,11 @@ data class Tensor(
     fun matrixMultiply(other: Tensor): Tensor {
         require(isMatrix && other.isMatrix) {
             "Both tensors must be matrices for matrix multiplication. " +
-                "Found [${dimensions.joinToString()}], and [${other.dimensions.joinToString()}]"
+                "Found [${shapeString}], and [${other.shapeString}]"
         }
         require(dimensions[1] == other.dimensions[0]) {
             "Matrix dimensions do not match for multiplication." +
-                "Found [${dimensions.joinToString()}], and [${other.dimensions.joinToString()}]"
+                "Found [${shapeString}], and [${other.shapeString}]"
         }
 
         val m = dimensions[0]

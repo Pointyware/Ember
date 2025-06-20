@@ -43,7 +43,7 @@ class SequentialNetworkUnitTest {
         }
         val output = network.predict(input)
         // The output should be a tensor of shape (1, 1) since the last layer has 1 output neuron
-        assert(output.dimensions.contentEquals(intArrayOf(1, 1))) { "Output shape should be (1, 1), but was ${output.dimensions.joinToString()}" }
+        assert(output.dimensions.contentEquals(intArrayOf(1, 1))) { "Output shape should be (1, 1), but was ${output.shapeString}" }
 
         val layer1Output = Tensor.zeros(2, 1).apply {
             this[0, 0] = 2.0 * 2.0 +  3.0 * 3.0 +  5.0 * 5.0 + 17.0
