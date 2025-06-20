@@ -46,9 +46,12 @@ fun main(vararg args: String) {
     trainer.train(iterations = 1000)
 
     // Test the trained network
-    val testInput = columnVector(1.0, 1.0)
-    val testOutput = network.predict(testInput)
-    val expected = 0.0 // XOR(1, 1) should be 0
     println("\nFinal predictions:")
-    println("Input: [%f, %f] -> Output: %.4f, Target: %f".format(testInput[0], testInput[1], testOutput[0], expected))
+    for (left in 0 .. 1) {
+        for (right in 0 .. 1) {
+            val input = columnVector(left.toDouble(), right.toDouble())
+            val output = network.predict(input)
+            println("Input: [$left, $right] -> Output: %.4f".format(output[0]))
+        }
+    }
 }
