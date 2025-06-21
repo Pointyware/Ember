@@ -6,6 +6,7 @@ import org.pointyware.artes.scratch.layers.LinearLayer
 import org.pointyware.artes.scratch.loss.MeanSquaredError
 import org.pointyware.artes.scratch.networks.SequentialNetwork
 import org.pointyware.artes.scratch.optimizers.StochasticGradientDescent
+import org.pointyware.artes.scratch.tensors.Tensor
 import org.pointyware.artes.scratch.tensors.columnVector
 import org.pointyware.artes.scratch.training.SequentialTrainer
 import org.pointyware.artes.scratch.training.StudyCase
@@ -15,19 +16,16 @@ import org.pointyware.artes.scratch.training.StudyCase
  */
 fun main(vararg args: String) {
     // Create simple NN with 2 inputs, 1 hidden layer, and 1 output.
-    val inputs = listOf(
-        columnVector(0.0, 0.0),
-        columnVector(0.0, 1.0),
-        columnVector(1.0, 0.0),
-        columnVector(1.0, 1.0)
-    )
+    val inputs = List<Tensor>(100) {
+        columnVector(Math.random(), Math.random())
+    }
 
-    val targets = listOf(
-        columnVector(0.0),
-        columnVector(1.0),
-        columnVector(1.0),
-        columnVector(0.0)
-    )
+    val targets = inputs.map { case ->
+        // XOR logic: 1 if inputs are different, 0 if they are the same
+        val left = case[0] > 0.5
+        val right = case[1] > 0.5
+        columnVector(if (left != right) 1.0 else 0.0)
+    }
 
     val network = SequentialNetwork(
         listOf(
