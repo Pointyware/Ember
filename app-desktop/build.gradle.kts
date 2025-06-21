@@ -32,9 +32,10 @@ kotlin {
     }
 }
 
-compose.desktop {
-    application {
-        mainClass = "org.pointyware.artes.ApplicationKt"
+compose {
+    desktop {
+        application {
+            mainClass = "org.pointyware.artes.ApplicationKt"
+        }
     }
-
 }
