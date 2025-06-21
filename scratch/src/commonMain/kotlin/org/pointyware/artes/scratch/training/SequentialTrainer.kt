@@ -67,6 +67,10 @@ class SequentialTrainer(
             // calculate the loss for this epoch
             if (epoch % updatePeriod == 0) {
                 println("Epoch $epoch, Loss: $aggregateLoss")
+                println("Network parameters:")
+                network.layers.forEachIndexed { index, layer ->
+                    println("Layer $index: Weights: ${layer.weights}, Biases: ${layer.biases}")
+                }
             }
         }
     }
