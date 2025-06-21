@@ -29,4 +29,28 @@ object MeanSquaredError : LossFunction {
             2 * (actual[index] - expected[index]) / area
         }
     }
+
+    override fun computeAndDerivative(
+        expected: Tensor,
+        actual: Tensor,
+        derivative: Tensor
+    ): Double {
+        require(actual.dimensions.size == expected.dimensions.size) {
+            "Expected and actual tensors must have the same dimensions. %i != %i".format(
+                actual.dimensions, expected.dimensions
+            )
+        }
+
+        val diffs = Tensor(actual.dimensions).mapEachFlatIndexed { index, _ ->
+            actual[index] - expected[index]
+        }
+        val squared = Tensor(actual.dimensions).mapEachFlatIndexed { index, _ ->
+            diffs[index] * diffs[index]
+        }
+
+        val factor = 2.0 / actual.area
+        derivative.mapEachFlatIndexed { index, _ -> diffs[index] * factor }
+
+        return squared.values.asSequence().average()
+    }
 }

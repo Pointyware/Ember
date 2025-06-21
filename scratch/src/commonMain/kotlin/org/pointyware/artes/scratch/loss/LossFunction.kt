@@ -14,4 +14,12 @@ interface LossFunction {
      * Conceptually the same as the gradient of the loss function.
      */
     fun derivative(expected: Tensor, actual: Tensor): Tensor
+
+    /**
+     * Calculates the loss value and its derivative for the given expected and actual tensors,
+     * and stores the derivative in the provided [derivative] tensor and returns the loss value.
+     *
+     * This is more efficient for optimizers that need both the loss value and the gradient.
+     */
+    fun computeAndDerivative(expected: Tensor, actual: Tensor, derivative: Tensor): Double
 }
