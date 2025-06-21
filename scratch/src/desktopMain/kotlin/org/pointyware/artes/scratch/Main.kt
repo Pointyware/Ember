@@ -31,8 +31,8 @@ fun main(vararg args: String) {
 
     val network = SequentialNetwork(
         listOf(
-            LinearLayer.create(2, 4, ReLU), // 2 in -> 4 out
-            LinearLayer.create(4, 1, Sigmoid) // 4 in -> 1 out
+            LinearLayer.create(2, 3, ReLU), // 2 in -> 4 out
+            LinearLayer.create(3, 1, Sigmoid) // 4 in -> 1 out
         )
     )
     val trainer = SequentialTrainer(
@@ -41,9 +41,10 @@ fun main(vararg args: String) {
             StudyCase(input, target)
         },
         lossFunction = MeanSquaredError,
-        optimizer = StochasticGradientDescent(0.1),
+        optimizer = StochasticGradientDescent(10.0),
+        updatePeriod = 10000,
     )
-    trainer.train(iterations = 1000)
+    trainer.train(iterations = 10000000)
 
     // Test the trained network
     println("\nFinal predictions:")
