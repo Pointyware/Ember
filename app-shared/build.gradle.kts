@@ -83,3 +83,9 @@ android {
 dependencies {
     debugImplementation(libs.androidx.uiTooling)
 }
+
+compose.resources {
+    generateResClass = always
+    publicResClass = true
+    packageOfResClass = "org.pointyware.artes.shared"
+}

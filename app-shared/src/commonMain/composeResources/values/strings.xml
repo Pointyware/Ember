@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <string name="label_relu">ReLU</string>
+    <string name="description_relu">Rectified Linear Unit activation function.</string>
+    <string name="label_sigmoid">Sigmoid</string>
+    <string name="description_sigmoid">Sigmoid (S-shaped) activation function.</string>
+</resources>
