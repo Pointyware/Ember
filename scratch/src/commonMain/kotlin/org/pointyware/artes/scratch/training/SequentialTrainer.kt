@@ -21,6 +21,8 @@ class SequentialTrainer(
     }
 
     override fun train(iterations: Int) {
+        val weightGradients = network.layers.map { Tensor.zeros(*it.weights.dimensions) }
+        val biasGradients = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
         // x = z^0
         // z^L = W^L \dot a^(L-1) + b^L
         // f(z^L) = a^L
@@ -29,63 +31,42 @@ class SequentialTrainer(
         val derivativeActivations = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
         // ∂^L = (f^L)' \dot (a^L - y)
         val errors = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
-        // Accumulates final output gradient for each epoch
-        val aggregateLoss = Tensor.zeros(*network.layers.last().biases.dimensions)
 
         repeat(iterations) { epoch ->
-            // Zero Gradients
-            activations.forEach { it.mapEach { 0.0 } }
-            derivativeActivations.forEach { it.mapEach { 0.0 } }
-            errors.forEach { it.mapEach { 0.0 } }
-            aggregateLoss.mapEach { 0.0 }
+            // Create Gradient tensors
+            weightGradients.forEach { it.mapEach { 0.0 } }
+            biasGradients.forEach { it.mapEach { 0.0 } }
 
-            // TODO: process by layer instead of by case
-            // Process Each Case
-            cases.forEach {
-                // initialize accumulator to input case
-                var networkLayerState = it.input
+            // TODO: use optimizer.sample to select samples
+            cases.forEach { case ->
+                // Zero tensors for activations, derivativeActivations, and errors
+                activations.forEach { it.mapEach { 0.0 } }
+                derivativeActivations.forEach { it.mapEach { 0.0 } }
+                errors.forEach { it.mapEach { 0.0 } }
 
-                // Forward Pass
-                network.layers.forEachIndexed { layerIndex, layer ->
-                    val weightedInputs = layer.forward(networkLayerState)
-                    val activation = layer.activation.calculate(weightedInputs)
-                    val derivativeActivation = layer.activation.derivative(weightedInputs)
-                    activations[layerIndex] += activation
-                    derivativeActivations[layerIndex] += derivativeActivation
-                    networkLayerState = activation
-                }
+                // Forward Pass - using tensors as gradient receivers
+                network.forward(case.input, activations, derivativeActivations)
+                val output = activations.last()
                 // $\nabla_{a_L} C$ is the gradient of the loss function with respect to the final layer's output
-                val lossGradient = lossFunction.derivative(expected = it.output, networkLayerState)
-                // aggregate loss gradient across all cases
-                aggregateLoss += lossGradient
+                errors.last() += derivativeActivations.last() * lossFunction.derivative(expected = case.output, output)
+
+                // Backward Pass - using tensors as gradient sources
+                network.backward(errors.last(), derivativeActivations, weightGradients, biasGradients)
             }
+            // FIXME: Accumulate gradients
 
-            var layerError = derivativeActivations.last() * aggregateLoss
-            errors.last() += layerError
-
-            // Backward Pass
-            network.layers.indices.reversed().forEach back_pass@ { layerIndex ->
-                // Skip the first layer as it has no previous layer to propagate error to
-                if (layerIndex == 0) return@back_pass
-
-                val layer = network.layers[layerIndex]
-                val weightsTranspose = layer.weights.transpose()
-                val layerActivation = activations[layerIndex]
-                val layerDerivativeActivation = derivativeActivations[layerIndex]
-
-                // Adjust parameters using the optimizer
+            // FIXME: Update parameters using optimizer
+            // Adjust parameters for all layers using the optimizer
+            for (layer in network.layers) {
                 optimizer.update(
                     layer = layer,
-                    activation = layerActivation,
-                    derivative = layerDerivativeActivation,
+                    priorActivationDerivative = derivativeActivations[layerIndex - 1],
                     error = layerError
                 )
-
-                // Propagate the error to the previous layer
-                layerError = derivativeActivations[layerIndex - 1] *
-                        weightsTranspose.matrixMultiply(layerError)
             }
 
+            // Output progress -
+            // calculate the loss for this epoch
             if (epoch % updatePeriod == 0) {
                 println("Epoch $epoch, Loss: $aggregateLoss")
             }
