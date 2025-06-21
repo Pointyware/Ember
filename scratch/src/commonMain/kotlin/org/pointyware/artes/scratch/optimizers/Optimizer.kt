@@ -24,5 +24,5 @@ interface Optimizer {
      * @param derivative The derivative tensor from the forward pass.
      * @param error The error tensor computed from the loss function.
      */
-    fun update(layer: Layer, activation: Tensor, derivative: Tensor, error: Tensor)
+    fun update(layer: Layer, priorActivationDerivative: Tensor, error: Tensor)
 }
