@@ -1,5 +1,6 @@
 package org.pointyware.artes.scratch.networks
 
+import org.pointyware.artes.scratch.activations.ActivationFunction
 import org.pointyware.artes.scratch.layers.LinearLayer
 import org.pointyware.artes.scratch.tensors.Tensor
 
@@ -66,6 +67,19 @@ class SequentialNetwork(
             biasGradient.mapEachFlatIndexed { index, value ->
                 value - biasGradient[index]
             }
+        }
+    }
+
+    companion object {
+        fun create(input: Int, vararg layers: Pair<Int, ActivationFunction>): SequentialNetwork {
+            require(layers.isNotEmpty()) { "At least one layer must be specified." }
+            var inputSize = input
+            val networkLayers = layers.map { (outputSize, activation) ->
+                LinearLayer.create(inputSize, outputSize, activation).also {
+                    inputSize = outputSize // Update input size for the next layer
+                }
+            }
+            return SequentialNetwork(networkLayers)
         }
     }
 }

@@ -27,11 +27,10 @@ fun main(vararg args: String) {
         columnVector(if (left != right) 1.0 else 0.0)
     }
 
-    val network = SequentialNetwork(
-        listOf(
-            LinearLayer.create(2, 3, ReLU), // 2 in -> 4 out
-            LinearLayer.create(3, 1, Sigmoid) // 4 in -> 1 out
-        )
+    val network = SequentialNetwork.create(
+        input = 2,
+        3 to ReLU,
+        1 to Sigmoid,
     )
     val trainer = SequentialTrainer(
         network = network,
