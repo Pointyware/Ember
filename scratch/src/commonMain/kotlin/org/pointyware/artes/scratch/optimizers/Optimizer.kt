@@ -20,9 +20,8 @@ interface Optimizer {
      * Updates the parameters of the model based on the outputs computed during the forward pass.
      *
      * @param layer The layer whose parameters are being updated.
-     * @param activation The activation tensor from the forward pass.
-     * @param derivative The derivative tensor from the forward pass.
-     * @param error The error tensor computed from the loss function.
+     * @param weightGradients The gradients of the weights computed during the backward pass.
+     * @param biasGradients The gradients of the biases computed during the backward pass.
      */
-    fun update(layer: Layer, priorActivationDerivative: Tensor, error: Tensor)
+    fun update(layer: Layer, weightGradients: Tensor, biasGradients: Tensor)
 }

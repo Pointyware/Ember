@@ -29,8 +29,6 @@ class SequentialTrainer(
         val activations = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
         // f'(z^L) = a'^L
         val derivativeActivations = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
-        // ∂^L = (f^L)' \dot (a^L - y)
-        val errors = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
 
         repeat(iterations) { epoch ->
             // Create Gradient tensors
@@ -42,16 +40,14 @@ class SequentialTrainer(
                 // Zero tensors for activations, derivativeActivations, and errors
                 activations.forEach { it.mapEach { 0.0 } }
                 derivativeActivations.forEach { it.mapEach { 0.0 } }
-                errors.forEach { it.mapEach { 0.0 } }
 
                 // Forward Pass - using tensors as gradient receivers
                 network.forward(case.input, activations, derivativeActivations)
                 val output = activations.last()
                 // $\nabla_{a_L} C$ is the gradient of the loss function with respect to the final layer's output
-                errors.last() += derivativeActivations.last() * lossFunction.derivative(expected = case.output, output)
 
                 // Backward Pass - using tensors as gradient sources
-                network.backward(errors.last(), derivativeActivations, weightGradients, biasGradients)
+                network.backward(lossFunction.derivative(expected = case.output, output), derivativeActivations, weightGradients, biasGradients)
             }
             // FIXME: Accumulate gradients
 
@@ -60,8 +56,8 @@ class SequentialTrainer(
             for (layer in network.layers) {
                 optimizer.update(
                     layer = layer,
-                    priorActivationDerivative = derivativeActivations[layerIndex - 1],
-                    error = layerError
+                    weightGradients = weightGradients,
+                    biasGradients = biasGradients
                 )
             }
 

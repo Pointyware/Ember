@@ -18,7 +18,7 @@ data class Adam(
         TODO("Not yet implemented")
     }
 
-    override fun update(layer: Layer, priorActivationDerivative: Tensor, error: Tensor) {
+    override fun update(layer: Layer, weightGradients: Tensor, biasGradients: Tensor) {
         TODO("Not yet implemented")
     }
 }
