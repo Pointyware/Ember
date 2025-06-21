@@ -13,7 +13,7 @@ class SequentialNetwork(
 ) : Network {
     override fun predict(input: Tensor): Tensor {
         return layers.fold(input) { acc, layer ->
-            layer.forward(acc)
+            layer.activation.calculate(layer.forward(acc))
         }
     }
 
