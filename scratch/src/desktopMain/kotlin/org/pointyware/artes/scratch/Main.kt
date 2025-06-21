@@ -39,7 +39,7 @@ fun main(vararg args: String) {
             StudyCase(input, target)
         },
         lossFunction = MeanSquaredError,
-        optimizer = StochasticGradientDescent(10.0),
+        optimizer = StochasticGradientDescent(0.10),
         updatePeriod = 10000,
     )
     trainer.train(iterations = 10000000)
