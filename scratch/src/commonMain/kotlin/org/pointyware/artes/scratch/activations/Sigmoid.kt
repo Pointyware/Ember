@@ -1,5 +1,6 @@
 package org.pointyware.artes.scratch.activations
 
+import org.pointyware.artes.scratch.tensors.Tensor
 import kotlin.math.exp
 
 /**
@@ -16,5 +17,14 @@ object Sigmoid: ScalarActivationFunction {
         // Derivative of sigmoid: f'(x) = f(x) * (1 - f(x))
         val sigmoidValue = scalarActivation(input)
         return sigmoidValue * (1.0 - sigmoidValue)
+    }
+
+    override fun calculate(input: Tensor, activation: Tensor, derivativeActivation: Tensor) {
+        input.flatIndices.forEach { index ->
+            val value = input[index]
+            val scalarActivation = 1.0 / (1.0 + exp(-value))
+            activation[index] = scalarActivation
+            derivativeActivation[index] = scalarActivation * (1.0 - scalarActivation)
+        }
     }
 }
