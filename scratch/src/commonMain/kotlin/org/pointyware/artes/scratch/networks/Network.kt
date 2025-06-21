@@ -9,4 +9,22 @@ import org.pointyware.artes.scratch.tensors.Tensor
  */
 interface Network {
     fun predict(input: Tensor): Tensor
+
+    /**
+     * Takes the input and performs a forward pass through the network, using the given
+     * [activation] and [derivativeActivation] tensor lists to store the results.
+     */
+    fun forward(input: Tensor, activations: List<Tensor>, derivativeActivations: List<Tensor>)
+
+    /**
+     * Takes the gradient of the loss function given as [error], computing the gradients
+     * and using the given [weightGradients] and [biasGradients] lists to store the results.
+     */
+    fun backward(error: Tensor, derivativeActivations: List<Tensor>, weightGradients: List<Tensor>, biasGradients: List<Tensor>)
+
+    /**
+     * Updates the layers of the network using the given [weightGradients] and
+     * [biasGradients] lists.
+     */
+    fun updateWeights(weightGradients: List<Tensor>, biasGradients: List<Tensor>)
 }
