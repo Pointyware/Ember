@@ -39,9 +39,9 @@ fun main(vararg args: String) {
         },
         lossFunction = MeanSquaredError,
         optimizer = StochasticGradientDescent(0.10),
-        updatePeriod = 10000,
+        updatePeriod = 10e3.toInt(),
     )
-    trainer.train(iterations = 10000000)
+    trainer.train(iterations = 10e4.toInt())
 
     // Test the trained network
     println("\nFinal predictions:")
