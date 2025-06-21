@@ -13,6 +13,10 @@ import org.pointyware.artes.scratch.tensors.Tensor
  * fun updateWeights(residuals: Residuals)
  */
 interface Network {
+    /**
+     * Takes the input and performs a forward pass through the network, returning the output
+     * as a [Tensor].
+     */
     fun predict(input: Tensor): Tensor
 
     /**
