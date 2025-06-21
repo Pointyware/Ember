@@ -21,7 +21,9 @@ class SequentialTrainer(
     }
 
     override fun train(iterations: Int) {
+        // W^L
         val weightGradients = network.layers.map { Tensor.zeros(*it.weights.dimensions) }
+        // b^L
         val biasGradients = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
         // x = z^0
         // z^L = W^L \dot a^(L-1) + b^L
@@ -35,7 +37,7 @@ class SequentialTrainer(
             weightGradients.forEach { it.mapEach { 0.0 } }
             biasGradients.forEach { it.mapEach { 0.0 } }
 
-            // TODO: use optimizer.sample to select samples
+            var aggregateLoss = 0.0
             cases.forEach { case ->
                 // Zero tensors for activations, derivativeActivations, and errors
                 activations.forEach { it.mapEach { 0.0 } }
@@ -43,22 +45,22 @@ class SequentialTrainer(
 
                 // Forward Pass - using tensors as gradient receivers
                 network.forward(case.input, activations, derivativeActivations)
-                val output = activations.last()
-                // $\nabla_{a_L} C$ is the gradient of the loss function with respect to the final layer's output
 
-                // Backward Pass - using tensors as gradient sources
-                network.backward(lossFunction.derivative(expected = case.output, output), derivativeActivations, weightGradients, biasGradients)
+                // Calculate the loss for the current case
+                val output = activations.last()
+                val loss = lossFunction.compute(expected = case.output, actual = output)
+                aggregateLoss += loss
+                // $\nabla_{a_L} C$ is the gradient of the loss function with respect to the final layer's output
+                val errorGradient = lossFunction.derivative(expected = case.output, actual = output)
+
+                // Backward Pass
+                network.backward(errorGradient, derivativeActivations, weightGradients, biasGradients)
             }
-            // FIXME: Accumulate gradients
 
             // FIXME: Update parameters using optimizer
             // Adjust parameters for all layers using the optimizer
-            for (layer in network.layers) {
-                optimizer.update(
-                    layer = layer,
-                    weightGradients = weightGradients,
-                    biasGradients = biasGradients
-                )
+            network.layers.forEachIndexed { index, layer ->
+                optimizer.update(layer, weightGradients[index], biasGradients[index])
             }
 
             // Output progress -
