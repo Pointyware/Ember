@@ -38,6 +38,7 @@ class SequentialTrainer(
             biasGradients.forEach { it.mapEach { 0.0 } }
 
             var aggregateLoss = 0.0
+            val caseCount = cases.size.toDouble()
             cases.forEach { case ->
                 // Zero tensors for activations, derivativeActivations, and errors
                 activations.forEach { it.mapEach { 0.0 } }
@@ -57,7 +58,6 @@ class SequentialTrainer(
                 network.backward(errorGradient, derivativeActivations, weightGradients, biasGradients)
             }
 
-            val caseCount = cases.size.toDouble()
             weightGradients.forEach { gradient -> gradient.mapEach { it / caseCount } }
             biasGradients.forEach { gradient -> gradient.mapEach { it / caseCount } }
             // FIXME: Update parameters using optimizer
@@ -68,8 +68,9 @@ class SequentialTrainer(
 
             // Output progress -
             // calculate the loss for this epoch
+            val averageLoss = aggregateLoss / caseCount
             if (epoch % updatePeriod == 0) {
-                println("Epoch $epoch, Loss: $aggregateLoss")
+                println("Epoch $epoch, Loss: $averageLoss")
                 println("Network parameters: {")
                 network.layers.forEachIndexed { index, layer ->
                     println("Layer $index: Weights: ${layer.weights}, Biases: ${layer.biases}")
