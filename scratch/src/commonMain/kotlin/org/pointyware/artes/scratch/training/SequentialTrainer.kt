@@ -57,6 +57,9 @@ class SequentialTrainer(
                 network.backward(errorGradient, derivativeActivations, weightGradients, biasGradients)
             }
 
+            val caseCount = cases.size.toDouble()
+            weightGradients.forEach { gradient -> gradient.mapEach { it / caseCount } }
+            biasGradients.forEach { gradient -> gradient.mapEach { it / caseCount } }
             // FIXME: Update parameters using optimizer
             // Adjust parameters for all layers using the optimizer
             network.layers.forEachIndexed { index, layer ->
