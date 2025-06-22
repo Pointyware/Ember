@@ -17,7 +17,6 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.runComposeUiTest
 import org.pointyware.artes.entities.OpenAi
-import org.pointyware.artes.viewmodels.AgentEditorUiState
 import org.pointyware.artes.viewmodels.HostConfigUiState
 import org.pointyware.artes.viewmodels.ModelUiState
 import kotlin.test.AfterTest

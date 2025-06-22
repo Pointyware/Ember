@@ -12,10 +12,4 @@ import org.pointyware.artes.viewmodels.ServiceListViewModel
  *
  */
 fun viewModelModule() = module {
-    factoryOf(::DefaultAgentListViewModel) {
-        bind<AgentListViewModel>()
-    }
-    factoryOf(::DefaultServiceListViewModel) {
-        bind<ServiceListViewModel>()
-    }
 }

@@ -8,7 +8,6 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import org.pointyware.artes.entities.Anthropic
 import org.pointyware.artes.entities.OpenAi
-import org.pointyware.artes.viewmodels.AgentEditorUiState
 import org.pointyware.artes.viewmodels.HostConfigUiState
 import org.pointyware.artes.viewmodels.ModelUiState
 
