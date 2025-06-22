@@ -20,13 +20,12 @@ object MeanSquaredError : LossFunction {
             diffs[index] * diffs[index]
         }
 
-        return squared.values.asSequence().average()
+        return squared.values.asSequence().sum()
     }
 
     override fun derivative(expected: Tensor, actual: Tensor): Tensor {
-        val area = actual.area
         return Tensor(actual.dimensions).mapEachFlatIndexed { index, _ ->
-            2 * (actual[index] - expected[index]) / area
+            2 * (actual[index] - expected[index])
         }
     }
 
