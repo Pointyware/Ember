@@ -29,7 +29,7 @@ fun main(vararg args: String) {
 
     val network = SequentialNetwork.create(
         input = 2,
-        3 to ReLU,
+        3 to Sigmoid,
         1 to Sigmoid,
     )
     val trainer = SequentialTrainer(
