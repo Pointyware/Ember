@@ -23,9 +23,6 @@ dependencies {
     kover(projects.coreUi)
     kover(projects.coreData)
 
-    kover(projects.featureTextChat)
-    kover(projects.services.openAi)
-
     kover(projects.appShared)
 
     kover(projects.appAndroid)
