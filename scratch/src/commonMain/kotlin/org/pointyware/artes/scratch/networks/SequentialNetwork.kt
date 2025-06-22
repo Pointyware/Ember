@@ -34,7 +34,9 @@ class SequentialNetwork(
     }
 
     override fun backward(
+        input: Tensor,
         error: Tensor,
+        activations: List<Tensor>,
         derivativeActivations: List<Tensor>,
         weightGradients: List<Tensor>,
         biasGradients: List<Tensor>
@@ -42,14 +44,12 @@ class SequentialNetwork(
         // ∂^L = (f^L)' \dot (a^L - y);
         var layerError: Tensor = derivativeActivations.last() * error
         layers.indices.reversed().forEach back_pass@ { layerIndex ->
-            // Skip the first layer as it has no previous layer to propagate error to
-            if (layerIndex == 0) return@back_pass
-
-            weightGradients[layerIndex] += layerError.matrixMultiply(derivativeActivations[layerIndex - 1].transpose())
+            val inputs = if (layerIndex == 0) { input } else { activations[layerIndex - 1] }
+            weightGradients[layerIndex] += layerError.matrixMultiply(inputs.transpose())
             biasGradients[layerIndex] += layerError
 
             // Skip the first layer as it has no previous layer to propagate error to
-            if (layerIndex == 1) return@back_pass
+            if (layerIndex == 0) return@back_pass
             // Propagate the error to the previous layer
             // ∂^l-1 = (f^l-1)' \dot (W^l)^T \dot; ∂^l
             layerError = derivativeActivations[layerIndex - 1] *

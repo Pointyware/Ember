@@ -55,7 +55,7 @@ class SequentialTrainer(
                 val errorGradient = lossFunction.derivative(expected = case.output, actual = output)
 
                 // Backward Pass
-                network.backward(errorGradient, derivativeActivations, weightGradients, biasGradients)
+                network.backward(case.input, errorGradient, activations, derivativeActivations, weightGradients, biasGradients)
             }
 
             weightGradients.forEach { gradient -> gradient.mapEach { it / caseCount } }
