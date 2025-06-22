@@ -13,10 +13,6 @@ import org.pointyware.artes.data.hosts.ServiceRepository
 import org.pointyware.artes.data.hosts.SqlDelightHostDao
 import org.pointyware.artes.hosts.interactors.CreateHostUseCase
 import org.pointyware.artes.hosts.viewmodels.HostViewModel
-import org.pointyware.artes.interactors.BeginEditingAgentUseCase
-import org.pointyware.artes.interactors.CreateAgentUseCase
-import org.pointyware.artes.interactors.GetServiceModelsUseCase
-import org.pointyware.artes.interactors.RemoveAgentUseCase
 import org.pointyware.artes.interactors.di.interactorsModule
 import org.pointyware.artes.services.ServiceRepositoryImpl
 import org.pointyware.artes.services.openai.network.di.openAiModule

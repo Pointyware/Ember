@@ -5,8 +5,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.pointyware.artes.interactors.BeginEditingAgentUseCase
-import org.pointyware.artes.interactors.RemoveAgentUseCase
 
 /**
  * View Model of a UI the displays agent information and allows the user to open the editor or
