@@ -25,7 +25,7 @@ fun LabWindow(
     Window(
         onCloseRequest = onCloseRequest,
         state = state,
-        title = "Artes Lab"
+        title = "Ember Lab"
     ) {
         val completionState by completionViewModel.state.collectAsState(CompletionViewModel.EMPTY)
 

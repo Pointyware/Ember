@@ -6,18 +6,18 @@ import org.koin.core.context.startKoin
 import org.pointyware.artes.shared.di.sharedModule
 
 /**
- * Artes-specific implementation of the Android Application class.
+ * Ember-specific implementation of the Android Application class.
  *
  * Start-up tasks:
  * - Initialize Koin with application context
  */
-class ArtesApplication: Application() {
+class EmberApplication: Application() {
 
     override fun onCreate() {
         super.onCreate()
 
         startKoin {
-            androidContext(this@ArtesApplication)
+            androidContext(this@EmberApplication)
             modules(sharedModule())
         }
     }

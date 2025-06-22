@@ -21,7 +21,7 @@ data class Geometry(
 )
 
 /**
- * Defines the shapes used in the Artes UI.
+ * Defines the shapes used in the Ember UI.
  */
 val artesShapes = Shapes(
     small = RoundedCornerShape(DefaultLocalGeometry.paddingSmall)

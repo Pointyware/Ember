@@ -6,12 +6,12 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import org.pointyware.artes.ui.theme.ArtesTheme
+import org.pointyware.artes.ui.theme.EmberTheme
 
 @Preview
 @Composable
 fun SidebarPreview() {
-    ArtesTheme(
+    EmberTheme(
         isDark = false
     ) {
         Surface {

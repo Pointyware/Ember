@@ -21,7 +21,7 @@ import org.pointyware.artes.navigation.navigateTo
  * The root for Compose UI.
  */
 @Composable
-fun ArtesApp() {
+fun EmberApp() {
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val selectedItem = backStackEntry?.destination

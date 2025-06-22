@@ -16,7 +16,7 @@ import androidx.compose.ui.window.Dialog
 import kotlinx.coroutines.launch
 import org.pointyware.artes.agents.viewmodels.AgentEditorViewModel
 import org.pointyware.artes.ui.rememberViewModel
-import org.pointyware.artes.ui.theme.ArtesTheme
+import org.pointyware.artes.ui.theme.EmberTheme
 
 /**
  * Presents a screen for creating a new agent or modifying an existing one.
@@ -53,7 +53,7 @@ fun AgentEditorScreen(
                 onDismissRequest = { dialogState = null },
             ) {
                 Surface(
-                    modifier = Modifier.padding(ArtesTheme.geometry.paddingLarge)
+                    modifier = Modifier.padding(EmberTheme.geometry.paddingLarge)
                 ) {
                     Text(safeDialogState)
                 }

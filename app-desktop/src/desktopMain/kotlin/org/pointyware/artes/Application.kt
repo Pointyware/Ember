@@ -6,9 +6,9 @@ import androidx.compose.ui.window.rememberWindowState
 import org.jetbrains.compose.resources.stringResource
 import org.koin.core.context.startKoin
 import org.pointyware.artes.shared.di.sharedModule
-import org.pointyware.artes.shared.ui.ArtesApp
+import org.pointyware.artes.shared.ui.EmberApp
 import org.pointyware.artes.ui.Res
-import org.pointyware.artes.ui.theme.ArtesTheme
+import org.pointyware.artes.ui.theme.EmberTheme
 import org.pointyware.artes.ui.title_app
 
 /**
@@ -26,7 +26,7 @@ fun main(vararg args: String) = application {
         var exit = false
         val commandList = listOf<Command>(
             lenientCommand("--version") {
-                println("Artes-Desktop v0.1.0")
+                println("Ember-Desktop v0.1.0")
                 exit = true
             }
         )
@@ -49,8 +49,8 @@ fun main(vararg args: String) = application {
         title = stringResource(Res.string.title_app),
         state = windowState,
     ) {
-        ArtesTheme {
-            ArtesApp()
+        EmberTheme {
+            EmberApp()
         }
     }
 }

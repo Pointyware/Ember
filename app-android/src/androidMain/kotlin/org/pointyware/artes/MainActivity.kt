@@ -6,8 +6,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import org.pointyware.artes.shared.ui.ArtesApp
-import org.pointyware.artes.ui.theme.ArtesTheme
+import org.pointyware.artes.shared.ui.EmberApp
+import org.pointyware.artes.ui.theme.EmberTheme
 
 /**
  * Main entry-point for the Android application. We plan to follow the single-activity app model,
@@ -19,8 +19,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            ArtesTheme {
-                ArtesApp()
+            EmberTheme {
+                EmberApp()
             }
         }
     }
@@ -29,7 +29,7 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun AndroidAppPreview() {
-    ArtesTheme {
-        ArtesApp()
+    EmberTheme {
+        EmberApp()
     }
 }

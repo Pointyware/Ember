@@ -83,7 +83,7 @@ internal fun simpleColorScheme(darkTheme: Boolean): ColorScheme {
 expect fun colorScheme(darkTheme: Boolean, dynamicTheme: Boolean): ColorScheme
 
 @Composable
-fun ArtesTheme(
+fun EmberTheme(
     isDark: Boolean = isSystemInDarkTheme(),
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
@@ -100,7 +100,7 @@ fun ArtesTheme(
     }
 }
 
-object ArtesTheme {
+object EmberTheme {
     val geometry: Geometry
         @Composable @ReadOnlyComposable get() = LocalGeometry.current
 }

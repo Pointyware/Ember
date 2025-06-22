@@ -14,16 +14,12 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Artes"
+rootProject.name = "Ember"
 include(
     ":app-android",
     ":app-desktop",
 //    ":app-ios",
     ":app-shared"
-)
-
-include(
-    ":scratch"
 )
 
 include(
@@ -36,10 +32,6 @@ include(
 )
 
 include(
-    ":feature-agents",
-    ":feature-text-chat",
-)
-
-include(
-    ":services:open-ai"
+    ":feature-simulation",
+    ":feature-training",
 )

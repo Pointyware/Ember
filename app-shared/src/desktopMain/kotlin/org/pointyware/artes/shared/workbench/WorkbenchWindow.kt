@@ -37,7 +37,7 @@ fun WorkbenchWindow(
     var isSettingsOpen by remember { mutableStateOf(false) }
     val windowState = rememberWindowState()
     Window(
-        title = "Artes: Skillful Helpers",
+        title = "Ember",
         onCloseRequest = onCloseRequest,
         state = windowState
     ) {
