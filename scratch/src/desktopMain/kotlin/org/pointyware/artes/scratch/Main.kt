@@ -16,16 +16,19 @@ import org.pointyware.artes.scratch.training.StudyCase
  */
 fun main(vararg args: String) {
     // Create simple NN with 2 inputs, 1 hidden layer, and 1 output.
-    val inputs = List<Tensor>(100) {
-        columnVector(Math.random(), Math.random())
-    }
+    val inputs = listOf(
+        columnVector(0.0, 0.0),
+        columnVector(0.0, 1.0),
+        columnVector(1.0, 0.0),
+        columnVector(1.0, 1.0),
+    )
 
-    val targets = inputs.map { case ->
-        // XOR logic: 1 if inputs are different, 0 if they are the same
-        val left = case[0] > 0.5
-        val right = case[1] > 0.5
-        columnVector(if (left != right) 1.0 else 0.0)
-    }
+    val targets = listOf(
+        columnVector(0.0),
+        columnVector(1.0),
+        columnVector(1.0),
+        columnVector(0.0),
+    )
 
     val network = SequentialNetwork.create(
         input = 2,
