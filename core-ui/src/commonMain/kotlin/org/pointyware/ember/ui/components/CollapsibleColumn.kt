@@ -1,4 +1,4 @@
-package org.pointyware.artes.ui.components
+package org.pointyware.ember.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable

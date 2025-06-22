@@ -1,4 +1,4 @@
-package org.pointyware.artes.ui.theme
+package org.pointyware.ember.ui.theme
 
 
 import androidx.compose.foundation.isSystemInDarkTheme

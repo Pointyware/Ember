@@ -1,4 +1,4 @@
-package org.pointyware.artes.ui.theme
+package org.pointyware.ember.ui.theme
 
 import android.os.Build
 import androidx.compose.material3.ColorScheme

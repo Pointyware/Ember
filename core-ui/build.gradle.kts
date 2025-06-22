@@ -63,7 +63,7 @@ kotlin {
 }
 
 android {
-    namespace = "org.pointyware.artes.ui"
+    namespace = "org.pointyware.ember.ui"
     compileSdk = 35
 
     defaultConfig {
@@ -81,6 +81,6 @@ dependencies {
 
 compose.resources {
     publicResClass = true
-    packageOfResClass = "org.pointyware.artes.ui"
+    packageOfResClass = "org.pointyware.ember.ui"
     generateResClass = always
 }

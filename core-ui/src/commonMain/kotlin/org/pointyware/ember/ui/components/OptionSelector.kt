@@ -1,4 +1,4 @@
-package org.pointyware.artes.ui.components
+package org.pointyware.ember.ui.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.Button
