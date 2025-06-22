@@ -57,10 +57,10 @@ class SequentialTrainer(
                 // Backward Pass
                 network.backward(case.input, errorGradient, activations, derivativeActivations, weightGradients, biasGradients)
             }
-
+            // Average the gradients over all cases
             weightGradients.forEach { gradient -> gradient.mapEach { it / caseCount } }
             biasGradients.forEach { gradient -> gradient.mapEach { it / caseCount } }
-            // FIXME: Update parameters using optimizer
+
             // Adjust parameters for all layers using the optimizer
             network.layers.forEachIndexed { index, layer ->
                 optimizer.update(layer, weightGradients[index], biasGradients[index])
