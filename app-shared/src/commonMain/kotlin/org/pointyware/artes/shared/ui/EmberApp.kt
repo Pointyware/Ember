@@ -50,7 +50,7 @@ fun EmberApp() {
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
         ) {
-            AgentServiceNavigation(
+            EmberNavigation(
                 modifier = Modifier
                     .fillMaxSize(),
                 navController = navController
