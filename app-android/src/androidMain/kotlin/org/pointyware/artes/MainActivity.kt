@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import org.pointyware.artes.shared.ui.EmberApp
-import org.pointyware.artes.ui.theme.EmberTheme
+import org.pointyware.ember.ui.theme.EmberTheme
 
 /**
  * Main entry-point for the Android application. We plan to follow the single-activity app model,

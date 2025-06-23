@@ -24,7 +24,7 @@ kotlin {
 }
 
 android {
-    namespace = "org.pointyware.artes"
+    namespace = "org.pointyware.ember"
     compileSdk = 35
 
     defaultConfig {
