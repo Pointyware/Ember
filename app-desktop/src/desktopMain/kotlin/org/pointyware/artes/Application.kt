@@ -7,9 +7,9 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.core.context.startKoin
 import org.pointyware.artes.shared.di.sharedModule
 import org.pointyware.artes.shared.ui.EmberApp
-import org.pointyware.artes.ui.Res
-import org.pointyware.artes.ui.theme.EmberTheme
-import org.pointyware.artes.ui.title_app
+import org.pointyware.ember.ui.theme.EmberTheme
+import org.pointyware.ember.ui.title_app
+import org.pointyware.ember.ui.Res as UiRes
 
 /**
  *
@@ -46,7 +46,7 @@ fun main(vararg args: String) = application {
     val windowState = rememberWindowState()
     Window(
         onCloseRequest = ::exitApplication,
-        title = stringResource(Res.string.title_app),
+        title = stringResource(UiRes.string.title_app),
         state = windowState,
     ) {
         EmberTheme {

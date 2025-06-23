@@ -35,7 +35,7 @@ kotlin {
 compose {
     desktop {
         application {
-            mainClass = "org.pointyware.artes.ApplicationKt"
+            mainClass = "org.pointyware.ember.ApplicationKt"
         }
     }
 }
