@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import org.pointyware.artes.shared.ui.EmberApp
+import org.pointyware.ember.ui.EmberApp
 import org.pointyware.ember.ui.theme.EmberTheme
 
 /**

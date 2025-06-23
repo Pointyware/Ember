@@ -5,8 +5,8 @@ import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import org.jetbrains.compose.resources.stringResource
 import org.koin.core.context.startKoin
-import org.pointyware.artes.shared.di.sharedModule
-import org.pointyware.artes.shared.ui.EmberApp
+import org.pointyware.ember.ui.EmberApp
+import org.pointyware.ember.shared.di.sharedModule
 import org.pointyware.ember.ui.theme.EmberTheme
 import org.pointyware.ember.ui.title_app
 import org.pointyware.ember.ui.Res as UiRes
