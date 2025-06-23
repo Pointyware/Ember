@@ -1,7 +1,7 @@
-package org.pointyware.artes.scratch.optimizers
+package org.pointyware.ember.optimizers
 
-import org.pointyware.artes.scratch.layers.Layer
-import org.pointyware.artes.scratch.tensors.Tensor
+import org.pointyware.ember.layers.Layer
+import org.pointyware.ember.tensors.Tensor
 
 /**
  * Adam optimizer.

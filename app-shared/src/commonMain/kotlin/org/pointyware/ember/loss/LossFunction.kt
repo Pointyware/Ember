@@ -1,6 +1,6 @@
-package org.pointyware.artes.scratch.loss
+package org.pointyware.ember.loss
 
-import org.pointyware.artes.scratch.tensors.Tensor
+import org.pointyware.ember.tensors.Tensor
 
 /**
  * A loss function computes the error between the predicted output and the target output.

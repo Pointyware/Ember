@@ -1,4 +1,4 @@
-package org.pointyware.artes.scratch.activations
+package org.pointyware.ember.activations
 
 /**
  * Rectified Linear Unit (ReLU) activation function.

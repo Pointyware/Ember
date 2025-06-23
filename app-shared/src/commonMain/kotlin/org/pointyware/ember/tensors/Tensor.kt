@@ -1,6 +1,6 @@
-package org.pointyware.artes.scratch.tensors
+package org.pointyware.ember.tensors
 
-import org.pointyware.artes.scratch.Marsaglia
+import org.pointyware.ember.Marsaglia
 
 fun absoluteIndex(dimensions: IntArray, indices: IntArray): Int {
     require(indices.size == dimensions.size) { "Indices must match the tensor order." }

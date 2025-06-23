@@ -1,6 +1,6 @@
-package org.pointyware.artes.scratch.training
+package org.pointyware.ember.training
 
-import org.pointyware.artes.scratch.tensors.Tensor
+import org.pointyware.ember.tensors.Tensor
 
 /**
  * An individual training datum.

@@ -1,8 +1,8 @@
-package org.pointyware.artes.scratch.networks
+package org.pointyware.ember.networks
 
-import org.pointyware.artes.scratch.activations.ActivationFunction
-import org.pointyware.artes.scratch.layers.LinearLayer
-import org.pointyware.artes.scratch.tensors.Tensor
+import org.pointyware.ember.activations.ActivationFunction
+import org.pointyware.ember.layers.LinearLayer
+import org.pointyware.ember.tensors.Tensor
 
 /**
  * A sequential network is a series of layers that are applied sequentially,

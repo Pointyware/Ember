@@ -1,6 +1,6 @@
-package org.pointyware.artes.scratch.layers
+package org.pointyware.ember.layers
 
-import org.pointyware.artes.scratch.tensors.Tensor
+import org.pointyware.ember.tensors.Tensor
 
 /**
  * A single layer in a neural network. These can be simple layers like

@@ -1,4 +1,4 @@
-package org.pointyware.artes.scratch.activations
+package org.pointyware.ember.activations
 
 import kotlin.math.pow
 import kotlin.math.tanh
