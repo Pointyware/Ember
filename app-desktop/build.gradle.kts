@@ -1,4 +1,3 @@
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.composePlugin)
@@ -9,6 +8,10 @@ plugins {
 kotlin {
     jvmToolchain(21)
     jvm("desktop") {
+//        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+//        mainRun {
+//            mainClass = "org.pointyware.ember.MainKt"
+//        }
     }
 
     sourceSets {
