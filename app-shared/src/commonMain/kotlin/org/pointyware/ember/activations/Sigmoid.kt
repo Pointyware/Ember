@@ -1,6 +1,6 @@
-package org.pointyware.artes.scratch.activations
+package org.pointyware.ember.activations
 
-import org.pointyware.artes.scratch.tensors.Tensor
+import org.pointyware.ember.tensors.Tensor
 import kotlin.math.exp
 
 /**

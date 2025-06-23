@@ -1,6 +1,6 @@
-package org.pointyware.artes.scratch.networks
+package org.pointyware.ember.networks
 
-import org.pointyware.artes.scratch.tensors.Tensor
+import org.pointyware.ember.tensors.Tensor
 
 /**
  * A network is collection of neurons that can be arranged in a wide variety of ways. Most often

@@ -1,4 +1,4 @@
-package org.pointyware.artes.scratch
+package org.pointyware.ember
 
 import kotlin.math.ln
 import kotlin.math.sqrt

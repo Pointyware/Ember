@@ -1,6 +1,6 @@
-package org.pointyware.artes.scratch.loss
+package org.pointyware.ember.scratch.loss
 
-import org.pointyware.artes.scratch.tensors.Tensor
+import org.pointyware.ember.tensors.Tensor
 import kotlin.math.ln
 
 /**

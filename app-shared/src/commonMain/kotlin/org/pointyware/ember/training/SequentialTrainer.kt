@@ -1,9 +1,9 @@
-package org.pointyware.artes.scratch.training
+package org.pointyware.ember.training
 
-import org.pointyware.artes.scratch.loss.LossFunction
-import org.pointyware.artes.scratch.networks.SequentialNetwork
-import org.pointyware.artes.scratch.optimizers.Optimizer
-import org.pointyware.artes.scratch.tensors.Tensor
+import org.pointyware.ember.loss.LossFunction
+import org.pointyware.ember.networks.SequentialNetwork
+import org.pointyware.ember.optimizers.Optimizer
+import org.pointyware.ember.tensors.Tensor
 
 /**
  *

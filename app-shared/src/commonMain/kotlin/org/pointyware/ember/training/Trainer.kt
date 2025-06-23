@@ -1,4 +1,4 @@
-package org.pointyware.artes.scratch.training
+package org.pointyware.ember.training
 
 /**
  * A Trainer defines a workflow for training a model.

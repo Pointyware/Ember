@@ -1,6 +1,6 @@
-package org.pointyware.artes.scratch.loss
+package org.pointyware.ember.loss
 
-import org.pointyware.artes.scratch.tensors.Tensor
+import org.pointyware.ember.tensors.Tensor
 
 /**
  * Computes the mean squared error (MSE) between the expected and actual tensors.
