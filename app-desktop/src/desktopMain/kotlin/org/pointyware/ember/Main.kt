@@ -1,15 +1,15 @@
-package org.pointyware.artes.scratch
+package org.pointyware.ember
 
-import org.pointyware.artes.scratch.activations.ReLU
-import org.pointyware.artes.scratch.activations.Sigmoid
-import org.pointyware.artes.scratch.layers.LinearLayer
-import org.pointyware.artes.scratch.loss.MeanSquaredError
-import org.pointyware.artes.scratch.networks.SequentialNetwork
-import org.pointyware.artes.scratch.optimizers.StochasticGradientDescent
-import org.pointyware.artes.scratch.tensors.Tensor
-import org.pointyware.artes.scratch.tensors.columnVector
-import org.pointyware.artes.scratch.training.SequentialTrainer
-import org.pointyware.artes.scratch.training.StudyCase
+import org.pointyware.ember.activations.ReLU
+import org.pointyware.ember.activations.Sigmoid
+import org.pointyware.ember.layers.LinearLayer
+import org.pointyware.ember.loss.MeanSquaredError
+import org.pointyware.ember.networks.SequentialNetwork
+import org.pointyware.ember.optimizers.StochasticGradientDescent
+import org.pointyware.ember.tensors.Tensor
+import org.pointyware.ember.tensors.columnVector
+import org.pointyware.ember.training.SequentialTrainer
+import org.pointyware.ember.training.StudyCase
 
 /**
  * Exercises NN primitives with XOR problem.
