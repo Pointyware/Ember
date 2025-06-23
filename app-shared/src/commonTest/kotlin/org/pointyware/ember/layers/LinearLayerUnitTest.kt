@@ -14,6 +14,9 @@ class LinearLayerUnitTest {
         override fun derivative(input: Tensor): Tensor {
             error("Should not be called in this test")
         }
+        override fun calculate(input: Tensor, activation: Tensor, derivativeActivation: Tensor) {
+            error("Should not be called in this test")
+        }
     }
 
     @Test
