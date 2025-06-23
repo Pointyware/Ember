@@ -1,4 +1,4 @@
-package org.pointyware.artes.scratch.ui
+package org.pointyware.ember.ui
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
