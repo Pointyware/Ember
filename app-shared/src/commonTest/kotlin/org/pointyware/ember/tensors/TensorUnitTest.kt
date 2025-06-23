@@ -1,4 +1,4 @@
-package org.pointyware.artes.scratch.tensors
+package org.pointyware.ember.tensors
 
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
