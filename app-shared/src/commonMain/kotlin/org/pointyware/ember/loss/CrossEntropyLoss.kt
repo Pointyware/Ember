@@ -1,4 +1,4 @@
-package org.pointyware.ember.scratch.loss
+package org.pointyware.ember.loss
 
 import org.pointyware.ember.tensors.Tensor
 import kotlin.math.ln
