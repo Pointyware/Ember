@@ -1,8 +1,8 @@
-package org.pointyware.artes.scratch.layers
+package org.pointyware.ember.layers
 
 import org.junit.Test
-import org.pointyware.artes.scratch.activations.ActivationFunction
-import org.pointyware.artes.scratch.tensors.Tensor
+import org.pointyware.ember.activations.ActivationFunction
+import org.pointyware.ember.tensors.Tensor
 import kotlin.test.assertEquals
 
 class LinearLayerUnitTest {

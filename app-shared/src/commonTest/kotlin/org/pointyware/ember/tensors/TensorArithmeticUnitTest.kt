@@ -1,4 +1,4 @@
-package org.pointyware.artes.scratch.tensors
+package org.pointyware.ember.tensors
 
 import org.junit.Test
 import kotlin.math.exp

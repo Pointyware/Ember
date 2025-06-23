@@ -1,9 +1,9 @@
-package org.pointyware.artes.scratch.networks
+package org.pointyware.ember.networks
 
 import org.junit.Test
-import org.pointyware.artes.scratch.activations.ReLU
-import org.pointyware.artes.scratch.layers.LinearLayer
-import org.pointyware.artes.scratch.tensors.Tensor
+import org.pointyware.ember.activations.ReLU
+import org.pointyware.ember.layers.LinearLayer
+import org.pointyware.ember.tensors.Tensor
 import kotlin.test.assertContentEquals
 
 class SequentialNetworkUnitTest {
