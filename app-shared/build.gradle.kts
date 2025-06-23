@@ -67,7 +67,7 @@ kotlin {
 }
 
 android {
-    namespace = "org.pointyware.artes.shared"
+    namespace = "org.pointyware.ember.shared"
     compileSdk = 35
 
     defaultConfig {
@@ -86,5 +86,5 @@ dependencies {
 compose.resources {
     generateResClass = always
     publicResClass = true
-    packageOfResClass = "org.pointyware.artes.shared"
+    packageOfResClass = "org.pointyware.ember.shared"
 }
