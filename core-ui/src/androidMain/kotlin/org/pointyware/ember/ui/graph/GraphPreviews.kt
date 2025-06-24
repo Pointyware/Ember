@@ -50,6 +50,7 @@ private fun GraphPreview(
 private fun LineGraphPreview(
 
 ) {
+    // TODO: sample loss data from training for preview
     val textMeasurer = rememberTextMeasurer()
     Canvas(
         modifier = Modifier.fillMaxSize()
@@ -61,8 +62,8 @@ private fun LineGraphPreview(
                     left = 0f,
                     top = 20f,
                     right = 10f,
-                    xAxisLabel = "X Axis",
-                    yAxisLabel = "Y Axis"
+                    xAxisLabel = "Time (t)",
+                    yAxisLabel = "Parameter Value"
                 ),
                 series = emptyList()
             ),
