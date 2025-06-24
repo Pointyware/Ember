@@ -1,7 +1,7 @@
 package org.pointyware.ember.tensors
 
 import org.junit.Test
-import kotlin.math.exp
+import org.pointyware.ember.entities.tensors.Tensor
 import kotlin.test.assertContentEquals
 
 class TensorArithmeticUnitTest {

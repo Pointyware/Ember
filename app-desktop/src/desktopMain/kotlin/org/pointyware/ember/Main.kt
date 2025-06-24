@@ -1,20 +1,17 @@
 package org.pointyware.ember
 
-import org.pointyware.ember.activations.ReLU
-import org.pointyware.ember.activations.Sigmoid
-import org.pointyware.ember.layers.LinearLayer
-import org.pointyware.ember.loss.MeanSquaredError
-import org.pointyware.ember.networks.SequentialNetwork
-import org.pointyware.ember.optimizers.StochasticGradientDescent
-import org.pointyware.ember.tensors.Tensor
-import org.pointyware.ember.tensors.columnVector
-import org.pointyware.ember.training.SequentialTrainer
-import org.pointyware.ember.training.StudyCase
+import org.pointyware.ember.entities.activations.Sigmoid
+import org.pointyware.ember.entities.tensors.columnVector
+import org.pointyware.ember.entities.loss.MeanSquaredError
+import org.pointyware.ember.entities.networks.SequentialNetwork
+import org.pointyware.ember.entities.optimizers.StochasticGradientDescent
+import org.pointyware.ember.entities.training.SequentialTrainer
+import org.pointyware.ember.entities.training.StudyCase
 
 /**
  * Exercises NN primitives with XOR problem.
  */
-fun main(vararg args: String) {
+fun trainNetwork() {
     // Create simple NN with 2 inputs, 1 hidden layer, and 1 output.
     val inputs = listOf(
         columnVector(0.0, 0.0),

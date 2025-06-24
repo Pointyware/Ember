@@ -1,5 +1,6 @@
 package org.pointyware.ember.tensors
 
+import org.pointyware.ember.entities.tensors.Tensor
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
