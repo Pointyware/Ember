@@ -4,7 +4,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.text.TextMeasurer
 import androidx.compose.ui.text.drawText
@@ -25,8 +25,33 @@ data class GraphState(
  * Provides mapping functions between graph space and pixel space.
  */
 data class GraphSpaceMap(
-    val state: GraphState
+    val state: GraphState,
+    val drawScope: DrawScope
 ) {
+
+    fun plotSeries(data: List<Pair<Float, Float>>) {
+        val width = drawScope.size.width
+        val height = drawScope.size.height
+
+        for (i in 0 until data.size - 1) {
+            val start = data[i]
+            val end = data[i + 1]
+
+            val startX = xToPixel(start.first, width)
+            val startY = yToPixel(start.second, height)
+            val endX = xToPixel(end.first, width)
+            val endY = yToPixel(end.second, height)
+
+            drawScope.drawLine(
+                color = Color.Red,
+                start = Offset(startX, startY),
+                end = Offset(endX, endY),
+                strokeWidth = 2f,
+                cap = Stroke.DefaultCap
+            )
+        }
+    }
+
     fun xToPixel(x: Float, width: Float): Float {
         return (x - state.left) / (state.right - state.left) * width
     }
@@ -43,7 +68,7 @@ data class GraphSpaceMap(
 fun DrawScope.drawGraph(
     state: GraphState,
     textMeasurer: TextMeasurer,
-    content: DrawScope.(GraphSpaceMap)->Unit,
+    content: GraphSpaceMap.()->Unit,
 ) {
     val leftPadding = 40f
     val bottomPadding = 40f
@@ -80,43 +105,6 @@ fun DrawScope.drawGraph(
     }
 
     // Draw Data Series
-    clipRect(
-        left = leftPadding,
-        right = size.width,
-        bottom = size.height - bottomPadding,
-        top = 0f
-    ) {
-        content(GraphSpaceMap(state))
-    }
-    val contentWidth = size.width - leftPadding
-    val graphWidth = state.right - state.left
-    val contentHeight = size.height - bottomPadding
-    val graphHeight = state.top - state.bottom
-    withTransform({
-        translate(left = state.left, top = state.top)
-        scale(
-            scaleX = contentWidth / graphWidth,
-            scaleY = contentHeight / graphHeight
-        )
-        clipRect(
-            left = state.left,
-            right = state.right,
-            bottom = state.bottom,
-            top = state.top
-        )
-//        clipRect(
-//            left = leftPadding,
-//            right = size.width,
-//            bottom = size.height - bottomPadding,
-//            top = 0f
-//        )
-    }) {
-
-        drawRect(
-            color = Color.Blue,
-            topLeft = Offset(-20f, -20f),
-            size = Size(40f, 40f)
-        )
-        content(GraphSpaceMap(state))
-    }
+    val graphSpaceMap = GraphSpaceMap(state, this)
+    graphSpaceMap.content()
 }

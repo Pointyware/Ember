@@ -20,19 +20,25 @@ private fun GraphPreview(
     ) {
         drawGraph(
             state = GraphState(
-                bottom = 0f,
-                left = 0f,
-                top = 20f,
-                right = 10f,
+                bottom = -1f,
+                left = -1f,
+                top = 5f,
+                right = 7f,
                 xAxisLabel = "X Axis",
                 yAxisLabel = "Y Axis"
             ),
             textMeasurer = textMeasurer
-        ) { context ->
-            drawLine(
-                color = Color.Red,
-                start = Offset(0f, 10f),
-                end = Offset(10f, 20f)
+        ) {
+            plotSeries(
+                listOf(
+                    0f to 0f,
+                    1f to 2f,
+                    2f to 1f,
+                    3f to 3f,
+                    4f to 2f,
+                    5f to 1f,
+                    6f to 4f,
+                )
             )
         }
     }
