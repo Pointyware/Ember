@@ -1,6 +1,7 @@
 package org.pointyware.ember.ui.graph
 
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.text.TextMeasurer
 
 /**
  *
@@ -14,7 +15,13 @@ data class ScatterPlotState(
  * Draws a scatter plot.
  */
 fun DrawScope.drawScatterPlot(
-    state: ScatterPlotState
+    state: ScatterPlotState,
+    textMeasurer: TextMeasurer
 ) {
-    
+    drawGraph(
+        state = state.graphState,
+        textMeasurer = textMeasurer
+    ) { context ->
+
+    }
 }

@@ -1,6 +1,7 @@
 package org.pointyware.ember.ui.graph
 
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.text.TextMeasurer
 
 
 /**
@@ -15,7 +16,13 @@ data class LineGraphState(
  *
  */
 fun DrawScope.drawLineGraph(
-    state: LineGraphState
+    state: LineGraphState,
+    textMeasurer: TextMeasurer
 ) {
+    drawGraph(
+        state = state.graphState,
+        textMeasurer = textMeasurer
+    ) { context ->
 
+    }
 }
