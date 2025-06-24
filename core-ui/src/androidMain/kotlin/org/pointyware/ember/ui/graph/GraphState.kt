@@ -45,8 +45,8 @@ fun DrawScope.drawGraph(
     textMeasurer: TextMeasurer,
     content: DrawScope.(GraphSpaceMap)->Unit,
 ) {
-    val leftPadding = 20f
-    val bottomPadding = 20f
+    val leftPadding = 40f
+    val bottomPadding = 40f
     // Draw Horizontal Axis and Label
     drawLine(
         color = Color.Black,
@@ -56,7 +56,7 @@ fun DrawScope.drawGraph(
     drawText(
         textMeasurer = textMeasurer,
         text = state.xAxisLabel,
-        topLeft = Offset(size.width - leftPadding, size.height - bottomPadding)
+        topLeft = Offset(size.width / 2, size.height - bottomPadding)
     )
 
     // Draw Vertical Axis and Label
@@ -66,12 +66,16 @@ fun DrawScope.drawGraph(
         end = Offset(leftPadding, size.height - bottomPadding),
     )
     withTransform({
-        rotate(degrees = -90f, pivot = Offset(0f, size.height - bottomPadding))
+        rotate(
+            degrees = -90f,
+            pivot = Offset(0f, size.height - bottomPadding)
+        )
     }) {
         drawText(
             textMeasurer = textMeasurer,
             text = state.yAxisLabel,
-            topLeft = Offset(-size.height + bottomPadding, 0f)
+            topLeft = Offset(size.height / 2, size.height - bottomPadding),
+            size = Size(size.width, 1000f),
         )
     }
 
