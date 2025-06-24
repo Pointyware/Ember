@@ -70,6 +70,7 @@ class SequentialTrainer(
             // calculate the loss for this epoch
             val averageLoss = aggregateLoss / caseCount
             if (epoch % updatePeriod == 0 || epoch == iterations - 1) {
+                // TODO: Create Error Histogram of error per case
                 println("Epoch $epoch, Loss: $averageLoss")
                 println("Network parameters: {")
                 network.layers.forEachIndexed { index, layer ->
