@@ -53,15 +53,11 @@ fun DrawScope.drawGraph(
         start = Offset(leftPadding, size.height - bottomPadding),
         end = Offset(size.width, size.height - bottomPadding),
     )
-    withTransform({
-        rotate(degrees = -90f, pivot = Offset(0f, size.height - bottomPadding))
-    }) {
-        drawText(
-            textMeasurer = textMeasurer,
-            text = state.xAxisLabel,
-            topLeft = Offset(-size.height + bottomPadding, 0f)
-        )
-    }
+    drawText(
+        textMeasurer = textMeasurer,
+        text = state.xAxisLabel,
+        topLeft = Offset(size.width - leftPadding, size.height - bottomPadding)
+    )
 
     // Draw Vertical Axis and Label
     drawLine(
@@ -69,10 +65,15 @@ fun DrawScope.drawGraph(
         start = Offset(leftPadding, 0f),
         end = Offset(leftPadding, size.height - bottomPadding),
     )
-    drawText(
-        textMeasurer = textMeasurer,
-        text = state.yAxisLabel
-    )
+    withTransform({
+        rotate(degrees = -90f, pivot = Offset(0f, size.height - bottomPadding))
+    }) {
+        drawText(
+            textMeasurer = textMeasurer,
+            text = state.yAxisLabel,
+            topLeft = Offset(-size.height + bottomPadding, 0f)
+        )
+    }
 
     // Draw Data Series
     clipRect(
