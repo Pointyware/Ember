@@ -17,11 +17,11 @@ enum class TopLevelDestination(
     val iconRes: DrawableResource,
     val contentDescriptionRes: StringResource
 ) {
-    Placeholder(
-        destination = Destination.Placeholder,
-        labelRes = Res.string.title_app,
+    Lab(
+        destination = Destination.Lab("TODO: replace me with sensible TLD"),
+        labelRes = Res.string.title_destination_lab,
         iconRes = Res.drawable.agent_24,
-        contentDescriptionRes = Res.string.acc_desc_back
+        contentDescriptionRes = Res.string.acc_desc_lab
     )
 }
 

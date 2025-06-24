@@ -20,6 +20,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.toRoute
 import org.jetbrains.compose.resources.stringResource
 import org.pointyware.artes.navigation.Destination
 import org.pointyware.ember.ui.Res as UiRes
@@ -79,9 +80,12 @@ fun EmberNavigation(
                 )
             }
         ) {
-            composable<Destination.Placeholder> {
-                Text(
-                    text = "Replace me with your own destination",
+            composable<Destination.Lab> {
+                val route = it.toRoute<Destination.Lab>()
+                NeuralNetworkView(
+                    state = NeuralNetworkViewState(
+
+                    )
                 )
             }
         }

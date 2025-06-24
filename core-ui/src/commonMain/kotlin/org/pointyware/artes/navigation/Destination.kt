@@ -10,5 +10,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 sealed interface Destination {
     @Serializable
-    data object Placeholder: Destination
+    data class Lab(
+        val networkId: String,
+    ): Destination
 }

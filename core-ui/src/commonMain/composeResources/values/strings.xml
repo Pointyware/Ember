@@ -2,4 +2,8 @@
 <resources>
     <string name="title_app">Ember</string>
     <string name="acc_desc_back">Back</string>
+
+    <!--  Lab Values  -->
+    <string name="title_destination_lab">Lab</string>
+    <string name="acc_desc_lab">Laboratory for Experimentation</string>
 </resources>
