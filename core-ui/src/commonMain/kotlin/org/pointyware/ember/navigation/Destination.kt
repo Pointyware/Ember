@@ -1,4 +1,4 @@
-package org.pointyware.artes.navigation
+package org.pointyware.ember.navigation
 
 import kotlinx.serialization.Serializable
 

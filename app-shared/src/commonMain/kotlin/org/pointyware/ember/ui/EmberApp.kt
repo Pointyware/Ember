@@ -14,8 +14,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.pointyware.artes.navigation.TopLevelDestination
-import org.pointyware.artes.navigation.navigateTo
+import org.pointyware.ember.navigation.TopLevelDestination
+import org.pointyware.ember.navigation.navigateTo
 
 /**
  * The root for Compose UI.

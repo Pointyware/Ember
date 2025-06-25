@@ -1,4 +1,4 @@
-package org.pointyware.artes.ui
+package org.pointyware.ember.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember

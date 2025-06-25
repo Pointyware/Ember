@@ -22,7 +22,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.toRoute
 import org.jetbrains.compose.resources.stringResource
-import org.pointyware.artes.navigation.Destination
+import org.pointyware.ember.navigation.Destination
 import org.pointyware.ember.ui.Res as UiRes
 
 
