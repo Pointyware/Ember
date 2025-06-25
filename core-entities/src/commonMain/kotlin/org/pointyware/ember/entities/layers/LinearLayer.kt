@@ -21,7 +21,9 @@ class LinearLayer(
      * accumulation of gradients or further processing.
      */
     override fun forward(input: Tensor): Tensor {
-        return weights.matrixMultiply(input) + biases
+        val output = weights.matrixMultiply(input)
+        output += biases
+        return output
     }
 
     companion object {
