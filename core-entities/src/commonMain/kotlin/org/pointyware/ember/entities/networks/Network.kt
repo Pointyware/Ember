@@ -29,11 +29,12 @@ interface Network {
      * Takes the gradient of the loss function given as [error], computing the gradients
      * and using the given [weightGradients] and [biasGradients] lists to store the results.
      */
-    fun backward(input: Tensor, error: Tensor, activations: List<Tensor>, derivativeActivations: List<Tensor>, weightGradients: List<Tensor>, biasGradients: List<Tensor>)
-
-    /**
-     * Updates the layers of the network using the given [weightGradients] and
-     * [biasGradients] lists.
-     */
-    fun updateWeights(weightGradients: List<Tensor>, biasGradients: List<Tensor>)
+    fun backward(
+        input: Tensor,
+        error: Tensor,
+        activations: List<Tensor>,
+        derivativeActivations: List<Tensor>,
+        weightGradients: List<Tensor>,
+        biasGradients: List<Tensor>
+    )
 }

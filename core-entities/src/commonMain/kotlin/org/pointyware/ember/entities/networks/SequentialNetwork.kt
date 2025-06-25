@@ -57,19 +57,6 @@ class SequentialNetwork(
         }
     }
 
-    override fun updateWeights(weightGradients: List<Tensor>, biasGradients: List<Tensor>) {
-        layers.forEachIndexed { layerIndex, layer ->
-            val weightGradient = weightGradients[layerIndex]
-            val biasGradient = biasGradients[layerIndex]
-            weightGradient.mapEachFlatIndexed { index, value ->
-                value - weightGradient[index]
-            }
-            biasGradient.mapEachFlatIndexed { index, value ->
-                value - biasGradient[index]
-            }
-        }
-    }
-
     companion object {
         fun create(input: Int, vararg layers: Pair<Int, ActivationFunction>): SequentialNetwork {
             require(layers.isNotEmpty()) { "At least one layer must be specified." }
