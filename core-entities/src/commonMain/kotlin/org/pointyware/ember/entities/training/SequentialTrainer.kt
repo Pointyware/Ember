@@ -6,7 +6,8 @@ import org.pointyware.ember.entities.optimizers.Optimizer
 import org.pointyware.ember.entities.tensors.Tensor
 
 /**
- *
+ * A trainer for a [SequentialNetwork] using a list of [StudyCase] instances to evaluate
+ * against the given [lossFunction], updating the model parameters using the provided [optimizer].
  */
 class SequentialTrainer(
     val network: SequentialNetwork,
