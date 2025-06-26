@@ -56,7 +56,7 @@ fun EmberNavigation(
         )
         NavHost(
             navController = navController,
-            startDestination = "TODO: Replace Me",
+            startDestination = Destination.Lab("replace_me"),
             modifier = modifier,
             enterTransition = {
                 slideInVertically(
