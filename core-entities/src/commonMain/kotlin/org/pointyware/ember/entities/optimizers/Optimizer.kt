@@ -1,20 +1,32 @@
 package org.pointyware.ember.entities.optimizers
 
 import org.pointyware.ember.entities.layers.Layer
+import org.pointyware.ember.entities.networks.Network
 import org.pointyware.ember.entities.tensors.Tensor
+import org.pointyware.ember.entities.training.StudyCase
 
 /**
  * A [Trainer] will track the activations and derivatives of the model during the forward pass
  * and provide them to the [Optimizer] to update the model parameters.
  *
- *
  */
 interface Optimizer {
 
     /**
-     *
+     * Selects a subset of [StudyCase] instances for training based
+     * on the optimizer's sampling strategy. The default
+     * implementation filters the cases using [doSample].
      */
-    fun sample(layer: Layer, activation: Tensor, derivative: Tensor)
+    fun sample(cases: List<StudyCase>): List<StudyCase> {
+        return cases.filter { doSample(it) }
+    }
+
+    /**
+     * Determines whether a given [StudyCase] should be selected for training.
+     * If [sample] is overridden, this method can be ignored, unless it is
+     * used in your implementation.
+     */
+    fun doSample(case: StudyCase): Boolean = true
 
     /**
      * Updates the parameters of the model based on the outputs computed during the forward pass.

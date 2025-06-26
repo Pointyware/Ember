@@ -14,10 +14,6 @@ data class Adam(
     val epsilon: Double = 1e-8,
 ): Optimizer {
 
-    override fun sample(layer: Layer, activation: Tensor, derivative: Tensor) {
-        TODO("Not yet implemented")
-    }
-
     override fun update(layer: Layer, weightGradients: Tensor, biasGradients: Tensor) {
         TODO("Not yet implemented")
     }

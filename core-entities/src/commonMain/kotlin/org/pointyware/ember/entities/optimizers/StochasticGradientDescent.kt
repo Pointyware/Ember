@@ -1,8 +1,6 @@
 package org.pointyware.ember.entities.optimizers
 
-import org.pointyware.ember.entities.layers.Layer
-import org.pointyware.ember.entities.layers.LinearLayer
-import org.pointyware.ember.entities.tensors.Tensor
+import org.pointyware.ember.entities.training.StudyCase
 import kotlin.random.Random
 
 /**
@@ -14,36 +12,16 @@ import kotlin.random.Random
  * @param learningRate The learning rate for the optimizer.
  */
 class StochasticGradientDescent(
-    val learningRate: Double,
     val samplingRate: Double = 0.1,
-    val entropy: Random = Random.Default,
-): Optimizer {
+    learningRate: Double,
+    entropy: Random = Random.Default,
+): GradientDescent(learningRate, entropy) {
 
     init {
         require(samplingRate in 0.0..1.0) { "Sampling rate must be between 0.0 and 1.0." }
-        require(learningRate > 0) { "Learning rate must be positive." }
     }
 
-    override fun sample(layer: Layer, activation: Tensor, derivative: Tensor) {
-        if (entropy.nextDouble() <= samplingRate) {
-            TODO("Sample the layer with the given activation and derivative tensors.")
-        }
-    }
-
-    override fun update(layer: Layer, weightGradients: Tensor, biasGradients: Tensor) {
-        when (layer) {
-            is LinearLayer -> {
-                layer.weights.mapEachFlatIndexed { index, value ->
-                    value - learningRate * weightGradients[index]
-                }
-                layer.biases.mapEachFlatIndexed { index, value ->
-                    value - learningRate * biasGradients[index]
-                }
-            }
-
-            else -> {
-                throw IllegalArgumentException("Unsupported layer type: ${layer::class.simpleName}")
-            }
-        }
+    override fun doSample(case: StudyCase): Boolean {
+        return entropy.nextDouble() < samplingRate
     }
 }
