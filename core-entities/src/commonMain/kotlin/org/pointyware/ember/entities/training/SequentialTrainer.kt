@@ -8,6 +8,14 @@ import org.pointyware.ember.entities.tensors.Tensor
 /**
  * A trainer for a [SequentialNetwork] using a list of [Exercise] instances to evaluate
  * against the given [lossFunction], updating the model parameters using the provided [optimizer].
+ *
+ * The [optimizer] controls how data is sampled from the given [cases] as well as
+ * how the [network] parameters are updated during training.
+ *
+ * **Sampling** - Some optimizers may use all cases for each epoch,
+ *   while others may sample a subset of cases.
+ * **Iterations** - Some optimizers may update parameters multiple times per epoch,
+ *   while others may only update once. // TODO: include iterations in epoch statistics
  */
 class SequentialTrainer(
     val network: SequentialNetwork,
