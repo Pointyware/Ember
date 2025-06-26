@@ -90,8 +90,7 @@ fun EmberNavigation(
                     viewModel.loadNetwork(route.networkId)
                 }
                 TrainingScreen(
-                    viewModel = viewModel,
-                    onBack = navController::popBackStack
+                    viewModel = viewModel
                 )
             }
         }
