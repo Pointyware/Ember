@@ -15,6 +15,9 @@ class TrainingViewModel(
     private val controller: TrainingController
 ): ViewModel() {
 
+    /**
+     * The current state of the training UI.
+     */
     val state: StateFlow<TrainingUiState>
         get() = controller.state.map {
             TrainingUiState(
@@ -35,6 +38,9 @@ class TrainingViewModel(
         controller.reset()
     }
 
+    /**
+     * Load a neural network for training.
+     */
     fun loadNetwork(networkId: String) {
         // TODO: actually load the network
     }
