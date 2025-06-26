@@ -18,7 +18,7 @@ class SequentialTrainer(
 ): Trainer {
 
     override fun selectSamples(): List<Exercise> {
-        TODO("Delegate to optimizer")
+        return optimizer.sample(cases) // TODO: need to be externalized?
     }
 
     override fun train(iterations: Int) {
@@ -34,13 +34,14 @@ class SequentialTrainer(
         val derivativeActivations = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
 
         repeat(iterations) { epoch ->
+            val epochCases = selectSamples()
             // Create Gradient tensors
             weightGradients.forEach { it.mapEach { 0.0 } }
             biasGradients.forEach { it.mapEach { 0.0 } }
 
             var aggregateLoss = 0.0
-            val caseCount = cases.size.toDouble()
-            cases.forEach { case ->
+            val caseCount = epochCases.size.toDouble()
+            epochCases.forEach { case ->
                 // Zero tensors for activations, derivativeActivations, and errors
                 activations.forEach { it.mapEach { 0.0 } }
                 derivativeActivations.forEach { it.mapEach { 0.0 } }
