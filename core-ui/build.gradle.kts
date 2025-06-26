@@ -28,6 +28,7 @@ kotlin {
                 api(compose.material3)
                 api(compose.components.resources)
                 api(libs.compose.navigation)
+                api(libs.compose.backhandler)
 
                 implementation(compose.material3AdaptiveNavigationSuite)
 
