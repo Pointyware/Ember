@@ -21,7 +21,7 @@ fun DrawScope.drawScatterPlot(
     drawGraph(
         state = state.graphState,
         textMeasurer = textMeasurer
-    ) { context ->
+    ) {
 
     }
 }

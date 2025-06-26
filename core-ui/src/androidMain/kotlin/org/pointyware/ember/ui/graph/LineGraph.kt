@@ -22,7 +22,7 @@ fun DrawScope.drawLineGraph(
     drawGraph(
         state = state.graphState,
         textMeasurer = textMeasurer
-    ) { context ->
+    ) {
 
     }
 }
