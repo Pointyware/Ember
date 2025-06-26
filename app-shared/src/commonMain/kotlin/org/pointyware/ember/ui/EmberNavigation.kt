@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -23,6 +24,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.toRoute
 import org.jetbrains.compose.resources.stringResource
 import org.pointyware.ember.navigation.Destination
+import org.pointyware.ember.training.ui.TrainingScreen
+import org.pointyware.ember.training.viewmodels.TrainingViewModel
 import org.pointyware.ember.ui.Res as UiRes
 
 
@@ -82,10 +85,10 @@ fun EmberNavigation(
         ) {
             composable<Destination.Lab> {
                 val route = it.toRoute<Destination.Lab>()
-                NeuralNetworkView(
-                    state = NeuralNetworkViewState(
-
-                    )
+                val viewModel = remember { TrainingViewModel() }
+                TrainingScreen(
+                    viewModel = viewModel,
+                    onBack = navController::popBackStack
                 )
             }
         }
