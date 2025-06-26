@@ -6,12 +6,6 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
-import org.pointyware.ember.shared.Res
-import org.pointyware.ember.shared.description_sigmoid
-import org.pointyware.ember.shared.label_relu
-import org.pointyware.ember.shared.label_sigmoid
-import org.pointyware.ember.ui.agent_24
-import org.pointyware.ember.ui.Res as UiRes
 
 enum class ActivationFunctionIndicator(
     val displayName: StringResource,
@@ -21,12 +15,12 @@ enum class ActivationFunctionIndicator(
     RELU(
         displayName = Res.string.label_relu,
         description = Res.string.description_sigmoid,
-        displayIcon = UiRes.drawable.agent_24 // TODO: replace with actual assets
+        displayIcon = Res.drawable.agent_24 // TODO: replace with actual assets
     ),
     SIGMOID(
         displayName = Res.string.label_sigmoid,
         description = Res.string.description_sigmoid,
-        displayIcon = UiRes.drawable.agent_24
+        displayIcon = Res.drawable.agent_24
     )
 }
 
