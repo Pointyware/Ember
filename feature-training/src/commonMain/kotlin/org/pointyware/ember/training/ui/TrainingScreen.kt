@@ -60,7 +60,7 @@ fun TrainingView(
                             listOf(0.4f, 0.5f, 0.6f)
                         ),
                         biases = listOf(
-                            0.1f, 0.2f, 0.3f
+                            0.1f, 0.2f
                         ),
                         activationFunction = ActivationFunctionIndicator.RELU
                     )
