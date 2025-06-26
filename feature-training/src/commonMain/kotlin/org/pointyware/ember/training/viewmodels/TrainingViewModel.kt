@@ -34,4 +34,8 @@ class TrainingViewModel(
     fun reset() {
         controller.reset()
     }
+
+    fun loadNetwork(networkId: String) {
+        // TODO: actually load the network
+    }
 }

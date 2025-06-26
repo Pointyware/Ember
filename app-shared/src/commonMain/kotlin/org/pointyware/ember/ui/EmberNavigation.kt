@@ -14,8 +14,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -85,7 +85,10 @@ fun EmberNavigation(
         ) {
             composable<Destination.Lab> {
                 val route = it.toRoute<Destination.Lab>()
-                val viewModel = remember { TrainingViewModel() }
+                val viewModel = rememberViewModel<TrainingViewModel>()
+                LaunchedEffect(route) {
+                    viewModel.loadNetwork(route.networkId)
+                }
                 TrainingScreen(
                     viewModel = viewModel,
                     onBack = navController::popBackStack
