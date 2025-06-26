@@ -6,18 +6,18 @@ import org.pointyware.ember.entities.optimizers.Optimizer
 import org.pointyware.ember.entities.tensors.Tensor
 
 /**
- * A trainer for a [SequentialNetwork] using a list of [StudyCase] instances to evaluate
+ * A trainer for a [SequentialNetwork] using a list of [Exercise] instances to evaluate
  * against the given [lossFunction], updating the model parameters using the provided [optimizer].
  */
 class SequentialTrainer(
     val network: SequentialNetwork,
-    val cases: List<StudyCase>,
+    val cases: List<Exercise>,
     val lossFunction: LossFunction,
     val optimizer: Optimizer,
     override val updatePeriod: Int = 100
 ): Trainer {
 
-    override fun selectSamples(): List<StudyCase> {
+    override fun selectSamples(): List<Exercise> {
         TODO("Delegate to optimizer")
     }
 

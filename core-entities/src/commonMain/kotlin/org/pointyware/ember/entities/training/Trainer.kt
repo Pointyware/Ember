@@ -19,7 +19,7 @@ interface Trainer {
     /**
      * Controls which samples will be used for each epoch.
      */
-    fun selectSamples(): List<StudyCase>
+    fun selectSamples(): List<Exercise>
 
     /**
      * Train the model for a number of [iterations], a.k.a. epochs.

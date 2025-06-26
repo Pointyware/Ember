@@ -6,7 +6,7 @@ import org.pointyware.ember.entities.loss.MeanSquaredError
 import org.pointyware.ember.entities.networks.SequentialNetwork
 import org.pointyware.ember.entities.optimizers.StochasticGradientDescent
 import org.pointyware.ember.entities.training.SequentialTrainer
-import org.pointyware.ember.entities.training.StudyCase
+import org.pointyware.ember.entities.training.Exercise
 
 /**
  * Exercises NN primitives with XOR problem.
@@ -35,7 +35,7 @@ fun trainNetwork() {
     val trainer = SequentialTrainer(
         network = network,
         cases = inputs.zip(targets) { input, target ->
-            StudyCase(input, target)
+            Exercise(input, target)
         },
         lossFunction = MeanSquaredError,
         optimizer = StochasticGradientDescent(0.10),

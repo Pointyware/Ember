@@ -1,6 +1,6 @@
 package org.pointyware.ember.entities.optimizers
 
-import org.pointyware.ember.entities.training.StudyCase
+import org.pointyware.ember.entities.training.Exercise
 import kotlin.random.Random
 
 /**
@@ -21,7 +21,7 @@ class StochasticGradientDescent(
         require(samplingRate in 0.0..1.0) { "Sampling rate must be between 0.0 and 1.0." }
     }
 
-    override fun doSample(case: StudyCase): Boolean {
+    override fun doSample(case: Exercise): Boolean {
         return entropy.nextDouble() < samplingRate
     }
 }

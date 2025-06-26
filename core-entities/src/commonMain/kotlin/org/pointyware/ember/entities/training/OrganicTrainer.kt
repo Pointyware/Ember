@@ -25,7 +25,7 @@ class OrganicTrainer(
         TODO("Not yet implemented")
     }
 
-    override fun selectSamples(): List<StudyCase> {
+    override fun selectSamples(): List<Exercise> {
         TODO("Not yet implemented")
     }
 
