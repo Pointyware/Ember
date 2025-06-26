@@ -31,10 +31,26 @@ class TrainingViewModel(
             initialValue = TrainingUiState.Default
         )
 
+    fun onStart() {
+        controller.start()
+    }
+
+    fun onStop() {
+        controller.stop()
+    }
+
+    fun onRun(epochs: Int) {
+        if (epochs <= 0) {
+            throw IllegalArgumentException("Number of epochs must be greater than 0")
+        }
+        controller.setEpochs(epochs)
+        controller.start()
+    }
+
     /**
      * Reset current training session.
      */
-    fun reset() {
+    fun onReset() {
         controller.reset()
     }
 
