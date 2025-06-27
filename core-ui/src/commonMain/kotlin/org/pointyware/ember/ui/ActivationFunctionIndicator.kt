@@ -21,6 +21,11 @@ enum class ActivationFunctionIndicator(
         displayName = Res.string.label_sigmoid,
         description = Res.string.description_sigmoid,
         displayIcon = Res.drawable.agent_24
+    ),
+    UNKNOWN(
+        displayName = Res.string.label_sigmoid,
+        description = Res.string.description_sigmoid,
+        displayIcon = Res.drawable.agent_24
     )
 }
 
