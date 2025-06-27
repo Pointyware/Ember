@@ -14,10 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import org.pointyware.ember.training.viewmodels.TrainingUiState
 import org.pointyware.ember.training.viewmodels.TrainingViewModel
-import org.pointyware.ember.ui.ActivationFunctionIndicator
-import org.pointyware.ember.ui.LayerViewState
 import org.pointyware.ember.ui.NeuralNetworkView
-import org.pointyware.ember.ui.NeuralNetworkViewState
 
 /**
  * The Training Screen
@@ -30,7 +27,8 @@ fun TrainingScreen(
     TrainingView(
         state = TrainingUiState(
             isTraining = state.isTraining,
-            epochsRemaining = state.epochsRemaining
+            epochsRemaining = state.epochsRemaining,
+            networkState = state.networkState
         ),
         onStart = viewModel::onStart,
         onStop = viewModel::onStop,
@@ -52,23 +50,7 @@ fun TrainingView(
         modifier = modifier
     ) {
         NeuralNetworkView(
-            state = NeuralNetworkViewState(
-                layers = listOf(
-                    LayerViewState(
-                        weights = listOf(
-                            listOf(0.1f, 0.2f, 0.3f),
-                            listOf(0.4f, 0.5f, 0.6f)
-                        ),
-                        biases = listOf(
-                            0.1f, 0.2f
-                        ),
-                        activationFunction = ActivationFunctionIndicator.RELU
-                    )
-                ),
-                parameters = mapOf(
-
-                )
-            )
+            state = state.networkState
         )
 
         Column {
