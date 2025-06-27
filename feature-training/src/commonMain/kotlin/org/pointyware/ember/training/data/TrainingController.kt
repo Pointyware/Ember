@@ -168,6 +168,11 @@ class TrainingControllerImpl(
     }
 
     override fun reset() {
-        TODO("Not yet implemented")
+        _state.update {
+            it.copy(
+                isTraining = false,
+                epochsRemaining = 0,
+            )
+        }
     }
 }
