@@ -1,8 +1,13 @@
 package org.pointyware.ember.training.data
 
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.pointyware.ember.entities.activations.Sigmoid
 import org.pointyware.ember.entities.loss.MeanSquaredError
 import org.pointyware.ember.entities.networks.SequentialNetwork
@@ -10,6 +15,7 @@ import org.pointyware.ember.entities.optimizers.StochasticGradientDescent
 import org.pointyware.ember.entities.tensors.columnVector
 import org.pointyware.ember.entities.training.Exercise
 import org.pointyware.ember.entities.training.SequentialTrainer
+import kotlin.math.min
 
 /**
  * Models basic training state and provides a handle to the trainer and network.
@@ -60,7 +66,7 @@ interface TrainingController {
  *
  */
 class TrainingControllerImpl(
-
+    private val trainingScope: CoroutineScope
 ): TrainingController {
 
     val exercises: List<Exercise>
@@ -104,15 +110,53 @@ class TrainingControllerImpl(
         get() = _state.asStateFlow()
 
     override fun setEpochs(epochs: Int) {
-        TODO("Not yet implemented")
+        _state.update {
+            it.copy(
+                epochsRemaining = epochs
+            )
+        }
     }
 
+    private var trainingJob: Job? = null
     override fun start() {
+        _state.update {
+            if (it.isTraining) {
+                it // No change if already training
+            } else {
+                it.copy(
+                    isTraining = true,
+                )
+            }
+        }
+        trainingScope.launch { startTraining() }
         trainer.train(iterations = 10e4.toInt())
     }
 
+    private suspend fun startTraining() {
+        trainingJob?.cancelAndJoin()
+        trainingJob = trainingScope.launch {
+
+            while (state.value.isTraining) {
+                val epochsRemaining = _state.value.epochsRemaining
+                val trainedEpochs = min(epochsRemaining, trainer.updatePeriod)
+                trainer.train(iterations = trainedEpochs)
+                val remaining = epochsRemaining - trainedEpochs
+                _state.update { currentState ->
+                    currentState.copy(
+                        isTraining = remaining > 0,
+                        epochsRemaining = remaining
+                    )
+                }
+            }
+        }
+    }
+
     override fun stop() {
-        TODO("Not yet implemented")
+        _state.update {
+            it.copy(
+                isTraining = false
+            )
+        }
     }
 
     override suspend fun test(case: Exercise): Double {
