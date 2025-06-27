@@ -108,7 +108,6 @@ class TrainingControllerImpl(
     }
 
     override fun start() {
-        TODO("Not yet implemented")
         trainer.train(iterations = 10e4.toInt())
     }
 
