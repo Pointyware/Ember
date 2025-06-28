@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import org.pointyware.ember.entities.activations.Sigmoid
 import org.pointyware.ember.entities.loss.MeanSquaredError
 import org.pointyware.ember.entities.networks.SequentialNetwork
-import org.pointyware.ember.entities.optimizers.StochasticGradientDescent
+import org.pointyware.ember.entities.optimizers.GradientDescent
 import org.pointyware.ember.entities.tensors.columnVector
 import org.pointyware.ember.entities.training.Exercise
 import org.pointyware.ember.entities.training.SequentialTrainer
@@ -98,7 +98,7 @@ class TrainingControllerImpl(
         ),
         cases = exercises,
         lossFunction = MeanSquaredError,
-        optimizer = StochasticGradientDescent(learningRate = 0.10),
+        optimizer = GradientDescent(learningRate = 0.10),
         updatePeriod = 10e3.toInt(),
     )
     private val _state = MutableStateFlow(TrainingState(
