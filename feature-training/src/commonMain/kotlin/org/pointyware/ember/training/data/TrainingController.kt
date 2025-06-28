@@ -136,10 +136,10 @@ class TrainingControllerImpl(
         trainingJob = trainingScope.launch {
 
             while (state.value.isTraining) {
-                val epochsRemaining = _state.value.epochsRemaining
-                val trainedEpochs = min(epochsRemaining, trainer.updatePeriod)
-                trainer.train(iterations = trainedEpochs)
-                val remaining = epochsRemaining - trainedEpochs
+                val epochsBeforeTraining = state.value.epochsRemaining
+                val epochsToTrain = min(epochsBeforeTraining, trainer.updatePeriod)
+                trainer.train(iterations = epochsToTrain)
+                val remaining = epochsBeforeTraining - epochsToTrain
                 _state.update { currentState ->
                     currentState.copy(
                         isTraining = remaining > 0,
