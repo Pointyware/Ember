@@ -1,13 +1,23 @@
 package org.pointyware.ember.training.di
 
-import org.koin.core.module.dsl.bind
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import org.koin.core.module.dsl.factoryOf
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import org.pointyware.ember.training.data.TrainingController
 import org.pointyware.ember.training.data.TrainingControllerImpl
 import org.pointyware.ember.training.viewmodels.TrainingViewModel
 
+val trainingQualifier = named("training")
+
 fun trainingModule() = module {
+
+    single<CoroutineScope>(qualifier = trainingQualifier) {
+        CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    }
+
     includes(
         trainingDataModule(),
         trainingViewModelModule(),
@@ -15,8 +25,10 @@ fun trainingModule() = module {
 }
 
 fun trainingDataModule() = module {
-    factoryOf(::TrainingControllerImpl) {
-        bind<TrainingController>()
+    factory<TrainingController> {
+        TrainingControllerImpl(
+            trainingScope = get(qualifier = trainingQualifier)
+        )
     }
 }
 
