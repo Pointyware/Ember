@@ -129,7 +129,6 @@ class TrainingControllerImpl(
             }
         }
         trainingScope.launch { startTraining() }
-        trainer.train(iterations = 10e4.toInt())
     }
 
     private suspend fun startTraining() {
