@@ -82,7 +82,7 @@ fun TrainingView(
                     text = "Reset"
                 )
             }
-            var epochsRemaining by remember { mutableStateOf(state.epochsRemaining) }
+            var epochsRemaining by remember(state.epochsRemaining) { mutableStateOf(state.epochsRemaining) }
             TextField(
                 value = epochsRemaining.toString(),
                 onValueChange = { newValue ->
