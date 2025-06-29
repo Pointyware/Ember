@@ -141,10 +141,17 @@ class TrainingControllerImpl(
                 trainer.train(iterations = epochsToTrain)
                 val remaining = epochsBeforeTraining - epochsToTrain
                 _state.update { currentState ->
-                    currentState.copy(
-                        isTraining = remaining > 0,
-                        epochsRemaining = remaining
-                    )
+                    if (remaining <= 0) {
+                        currentState.copy(
+                            isTraining = false,
+                            epochsRemaining = 0
+                        )
+                    } else {
+                        // Update the state to reflect remaining epochs
+                        currentState.copy(
+                            epochsRemaining = remaining
+                        )
+                    }
                 }
             }
         }
