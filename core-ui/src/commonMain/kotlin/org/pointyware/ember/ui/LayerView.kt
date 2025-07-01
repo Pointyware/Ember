@@ -1,10 +1,15 @@
 package org.pointyware.ember.ui
 
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Text
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 
 
 data class LayerViewState(
@@ -22,38 +27,52 @@ fun LayerView(
     state: LayerViewState,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(
+    Row(
         modifier = modifier,
     ) {
-        item {
-            ActivationFunctionIndicatorView(state.activationFunction)
-        }
-        items(state.biases.size) { index ->
-            NeuronView(state.weights[index], state.biases[index])
+        ActivationFunctionIndicatorView(state.activationFunction)
+        Column {
+            for (index in state.weights.indices) {
+                NeuronView(
+                    weights = state.weights[index],
+                    bias = state.biases[index]
+                )
+            }
         }
     }
 }
 
 /**
  * Displays a single neuron in a neural network layer.
- * The neuron is represented by its weights and bias.
+ * The neuron is represented by its weights and bias
+ * rendered as colored squares.
  */
 @Composable
 fun NeuronView(
     weights: List<Float>,
     bias: Float,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    squareSize: Float = 20f
 ) {
-    val displayString = remember(weights, bias) {
-        buildString {
-            append("Weights: [")
-            append(weights.joinToString(", "))
-            append("], Bias: ")
-            append(bias)
+    Canvas(
+        modifier = modifier.width(((weights.size + 1) * 20).dp) // Adjust width based on number of weights
+    ) {
+        fun drawSquare(value: Float, index: Int) {
+            val color = when {
+                value > 0 -> Color.Green
+                value < 0 -> Color.Red
+                else -> Color.Gray
+            }
+            drawRect(
+                color = color,
+                topLeft = Offset(index * squareSize, 0f),
+                size = Size(squareSize, squareSize)
+            )
         }
+        // Draw each weight as a colored square
+        weights.forEachIndexed { index, weight ->
+            drawSquare(weight, index)
+        }
+        drawSquare(bias, weights.size)
     }
-    Text(
-        text = displayString,
-        modifier = modifier
-    )
 }

@@ -1,6 +1,6 @@
 package org.pointyware.ember.ui
 
-import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,13 +19,13 @@ fun NeuralNetworkView(
     state: NeuralNetworkViewState,
     modifier: Modifier = Modifier
 ) {
-    LazyRow(
+    LazyColumn(
         modifier = modifier
     ) {
         items(state.layers) { layerState ->
             LayerView(
-                layerState,
-                modifier = modifier
+                state = layerState,
+                modifier = Modifier
             )
         }
     }
