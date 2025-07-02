@@ -22,6 +22,7 @@ import kotlin.math.min
  */
 data class TrainingState(
     val isTraining: Boolean = false,
+    val elapsedEpochs: Int = 0,
     val epochsRemaining: Int = 0,
     val trainer: SequentialTrainer
 ) {
@@ -141,14 +142,17 @@ class TrainingControllerImpl(
                 trainer.train(iterations = epochsToTrain)
                 val remaining = epochsBeforeTraining - epochsToTrain
                 _state.update { currentState ->
+                    val elapsed = currentState.elapsedEpochs + epochsToTrain
                     if (remaining <= 0) {
                         currentState.copy(
                             isTraining = false,
+                            elapsedEpochs = elapsed,
                             epochsRemaining = 0
                         )
                     } else {
                         // Update the state to reflect remaining epochs
                         currentState.copy(
+                            elapsedEpochs = elapsed,
                             epochsRemaining = remaining
                         )
                     }
