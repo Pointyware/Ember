@@ -25,11 +25,7 @@ fun TrainingScreen(
 ) {
     val state by viewModel.state.collectAsState()
     TrainingView(
-        state = TrainingUiState(
-            isTraining = state.isTraining,
-            epochsRemaining = state.epochsRemaining,
-            networkState = state.networkState
-        ),
+        state = state,
         onStart = viewModel::onStart,
         onStop = viewModel::onStop,
         onReset = viewModel::onReset,
