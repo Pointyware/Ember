@@ -28,6 +28,7 @@ class TrainingViewModel(
         get() = controller.state.map {
             TrainingUiState(
                 epochsRemaining = it.epochsRemaining,
+                epochsTrained = it.elapsedEpochs,
                 isTraining = it.isTraining,
                 networkState = it.trainer.network.let { network ->
                     NeuralNetworkViewState(

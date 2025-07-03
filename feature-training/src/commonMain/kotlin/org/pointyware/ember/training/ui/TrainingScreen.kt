@@ -33,6 +33,10 @@ fun TrainingScreen(
     )
 }
 
+/**
+ * This view displays a network under training, and provides controls to start, stop, reset,
+ * and run a set number of epochs.
+ */
 @Composable
 fun TrainingView(
     state: TrainingUiState,
@@ -55,7 +59,7 @@ fun TrainingView(
                 text = "Training: ${if (state.isTraining) "In Progress" else "Not Started"}"
             )
             Text(
-                text = "Current Epoch: "
+                text = "Elapsed Epochs: ${state.epochsTrained}"
             )
             Button(
                 onClick = onStart
