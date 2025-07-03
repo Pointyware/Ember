@@ -49,10 +49,6 @@ fun TrainingView(
     Row(
         modifier = modifier
     ) {
-        NeuralNetworkView(
-            state = state.networkState
-        )
-
         Column {
 
             Text(
@@ -98,5 +94,9 @@ fun TrainingView(
                 )
             }
         }
+
+        NeuralNetworkView(
+            state = state.networkState
+        )
     }
 }
