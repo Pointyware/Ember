@@ -2,10 +2,14 @@ package org.pointyware.ember.ui
 
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
+import org.pointyware.ember.entities.activations.ActivationFunction
+import org.pointyware.ember.entities.activations.ReLU
+import org.pointyware.ember.entities.activations.Sigmoid
 
 enum class ActivationFunctionIndicator(
     val displayName: StringResource,
@@ -31,10 +35,15 @@ enum class ActivationFunctionIndicator(
 
 @Composable
 fun ActivationFunctionIndicatorView(
-    activationFunction: ActivationFunctionIndicator,
+    value: ActivationFunction
 ) {
+    val indicator: ActivationFunctionIndicator = remember(value) { when (value) {
+        is Sigmoid -> ActivationFunctionIndicator.SIGMOID
+        is ReLU -> ActivationFunctionIndicator.RELU
+        else -> ActivationFunctionIndicator.UNKNOWN
+    } }
     Icon(
-        imageVector = vectorResource(activationFunction.displayIcon),
-        contentDescription = stringResource(activationFunction.description)
+        imageVector = vectorResource(indicator.displayIcon),
+        contentDescription = stringResource(indicator.description)
     )
 }
