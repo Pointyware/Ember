@@ -4,11 +4,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-
-data class NeuralNetworkViewState(
-    val layers: List<LayerViewState> = emptyList(),
-    val parameters: Map<String, Any> = emptyMap()
-)
+import org.pointyware.ember.viewmodels.NeuralNetworkUiState
 
 /**
  * Displays a sequential linear neural network. The view is oriented with
@@ -16,7 +12,7 @@ data class NeuralNetworkViewState(
  */
 @Composable
 fun NeuralNetworkView(
-    state: NeuralNetworkViewState,
+    state: NeuralNetworkUiState,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(

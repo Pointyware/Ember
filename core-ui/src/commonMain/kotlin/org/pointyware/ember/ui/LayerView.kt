@@ -10,13 +10,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import org.pointyware.ember.viewmodels.LayerUiState
 
-
-data class LayerViewState(
-    val weights: List<List<Float>>,
-    val biases: List<Float>,
-    val activationFunction: ActivationFunctionIndicator
-)
 
 /**
  * Displays a single linear layer of a neural network. Neurons are displayed
@@ -24,7 +19,7 @@ data class LayerViewState(
  */
 @Composable
 fun LayerView(
-    state: LayerViewState,
+    state: LayerUiState,
     modifier: Modifier = Modifier
 ) {
     Row(
