@@ -22,6 +22,7 @@ kotlin {
             dependencies {
                 implementation(projects.coreCommon)
                 implementation(projects.coreEntities)
+                implementation(projects.coreViewmodels)
                 implementation(projects.coreUi)
 
                 api(compose.ui)
