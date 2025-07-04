@@ -6,13 +6,8 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import org.pointyware.ember.entities.activations.ReLU
-import org.pointyware.ember.entities.activations.Sigmoid
 import org.pointyware.ember.entities.tensors.Tensor
 import org.pointyware.ember.training.data.TrainingController
-import org.pointyware.ember.ui.ActivationFunctionIndicator
-import org.pointyware.ember.ui.LayerViewState
-import org.pointyware.ember.ui.NeuralNetworkViewState
 
 /**
  * This view model maintains the ui state for training a neural network.
@@ -25,28 +20,7 @@ class TrainingViewModel(
      * The current state of the training UI.
      */
     val state: StateFlow<TrainingUiState>
-        get() = controller.state.map {
-            TrainingUiState(
-                epochsRemaining = it.epochsRemaining,
-                epochsTrained = it.elapsedEpochs,
-                isTraining = it.isTraining,
-                networkState = it.trainer.network.let { network ->
-                    NeuralNetworkViewState(
-                        layers = network.layers.map {
-                            LayerViewState(
-                                weights = it.weights.toListMatrix(),
-                                biases = it.biases.toListVector(),
-                                activationFunction = when (it.activation) {
-                                    is Sigmoid -> ActivationFunctionIndicator.SIGMOID
-                                    is ReLU -> ActivationFunctionIndicator.RELU
-                                    else -> ActivationFunctionIndicator.UNKNOWN
-                                }
-                            )
-                        }
-                    )
-                }
-            )
-        }.stateIn(
+        get() = controller.state.map(TrainingUiStateMapper::map).stateIn(
             scope = viewModelScope,
             started = SharingStarted.Eagerly,
             initialValue = TrainingUiState.Default

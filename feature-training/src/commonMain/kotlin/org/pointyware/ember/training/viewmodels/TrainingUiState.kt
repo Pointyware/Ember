@@ -1,6 +1,7 @@
 package org.pointyware.ember.training.viewmodels
 
-import org.pointyware.ember.ui.NeuralNetworkViewState
+import org.pointyware.ember.viewmodels.NeuralNetworkUiState
+
 
 /**
  * Represents the state for a network training UI.
@@ -12,14 +13,14 @@ data class TrainingUiState(
     val isTraining: Boolean,
     val epochsTrained: Int,
     val epochsRemaining: Int,
-    val networkState: NeuralNetworkViewState
+    val networkState: NeuralNetworkUiState
 ) {
     companion object {
         val Default = TrainingUiState(
             isTraining = false,
             epochsTrained = 0,
             epochsRemaining = 0,
-            networkState = NeuralNetworkViewState()
+            networkState = NeuralNetworkUiState()
         )
     }
 }
