@@ -1,4 +1,4 @@
-package org.pointyware.artes.viewmodels.di
+package org.pointyware.ember.viewmodels.di
 
 import org.koin.dsl.module
 

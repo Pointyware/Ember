@@ -1,4 +1,4 @@
-package org.pointyware.artes.viewmodels
+package org.pointyware.ember.viewmodels
 
 /**
  *
