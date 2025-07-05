@@ -1,13 +1,14 @@
 package org.pointyware.ember.ui.graph
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+
+private val square = Modifier.size(400.dp, 400.dp)
 
 @Preview
 @Composable
@@ -16,7 +17,7 @@ private fun GraphPreview(
 ) {
     val textMeasurer = rememberTextMeasurer()
     Canvas(
-        modifier = Modifier.fillMaxSize()
+        modifier = square
     ) {
         drawGraph(
             state = GraphState(
@@ -53,7 +54,7 @@ private fun LineGraphPreview(
     // TODO: sample loss data from training for preview
     val textMeasurer = rememberTextMeasurer()
     Canvas(
-        modifier = Modifier.fillMaxSize()
+        modifier = square
     ) {
         drawLineGraph(
             state = LineGraphState(
@@ -79,7 +80,7 @@ private fun ScatterPlotPreview(
 ) {
     val textMeasurer = rememberTextMeasurer()
     Canvas(
-        modifier = Modifier.fillMaxSize()
+        modifier = square
     ) {
         drawScatterPlot(
             state = ScatterPlotState(

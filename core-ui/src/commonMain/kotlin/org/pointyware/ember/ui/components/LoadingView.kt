@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import org.pointyware.artes.viewmodels.LoadingUiState
+import org.pointyware.ember.viewmodels.LoadingUiState
 
 /**
  * Reflects the given [state] by showing a loading indicator or an error message.
