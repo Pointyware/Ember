@@ -7,8 +7,8 @@ import org.koin.dsl.module
 import org.pointyware.artes.data.defaultHttpClient
 import org.pointyware.artes.data.di.dataModule
 import org.pointyware.artes.interactors.di.interactorsModule
-import org.pointyware.artes.viewmodels.di.viewModelModule
 import org.pointyware.ember.training.di.trainingModule
+import org.pointyware.ember.viewmodels.di.viewModelModule
 
 /**
  */
