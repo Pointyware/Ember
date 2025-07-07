@@ -20,9 +20,9 @@ private fun NeuralNetworkViewPreview() {
                 LayerUiState(
                     activationFunction = ReLU,
                     weights = listOf(
-                        listOf(0.1f, 0.2f),
-                        listOf(-0.3f, 0.4f),
-                        listOf(0.5f, 0.6f)
+                        listOf(0.1f, 0.2f, 0.5f),
+                        listOf(-0.3f, 0.4f, -0.6f),
+                        listOf(0.5f, 0.6f, 0.7f)
                     ),
                     biases = listOf(0.1f, -0.2f, 0.3f),
                     colorMap = consistentScale,
