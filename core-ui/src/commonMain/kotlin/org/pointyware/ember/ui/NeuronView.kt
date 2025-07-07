@@ -4,9 +4,11 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import org.pointyware.ember.viewmodels.ColorMap
 import org.pointyware.ember.viewmodels.DefaultColorMap
@@ -24,6 +26,10 @@ fun NeuronView(
     squareSize: Float = 20f,
     colorMap: ColorMap = DefaultColorMap
 ) {
+    val density = LocalDensity.current
+    val drawSize = remember(density) {
+        squareSize * density.density
+    }
     Canvas(
         modifier = modifier
             .width(((weights.size + 1) * squareSize).dp) // Adjust width based on number of weights
@@ -33,8 +39,8 @@ fun NeuronView(
             val color = colorMap.getColor(value)
             drawRect(
                 color = color,
-                topLeft = Offset(index * squareSize, 0f),
-                size = Size(squareSize, squareSize)
+                topLeft = Offset(index * drawSize, 0f),
+                size = Size(drawSize, drawSize)
             )
         }
         // Draw each weight as a colored square
