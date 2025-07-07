@@ -1,16 +1,9 @@
 package org.pointyware.ember.ui
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.unit.dp
-import org.pointyware.ember.viewmodels.ColorMap
-import org.pointyware.ember.viewmodels.DefaultColorMap
 import org.pointyware.ember.viewmodels.LayerUiState
 
 
