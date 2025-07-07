@@ -24,6 +24,7 @@ fun NeuronView(
     bias: Float,
     modifier: Modifier = Modifier,
     squareSize: Float = 20f,
+    biasGap: Float = 2f,
     colorMap: ColorMap = DefaultColorMap
 ) {
     val density = LocalDensity.current
@@ -32,21 +33,21 @@ fun NeuronView(
     }
     Canvas(
         modifier = modifier
-            .width(((weights.size + 1) * squareSize).dp) // Adjust width based on number of weights
+            .width(((weights.size + 1) * squareSize + biasGap).dp) // Adjust width based on number of weights
             .height(squareSize.dp) // Fixed height for the neuron view
     ) {
-        fun drawSquare(value: Float, index: Int) {
+        fun drawSquare(value: Float, offset: Float) {
             val color = colorMap.getColor(value)
             drawRect(
                 color = color,
-                topLeft = Offset(index * drawSize, 0f),
+                topLeft = Offset(offset, 0f),
                 size = Size(drawSize, drawSize)
             )
         }
         // Draw each weight as a colored square
         weights.forEachIndexed { index, weight ->
-            drawSquare(weight, index)
+            drawSquare(weight, index * drawSize)
         }
-        drawSquare(bias, weights.size)
+        drawSquare(bias, weights.size * drawSize + biasGap * density.density)
     }
 }
