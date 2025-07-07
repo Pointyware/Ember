@@ -4,12 +4,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import org.pointyware.ember.entities.activations.ReLU
 import org.pointyware.ember.entities.activations.Sigmoid
+import org.pointyware.ember.viewmodels.CenteredColorMap
 import org.pointyware.ember.viewmodels.LayerUiState
 import org.pointyware.ember.viewmodels.NeuralNetworkUiState
 
 @Preview
 @Composable
 private fun NeuralNetworkViewPreview() {
+    val consistentScale = CenteredColorMap(
+        magnitudeClip = 0.7f,
+    )
     NeuralNetworkView(
         state = NeuralNetworkUiState(
             layers = listOf(
@@ -21,6 +25,7 @@ private fun NeuralNetworkViewPreview() {
                         listOf(0.5f, 0.6f)
                     ),
                     biases = listOf(0.1f, -0.2f, 0.3f),
+                    colorMap = consistentScale,
                 ),
                 LayerUiState(
                     activationFunction = Sigmoid,
@@ -29,6 +34,7 @@ private fun NeuralNetworkViewPreview() {
                         listOf(-0.1f, -0.2f)
                     ),
                     biases = listOf(0.1f, 0.2f),
+                    colorMap = consistentScale,
                 ),
                 LayerUiState(
                     activationFunction = Sigmoid,
@@ -37,8 +43,9 @@ private fun NeuralNetworkViewPreview() {
                         listOf(-0.1f, -0.2f)
                     ),
                     biases = listOf(0.1f, 0.2f),
+                    colorMap = consistentScale,
                 )
-            )
+            ),
         )
     )
 }
