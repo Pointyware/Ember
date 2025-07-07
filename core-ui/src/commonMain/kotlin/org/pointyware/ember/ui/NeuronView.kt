@@ -1,6 +1,7 @@
 package org.pointyware.ember.ui
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,7 +25,9 @@ fun NeuronView(
     colorMap: ColorMap = DefaultColorMap
 ) {
     Canvas(
-        modifier = modifier.width(((weights.size + 1) * 20).dp) // Adjust width based on number of weights
+        modifier = modifier
+            .width(((weights.size + 1) * squareSize).dp) // Adjust width based on number of weights
+            .height(squareSize.dp) // Fixed height for the neuron view
     ) {
         fun drawSquare(value: Float, index: Int) {
             val color = colorMap.getColor(value)
