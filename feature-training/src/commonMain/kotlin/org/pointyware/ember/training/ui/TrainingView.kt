@@ -27,17 +27,31 @@ fun TrainingView(
     onRun: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Row(
-        modifier = modifier
-    ) {
-        Column {
+    Column {
+    }
+    Column {
+        Row(
+            modifier = Modifier.weight(1f)
+        ) {
+            NeuralNetworkView(
+                state = state.networkState
+            )
 
+            // TODO: add training objective graph
+        }
+
+        // Controls:
+        Row {
             Text(
                 text = "Training: ${if (state.isTraining) "In Progress" else "Not Started"}"
             )
             Text(
                 text = "Elapsed Epochs: ${state.epochsTrained}"
             )
+        }
+        Row(
+            modifier = modifier
+        ) {
             Button(
                 onClick = onStart
             ) {
@@ -75,9 +89,5 @@ fun TrainingView(
                 )
             }
         }
-
-        NeuralNetworkView(
-            state = state.networkState
-        )
     }
 }
