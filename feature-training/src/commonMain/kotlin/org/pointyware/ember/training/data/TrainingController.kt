@@ -73,17 +73,17 @@ class TrainingControllerImpl(
     val exercises: List<Exercise>
     init {
         val inputs = listOf(
-            columnVector(0.0, 0.0),
-            columnVector(0.0, 1.0),
-            columnVector(1.0, 0.0),
-            columnVector(1.0, 1.0),
+            columnVector(0.0f, 0.0f),
+            columnVector(0.0f, 1.0f),
+            columnVector(1.0f, 0.0f),
+            columnVector(1.0f, 1.0f),
         )
 
         val targets = listOf(
-            columnVector(0.0),
-            columnVector(1.0),
-            columnVector(1.0),
-            columnVector(0.0),
+            columnVector(0.0f),
+            columnVector(1.0f),
+            columnVector(1.0f),
+            columnVector(0.0f),
         )
         exercises = inputs.zip(targets) { input, target ->
             Exercise(input, target)
@@ -99,7 +99,7 @@ class TrainingControllerImpl(
         ),
         cases = exercises,
         lossFunction = MeanSquaredError,
-        optimizer = GradientDescent(learningRate = 0.10),
+        optimizer = GradientDescent(learningRate = 0.10f),
         updatePeriod = 10e3.toInt(),
     )
     private val _state = MutableStateFlow(TrainingState(
