@@ -24,8 +24,8 @@ interface ActivationFunction {
 }
 
 interface ScalarActivationFunction: ActivationFunction {
-    fun scalarActivation(input: Double): Double
-    fun scalarDerivative(input: Double): Double
+    fun scalarActivation(input: Float): Float
+    fun scalarDerivative(input: Float): Float
 
     override fun calculate(input: Tensor): Tensor {
         return Tensor(input.dimensions).mapEachFlatIndexed { index, _ ->
