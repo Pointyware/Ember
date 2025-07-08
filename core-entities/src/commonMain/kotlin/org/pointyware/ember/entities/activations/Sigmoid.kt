@@ -8,23 +8,23 @@ import kotlin.math.exp
  * a sigmoid function is any function that has an "S" shaped curve.
  */
 object Sigmoid: ScalarActivationFunction {
-    override fun scalarActivation(input: Double): Double {
+    override fun scalarActivation(input: Float): Float {
         // Sigmoid function: f(x) = 1 / (1 + exp(-x))
-        return 1.0 / (1.0 + exp(-input))
+        return 1.0f / (1.0f + exp(-input))
     }
 
-    override fun scalarDerivative(input: Double): Double {
+    override fun scalarDerivative(input: Float): Float {
         // Derivative of sigmoid: f'(x) = f(x) * (1 - f(x))
         val sigmoidValue = scalarActivation(input)
-        return sigmoidValue * (1.0 - sigmoidValue)
+        return sigmoidValue * (1.0f - sigmoidValue)
     }
 
     override fun calculate(input: Tensor, activation: Tensor, derivativeActivation: Tensor) {
         input.flatIndices.forEach { index ->
             val value = input[index]
-            val scalarActivation = 1.0 / (1.0 + exp(-value))
+            val scalarActivation = 1.0f / (1.0f + exp(-value))
             activation[index] = scalarActivation
-            derivativeActivation[index] = scalarActivation * (1.0 - scalarActivation)
+            derivativeActivation[index] = scalarActivation * (1.0f - scalarActivation)
         }
     }
 }
