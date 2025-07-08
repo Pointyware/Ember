@@ -28,8 +28,6 @@ fun TrainingView(
     modifier: Modifier = Modifier,
 ) {
     Column {
-    }
-    Column {
         Row(
             modifier = Modifier.weight(1f)
         ) {
