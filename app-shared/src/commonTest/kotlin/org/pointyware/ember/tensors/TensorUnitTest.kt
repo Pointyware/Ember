@@ -133,9 +133,9 @@ class TensorUnitTest {
     fun transpose_returns_transposed_tensor() {
         // Given a 2D tensor
         val tensor = Tensor.from(
-            values = doubleArrayOf(
-                1.0, 2.0, 3.0,
-                4.0, 5.0, 6.0
+            values = floatArrayOf(
+                1.0f, 2.0f, 3.0f,
+                4.0f, 5.0f, 6.0f
             ),
             2, 3
         )
@@ -147,10 +147,10 @@ class TensorUnitTest {
         assertContentEquals(intArrayOf(3, 2), result.dimensions)
         // And the values should be transposed
         val expectedTensor = Tensor.from(
-            values = doubleArrayOf(
-                1.0, 4.0,
-                2.0, 5.0,
-                3.0, 6.0
+            values = floatArrayOf(
+                1.0f, 4.0f,
+                2.0f, 5.0f,
+                3.0f, 6.0f
             ),
             3, 2
         )
