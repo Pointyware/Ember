@@ -22,7 +22,7 @@ object MeanSquaredError : LossFunction {
             diffs[index] * diffs[index]
         }
 
-        return squared.values.asSequence().sum()
+        return squared.values.asSequence().sum().toDouble()
     }
 
     override fun derivative(expected: Tensor, actual: Tensor): Tensor {

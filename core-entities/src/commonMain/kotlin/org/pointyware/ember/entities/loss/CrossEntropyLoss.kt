@@ -12,7 +12,7 @@ object CrossEntropyLoss : LossFunction {
             -ln(actual[index] + 1e-15) * expected[index]
         }
 
-        return logProbs.values.asSequence().sum() / actual.area
+        return logProbs.values.asSequence().sum() / actual.area.toDouble()
     }
 
     override fun derivative(expected: Tensor, actual: Tensor): Tensor {
@@ -43,6 +43,6 @@ object CrossEntropyLoss : LossFunction {
             -ln(actual[index] + 1e-15) * expected[index]
         }
 
-        return logProbs.values.asSequence().sum() / actual.area
+        return logProbs.values.asSequence().sum() / actual.area.toDouble()
     }
 }
