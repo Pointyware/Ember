@@ -15,19 +15,19 @@ interface TensorIterator {
     /**
      * Applies a function to each element of the tensor, modifying it in place.
      */
-    fun mapEach(function: (Double)->Double): Tensor
+    fun mapEach(function: (Float)->Float): Tensor
 
     /**
      * Applies an indexed function to each element of the tensor, modifying it in place.
      */
-    fun mapEachIndexed(function: (IntArray, Double)->Double): Tensor
+    fun mapEachIndexed(function: (IntArray, Float)->Float): Tensor
 
     /**
      * Applies a flat-indexed function to each element of the tensor, modifying it in place.
      *
      * The flat index is the linear index in the flattened array representation of the tensor.
      */
-    fun mapEachFlatIndexed(function: (Int, Double)->Double): Tensor
+    fun mapEachFlatIndexed(function: (Int, Float)->Float): Tensor
 
     val flatIndices: Iterator<Int>
     val values: Iterator<Float>
@@ -49,7 +49,7 @@ data class Tensor(
     init {
         require(dimensions.all { it > 0 }) { "Dimensions must be positive." }
     }
-    val data: DoubleArray = DoubleArray(totalSize)
+    val data: FloatArray = FloatArray(totalSize)
 
     val order: Int get () = dimensions.size
     val totalSize: Int get() = dimensions.fold(1) { acc, dim -> acc * dim }
@@ -161,21 +161,21 @@ data class Tensor(
             }
         }
 
-    operator fun get(index: Int): Double {
+    operator fun get(index: Int): Float {
         return data[index]
     }
-    operator fun set(index: Int, value: Double) {
+    operator fun set(index: Int, value: Float) {
         data[index] = value
     }
-    operator fun get(vararg indices: Int): Double { // TODO: convert signatures to Float instead of Double
+    operator fun get(vararg indices: Int): Float { // TODO: convert signatures to Float instead of Double
         return get(absoluteIndex(dimensions, indices))
     }
-    operator fun set(vararg indices: Int, value: Double) {
+    operator fun set(vararg indices: Int, value: Float) {
         set(absoluteIndex(dimensions, indices), value)
     }
 
     @Suppress("OVERRIDE_BY_INLINE")
-    override inline fun mapEach(function: (value:Double)->Double): Tensor {
+    override inline fun mapEach(function: (value:Float)->Float): Tensor {
         for (index in flatIndices) {
             this[index] = function(this[index])
         }
@@ -183,7 +183,7 @@ data class Tensor(
     }
 
     @Suppress("OVERRIDE_BY_INLINE")
-    override inline fun mapEachIndexed(function: (indices:IntArray, value:Double)->Double): Tensor {
+    override inline fun mapEachIndexed(function: (indices:IntArray, value:Float)->Float): Tensor {
         for (index in indices) {
             this.set(indices = index, function(index, this.get(*index)))
         }
@@ -191,7 +191,7 @@ data class Tensor(
     }
 
     @Suppress("OVERRIDE_BY_INLINE")
-    override inline fun mapEachFlatIndexed(function: (index:Int, value:Double) -> Double): Tensor {
+    override inline fun mapEachFlatIndexed(function: (index:Int, value:Float) -> Float): Tensor {
         for (i in flatIndices) {
             this[i] = function(i, this[i])
         }
@@ -203,35 +203,35 @@ data class Tensor(
     /**
      * Performs element-wise addition of this tensor by the given [scalar].
      */
-    operator fun plus(scalar: Double): Tensor {
+    operator fun plus(scalar: Float): Tensor {
         return zeros(*dimensions).mapEachFlatIndexed { index, _ -> this[index] + scalar }
     }
 
     /**
      * Performs element-wise addition of this tensor by the given [scalar].
      */
-    operator fun minus(scalar: Double): Tensor {
+    operator fun minus(scalar: Float): Tensor {
         return zeros(*dimensions).mapEachFlatIndexed { index, _ -> this[index] - scalar }
     }
 
     /**
      * Performs element-wise addition of this tensor by the given [scalar].
      */
-    operator fun times(scalar: Double): Tensor {
+    operator fun times(scalar: Float): Tensor {
         return zeros(*dimensions).mapEachFlatIndexed { index, _ -> this[index] * scalar }
     }
 
     /**
      * Performs in-place element-wise multiplication of this tensor by the given [scalar].
      */
-    operator fun timesAssign(scalar: Double) {
+    operator fun timesAssign(scalar: Float) {
         mapEach { value -> value * scalar }
     }
 
     /**
      * Performs element-wise division of this tensor by the given [scalar].
      */
-    operator fun div(scalar: Double): Tensor {
+    operator fun div(scalar: Float): Tensor {
         return zeros(*dimensions).mapEachFlatIndexed { index, _ -> this[index] / scalar }
     }
 
@@ -301,7 +301,7 @@ data class Tensor(
         return zeros(m, p).mapEachFlatIndexed { index, value ->
             val row = index / p
             val column = index % p
-            var sum = 0.0
+            var sum = 0.0f
             for (k in 0 until n) {
                 sum += this[row, k] * other[k, column]
             }
@@ -353,7 +353,7 @@ data class Tensor(
     // endregion
 
     companion object {
-        fun from(vector: DoubleArray): Tensor {
+        fun from(vector: FloatArray): Tensor {
             return Tensor(intArrayOf(vector.size)).apply {
                 for (i in vector.indices) {
                     this[i] = vector[i]
@@ -366,7 +366,7 @@ data class Tensor(
          *
          * The [values] must have a length equal to the product of the [dimensions].
          */
-        fun from(values: DoubleArray, vararg dimensions: Int): Tensor {
+        fun from(values: FloatArray, vararg dimensions: Int): Tensor {
             return Tensor(dimensions).mapEachFlatIndexed { index, _ -> values[index] }
         }
 
@@ -383,8 +383,8 @@ data class Tensor(
          * The values are generated using a normal distribution with [mean] default 0 and
          * [stdDev] default 0.1.
          */
-        fun random(mean: Double = 0.0, stdDev: Double = 0.1, vararg dimensions: Int): Tensor {
-            return Tensor(dimensions).mapEach { _ -> mean + Marsaglia.getNormal() * stdDev }
+        fun random(mean: Float = 0.0f, stdDev: Float = 0.1f, vararg dimensions: Int): Tensor {
+            return Tensor(dimensions).mapEach { _ -> mean + Marsaglia.getNormal().toFloat() * stdDev }
         }
     }
 }
@@ -393,16 +393,16 @@ data class Tensor(
  * Multiplies a scalar with a tensor, returning a new tensor. Delegates to [Tensor.times] since
  * scalar multiplication is commutative.
  */
-operator fun Double.times(tensor: Tensor): Tensor {
+operator fun Float.times(tensor: Tensor): Tensor {
     return tensor * this
 }
 
-fun rowVector(vararg values: Double): Tensor {
+fun rowVector(vararg values: Float): Tensor {
     require(values.isNotEmpty()) { "At least one value is required to create a vector." }
     return Tensor.from(values, dimensions = intArrayOf(1, values.size))
 }
 
-fun columnVector(vararg values: Double): Tensor {
+fun columnVector(vararg values: Float): Tensor {
     require(values.isNotEmpty()) { "At least one value is required to create a vector." }
     return Tensor.from(values, dimensions = intArrayOf(values.size, 1))
 }
