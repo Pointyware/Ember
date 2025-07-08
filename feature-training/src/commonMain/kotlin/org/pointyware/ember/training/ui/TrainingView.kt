@@ -2,6 +2,7 @@ package org.pointyware.ember.training.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -40,7 +41,7 @@ fun TrainingView(
                 objectiveLabel = state.statistics.objectiveName,
                 epochCount = state.statistics.epochCount,
                 data = state.statistics.data,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f).fillMaxHeight()
             )
         }
 
