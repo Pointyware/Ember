@@ -25,7 +25,7 @@ data class ConvolutionalLayer(
         val outputWidth = (width + 2 * padding - kernel.dimensions[2]) / stride + 1
         val outputHeight = (height + 2 * padding - kernel.dimensions[1]) / stride + 1
         return Tensor.zeros(1, outputHeight, outputWidth).mapEachIndexed { (c, h, w), value ->
-            var sum = 0.0
+            var sum = 0.0f
             TODO("Implement convolution operation")
             activationFunction.scalarActivation(sum)
         }
