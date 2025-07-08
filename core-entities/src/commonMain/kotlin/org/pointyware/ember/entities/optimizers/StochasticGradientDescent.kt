@@ -12,13 +12,13 @@ import kotlin.random.Random
  * @param learningRate The learning rate for the optimizer.
  */
 class StochasticGradientDescent(
-    val samplingRate: Double = 0.1,
-    learningRate: Double,
+    val samplingRate: Float = 0.1f,
+    learningRate: Float,
     entropy: Random = Random.Default,
 ): GradientDescent(learningRate, entropy) {
 
     init {
-        require(samplingRate in 0.0..1.0) { "Sampling rate must be between 0.0 and 1.0." }
+        require(samplingRate in 0.0f..1.0f) { "Sampling rate must be between 0.0 and 1.0." }
     }
 
     override fun doSample(case: Exercise): Boolean {
