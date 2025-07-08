@@ -44,15 +44,15 @@ class SequentialTrainer(
         repeat(iterations) { epoch ->
             val epochCases = selectSamples()
             // Create Gradient tensors
-            weightGradients.forEach { it.mapEach { 0.0 } }
-            biasGradients.forEach { it.mapEach { 0.0 } }
+            weightGradients.forEach { it.mapEach { 0.0f } }
+            biasGradients.forEach { it.mapEach { 0.0f } }
 
             var aggregateLoss = 0.0
-            val caseCount = epochCases.size.toDouble()
+            val caseCount = epochCases.size.toFloat()
             epochCases.forEach { case ->
                 // Zero tensors for activations, derivativeActivations, and errors
-                activations.forEach { it.mapEach { 0.0 } }
-                derivativeActivations.forEach { it.mapEach { 0.0 } }
+                activations.forEach { it.mapEach { 0.0f } }
+                derivativeActivations.forEach { it.mapEach { 0.0f } }
 
                 // Forward Pass - using tensors as gradient receivers
                 network.forward(case.input, activations, derivativeActivations)

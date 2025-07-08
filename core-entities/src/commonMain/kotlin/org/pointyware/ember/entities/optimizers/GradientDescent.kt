@@ -10,7 +10,7 @@ import kotlin.random.Random
  * and calculating gradients during the backward pass.
  */
 open class GradientDescent(
-    val learningRate: Double,
+    val learningRate: Float,
     val entropy: Random = Random.Default,
 ): Optimizer {
     init {

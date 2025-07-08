@@ -51,7 +51,7 @@ object MeanSquaredError : LossFunction {
             diffs[index] * diffs[index]
         }
 
-        val factor = 2.0 / actual.area
+        val factor = 2.0f / actual.area
         derivative.mapEachFlatIndexed { index, _ -> diffs[index] * factor }
 
         return squared.values.asSequence().average()
