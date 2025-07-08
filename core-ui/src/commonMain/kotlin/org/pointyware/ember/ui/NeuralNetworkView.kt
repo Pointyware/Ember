@@ -1,9 +1,11 @@
 package org.pointyware.ember.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import org.pointyware.ember.ui.theme.EmberTheme
 import org.pointyware.ember.viewmodels.NeuralNetworkUiState
 
 /**
@@ -16,7 +18,8 @@ fun NeuralNetworkView(
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
-        modifier = modifier
+        modifier = modifier,
+        verticalArrangement = Arrangement.spacedBy(EmberTheme.geometry.paddingSmall)
     ) {
         items(state.layers) { layerState ->
             LayerView(
