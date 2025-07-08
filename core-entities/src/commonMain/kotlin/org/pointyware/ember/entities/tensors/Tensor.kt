@@ -32,10 +32,10 @@ interface TensorIterator {
     val flatIndices: Iterator<Int>
     val values: Iterator<Float>
 
-    fun max(function: () -> Float): Float {
+    fun max(function: (Float) -> Float): Float {
         val iterator = values
         var max = iterator.next()
-        while (iterator.hasNext()) max = max(max, iterator.next())
+        while (iterator.hasNext()) max = max(max, function(iterator.next()))
         return max
     }
 }
