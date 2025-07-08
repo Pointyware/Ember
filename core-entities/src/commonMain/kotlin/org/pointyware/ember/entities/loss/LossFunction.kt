@@ -21,5 +21,5 @@ interface LossFunction {
      *
      * This is more efficient for optimizers that need both the loss value and the gradient.
      */
-    fun computeAndDerivative(expected: Tensor, actual: Tensor, derivative: Tensor): Double
+    fun computeAndDerivative(expected: Tensor, actual: Tensor, derivative: Tensor): Double // TODO: rename computeWithDerivative
 }
