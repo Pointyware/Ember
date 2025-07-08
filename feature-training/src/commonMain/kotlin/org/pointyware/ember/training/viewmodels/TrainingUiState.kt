@@ -13,14 +13,16 @@ data class TrainingUiState(
     val isTraining: Boolean,
     val epochsTrained: Int,
     val epochsRemaining: Int,
-    val networkState: NeuralNetworkUiState
+    val networkState: NeuralNetworkUiState,
+    val statistics: StatisticsUiState
 ) {
     companion object {
         val Default = TrainingUiState(
             isTraining = false,
             epochsTrained = 0,
             epochsRemaining = 0,
-            networkState = NeuralNetworkUiState()
+            networkState = NeuralNetworkUiState(),
+            statistics = StatisticsUiState.Default
         )
     }
 }

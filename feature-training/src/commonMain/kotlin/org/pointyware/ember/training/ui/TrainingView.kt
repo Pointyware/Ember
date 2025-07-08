@@ -37,7 +37,13 @@ fun TrainingView(
                 state = state.networkState
             )
 
-            // TODO: add training objective graph
+            ObjectiveGraph(
+                objectiveCeiling = state.statistics.ceiling,
+                objectiveLabel = state.statistics.objectiveName,
+                epochCount = state.statistics.epochCount,
+                data = state.statistics.data,
+                modifier = Modifier.weight(1f)
+            )
         }
 
         // Controls:

@@ -32,7 +32,8 @@ object TrainingUiStateMapper: Mapper<TrainingState, TrainingUiState> {
                         )
                     }
                 )
-            }
+            },
+            statistics = StatisticsUiState.Default
         )
     }
 }
