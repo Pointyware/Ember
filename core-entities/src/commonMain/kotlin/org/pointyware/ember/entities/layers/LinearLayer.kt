@@ -31,7 +31,7 @@ class LinearLayer(
          * Creates a LinearLayer with the specified input and output dimensions.
          */
         fun create(inputSize: Int, outputSize: Int, activation: ActivationFunction): LinearLayer {
-            val weights = Tensor.random(mean = 0.0, stdDev = 0.1, dimensions = intArrayOf(outputSize, inputSize))
+            val weights = Tensor.random(mean = 0.0f, stdDev = 0.1f, dimensions = intArrayOf(outputSize, inputSize))
             val biases = Tensor.zeros(outputSize, 1)
             return LinearLayer(weights, biases, activation)
         }
