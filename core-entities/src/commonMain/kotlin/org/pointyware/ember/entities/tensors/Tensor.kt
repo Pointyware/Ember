@@ -1,6 +1,7 @@
 package org.pointyware.ember.entities.tensors
 
 import org.pointyware.ember.entities.Marsaglia
+import kotlin.math.max
 
 fun absoluteIndex(dimensions: IntArray, indices: IntArray): Int {
     require(indices.size == dimensions.size) { "Indices must match the tensor order." }
@@ -27,6 +28,16 @@ interface TensorIterator {
      * The flat index is the linear index in the flattened array representation of the tensor.
      */
     fun mapEachFlatIndexed(function: (Int, Double)->Double): Tensor
+
+    val flatIndices: Iterator<Int>
+    val values: Iterator<Float>
+
+    fun max(function: () -> Float): Float {
+        val iterator = values
+        var max = iterator.next()
+        while (iterator.hasNext()) max = max(max, iterator.next())
+        return max
+    }
 }
 
 /**
@@ -94,7 +105,7 @@ data class Tensor(
             }
         }
 
-    val flatIndices: Iterator<Int>
+    override val flatIndices: Iterator<Int>
         get() = object : Iterator<Int> {
             private var currentIndex = 0
             private val totalIndices = totalSize
@@ -141,12 +152,12 @@ data class Tensor(
             }
         }
 
-    val values: Iterator<Double>
-        get() = object : Iterator<Double> {
+    override val values: Iterator<Float>
+        get() = object : Iterator<Float> {
             private val indexIterator = indices
             override fun hasNext(): Boolean = indexIterator.hasNext()
-            override fun next(): Double {
-                return get(*indexIterator.next())
+            override fun next(): Float {
+                return get(*indexIterator.next()).toFloat()
             }
         }
 
@@ -156,7 +167,7 @@ data class Tensor(
     operator fun set(index: Int, value: Double) {
         data[index] = value
     }
-    operator fun get(vararg indices: Int): Double {
+    operator fun get(vararg indices: Int): Double { // TODO: convert signatures to Float instead of Double
         return get(absoluteIndex(dimensions, indices))
     }
     operator fun set(vararg indices: Int, value: Double) {
