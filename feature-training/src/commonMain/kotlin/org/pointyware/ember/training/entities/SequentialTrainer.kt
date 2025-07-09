@@ -3,7 +3,7 @@ package org.pointyware.ember.training.entities
 import org.pointyware.ember.entities.loss.LossFunction
 import org.pointyware.ember.entities.networks.SequentialNetwork
 import org.pointyware.ember.entities.tensors.Tensor
-import org.pointyware.ember.training.entities.optimizers.optimizers.Optimizer
+import org.pointyware.ember.training.entities.optimizers.Optimizer
 
 /**
  * A trainer for a [SequentialNetwork] using a list of [Exercise] instances to evaluate

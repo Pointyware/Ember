@@ -1,4 +1,4 @@
-package org.pointyware.ember.training.entities.optimizers.optimizers
+package org.pointyware.ember.training.entities.optimizers
 
 import org.pointyware.ember.training.entities.Exercise
 import kotlin.random.Random

@@ -15,7 +15,7 @@ import org.pointyware.ember.entities.tensors.columnVector
 import org.pointyware.ember.training.entities.Exercise
 import org.pointyware.ember.training.entities.SequentialStatistics
 import org.pointyware.ember.training.entities.SequentialTrainer
-import org.pointyware.ember.training.entities.optimizers.optimizers.GradientDescent
+import org.pointyware.ember.training.entities.optimizers.GradientDescent
 import kotlin.math.min
 
 /**
