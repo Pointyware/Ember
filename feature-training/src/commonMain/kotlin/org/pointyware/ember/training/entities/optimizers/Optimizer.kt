@@ -8,7 +8,6 @@ import org.pointyware.ember.training.entities.Exercise
  * A [Trainer][org.pointyware.ember.training.entities.Trainer] will track the activations
  * and derivatives of the model during the forward pass
  * and provide them to the [Optimizer] to update the model parameters.
- * // TODO: allow multiple passes over samples
  */
 interface Optimizer {
 
