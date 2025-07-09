@@ -8,22 +8,22 @@ class SequentialStatistics(
 
     val errorSamples: MutableList<Pair<Int, Float>> = mutableListOf()
 
-    private var epochError = 0f
+    private var epochError = 0.0
     override fun onEpochStart() {
-        epochError = 0f
+        epochError = 0.0
     }
 
-    private var batchError = 0f
+    private var batchError = 0.0
     override fun onBatchStart() {
-        batchError = 0f
+        batchError = 0.0
     }
 
-    private var sampleError = 0f
+    private var sampleError = 0.0
     override fun onSampleStart() {
-        sampleError = 0f
+        sampleError = 0.0
     }
 
-    override fun onCost(cost: Float) {
+    override fun onCost(cost: Double) {
         sampleError += cost
     }
 

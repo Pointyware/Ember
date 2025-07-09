@@ -8,7 +8,7 @@ interface Statistics {
     fun onEpochStart()
     fun onBatchStart()
     fun onSampleStart()
-    fun onCost(cost: Float)
+    fun onCost(cost: Double)
     fun onGradient()
     fun onSampleEnd()
     fun onBatchEnd()

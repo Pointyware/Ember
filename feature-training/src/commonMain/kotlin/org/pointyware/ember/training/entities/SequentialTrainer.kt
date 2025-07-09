@@ -31,6 +31,7 @@ class SequentialTrainer(
     }
 
     override fun train(iterations: Int) {
+
         // W^L
         val weightGradients = network.layers.map { Tensor.zeros(*it.weights.dimensions) }
         // b^L
@@ -43,6 +44,9 @@ class SequentialTrainer(
         val derivativeActivations = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
 
         for (epoch in 1..iterations) {
+            statistics.onEpochStart()
+            statistics.onBatchStart()
+
             val epochCases = selectSamples()
             // Create Gradient tensors
             weightGradients.forEach { it.mapEach { 0.0f } }
@@ -55,18 +59,23 @@ class SequentialTrainer(
                 activations.forEach { it.mapEach { 0.0f } }
                 derivativeActivations.forEach { it.mapEach { 0.0f } }
 
+                statistics.onSampleStart()
                 // Forward Pass - using tensors as gradient receivers
                 network.forward(case.input, activations, derivativeActivations)
 
                 // Calculate the loss for the current case
                 val output = activations.last()
                 val loss = lossFunction.compute(expected = case.output, actual = output)
+                statistics.onCost(loss)
                 aggregateLoss += loss
                 // $\nabla_{a_L} C$ is the gradient of the loss function with respect to the final layer's output
                 val errorGradient = lossFunction.derivative(expected = case.output, actual = output)
 
                 // Backward Pass
                 network.backward(case.input, errorGradient, activations, derivativeActivations, weightGradients, biasGradients)
+                statistics.onGradient()
+
+                statistics.onSampleEnd()
             }
             // Average the gradients over all cases
             weightGradients.forEach { gradient -> gradient.mapEach { it / caseCount } }
@@ -76,6 +85,7 @@ class SequentialTrainer(
             network.layers.forEachIndexed { index, layer ->
                 optimizer.update(layer, weightGradients[index], biasGradients[index])
             }
+            statistics.onBatchEnd()
 
             // Output progress -
             // calculate the loss for this epoch
@@ -89,6 +99,7 @@ class SequentialTrainer(
                 }
                 println("}")
             }
+            statistics.onEpochEnd()
         }
     }
 }
