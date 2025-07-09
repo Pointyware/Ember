@@ -26,10 +26,6 @@ class SequentialTrainer(
     override val updatePeriod: Int = 100
 ): Trainer {
 
-    override fun selectSamples(): List<Exercise> {
-        return optimizer.sample(cases) // TODO: need to be externalized?
-    }
-
     override fun train(iterations: Int) {
 
         // W^L
@@ -44,62 +40,61 @@ class SequentialTrainer(
         val derivativeActivations = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
 
         for (epoch in 1..iterations) {
-            statistics.onEpochStart()
-            statistics.onBatchStart()
+            statistics.onEpochStart(epoch)
 
-            val epochCases = selectSamples()
+            val sampleBatches = optimizer.batch(cases)
             // Create Gradient tensors
             weightGradients.forEach { it.mapEach { 0.0f } }
             biasGradients.forEach { it.mapEach { 0.0f } }
 
             var aggregateLoss = 0.0
-            val caseCount = epochCases.size.toFloat()
-            epochCases.forEach { case ->
-                // Zero tensors for activations, derivativeActivations, and errors
-                activations.forEach { it.mapEach { 0.0f } }
-                derivativeActivations.forEach { it.mapEach { 0.0f } }
 
-                statistics.onSampleStart()
-                // Forward Pass - using tensors as gradient receivers
-                network.forward(case.input, activations, derivativeActivations)
+            for (batch in sampleBatches) {
+                statistics.onBatchStart(batch)
+                val caseCount = batch.size.toFloat()
+                batch.forEach { case ->
+                    // Zero tensors for activations, derivativeActivations, and errors
+                    activations.forEach { it.mapEach { 0.0f } }
+                    derivativeActivations.forEach { it.mapEach { 0.0f } }
 
-                // Calculate the loss for the current case
-                val output = activations.last()
-                val loss = lossFunction.compute(expected = case.output, actual = output)
-                statistics.onCost(loss)
-                aggregateLoss += loss
-                // $\nabla_{a_L} C$ is the gradient of the loss function with respect to the final layer's output
-                val errorGradient = lossFunction.derivative(expected = case.output, actual = output)
+                    statistics.onSampleStart(case)
+                    // Forward Pass - using tensors as gradient receivers
+                    network.forward(case.input, activations, derivativeActivations)
 
-                // Backward Pass
-                network.backward(case.input, errorGradient, activations, derivativeActivations, weightGradients, biasGradients)
-                statistics.onGradient()
+                    // Calculate the loss for the current case
+                    val output = activations.last()
+                    val loss = lossFunction.compute(expected = case.output, actual = output)
+                    statistics.onCost(loss)
+                    aggregateLoss += loss
+                    // $\nabla_{a_L} C$ is the gradient of the loss function with respect to the final layer's output
+                    val errorGradient =
+                        lossFunction.derivative(expected = case.output, actual = output)
 
-                statistics.onSampleEnd()
-            }
-            // Average the gradients over all cases
-            weightGradients.forEach { gradient -> gradient.mapEach { it / caseCount } }
-            biasGradients.forEach { gradient -> gradient.mapEach { it / caseCount } }
+                    // Backward Pass
+                    network.backward(
+                        case.input,
+                        errorGradient,
+                        activations,
+                        derivativeActivations,
+                        weightGradients,
+                        biasGradients
+                    )
+                    statistics.onGradient()
 
-            // Adjust parameters for all layers using the optimizer
-            network.layers.forEachIndexed { index, layer ->
-                optimizer.update(layer, weightGradients[index], biasGradients[index])
-            }
-            statistics.onBatchEnd()
-
-            // Output progress -
-            // calculate the loss for this epoch
-            val averageLoss = aggregateLoss / caseCount
-            if (epoch % updatePeriod == 0) {
-                // TODO: Create Error Histogram of error per case
-                println("Epoch $epoch, Loss: $averageLoss")
-                println("Network parameters: {")
-                network.layers.forEachIndexed { index, layer ->
-                    println("Layer $index: Weights: ${layer.weights}, Biases: ${layer.biases}")
+                    statistics.onSampleEnd(case)
                 }
-                println("}")
+                // Average the gradients over all cases
+                weightGradients.forEach { gradient -> gradient.mapEach { it / caseCount } }
+                biasGradients.forEach { gradient -> gradient.mapEach { it / caseCount } }
+
+                // Adjust parameters for all layers using the optimizer
+                network.layers.forEachIndexed { index, layer ->
+                    optimizer.update(layer, weightGradients[index], biasGradients[index])
+                }
+                statistics.onBatchEnd(batch)
             }
-            statistics.onEpochEnd()
+
+            statistics.onEpochEnd(epoch)
         }
     }
 }

@@ -17,11 +17,6 @@ interface Trainer {
     val updatePeriod: Int
 
     /**
-     * Controls which samples will be used for each epoch.
-     */
-    fun selectSamples(): List<Exercise>
-
-    /**
      * Train the model for a number of [iterations], a.k.a. epochs.
      *
      * @param iterations The number of epochs to train the model for. Defaults to 1.

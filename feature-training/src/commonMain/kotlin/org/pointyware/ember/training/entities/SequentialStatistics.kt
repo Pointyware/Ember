@@ -9,17 +9,17 @@ class SequentialStatistics(
     val errorSamples: MutableList<Pair<Int, Float>> = mutableListOf()
 
     private var epochError = 0.0
-    override fun onEpochStart() {
+    override fun onEpochStart(epoch: Int) {
         epochError = 0.0
     }
 
     private var batchError = 0.0
-    override fun onBatchStart() {
+    override fun onBatchStart(batch: List<Exercise>) {
         batchError = 0.0
     }
 
     private var sampleError = 0.0
-    override fun onSampleStart() {
+    override fun onSampleStart(sample: Exercise) {
         sampleError = 0.0
     }
 
@@ -31,15 +31,15 @@ class SequentialStatistics(
         // TODO: report gradient?
     }
 
-    override fun onSampleEnd() {
+    override fun onSampleEnd(sample: Exercise) {
         batchError += sampleError
     }
 
-    override fun onBatchEnd() {
+    override fun onBatchEnd(batch: List<Exercise>) {
         epochError += batchError
     }
 
-    override fun onEpochEnd() {
+    override fun onEpochEnd(epoch: Int) {
         // TODO: report epoch error
     }
 }

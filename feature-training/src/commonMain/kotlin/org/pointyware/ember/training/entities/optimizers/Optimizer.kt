@@ -5,7 +5,7 @@ import org.pointyware.ember.entities.tensors.Tensor
 import org.pointyware.ember.training.entities.Exercise
 
 /**
- * A [Trainer][org.pointyware.ember.entities.training.Trainer] will track the activations
+ * A [Trainer][org.pointyware.ember.training.entities.Trainer] will track the activations
  * and derivatives of the model during the forward pass
  * and provide them to the [Optimizer] to update the model parameters.
  *
@@ -13,20 +13,9 @@ import org.pointyware.ember.training.entities.Exercise
 interface Optimizer {
 
     /**
-     * Selects a subset of [Exercise] instances for training based
-     * on the optimizer's sampling strategy. The default
-     * implementation filters the cases using [doSample].
+     * Creates training batches out of the given [cases].
      */
-    fun sample(cases: List<Exercise>): List<Exercise> {
-        return cases.filter { doSample(it) }
-    }
-
-    /**
-     * Determines whether a given [Exercise] should be selected for training.
-     * If [sample] is overridden, this method can be ignored, unless it is
-     * used in your implementation.
-     */
-    fun doSample(case: Exercise): Boolean = true
+    fun batch(cases: List<Exercise>): List<List<Exercise>>
 
     /**
      * Updates the parameters of the model based on the outputs computed during the forward pass.

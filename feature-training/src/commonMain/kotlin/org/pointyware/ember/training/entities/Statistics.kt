@@ -5,12 +5,12 @@ package org.pointyware.ember.training.entities
  * information to assess training performance.
  */
 interface Statistics {
-    fun onEpochStart()
-    fun onBatchStart()
-    fun onSampleStart()
+    fun onEpochStart(epoch: Int)
+    fun onBatchStart(batch: List<Exercise>)
+    fun onSampleStart(sample: Exercise)
     fun onCost(cost: Double)
     fun onGradient()
-    fun onSampleEnd()
-    fun onBatchEnd()
-    fun onEpochEnd()
+    fun onSampleEnd(sample: Exercise)
+    fun onBatchEnd(batch: List<Exercise>)
+    fun onEpochEnd(epoch: Int)
 }
