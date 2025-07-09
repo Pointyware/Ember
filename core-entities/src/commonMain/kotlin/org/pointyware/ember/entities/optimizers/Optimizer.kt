@@ -5,7 +5,8 @@ import org.pointyware.ember.entities.tensors.Tensor
 import org.pointyware.ember.entities.training.Exercise
 
 /**
- * A [Trainer] will track the activations and derivatives of the model during the forward pass
+ * A [Trainer][org.pointyware.ember.entities.training.Trainer] will track the activations
+ * and derivatives of the model during the forward pass
  * and provide them to the [Optimizer] to update the model parameters.
  *
  */
