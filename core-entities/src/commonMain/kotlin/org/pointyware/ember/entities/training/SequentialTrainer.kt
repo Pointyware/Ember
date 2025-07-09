@@ -15,13 +15,14 @@ import org.pointyware.ember.entities.tensors.Tensor
  * **Sampling** - Some optimizers may use all cases for each epoch,
  *   while others may sample a subset of cases.
  * **Iterations** - Some optimizers may update parameters multiple times per epoch,
- *   while others may only update once. // TODO: include iterations in epoch statistics
+ *   while others may only update once.
  */
 class SequentialTrainer(
     val network: SequentialNetwork,
     val cases: List<Exercise>,
     val lossFunction: LossFunction,
     val optimizer: Optimizer,
+    val statistics: Statistics,
     override val updatePeriod: Int = 100
 ): Trainer {
 
