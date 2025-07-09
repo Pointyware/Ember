@@ -1,4 +1,4 @@
-package org.pointyware.ember.entities.training
+package org.pointyware.ember.training.entities.training
 
 import org.pointyware.ember.entities.tensors.Tensor
 

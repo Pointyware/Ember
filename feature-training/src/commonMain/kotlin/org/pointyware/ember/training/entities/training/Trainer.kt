@@ -1,4 +1,4 @@
-package org.pointyware.ember.entities.training
+package org.pointyware.ember.training.entities.training
 
 /**
  * A Trainer defines a workflow for training a model.

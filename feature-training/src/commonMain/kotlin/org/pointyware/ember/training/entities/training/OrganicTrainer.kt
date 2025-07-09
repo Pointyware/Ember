@@ -1,4 +1,4 @@
-package org.pointyware.ember.entities.training
+package org.pointyware.ember.training.entities.training
 
 /**
  * An organic trainer attempts to train a model of progressive complexity by growing layers in
