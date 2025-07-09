@@ -1,6 +1,6 @@
-package org.pointyware.ember.entities.optimizers
+package org.pointyware.ember.training.entities.optimizers.optimizers
 
-import org.pointyware.ember.entities.training.Exercise
+import org.pointyware.ember.training.entities.Exercise
 import kotlin.random.Random
 
 /**

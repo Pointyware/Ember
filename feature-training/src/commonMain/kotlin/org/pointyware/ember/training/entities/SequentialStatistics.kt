@@ -1,4 +1,4 @@
-package org.pointyware.ember.training.entities.training
+package org.pointyware.ember.training.entities
 
 /**
  * This [Statistics] type collects information for a [SequentialNetwork][org.pointyware.ember.entities.networks.SequentialNetwork].

@@ -1,4 +1,4 @@
-package org.pointyware.ember.training.entities.training
+package org.pointyware.ember.training.entities
 
 /**
  * A statistics object receives updates throughout training in order to collect

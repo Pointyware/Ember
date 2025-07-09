@@ -13,9 +13,9 @@ import org.pointyware.ember.entities.loss.MeanSquaredError
 import org.pointyware.ember.entities.networks.SequentialNetwork
 import org.pointyware.ember.entities.optimizers.GradientDescent
 import org.pointyware.ember.entities.tensors.columnVector
-import org.pointyware.ember.entities.training.Exercise
-import org.pointyware.ember.training.entities.training.SequentialStatistics
-import org.pointyware.ember.training.entities.training.SequentialTrainer
+import org.pointyware.ember.training.entities.Exercise
+import org.pointyware.ember.training.entities.SequentialStatistics
+import org.pointyware.ember.training.entities.SequentialTrainer
 import kotlin.math.min
 
 /**
