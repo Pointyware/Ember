@@ -41,7 +41,7 @@ class SequentialTrainer(
         // f'(z^L) = a'^L
         val derivativeActivations = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
 
-        repeat(iterations) { epoch ->
+        for (epoch in 1..iterations) {
             val epochCases = selectSamples()
             // Create Gradient tensors
             weightGradients.forEach { it.mapEach { 0.0f } }
@@ -79,7 +79,7 @@ class SequentialTrainer(
             // Output progress -
             // calculate the loss for this epoch
             val averageLoss = aggregateLoss / caseCount
-            if (epoch % updatePeriod == 0 || epoch == iterations - 1) {
+            if (epoch % updatePeriod == 0) {
                 // TODO: Create Error Histogram of error per case
                 println("Epoch $epoch, Loss: $averageLoss")
                 println("Network parameters: {")
