@@ -3,6 +3,7 @@ package org.pointyware.ember.training.entities.optimizers
 import org.pointyware.ember.entities.layers.Layer
 import org.pointyware.ember.entities.tensors.Tensor
 import org.pointyware.ember.training.entities.Exercise
+import org.pointyware.ember.training.entities.Statistics
 
 /**
  * Adam optimizer.
@@ -13,7 +14,8 @@ data class Adam(
     val beta1: Double = 0.9,
     val beta2: Double = 0.999,
     val epsilon: Double = 1e-8,
-): Optimizer {
+    val statistics: Statistics
+): StatisticalOptimizer, Statistics by statistics {
     // TODO: allow multiple passes over samples
     override fun batch(cases: List<Exercise>): List<List<Exercise>> {
         TODO("Not yet implemented")
