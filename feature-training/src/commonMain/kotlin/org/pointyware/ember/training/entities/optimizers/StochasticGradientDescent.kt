@@ -1,6 +1,7 @@
 package org.pointyware.ember.training.entities.optimizers
 
 import org.pointyware.ember.training.entities.Exercise
+import kotlin.math.min
 import kotlin.random.Random
 
 /**
@@ -15,6 +16,7 @@ class StochasticGradientDescent(
     val batchSize: Int,
     learningRate: Float,
     entropy: Random = Random.Default,
+    val discardExtras: Boolean = false
 ): GradientDescent(learningRate, entropy) {
 
     init {
@@ -22,6 +24,15 @@ class StochasticGradientDescent(
     }
 
     override fun batch(cases: List<Exercise>): List<List<Exercise>> {
-        return super.batch(cases)
+        val remaining = cases.toMutableList()
+        val batches = mutableListOf<List<Exercise>>()
+        while (remaining.isNotEmpty()) {
+            if (discardExtras && remaining.size < batchSize) break
+            val batchSize = min(batchSize, remaining.size)
+            batches.add(List(batchSize) {
+                remaining.removeAt(entropy.nextInt(remaining.size))
+            })
+        }
+        return batches.toList()
     }
 }
