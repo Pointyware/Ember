@@ -100,7 +100,7 @@ class TrainingControllerImpl(
         ),
         cases = exercises,
         lossFunction = MeanSquaredError,
-        optimizer = GradientDescent(learningRate = 0.10f),
+        optimizer = GradientDescent(learningRate = 0.01f),
         updatePeriod = 10e3.toInt(),
         statistics = SequentialStatistics()
     )
