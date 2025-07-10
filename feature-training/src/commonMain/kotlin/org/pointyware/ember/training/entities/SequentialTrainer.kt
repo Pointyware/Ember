@@ -4,6 +4,7 @@ import org.pointyware.ember.entities.loss.LossFunction
 import org.pointyware.ember.entities.networks.SequentialNetwork
 import org.pointyware.ember.entities.tensors.Tensor
 import org.pointyware.ember.training.entities.optimizers.Optimizer
+import org.pointyware.ember.training.entities.optimizers.StatisticalOptimizer
 
 /**
  * A trainer for a [SequentialNetwork] using a list of [Exercise] instances to evaluate
@@ -25,6 +26,14 @@ class SequentialTrainer(
     val statistics: Statistics,
     override val updatePeriod: Int = 100
 ): Trainer {
+
+    constructor(
+        network: SequentialNetwork,
+        cases: List<Exercise>,
+        lossFunction: LossFunction,
+        statOptimizer: StatisticalOptimizer,
+        updatePeriod: Int = 100
+    ): this(network, cases, lossFunction, statOptimizer, statOptimizer, updatePeriod)
 
     override fun train(iterations: Int) {
 
