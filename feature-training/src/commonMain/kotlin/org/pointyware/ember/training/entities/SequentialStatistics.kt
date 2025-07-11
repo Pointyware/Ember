@@ -1,24 +1,42 @@
 package org.pointyware.ember.training.entities
 
+private const val DEFAULT_MAX = 10f
+
 /**
  * This [Statistics] type collects information for a [SequentialNetwork][org.pointyware.ember.entities.networks.SequentialNetwork].
  */
 class SequentialStatistics(
 ): Statistics {
-    override val measurements: List<Measurement>
-        get() = TODO("Not yet implemented")
 
+    private val accuracyMeasure = Measurement("Accuracy", Measurement.Subject.Accuracy)
+    private val accuracy = mutableListOf<Pair<Float, Float>>()
+    override val measurements: List<Measurement>
+        get() = listOf(accuracyMeasure)
+
+    private var maximum = 0f
+    private var maxDirty = true
     override fun measurementMaximum(key: Measurement): Float {
-        TODO("Not yet implemented")
+        if (key != accuracyMeasure)
+            throw IllegalArgumentException("Measurement key not recognized: $key")
+        if (maxDirty) {
+            maximum = if (accuracy.isEmpty()) {
+                DEFAULT_MAX
+            } else {
+                accuracy.maxOf { it.second }
+            }
+        }
+        return maximum
     }
 
     override val measurementsMax: Float
-        get() = TODO("Not yet implemented")
+        get() = measurementMaximum(accuracyMeasure)
     override val epochCount: Int
-        get() = TODO("Not yet implemented")
+        get() = accuracy.size
 
-    override fun data(it: Measurement): List<Pair<Float, Float>> {
-        TODO("Not yet implemented")
+    override fun data(key: Measurement): List<Pair<Float, Float>> {
+        if (key != accuracyMeasure)
+            throw IllegalArgumentException("Measurement key not recognized: $key")
+        return accuracy
     }
 
     val errorSamples: MutableList<Pair<Int, Float>> = mutableListOf()
@@ -50,11 +68,14 @@ class SequentialStatistics(
         batchError += sampleError
     }
 
+    private var batchSize = 0
     override fun onBatchEnd(batch: List<Exercise>) {
         epochError += batchError
+        batchSize = batch.size
     }
 
     override fun onEpochEnd(epoch: Int) {
-        // TODO: report epoch error
+        val averageError = epochError / batchSize
+        accuracy.add(epoch.toFloat() to epochError.toFloat())
     }
 }
