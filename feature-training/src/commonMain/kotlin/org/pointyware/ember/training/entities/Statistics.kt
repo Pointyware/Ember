@@ -12,7 +12,7 @@ interface Statistics {
     fun measurementMaximum(key: Measurement): Float
     val measurementsMax: Float
     val epochCount: Int
-    fun data(it: Measurement): List<Pair<Float, Float>>
+    fun data(key: Measurement): List<Pair<Float, Float>>
 
     fun onEpochStart(epoch: Int)
     fun onBatchStart(batch: List<Exercise>)

@@ -18,7 +18,7 @@ class AdaGrad: StatisticalOptimizer {
     override val epochCount: Int
         get() = TODO("Not yet implemented")
 
-    override fun data(it: Measurement): List<Pair<Float, Float>> {
+    override fun data(key: Measurement): List<Pair<Float, Float>> {
         TODO("Not yet implemented")
     }
     override fun onEpochStart(epoch: Int) {
