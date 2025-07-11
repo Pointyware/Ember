@@ -19,7 +19,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.featureTraining)
+                api(projects.featureTraining)
+
                 api(projects.coreUi)
                 api(projects.coreViewmodels)
                 api(projects.coreData)
