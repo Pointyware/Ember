@@ -5,6 +5,21 @@ package org.pointyware.ember.training.entities
  */
 class SequentialStatistics(
 ): Statistics {
+    override val measurements: List<Measurement>
+        get() = TODO("Not yet implemented")
+
+    override fun measurementMaximum(key: Measurement): Float {
+        TODO("Not yet implemented")
+    }
+
+    override val measurementsMax: Float
+        get() = TODO("Not yet implemented")
+    override val epochCount: Int
+        get() = TODO("Not yet implemented")
+
+    override fun data(it: Measurement): List<Pair<Float, Float>> {
+        TODO("Not yet implemented")
+    }
 
     val errorSamples: MutableList<Pair<Int, Float>> = mutableListOf()
 

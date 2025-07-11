@@ -38,7 +38,7 @@ fun TrainingView(
 
             ObjectiveGraph(
                 objectiveCeiling = state.statistics.ceiling,
-                objectiveLabel = state.statistics.objectiveName,
+                objectiveLabel = "TODO: x-axis units",
                 epochCount = state.statistics.epochCount,
                 data = state.statistics.data,
                 modifier = Modifier.weight(1f).fillMaxHeight()

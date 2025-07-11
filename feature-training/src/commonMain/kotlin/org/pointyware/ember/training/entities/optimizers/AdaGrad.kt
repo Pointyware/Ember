@@ -3,8 +3,24 @@ package org.pointyware.ember.training.entities.optimizers
 import org.pointyware.ember.entities.layers.Layer
 import org.pointyware.ember.entities.tensors.Tensor
 import org.pointyware.ember.training.entities.Exercise
+import org.pointyware.ember.training.entities.Measurement
 
 class AdaGrad: StatisticalOptimizer {
+    override val measurements: List<Measurement>
+        get() = TODO("Not yet implemented")
+
+    override fun measurementMaximum(key: Measurement): Float {
+        TODO("Not yet implemented")
+    }
+
+    override val measurementsMax: Float
+        get() = TODO("Not yet implemented")
+    override val epochCount: Int
+        get() = TODO("Not yet implemented")
+
+    override fun data(it: Measurement): List<Pair<Float, Float>> {
+        TODO("Not yet implemented")
+    }
     override fun onEpochStart(epoch: Int) {
         TODO("Not yet implemented")
     }
