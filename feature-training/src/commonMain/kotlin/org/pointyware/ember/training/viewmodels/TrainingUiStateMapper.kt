@@ -33,7 +33,7 @@ object TrainingUiStateMapper: Mapper<TrainingState, TrainingUiState> {
                     }
                 )
             },
-            statistics = StatisticsUiState.Default
+            statistics = StatisticsUiStateMapper.map(input.trainer.statistics)
         )
     }
 }
