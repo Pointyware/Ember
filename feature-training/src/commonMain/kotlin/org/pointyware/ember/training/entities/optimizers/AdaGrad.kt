@@ -5,7 +5,9 @@ import org.pointyware.ember.entities.tensors.Tensor
 import org.pointyware.ember.training.entities.Exercise
 import org.pointyware.ember.training.entities.Measurement
 
-class AdaGrad: StatisticalOptimizer {
+class AdaGrad(
+    override val updatePeriod: Int
+): StatisticalOptimizer {
     override val measurements: List<Measurement>
         get() = TODO("Not yet implemented")
 

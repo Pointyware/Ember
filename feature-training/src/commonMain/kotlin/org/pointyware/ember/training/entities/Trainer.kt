@@ -8,13 +8,14 @@ package org.pointyware.ember.training.entities
  * For each epoch, the trainer has an opportunity to review the training data with or without
  * the student model to select a subset of data to train on.
  *
+ *
+ * __Epoch__ - A single "step" in a trainer's algorithm. Some optimizers make multiple passes
+ * through datasets.
+ *
+ * TODO: eliminate "trainer"?
+ *
  */
 interface Trainer {
-    /**
-     * The number of iterations between printing updates to the console.
-     * -1 means no updates will be printed.
-     */
-    val updatePeriod: Int
 
     /**
      * Train the model for a number of [iterations], a.k.a. epochs.

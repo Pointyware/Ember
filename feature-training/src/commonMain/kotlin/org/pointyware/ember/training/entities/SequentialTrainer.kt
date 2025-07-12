@@ -24,7 +24,6 @@ class SequentialTrainer(
     val lossFunction: LossFunction,
     val optimizer: Optimizer,
     val statistics: Statistics,
-    override val updatePeriod: Int = 100
 ): Trainer {
 
     constructor(
@@ -32,8 +31,7 @@ class SequentialTrainer(
         cases: List<Exercise>,
         lossFunction: LossFunction,
         statOptimizer: StatisticalOptimizer,
-        updatePeriod: Int = 100
-    ): this(network, cases, lossFunction, statOptimizer, statOptimizer, updatePeriod)
+    ): this(network, cases, lossFunction, statOptimizer, statOptimizer)
 
     override fun train(iterations: Int) {
 

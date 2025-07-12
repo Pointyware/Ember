@@ -5,6 +5,12 @@ package org.pointyware.ember.training.entities
  * information to assess training performance.
  */
 interface Statistics {
+
+    /**
+     * The update period controls how frequently measurements are taken.
+     */
+    val updatePeriod: Int
+
     /**
      * Lists the measurements taken by this object.
      */

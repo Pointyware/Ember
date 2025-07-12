@@ -18,8 +18,7 @@ package org.pointyware.ember.training.entities
  *   unused or redundant layers and connections.
  */
 class OrganicTrainer(
-    val pruningPeriod: Int,
-    override val updatePeriod: Int = 100
+    val pruningPeriod: Int
 ): Trainer {
     override fun train(iterations: Int) {
         TODO("Not yet implemented")

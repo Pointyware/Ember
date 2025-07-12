@@ -6,6 +6,7 @@ private const val DEFAULT_MAX = 10f
  * This [Statistics] type collects information for a [SequentialNetwork][org.pointyware.ember.entities.networks.SequentialNetwork].
  */
 class SequentialStatistics(
+    override val updatePeriod: Int = 10e3.toInt(),
 ): Statistics {
 
     private val accuracyMeasure = Measurement("Accuracy", Measurement.Subject.Accuracy)
