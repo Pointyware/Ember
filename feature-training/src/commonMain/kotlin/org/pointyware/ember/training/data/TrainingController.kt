@@ -101,7 +101,6 @@ class TrainingControllerImpl(
         cases = exercises,
         lossFunction = MeanSquaredError,
         optimizer = GradientDescent(learningRate = 0.01f),
-        updatePeriod = 10e3.toInt(),
         statistics = SequentialStatistics()
     )
     private val _state = MutableStateFlow(TrainingState(
@@ -134,13 +133,14 @@ class TrainingControllerImpl(
         trainingScope.launch { startTraining() }
     }
 
+    private val trainingStep = 100
     private suspend fun startTraining() {
         trainingJob?.cancelAndJoin()
         trainingJob = trainingScope.launch {
 
             while (state.value.isTraining) {
                 val epochsBeforeTraining = state.value.epochsRemaining
-                val epochsToTrain = min(epochsBeforeTraining, trainer.updatePeriod)
+                val epochsToTrain = min(epochsBeforeTraining, trainingStep)
                 trainer.train(iterations = epochsToTrain)
                 val remaining = epochsBeforeTraining - epochsToTrain
                 _state.update { currentState ->
