@@ -64,6 +64,11 @@ classDiagram
     class Optimizer {
     }
 
+    class Statistics {
+        
+    }
+    class 
+
     note for StudyCase "A study case associates an <br>input with an expected output."
     class StudyCase {
         input: Tensor
