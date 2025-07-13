@@ -6,8 +6,8 @@ import kotlinx.coroutines.SupervisorJob
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import org.pointyware.ember.training.data.TrainingController
-import org.pointyware.ember.training.data.TrainingControllerImpl
+import org.pointyware.ember.training.interactors.TrainingController
+import org.pointyware.ember.training.interactors.TrainingControllerImpl
 import org.pointyware.ember.training.viewmodels.TrainingViewModel
 
 val trainingQualifier = named("training")

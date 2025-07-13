@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import org.pointyware.ember.entities.tensors.Tensor
-import org.pointyware.ember.training.data.TrainingController
+import org.pointyware.ember.training.interactors.TrainingController
 
 /**
  * This view model maintains the ui state for training a neural network.

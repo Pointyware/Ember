@@ -1,7 +1,7 @@
 package org.pointyware.ember.training.viewmodels
 
 import org.pointyware.artes.common.Mapper
-import org.pointyware.ember.training.data.TrainingState
+import org.pointyware.ember.training.interactors.TrainingState
 import org.pointyware.ember.viewmodels.CenteredColorMap
 import org.pointyware.ember.viewmodels.LayerUiState
 import org.pointyware.ember.viewmodels.NeuralNetworkUiState

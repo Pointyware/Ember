@@ -1,4 +1,4 @@
-package org.pointyware.ember.training.data
+package org.pointyware.ember.training.interactors
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -71,25 +71,7 @@ class TrainingControllerImpl(
     private val trainingScope: CoroutineScope
 ): TrainingController {
 
-    val exercises: List<Exercise>
-    init {
-        val inputs = listOf(
-            columnVector(0.0f, 0.0f),
-            columnVector(0.0f, 1.0f),
-            columnVector(1.0f, 0.0f),
-            columnVector(1.0f, 1.0f),
-        )
-
-        val targets = listOf(
-            columnVector(0.0f),
-            columnVector(1.0f),
-            columnVector(1.0f),
-            columnVector(0.0f),
-        )
-        exercises = inputs.zip(targets) { input, target ->
-            Exercise(input, target)
-        }
-    }
+    private var exercises: List<Exercise> = listOf()
 
     // Create simple NN with 2 inputs, 1 hidden layer, and 1 output.
     val trainer = SequentialTrainer(
