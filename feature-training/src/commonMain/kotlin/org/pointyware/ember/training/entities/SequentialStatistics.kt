@@ -1,10 +1,13 @@
 package org.pointyware.ember.training.entities
 
+import kotlin.time.ExperimentalTime
+
 private const val DEFAULT_MAX = 10f
 
 /**
  * This [Statistics] type collects information for a [SequentialNetwork][org.pointyware.ember.entities.networks.SequentialNetwork].
  */
+@OptIn(ExperimentalTime::class)
 class SequentialStatistics(
 ): EpochStatistics, BatchStatistics, SampleStatistics {
 
@@ -74,12 +77,19 @@ class SequentialStatistics(
         batchSize = batch.size
     }
 
+    var lastEpoch = 0
     override fun onEpochEnd(epoch: Int) {
+        lastEpoch = epoch
         val averageError = epochError / batchSize
         accuracy.add(epoch.toFloat() to epochError.toFloat())
     }
 
     override fun createSnapshot(): Snapshot {
-        TODO("Not yet implemented")
+        return Snapshot(
+            epoch = lastEpoch,
+            measurements = mapOf(
+                errorMeasure to accuracy.toList()
+            )
+        )
     }
 }

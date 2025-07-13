@@ -16,6 +16,7 @@ import org.pointyware.ember.training.data.Problem
 import org.pointyware.ember.training.entities.Exercise
 import org.pointyware.ember.training.entities.SequentialStatistics
 import org.pointyware.ember.training.entities.SequentialTrainer
+import org.pointyware.ember.training.entities.Snapshot
 import org.pointyware.ember.training.entities.optimizers.GradientDescent
 import kotlin.math.min
 
@@ -26,7 +27,8 @@ data class TrainingState(
     val isTraining: Boolean = false,
     val elapsedEpochs: Int = 0,
     val epochsRemaining: Int = 0,
-    val trainer: SequentialTrainer
+    val trainer: SequentialTrainer,
+    val snapshot: Snapshot
 ) {
     val networkDepth: Int
         get() = trainer.network.layers.size
@@ -90,7 +92,8 @@ class TrainingControllerImpl(
     private val _state = MutableStateFlow(TrainingState(
         isTraining = false,
         epochsRemaining = 0,
-        trainer = trainer
+        trainer = trainer,
+        snapshot = Snapshot.empty
     ))
     override val state: StateFlow<TrainingState>
         get() = _state.asStateFlow()
@@ -133,13 +136,15 @@ class TrainingControllerImpl(
                         currentState.copy(
                             isTraining = false,
                             elapsedEpochs = elapsed,
-                            epochsRemaining = 0
+                            epochsRemaining = 0,
+                            snapshot = trainer.statistics.createSnapshot()
                         )
                     } else {
                         // Update the state to reflect remaining epochs
                         currentState.copy(
                             elapsedEpochs = elapsed,
-                            epochsRemaining = remaining
+                            epochsRemaining = remaining,
+                            snapshot = trainer.statistics.createSnapshot()
                         )
                     }
                 }
