@@ -44,7 +44,6 @@ private fun TrainingViewPreview() {
                     )
                 ),
                 statistics = StatisticsUiState(
-                    objectiveName = "Accuracy",
                     epochCount = 10,
                     ceiling = 0.5f,
                     data = emptyList()
