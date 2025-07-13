@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.pointyware.ember.entities.loss.LossFunction
 import org.pointyware.ember.entities.networks.SequentialNetwork
-import org.pointyware.ember.entities.tensors.Tensor
+import org.pointyware.ember.entities.tensors.TensorPool
 import org.pointyware.ember.training.entities.optimizers.Optimizer
 import org.pointyware.ember.training.entities.optimizers.StatisticalOptimizer
 
@@ -45,6 +45,7 @@ class SequentialTrainer(
     override val snapshot: StateFlow<Snapshot>
         get() = _snapshot.asStateFlow()
 
+    private var epoch: Int = 0
     override fun train(iterations: Int) {
 
         // W^L
@@ -58,7 +59,8 @@ class SequentialTrainer(
         // f'(z^L) = a'^L
         val derivativeActivations = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
 
-        for (epoch in 1..iterations) {
+        repeat(iterations) { _ ->
+            epoch++
             epochStatistics?.onEpochStart(epoch)
 
             val sampleBatches = optimizer.batch(cases)
