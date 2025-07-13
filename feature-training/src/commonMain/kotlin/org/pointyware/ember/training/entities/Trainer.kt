@@ -1,5 +1,7 @@
 package org.pointyware.ember.training.entities
 
+import kotlinx.coroutines.flow.StateFlow
+
 /**
  * A Trainer defines a workflow for training a model.
  *
@@ -16,9 +18,14 @@ package org.pointyware.ember.training.entities
 interface Trainer {
 
     /**
+     * Exposes the latest state of training.
+     */
+    val snapshot: StateFlow<Snapshot>
+
+    /**
      * Train the model for a number of [iterations], a.k.a. epochs.
      *
      * @param iterations The number of epochs to train the model for. Defaults to 1.
      */
-    fun train(iterations: Int = 1)
+    fun train(iterations: Int = 1) // TODO: add snapshot receiver
 }
