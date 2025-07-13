@@ -11,7 +11,8 @@ import kotlinx.coroutines.launch
 import org.pointyware.ember.entities.activations.Sigmoid
 import org.pointyware.ember.entities.loss.MeanSquaredError
 import org.pointyware.ember.entities.networks.SequentialNetwork
-import org.pointyware.ember.entities.tensors.columnVector
+import org.pointyware.ember.training.data.ExerciseRepository
+import org.pointyware.ember.training.data.Problem
 import org.pointyware.ember.training.entities.Exercise
 import org.pointyware.ember.training.entities.SequentialStatistics
 import org.pointyware.ember.training.entities.SequentialTrainer
@@ -68,10 +69,11 @@ interface TrainingController {
  *
  */
 class TrainingControllerImpl(
+    private val exerciseRepository: ExerciseRepository,
     private val trainingScope: CoroutineScope
 ): TrainingController {
 
-    private var exercises: List<Exercise> = listOf()
+    private var exercises: List<Exercise> = exerciseRepository.getExercises(Problem.XorProblem(0f, 1))
 
     // Create simple NN with 2 inputs, 1 hidden layer, and 1 output.
     val trainer = SequentialTrainer(
