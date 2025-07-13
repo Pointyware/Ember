@@ -1,16 +1,14 @@
 package org.pointyware.ember.training.entities
 
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
+
 /**
  * A statistics object receives updates throughout training in order to collect
  * information to assess training performance.
  */
 interface Statistics {
-
-    /**
-     * The update period controls how frequently measurements are taken.
-     */
-    val updatePeriod: Int
-
     /**
      * Lists the measurements taken by this object.
      */
@@ -20,6 +18,27 @@ interface Statistics {
     val epochCount: Int
     fun data(key: Measurement): List<Pair<Float, Float>>
 
+    /**
+     * Collects all measures into a single immutable object
+     */
+    fun createSnapshot(): Snapshot
+}
+
+/**
+ *
+ */
+@OptIn(ExperimentalTime::class)
+data class Snapshot(
+    val epoch: Int,
+    val measurements: Map<Measurement, List<Pair<Float, Float>>>,
+    val timestamp: Instant = Clock.System.now(),
+) {
+    companion object {
+        val empty = Snapshot(
+            epoch = 0,
+            measurements = emptyMap()
+        )
+    }
 }
 
 /**

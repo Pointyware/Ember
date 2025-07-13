@@ -6,7 +6,6 @@ private const val DEFAULT_MAX = 10f
  * This [Statistics] type collects information for a [SequentialNetwork][org.pointyware.ember.entities.networks.SequentialNetwork].
  */
 class SequentialStatistics(
-    override val updatePeriod: Int = 10e3.toInt(),
 ): EpochStatistics, BatchStatistics, SampleStatistics {
 
     private val errorMeasure = Measurement("Error", Measurement.Subject.Error)
@@ -78,5 +77,9 @@ class SequentialStatistics(
     override fun onEpochEnd(epoch: Int) {
         val averageError = epochError / batchSize
         accuracy.add(epoch.toFloat() to epochError.toFloat())
+    }
+
+    override fun createSnapshot(): Snapshot {
+        TODO("Not yet implemented")
     }
 }

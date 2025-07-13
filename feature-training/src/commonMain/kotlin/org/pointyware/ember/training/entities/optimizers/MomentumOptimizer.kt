@@ -7,9 +7,9 @@ import org.pointyware.ember.training.entities.EpochStatistics
 import org.pointyware.ember.training.entities.Exercise
 import org.pointyware.ember.training.entities.Measurement
 import org.pointyware.ember.training.entities.SampleStatistics
+import org.pointyware.ember.training.entities.Snapshot
 
 class MomentumOptimizer(
-    override val updatePeriod: Int
 ): Optimizer, EpochStatistics, BatchStatistics, SampleStatistics {
     override val measurements: List<Measurement>
         get() = TODO("Not yet implemented")
@@ -22,6 +22,10 @@ class MomentumOptimizer(
         get() = TODO("Not yet implemented")
     override val epochCount: Int
         get() = TODO("Not yet implemented")
+
+    override fun createSnapshot(): Snapshot {
+        TODO("Not yet implemented")
+    }
 
     override fun data(key: Measurement): List<Pair<Float, Float>> {
         TODO("Not yet implemented")

@@ -1,5 +1,8 @@
 package org.pointyware.ember.training.entities
 
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import org.pointyware.ember.entities.loss.LossFunction
 import org.pointyware.ember.entities.networks.SequentialNetwork
 import org.pointyware.ember.entities.tensors.Tensor
@@ -37,6 +40,10 @@ class SequentialTrainer(
     private var batchStatistics: BatchStatistics? = statistics as? BatchStatistics
     private var sampleStatistics: SampleStatistics? = statistics as? SampleStatistics
     private var layerStatistics: LayerStatistics? = statistics as? LayerStatistics
+
+    private val _snapshot = MutableStateFlow(Snapshot.empty)
+    override val snapshot: StateFlow<Snapshot>
+        get() = _snapshot.asStateFlow()
 
     override fun train(iterations: Int) {
 
@@ -105,8 +112,9 @@ class SequentialTrainer(
                 }
                 batchStatistics?.onBatchEnd(batch)
             }
-
             epochStatistics?.onEpochEnd(epoch)
+
+            _snapshot.value = statistics.createSnapshot()
         }
     }
 }

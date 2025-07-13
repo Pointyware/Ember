@@ -1,5 +1,7 @@
 package org.pointyware.ember.training.entities
 
+import kotlinx.coroutines.flow.StateFlow
+
 /**
  * An organic trainer attempts to train a model of progressive complexity by growing layers in
  * width and depth, as well as adding functional modules where linearities allow growth without
@@ -20,6 +22,9 @@ package org.pointyware.ember.training.entities
 class OrganicTrainer(
     val pruningPeriod: Int
 ): Trainer {
+    override val snapshot: StateFlow<Snapshot>
+        get() = TODO("Not yet implemented")
+
     override fun train(iterations: Int) {
         TODO("Not yet implemented")
     }
