@@ -5,7 +5,7 @@ import org.pointyware.ember.entities.tensors.Tensor
 import org.pointyware.ember.training.entities.Exercise
 
 /**
- * Implemented per research
+ * Implemented per lecture slides: https://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf
  */
 class RmsProp(
 
