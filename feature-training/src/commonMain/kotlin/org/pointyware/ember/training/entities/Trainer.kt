@@ -12,8 +12,6 @@ package org.pointyware.ember.training.entities
  * __Epoch__ - A single "step" in a trainer's algorithm. Some optimizers make multiple passes
  * through datasets.
  *
- * TODO: eliminate "trainer"?
- *
  */
 interface Trainer {
 
