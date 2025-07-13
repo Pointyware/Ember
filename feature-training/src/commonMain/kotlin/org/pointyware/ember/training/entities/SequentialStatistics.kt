@@ -7,7 +7,7 @@ private const val DEFAULT_MAX = 10f
  */
 class SequentialStatistics(
     override val updatePeriod: Int = 10e3.toInt(),
-): Statistics {
+): EpochStatistics, BatchStatistics, SampleStatistics {
 
     private val errorMeasure = Measurement("Error", Measurement.Subject.Error)
     private val accuracy = mutableListOf<Pair<Float, Float>>()

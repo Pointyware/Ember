@@ -33,6 +33,11 @@ class SequentialTrainer(
         statOptimizer: StatisticalOptimizer,
     ): this(network, cases, lossFunction, statOptimizer, statOptimizer)
 
+    private var epochStatistics: EpochStatistics? = statistics as? EpochStatistics
+    private var batchStatistics: BatchStatistics? = statistics as? BatchStatistics
+    private var sampleStatistics: SampleStatistics? = statistics as? SampleStatistics
+    private var layerStatistics: LayerStatistics? = statistics as? LayerStatistics
+
     override fun train(iterations: Int) {
 
         // W^L
@@ -47,7 +52,7 @@ class SequentialTrainer(
         val derivativeActivations = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
 
         for (epoch in 1..iterations) {
-            statistics.onEpochStart(epoch)
+            epochStatistics?.onEpochStart(epoch)
 
             val sampleBatches = optimizer.batch(cases)
             // Create Gradient tensors
@@ -57,21 +62,21 @@ class SequentialTrainer(
             var aggregateLoss = 0.0
 
             for (batch in sampleBatches) {
-                statistics.onBatchStart(batch)
+                batchStatistics?.onBatchStart(batch)
                 val caseCount = batch.size.toFloat()
                 batch.forEach { case ->
                     // Zero tensors for activations, derivativeActivations, and errors
                     activations.forEach { it.mapEach { 0.0f } }
                     derivativeActivations.forEach { it.mapEach { 0.0f } }
 
-                    statistics.onSampleStart(case)
+                    sampleStatistics?.onSampleStart(case)
                     // Forward Pass - using tensors as gradient receivers
                     network.forward(case.input, activations, derivativeActivations)
 
                     // Calculate the loss for the current case
                     val output = activations.last()
                     val loss = lossFunction.compute(expected = case.output, actual = output)
-                    statistics.onCost(loss)
+                    sampleStatistics?.onCost(loss)
                     aggregateLoss += loss
                     // $\nabla_{a_L} C$ is the gradient of the loss function with respect to the final layer's output
                     val errorGradient =
@@ -86,9 +91,9 @@ class SequentialTrainer(
                         weightGradients,
                         biasGradients
                     )
-                    statistics.onGradient()
+                    sampleStatistics?.onGradient()
 
-                    statistics.onSampleEnd(case)
+                    sampleStatistics?.onSampleEnd(case)
                 }
                 // Average the gradients over all cases
                 weightGradients.forEach { gradient -> gradient.mapEach { it / caseCount } }
@@ -98,10 +103,10 @@ class SequentialTrainer(
                 network.layers.forEachIndexed { index, layer ->
                     optimizer.update(layer, weightGradients[index], biasGradients[index])
                 }
-                statistics.onBatchEnd(batch)
+                batchStatistics?.onBatchEnd(batch)
             }
 
-            statistics.onEpochEnd(epoch)
+            epochStatistics?.onEpochEnd(epoch)
         }
     }
 }

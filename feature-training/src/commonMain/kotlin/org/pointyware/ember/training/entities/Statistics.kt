@@ -20,14 +20,41 @@ interface Statistics {
     val epochCount: Int
     fun data(key: Measurement): List<Pair<Float, Float>>
 
+}
+
+/**
+ *
+ */
+interface EpochStatistics: Statistics {
     fun onEpochStart(epoch: Int)
+    fun onEpochEnd(epoch: Int)
+}
+
+/**
+ *
+ */
+interface BatchStatistics: Statistics {
     fun onBatchStart(batch: List<Exercise>)
+    fun onBatchEnd(batch: List<Exercise>)
+}
+
+/**
+ *
+ */
+interface SampleStatistics: Statistics {
     fun onSampleStart(sample: Exercise)
     fun onCost(cost: Double)
     fun onGradient()
     fun onSampleEnd(sample: Exercise)
-    fun onBatchEnd(batch: List<Exercise>)
-    fun onEpochEnd(epoch: Int)
+}
+
+/**
+ *
+ */
+interface LayerStatistics: Statistics {
+    fun onPreActivation()
+    fun onActivation()
+    fun onGradient()
 }
 
 /**

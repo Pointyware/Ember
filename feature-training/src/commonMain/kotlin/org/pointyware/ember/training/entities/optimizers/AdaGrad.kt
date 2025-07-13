@@ -2,12 +2,15 @@ package org.pointyware.ember.training.entities.optimizers
 
 import org.pointyware.ember.entities.layers.Layer
 import org.pointyware.ember.entities.tensors.Tensor
+import org.pointyware.ember.training.entities.BatchStatistics
+import org.pointyware.ember.training.entities.EpochStatistics
 import org.pointyware.ember.training.entities.Exercise
 import org.pointyware.ember.training.entities.Measurement
+import org.pointyware.ember.training.entities.SampleStatistics
 
 class AdaGrad(
     override val updatePeriod: Int
-): StatisticalOptimizer {
+): Optimizer, EpochStatistics, BatchStatistics, SampleStatistics {
     override val measurements: List<Measurement>
         get() = TODO("Not yet implemented")
 
