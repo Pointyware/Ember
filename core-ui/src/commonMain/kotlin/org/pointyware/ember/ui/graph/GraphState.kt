@@ -3,6 +3,7 @@ package org.pointyware.ember.ui.graph
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.withTransform
@@ -33,23 +34,24 @@ data class GraphSpaceMap(
         val width = drawScope.size.width
         val height = drawScope.size.height
 
+        val path = Path()
         for (i in 0 until data.size - 1) {
             val start = data[i]
-            val end = data[i + 1]
 
-            val startX = xToPixel(start.first, width)
-            val startY = yToPixel(start.second, height)
-            val endX = xToPixel(end.first, width)
-            val endY = yToPixel(end.second, height)
+            val x = xToPixel(start.first, width)
+            val y = yToPixel(start.second, height)
 
-            drawScope.drawLine(
-                color = Color.Red,
-                start = Offset(startX, startY),
-                end = Offset(endX, endY),
-                strokeWidth = 2f,
-                cap = Stroke.DefaultCap
-            )
+            if (i == 0) {
+                path.moveTo(x, y)
+            } else {
+                path.lineTo(x, y)
+            }
         }
+        drawScope.drawPath(
+            path = path,
+            color = Color.Red,
+            style = Stroke(2f, cap = Stroke.DefaultCap)
+        )
     }
 
     fun xToPixel(x: Float, width: Float): Float {
@@ -83,6 +85,16 @@ fun DrawScope.drawGraph(
         text = state.xAxisLabel,
         topLeft = Offset(size.width / 2, size.height - bottomPadding)
     )
+    drawText(
+        textMeasurer = textMeasurer,
+        text = state.left.toString(),
+        topLeft = Offset(x = 0f, y = size.height - bottomPadding)
+    )
+    drawText(
+        textMeasurer = textMeasurer,
+        text = state.right.toString(),
+        topLeft = Offset(x = size.width - leftPadding, y = size.height - bottomPadding)
+    )
 
     // Draw Vertical Axis and Label
     drawLine(
@@ -103,6 +115,16 @@ fun DrawScope.drawGraph(
             size = Size(size.width, 1000f),
         )
     }
+    drawText(
+        textMeasurer = textMeasurer,
+        text = state.bottom.toString(),
+        topLeft = Offset(x = leftPadding, y = size.height - bottomPadding)
+    )
+    drawText(
+        textMeasurer = textMeasurer,
+        text = state.top.toString(),
+        topLeft = Offset(x = leftPadding, y = 0f)
+    )
 
     // Draw Data Series
     val graphSpaceMap = GraphSpaceMap(state, this)
