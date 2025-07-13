@@ -9,15 +9,15 @@ class SequentialStatistics(
     override val updatePeriod: Int = 10e3.toInt(),
 ): Statistics {
 
-    private val accuracyMeasure = Measurement("Accuracy", Measurement.Subject.Accuracy)
+    private val errorMeasure = Measurement("Error", Measurement.Subject.Error)
     private val accuracy = mutableListOf<Pair<Float, Float>>()
     override val measurements: List<Measurement>
-        get() = listOf(accuracyMeasure)
+        get() = listOf(errorMeasure)
 
     private var maximum = 0f
     private var maxDirty = true
     override fun measurementMaximum(key: Measurement): Float {
-        if (key != accuracyMeasure)
+        if (key != errorMeasure)
             throw IllegalArgumentException("Measurement key not recognized: $key")
         if (maxDirty) {
             maximum = if (accuracy.isEmpty()) {
@@ -30,12 +30,12 @@ class SequentialStatistics(
     }
 
     override val measurementsMax: Float
-        get() = measurementMaximum(accuracyMeasure)
+        get() = measurementMaximum(errorMeasure)
     override val epochCount: Int
         get() = accuracy.size
 
     override fun data(key: Measurement): List<Pair<Float, Float>> {
-        if (key != accuracyMeasure)
+        if (key != errorMeasure)
             throw IllegalArgumentException("Measurement key not recognized: $key")
         return accuracy
     }
