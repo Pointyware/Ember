@@ -7,7 +7,6 @@ import org.pointyware.ember.entities.loss.LossFunction
 import org.pointyware.ember.entities.networks.SequentialNetwork
 import org.pointyware.ember.entities.tensors.TensorPool
 import org.pointyware.ember.training.entities.optimizers.Optimizer
-import org.pointyware.ember.training.entities.optimizers.StatisticalOptimizer
 
 /**
  * A trainer for a [SequentialNetwork] using a list of [Exercise] instances to evaluate
@@ -33,12 +32,13 @@ class SequentialTrainer(
         network: SequentialNetwork,
         cases: List<Exercise>,
         lossFunction: LossFunction,
-        statOptimizer: StatisticalOptimizer,
-    ): this(network, cases, lossFunction, statOptimizer, statOptimizer)
+        optimizer: Optimizer,
+    ): this(network, cases, lossFunction, optimizer, optimizer as Statistics)
 
     private var epochStatistics: EpochStatistics? = statistics as? EpochStatistics
     private var batchStatistics: BatchStatistics? = statistics as? BatchStatistics
     private var sampleStatistics: SampleStatistics? = statistics as? SampleStatistics
+    // TODO: create forward and backward graphs from network structure to collect each layer stage
     private var layerStatistics: LayerStatistics? = statistics as? LayerStatistics
 
     private val _snapshot = MutableStateFlow(Snapshot.empty)
