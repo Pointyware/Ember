@@ -5,7 +5,7 @@ import org.pointyware.ember.entities.ObjectPool
 /**
  *
  */
-class TensorPool: ObjectPool<Tensor, IntArray>() {
+class TensorPool: ObjectPool<IntArray, Tensor>() {
     override fun getKeyFromObject(obj: Tensor): IntArray {
         return obj.dimensions
     }

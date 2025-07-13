@@ -4,7 +4,7 @@ package org.pointyware.ember.entities
  * A simple object pool that retains objects returned to it and provides objects requested,
  * creating them when necessary.
  */
-abstract class ObjectPool<T: Any, K: Any> {
+abstract class ObjectPool<K: Any, T: Any> {
     
     private val pool = mutableMapOf<K, MutableList<T>>()
     
