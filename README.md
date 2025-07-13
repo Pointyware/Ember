@@ -62,12 +62,35 @@ classDiagram
     }
     note for Optimizer "An optimizer is responsible for <br>adjusting the weights and biases <br>of a layer based on the error <br>gradient."
     class Optimizer {
+        batch()
+        update()
     }
 
-    class Statistics {
-        
+    class EpochStatistics {
+        onEpochStart()
+        onEpochEnd()
     }
-    class 
+    class BatchStatistics {
+        onBatchStart()
+        onBatchEnd()
+    }
+    class SampleStatistics {
+        onSampleStart()
+        onSampleEnd()
+    }
+    class LayerStatistics {
+        onLayerStart()
+        onLayerEnd()
+    }
+    class GradientDescent
+    GradientDescent --|> Optimizer
+    GradientDescent --|> SampleStatistics
+    class StochasticGradientDescent
+    StochasticGradientDescent --|> Optimizer
+    StochasticGradientDescent --|> BatchStatistics
+    class Adam
+    Adam --|> Optimizer
+    Adam --|> BatchStatistics
 
     note for StudyCase "A study case associates an <br>input with an expected output."
     class StudyCase {
