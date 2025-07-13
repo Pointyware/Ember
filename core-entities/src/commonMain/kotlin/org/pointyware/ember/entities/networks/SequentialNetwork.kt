@@ -8,7 +8,7 @@ import org.pointyware.ember.entities.tensors.Tensor
  * A sequential network is a series of layers that are applied sequentially,
  * without branches or skips.
  */
-class SequentialNetwork(
+open class SequentialNetwork(
     val layers: List<LinearLayer>,
 ) : Network {
     override fun predict(input: Tensor): Tensor {
