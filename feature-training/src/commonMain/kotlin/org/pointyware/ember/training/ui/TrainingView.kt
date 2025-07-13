@@ -37,6 +37,7 @@ fun TrainingView(
             )
 
             ObjectiveGraph(
+                objectiveFloor = state.statistics.floor,
                 objectiveCeiling = state.statistics.ceiling,
                 objectiveLabel = state.statistics.data.joinToString { it.label },
                 epochCount = state.statistics.epochCount,

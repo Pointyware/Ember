@@ -11,6 +11,7 @@ import org.pointyware.ember.ui.graph.DataSeries
 @Composable
 private fun TrainingViewPreview() {
     ObjectiveGraph(
+        objectiveFloor = 0f,
         objectiveLabel = "Accuracy",
         objectiveCeiling = 10f,
         epochCount = 10,

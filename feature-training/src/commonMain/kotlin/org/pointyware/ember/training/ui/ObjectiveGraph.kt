@@ -16,6 +16,7 @@ import org.pointyware.ember.ui.graph.drawLineGraph
 fun ObjectiveGraph(
     objectiveLabel: String,
     objectiveCeiling: Float,
+    objectiveFloor: Float,
     epochCount: Int,
     data: List<DataSeries>,
     modifier: Modifier = Modifier
@@ -28,7 +29,7 @@ fun ObjectiveGraph(
             state = LineGraphState(
                 graphState = GraphState(
                     left = 0f,
-                    bottom = 0f,
+                    bottom = objectiveFloor,
                     top = objectiveCeiling,
                     right = epochCount.toFloat(),
                     xAxisLabel = "Epochs",

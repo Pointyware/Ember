@@ -16,8 +16,14 @@ object StatisticsUiStateMapper: Mapper<Snapshot, StatisticsUiState> {
         } else {
             10f
         }
+        val min = if (dataSeries.isNotEmpty()) {
+            dataSeries.maxOf { series -> series.dataPoints.minOf { it.second } }
+        } else {
+            0f
+        }
         return StatisticsUiState(
             epochCount = input.epoch,
+            floor = min,
             ceiling = max,
             data = dataSeries
         )
