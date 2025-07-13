@@ -86,7 +86,7 @@ class TrainingControllerImpl(
         ),
         cases = exercises,
         lossFunction = MeanSquaredError,
-        optimizer = GradientDescent(learningRate = 0.01f),
+        optimizer = GradientDescent(learningRate = 0.1f),
         statistics = SequentialStatistics()
     )
     private val _state = MutableStateFlow(TrainingState(
