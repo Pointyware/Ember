@@ -11,7 +11,11 @@ object StatisticsUiStateMapper: Mapper<Snapshot, StatisticsUiState> {
 
     override fun map(input: Snapshot): StatisticsUiState {
         val dataSeries = dataSeriesMapper.map(input.measurements)
-        val max = dataSeries.maxOf { series -> series.dataPoints.maxOf { it.second } }
+        val max = if (dataSeries.isNotEmpty()) {
+            dataSeries.maxOf { series -> series.dataPoints.maxOf { it.second } }
+        } else {
+            10f
+        }
         return StatisticsUiState(
             epochCount = input.epoch,
             ceiling = max,
