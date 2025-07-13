@@ -45,19 +45,20 @@ class SequentialTrainer(
     override val snapshot: StateFlow<Snapshot>
         get() = _snapshot.asStateFlow()
 
+    private var tensorPool = TensorPool()
     private var epoch: Int = 0
     override fun train(iterations: Int) {
 
         // W^L
-        val weightGradients = network.layers.map { Tensor.zeros(*it.weights.dimensions) }
+        val weightGradients = network.layers.map { tensorPool.getObject(it.weights.dimensions) }
         // b^L
-        val biasGradients = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
+        val biasGradients = network.layers.map { tensorPool.getObject(it.biases.dimensions) }
         // x = z^0
         // z^L = W^L \dot a^(L-1) + b^L
         // f(z^L) = a^L
-        val activations = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
+        val activations = network.layers.map { tensorPool.getObject(it.biases.dimensions) }
         // f'(z^L) = a'^L
-        val derivativeActivations = network.layers.map { Tensor.zeros(*it.biases.dimensions) }
+        val derivativeActivations = network.layers.map { tensorPool.getObject(it.biases.dimensions) }
 
         repeat(iterations) { _ ->
             epoch++
