@@ -63,8 +63,8 @@ class SequentialTrainer(
 
             val sampleBatches = optimizer.batch(cases)
             // Create Gradient tensors
-            weightGradients.forEach { it.mapEach { 0.0f } }
-            biasGradients.forEach { it.mapEach { 0.0f } }
+            weightGradients.forEach { it.zero() }
+            biasGradients.forEach { it.zero() }
 
             var aggregateLoss = 0.0
 
@@ -73,8 +73,8 @@ class SequentialTrainer(
                 val caseCount = batch.size.toFloat()
                 batch.forEach { case ->
                     // Zero tensors for activations, derivativeActivations, and errors
-                    activations.forEach { it.mapEach { 0.0f } }
-                    derivativeActivations.forEach { it.mapEach { 0.0f } }
+                    activations.forEach { it.zero() }
+                    derivativeActivations.forEach { it.zero() }
 
                     sampleStatistics?.onSampleStart(case)
                     // Forward Pass - using tensors as gradient receivers
