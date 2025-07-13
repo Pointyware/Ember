@@ -13,4 +13,8 @@ class TensorPool: ObjectPool<Tensor, IntArray>() {
     override fun createObject(key: IntArray): Tensor {
         return Tensor(key)
     }
+
+    override fun onReturn(obj: Tensor) {
+        obj.zero()
+    }
 }

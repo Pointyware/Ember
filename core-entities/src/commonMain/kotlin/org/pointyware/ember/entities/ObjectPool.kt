@@ -11,6 +11,11 @@ abstract class ObjectPool<T: Any, K: Any> {
     abstract fun getKeyFromObject(obj: T): K
     abstract fun createObject(key: K): T
 
+    /**
+     * Gives the pool an opportunity to reset any state before it's potentially reused.
+     */
+    open fun onReturn(obj: T) {}
+
     fun getObject(key: K): T {
         return pool[key]?.let { list ->
             list.removeAt(list.lastIndex).also {

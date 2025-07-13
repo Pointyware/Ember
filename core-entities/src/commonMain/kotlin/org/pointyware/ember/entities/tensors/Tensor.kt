@@ -350,6 +350,10 @@ data class Tensor(
         )})"
     }
 
+    fun zero() {
+        for (i in data.indices) data[i] = 0f
+    }
+
     // endregion
 
     companion object {
