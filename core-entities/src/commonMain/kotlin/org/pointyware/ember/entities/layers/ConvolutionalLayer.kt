@@ -30,4 +30,12 @@ data class ConvolutionalLayer(
             activationFunction.scalarActivation(sum)
         }
     }
+
+    override fun forward(
+        input: Tensor,
+        activation: Tensor,
+        derivative: Tensor
+    ) {
+        TODO("Not yet implemented")
+    }
 }

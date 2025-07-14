@@ -26,6 +26,16 @@ class LinearLayer(
         return output
     }
 
+    override fun forward(
+        input: Tensor,
+        activation: Tensor,
+        derivative: Tensor
+    ) {
+        val preactivation = weights.matrixMultiply(input)
+        preactivation += biases
+        activationFunction.calculate(preactivation, activation, derivative)
+    }
+
     companion object {
         /**
          * Creates a LinearLayer with the specified input and output dimensions.

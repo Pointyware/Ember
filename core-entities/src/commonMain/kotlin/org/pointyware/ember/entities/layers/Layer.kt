@@ -14,4 +14,12 @@ interface Layer {
      * @return The output tensor after calculations.
      */
     fun forward(input: Tensor): Tensor
+
+    /**
+     * Forward pass through the layer.
+     * @param input Either the original network input or the activation from a previous layer.
+     * @param activation The output from this layer.
+     * @param derivative The derivative of the output of this layer for the given input.
+     */
+    fun forward(input: Tensor, activation: Tensor, derivative: Tensor)
 }
