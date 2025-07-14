@@ -12,7 +12,7 @@ class ResidualSequentialNetwork(
     val output: LinearLayer
 ): SequentialNetwork(listOf(hidden1, hidden2, hidden3, output)) {
 
-    private val regularizer: Regularizer = RmsNorm
+    private val regularizer: Regularizer = RmsNorm()
 
     override fun predict(input: Tensor): Tensor {
         val preactivation1 = hidden1.forward(input)

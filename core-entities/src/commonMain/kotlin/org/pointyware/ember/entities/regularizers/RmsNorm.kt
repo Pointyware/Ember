@@ -1,7 +1,10 @@
 package org.pointyware.ember.entities.regularizers
 
 import org.pointyware.ember.entities.tensors.Tensor
+import kotlin.math.pow
 import kotlin.math.sqrt
+
+private const val EPSILON = 1E-8f
 
 /**
  * RmsNorm is typically used within a layer to normalize the activations from a previous
@@ -10,8 +13,9 @@ import kotlin.math.sqrt
  * Normalizers can also be seen as dedicated layers with an activation function that
  * acts on the whole instead of the parts, without weights or biases.
  */
-object RmsNorm: Regularizer {
-    private const val EPSILON = 1E-8f
+class RmsNorm(
+
+): Regularizer {
 
     override fun predict(
         input: Tensor,
