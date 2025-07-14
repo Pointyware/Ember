@@ -1,6 +1,7 @@
 package org.pointyware.ember.entities.regularizers
 
 import org.pointyware.ember.entities.tensors.Tensor
+import kotlin.math.sqrt
 
 /**
  * RmsNorm is typically used within a layer to normalize the activations from a previous
@@ -10,11 +11,16 @@ import org.pointyware.ember.entities.tensors.Tensor
  * acts on the whole instead of the parts, without weights or biases.
  */
 object RmsNorm: Regularizer {
+    private const val EPSILON = 1E-8f
+
     override fun predict(
         input: Tensor,
         output: Tensor
     ) {
-        TODO("Not yet implemented")
+        val sumOfSquares = input.values.asSequence().sumOf { it.toDouble() * it }
+        val rms = sqrt(sumOfSquares / input.totalSize + EPSILON).toFloat()
+
+        output.mapEachFlatIndexed { index, _ -> input[index] / rms }
     }
 
     override fun forward(
@@ -22,7 +28,17 @@ object RmsNorm: Regularizer {
         output: Tensor,
         derivative: Tensor
     ) {
-        TODO("Not yet implemented")
+        val n = input.totalSize.toFloat()
+        val nInverse = 1f / n
+
+        val sumOfSquares = input.values.asSequence().sumOf { it.toDouble() * it }
+        val rmsSquared = sumOfSquares * nInverse + EPSILON
+        val rms = sqrt(rmsSquared).toFloat()
+        val rmsInverse = 1f / rms
+
+        output.mapEachFlatIndexed { index, _ -> input[index] * rmsInverse }
+
+
     }
 
     override fun backward(
