@@ -11,6 +11,8 @@ import org.pointyware.ember.entities.tensors.Tensor
  * fun forward(input: Tensor, residuals: Residuals)
  * fun backward(error: Tensor, residuals: Residuals)
  * fun updateWeights(residuals: Residuals)
+ *
+ * TODO: consider splitting concerns into Learning/TrainingNetwork and InferenceNetwork
  */
 interface Network {
 //
