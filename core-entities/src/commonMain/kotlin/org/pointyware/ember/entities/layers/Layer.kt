@@ -32,4 +32,10 @@ interface Layer {
      * @param derivative The derivative of the output of this layer for the given input.
      */
     fun forward(input: Tensor, activation: Tensor, derivative: Tensor)
+
+    /**
+     * Backward pass through the layer.
+     * TODO: add parameters from SequentialLayer logic
+     */
+    fun backward()
 }

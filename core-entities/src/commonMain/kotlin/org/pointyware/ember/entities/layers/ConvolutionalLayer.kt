@@ -45,4 +45,8 @@ data class ConvolutionalLayer(
     ) {
         TODO("Not yet implemented")
     }
+
+    override fun backward() {
+        TODO("Not yet implemented")
+    }
 }

@@ -53,6 +53,10 @@ class LinearLayer(
         activationFunction.calculate(preactivation, activation, derivative)
     }
 
+    override fun backward() {
+        TODO("Not yet implemented")
+    }
+
     companion object {
         /**
          * Creates a LinearLayer with the specified input and output dimensions.
