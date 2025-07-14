@@ -13,6 +13,14 @@ interface Layer {
      * @param input The input tensor to the layer.
      * @return The output tensor after calculations.
      */
+    fun predict(input: Tensor, output: Tensor)
+
+    /**
+     * Forward pass through the layer.
+     *
+     * @param input The input tensor to the layer.
+     * @return The output tensor after calculations.
+     */
     fun forward(input: Tensor): Tensor
 
     /**

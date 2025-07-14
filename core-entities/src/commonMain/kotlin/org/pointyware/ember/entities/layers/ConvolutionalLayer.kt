@@ -17,6 +17,13 @@ data class ConvolutionalLayer(
     val padding: Int = 0,
     val activationFunction: ScalarActivationFunction
 ): Layer {
+    override fun predict(
+        input: Tensor,
+        output: Tensor
+    ) {
+        TODO("Not yet implemented")
+    }
+
     override fun forward(input: Tensor): Tensor {
         require(input.dimensions.size == 3) { "Input tensor must be 3D (channels, height, width)" }
         val (channels, height, width) = input.dimensions

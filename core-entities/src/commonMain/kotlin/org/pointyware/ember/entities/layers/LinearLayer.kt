@@ -13,14 +13,31 @@ class LinearLayer(
     val weights: Tensor,
     val biases: Tensor,
     val activationFunction: ActivationFunction
-): Layer {
+): PreactivationLayer {
+
+    override fun preactivation(
+        input: Tensor,
+        output: Tensor
+    ) {
+        output += weights.matrixMultiply(input)
+        output += biases
+    }
+
+    override fun predict(
+        input: Tensor,
+        output: Tensor
+    ) {
+        val activation = Tensor(output.dimensions)
+        preactivation(input, activation)
+        output += activationFunction.calculate(activation)
+    }
 
     /**
      * Multiplies the input by the weights and adds the biases. The weighted sum is
      * returned without applying the activation function to allow for optional
      * accumulation of gradients or further processing.
      */
-    override fun forward(input: Tensor): Tensor {
+    override fun forward(input: Tensor): Tensor { // TODO: replace with predict function that doesn't calculate intermediates
         val output = weights.matrixMultiply(input)
         output += biases
         return output
