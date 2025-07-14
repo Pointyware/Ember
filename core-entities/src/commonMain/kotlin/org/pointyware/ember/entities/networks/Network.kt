@@ -36,6 +36,8 @@ interface Network {
 //     * to guarantee all dependencies are ready.
 //     */
 //    fun backwardGraph(): List<Calculation>
+//    fun forward(inputs: List<Tensor>, output: Tensor, calculations: Map<Long, Tensor>)
+//    fun backward(errors: List<Tensor>, output: Tensor, calculations: Map<Long, Tensor>)
 
     /**
      * Takes the input and performs a forward pass through the network, returning the output
@@ -61,7 +63,4 @@ interface Network {
         weightGradients: List<Tensor>,
         biasGradients: List<Tensor>
     )
-
-    fun forward(inputs: List<Tensor>, output: Tensor, calculations: Map<Long, Tensor>)
-    fun backward(errors: List<Tensor>, output: Tensor, calculations: Map<Long, Tensor>)
 }
