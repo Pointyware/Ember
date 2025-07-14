@@ -24,7 +24,7 @@ class SequentialNetworkUnitTest {
                 this[0, 0] = 17.0f
                 this[1, 0] = 19.0f
             },
-            activation = ReLU
+            activationFunction = ReLU
         )
         val layer2 = LinearLayer(
             weights = Tensor.zeros(1, 2).apply {
@@ -34,7 +34,7 @@ class SequentialNetworkUnitTest {
             biases = Tensor.zeros(1, 1).apply {
                 this[0, 0] = 29.0f
             },
-            activation = ReLU
+            activationFunction = ReLU
         )
         val network = SequentialNetwork(listOf(layer1, layer2))
         val input = Tensor.zeros(3, 1).apply {

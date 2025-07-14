@@ -37,7 +37,7 @@ class LinearLayerUnitTest {
                 this[0, 0] = 17.0f
                 this[1, 0] = 19.0f
             },
-            activation = errorOpActivation
+            activationFunction = errorOpActivation
         )
 
         // When the forward method is called with an input tensor

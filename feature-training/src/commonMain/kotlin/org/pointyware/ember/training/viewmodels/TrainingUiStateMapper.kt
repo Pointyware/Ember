@@ -25,7 +25,7 @@ object TrainingUiStateMapper: Mapper<TrainingState, TrainingUiState> {
                         LayerUiState(
                             weights = layer.weights.toListMatrix(),
                             biases = layer.biases.toListVector(),
-                            activationFunction = layer.activation,
+                            activationFunction = layer.activationFunction,
                             colorMap = CenteredColorMap(
                                 magnitudeClip = maxParameter
                             )

@@ -12,7 +12,7 @@ import org.pointyware.ember.entities.tensors.Tensor
 class LinearLayer(
     val weights: Tensor,
     val biases: Tensor,
-    val activation: ActivationFunction
+    val activationFunction: ActivationFunction
 ): Layer {
 
     /**

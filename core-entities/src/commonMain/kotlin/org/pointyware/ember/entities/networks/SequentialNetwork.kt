@@ -13,7 +13,7 @@ open class SequentialNetwork(
 ) : Network {
     override fun predict(input: Tensor): Tensor {
         return layers.fold(input) { acc, layer ->
-            layer.activation.calculate(layer.forward(acc))
+            layer.activationFunction.calculate(layer.forward(acc))
         }
     }
 
@@ -25,8 +25,8 @@ open class SequentialNetwork(
         var networkLayerState = input
         layers.forEachIndexed { layerIndex, layer ->
             val weightedInputs = layer.forward(networkLayerState)
-            val activation = layer.activation.calculate(weightedInputs)
-            val derivativeActivation = layer.activation.derivative(weightedInputs)
+            val activation = layer.activationFunction.calculate(weightedInputs)
+            val derivativeActivation = layer.activationFunction.derivative(weightedInputs)
             activations[layerIndex] += activation
             derivativeActivations[layerIndex] += derivativeActivation
             networkLayerState = activation
