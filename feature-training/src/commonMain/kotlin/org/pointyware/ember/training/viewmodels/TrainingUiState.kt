@@ -1,28 +1,19 @@
 package org.pointyware.ember.training.viewmodels
 
-import org.pointyware.ember.viewmodels.NeuralNetworkUiState
-
 
 /**
- * Represents the state for a network training UI.
- *
- * @param epochsTrained The current epoch number in the training process. 0 indicates no
- * elapsed epochs.
+ * Represents the state for all networks currently being trained.
  */
 data class TrainingUiState(
     val isTraining: Boolean,
-    val epochsTrained: Int,
     val epochsRemaining: Int,
-    val networkState: NeuralNetworkUiState,
-    val statistics: StatisticsUiState
+    val networks: List<NetworkTrainingUiState>
 ) {
     companion object {
         val Default = TrainingUiState(
             isTraining = false,
-            epochsTrained = 0,
             epochsRemaining = 0,
-            networkState = NeuralNetworkUiState(),
-            statistics = StatisticsUiState.Default
+            networks = emptyList()
         )
     }
 }
