@@ -2,7 +2,9 @@ package org.pointyware.ember.training.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -12,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import org.pointyware.ember.training.viewmodels.TrainingUiState
 import org.pointyware.ember.ui.NeuralNetworkView
 
@@ -29,31 +32,37 @@ fun TrainingView(
     modifier: Modifier = Modifier,
 ) {
     Column {
-        Row(
+        LazyColumn(
             modifier = Modifier.weight(1f)
         ) {
-            NeuralNetworkView(
-                state = state.networkState
-            )
+            items(state.networks) { network ->
+                Row(
+                    modifier = Modifier.weight(1f)
+                ) {
+                    NeuralNetworkView(
+                        state = network.networkState
+                    )
 
-            ObjectiveGraph(
-                objectiveFloor = state.statistics.floor,
-                objectiveCeiling = state.statistics.ceiling,
-                objectiveLabel = state.statistics.data.joinToString { it.label },
-                epochCount = state.statistics.epochCount,
-                data = state.statistics.data,
-                modifier = Modifier.weight(1f).fillMaxHeight()
-            )
+                    ObjectiveGraph(
+                        objectiveFloor = network.statistics.floor,
+                        objectiveCeiling = network.statistics.ceiling,
+                        objectiveLabel = network.statistics.data.joinToString { it.label },
+                        epochCount = network.statistics.epochCount,
+                        data = network.statistics.data,
+                        modifier = Modifier.size(300.dp)
+                    )
+                }
+            }
         }
-        // TODO: add training networks list
 
         // Controls:
         Row {
             Text(
                 text = "Training: ${if (state.isTraining) "In Progress" else "Not Started"}"
             )
+            val elapsed = state.networks.sumOf { it.epochsTrained }
             Text(
-                text = "Elapsed Epochs: ${state.epochsTrained}"
+                text = "Elapsed Epochs: $elapsed}"
             )
         }
         Row(
