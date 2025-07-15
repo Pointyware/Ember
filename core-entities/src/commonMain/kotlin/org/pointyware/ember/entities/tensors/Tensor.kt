@@ -198,6 +198,11 @@ data class Tensor(
         return this
     }
 
+    fun assign(other: Tensor) {
+        require(dimensions.contentEquals(other.dimensions)) { "Dimensions must match." }
+        other.data.copyInto(data)
+    }
+
     // region Scalar Arithmetic operations 🧮
 
     /**
