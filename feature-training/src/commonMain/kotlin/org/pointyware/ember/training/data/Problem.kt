@@ -25,6 +25,7 @@ sealed interface Problem {
      */
     data class SpiralClassificationProblem(
         val xMagnitude: Float,
-        val yMagnitude: Float
+        val yMagnitude: Float,
+        val spiralCount: Float
     ): Problem
 }
