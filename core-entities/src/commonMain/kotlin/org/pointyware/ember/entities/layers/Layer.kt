@@ -41,10 +41,12 @@ interface Layer {
      * In order to propagate the error backwards, the activations from the upstream layer `l-1`
      * are provided. These are usually matrix multiplied with the weights
      *
-     * @param priorActivation The activation from the upstream layer.
      * @param error The upstream error tensor.
+     * @param priorActivation The activation from the upstream layer.
      * @param priorActivationDerivative The derivative of the activation from the upstream layer.
-     * @param weightGradient The gradient of the loss with respect to the weights.
+     * @param weightGradient Receives the gradient of the loss with respect to the weights.
+     * @param biasGradient Receives the gradient of the loss with respect to the biases.
+     * @param priorError Receives the error to propagate backwards.
      */
     fun backward(
         error: Tensor,
