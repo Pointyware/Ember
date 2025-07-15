@@ -171,11 +171,12 @@ class TrainingControllerImpl(
     }
 
     override suspend fun test(case: Exercise): Double {
-        // Test the trained network on a single case
-        val output = trainer.network.predict(case.input)
-        val error = trainer.lossFunction.compute(output, case.output)
-        println("Input: ${case.input} -> Error: %.4f Output: $output".format(error))
-        return error
+//        // Test the trained network on a single case
+//        val output = trainer.network.predict(case.input)
+//        val error = trainer.lossFunction.compute(output, case.output)
+//        println("Input: ${case.input} -> Error: %.4f Output: $output".format(error))
+//        return error
+        TODO("Ensure that trainers are working on the same problem set")
     }
 
     override fun reset() {
