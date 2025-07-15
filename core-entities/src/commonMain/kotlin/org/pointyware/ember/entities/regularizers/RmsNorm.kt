@@ -14,7 +14,7 @@ private const val EPSILON = 1E-8f
  * acts on the whole instead of the parts, without weights or biases.
  */
 class RmsNorm(
-
+    val count: Int
 ): Regularizer {
 
     override fun predict(
@@ -27,6 +27,7 @@ class RmsNorm(
         output.mapEachFlatIndexed { index, _ -> input[index] / rms }
     }
 
+    private val jacobian = Tensor.zeros(count, count)
     override fun forward(
         input: Tensor,
         output: Tensor,
@@ -40,9 +41,23 @@ class RmsNorm(
         val rms = sqrt(rmsSquared).toFloat()
         val rmsInverse = 1f / rms
 
+        val jacobianDenominator = nInverse * rmsInverse.pow(3)
+        val nRmsSquared = n * rmsSquared
+        for (i in 0 until count) {
+            val xi = input.data[i]
+            for (j in 0 until count) {
+                jacobian[i, j] = if (i == j) {
+                    (xi * xi + nRmsSquared) * jacobianDenominator
+                } else {
+                    val xj = input.data[j]
+                    (xi * xj) * jacobianDenominator
+                }.toFloat()
+            }
+        }
+
         output.mapEachFlatIndexed { index, _ -> input[index] * rmsInverse }
 
-
+        derivative.assign(jacobian)
     }
 
     override fun backward(
@@ -50,6 +65,6 @@ class RmsNorm(
         activation: Tensor,
         priorError: Tensor
     ) {
-        TODO("Not yet implemented")
+        priorError.assign(jacobian.matrixMultiply(error))
     }
 }
