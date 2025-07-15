@@ -22,7 +22,7 @@ class SpiralExerciseGenerator(
                 Math.PI
             }
             val t = Random.Default.nextFloat()
-            val theta = 2 * Math.PI * t + phaseOffset
+            val theta = 2 * Math.PI * t * problem.spiralCount + phaseOffset
             val x = t * cos(theta) * problem.xMagnitude
             val y = t * sin(theta) * problem.yMagnitude
             Exercise(
