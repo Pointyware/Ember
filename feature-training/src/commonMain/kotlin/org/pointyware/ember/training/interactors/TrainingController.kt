@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.pointyware.ember.entities.activations.ReLU
 import org.pointyware.ember.entities.activations.Sigmoid
 import org.pointyware.ember.entities.loss.MeanSquaredError
 import org.pointyware.ember.entities.networks.SequentialNetwork
@@ -92,6 +93,21 @@ class TrainingControllerImpl(
                         input = 2,
                         3 to Sigmoid,
                         1 to Sigmoid,
+                    ),
+                    cases = exercises,
+                    lossFunction = MeanSquaredError,
+                    optimizer = GradientDescent(learningRate = 0.1f),
+                    statistics = SequentialStatistics()
+                ),
+                snapshot = Snapshot.empty
+            ),
+
+            NetworkTrainingState(
+                trainer = SequentialTrainer(
+                    network = SequentialNetwork.create(
+                        input = 2,
+                        3 to Sigmoid,
+                        1 to ReLU,
                     ),
                     cases = exercises,
                     lossFunction = MeanSquaredError,
