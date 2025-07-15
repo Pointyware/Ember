@@ -45,6 +45,7 @@ fun TrainingView(
                 modifier = Modifier.weight(1f).fillMaxHeight()
             )
         }
+        // TODO: add training networks list
 
         // Controls:
         Row {
