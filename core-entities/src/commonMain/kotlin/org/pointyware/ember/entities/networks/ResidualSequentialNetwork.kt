@@ -90,13 +90,13 @@ class ResidualSequentialNetwork(
         // dCda_4 = error
         val dCda_4 = error
         // dCdz_4 = dCda_4 * da_4dz_4
-        val dCdz_4 = dCda_4 * derivativeActivations[3]
+//        val dCdz_4 = dCda_4 * derivativeActivations[3]
 //        // dCdw_4 = dCdz_4 * dz_4dw_4
 //        val dCdw_4 = dCdz_4 * activations[3]
 //        // dCdb_4 = dCdz_4 * dz_4db_4
 //        val dCdb_4 = dCdz_4
         val normError = Tensor(hidden3.biases.dimensions)
-        val dCdN = output.backward(
+        output.backward(
             dCda_4,
             activations[3], derivativeActivations[3],
             weightGradients[3], biasGradients[3],
@@ -107,6 +107,12 @@ class ResidualSequentialNetwork(
 //        val dCdN = weights[3].transpose().matrixMultiply(dCdz_4)
 //        // dCdg = dCdN * dNdg
 //        val dCdg = dCdn * dNdg // TODO: calculate derivative of normal with respect to gain
+        val hidden3Error = Tensor(hidden2.biases.dimensions)
+        regularizer.backward(
+            normError,
+            norm,
+            hidden3Error
+        )
 
         // dCda_3 = dCdN * dNda_3
 //        val dCda_3 = normDerivative.transpose().matrixMultiply(dCdN)
@@ -116,6 +122,13 @@ class ResidualSequentialNetwork(
 //        val dCdw_3 = dCdz_3 * activations[2]
 //        // dCdb_3 = dCdz_3 * dz_3db_3
 //        val dCdb_3 = dCdz_3
+        val hidden2Error = Tensor(hidden1.biases.dimensions)
+        hidden3.backward(
+            hidden3Error,
+            activations[2], derivativeActivations[2],
+            weightGradients[2], biasGradients[2],
+            hidden2Error
+        )
 
         // dCda_2 = dCdz_3 * dz_3da_2
 //        val dCda_2 = weights[2].transpose().matrixMultiply(dCdz_3)
@@ -125,6 +138,14 @@ class ResidualSequentialNetwork(
 //        val dCdw_2 = dCdz_2 * activations[1]
 //        // dCdb_2 = dCdz_2 * dz_2db_2
 //        val dCdb_2 = dCdz_2
+        val hidden1Error = Tensor(hidden1.biases.dimensions)
+        hidden2.backward(
+            hidden2Error,
+            activations[1], derivativeActivations[1],
+            weightGradients[1], biasGradients[1],
+            hidden1Error
+        )
+        hidden1Error += hidden2Error
 
         // dCda_1 = dCdz_2 * dz_2da_1
 //        val dCda_1 = weights[1].transpose().matrixMultiply(dCdz_2)
@@ -134,5 +155,12 @@ class ResidualSequentialNetwork(
 //        val dCdw_1 = dCdz_1 * input
 //        // dCdb_1 = dCdz_1 * dz_1db_1
 //        val dCdb_1 = dCdz_1
+        val inputError = Tensor.zeros(hidden1.weights.dimensions[0])
+        hidden1.backward(
+            hidden1Error,
+            activations[0], derivativeActivations[0],
+            weightGradients[0], biasGradients[0],
+            inputError
+        )
     }
 }
