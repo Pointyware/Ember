@@ -84,6 +84,8 @@ class TrainingControllerImpl(
 
     private var exercises: List<Exercise> = exerciseRepository.getExercises(Problem.XorProblem(0f, 1))
 
+    private val spiralCases = SpiralExerciseGenerator(Problem.SpiralClassificationProblem(2f, 2f)).generate()
+
     // Create simple NN with 2 inputs, 1 hidden layer, and 1 output.
     private val _state = MutableStateFlow(TrainingState(
         isTraining = false,
@@ -91,12 +93,13 @@ class TrainingControllerImpl(
         networks = listOf(
             NetworkTrainingState(
                 trainer = SequentialTrainer(
-                    network = SequentialNetwork.create(
-                        input = 2,
-                        3 to Sigmoid,
-                        1 to Sigmoid,
-                    ),
-                    cases = exercises,
+                    network = SequentialNetwork(listOf(
+                        LinearLayer.create(2, 8, Sigmoid),
+                        LinearLayer.create(8, 8, Sigmoid),
+                        LinearLayer.create(8, 8, Sigmoid),
+                        LinearLayer.create(8, 1, Sigmoid)
+                    )),
+                    cases = spiralCases,
                     lossFunction = MeanSquaredError,
                     optimizer = GradientDescent(learningRate = 0.1f),
                     statistics = SequentialStatistics()
@@ -112,7 +115,7 @@ class TrainingControllerImpl(
                         hidden3 = LinearLayer.create(8, 8, Sigmoid),
                         output = LinearLayer.create(8, 1, Sigmoid)
                     ),
-                    cases = SpiralExerciseGenerator(Problem.SpiralClassificationProblem(2f, 2f)).generate(),
+                    cases = spiralCases,
                     lossFunction = MeanSquaredError,
                     optimizer = GradientDescent(learningRate = 0.1f),
                     statistics = SequentialStatistics()
