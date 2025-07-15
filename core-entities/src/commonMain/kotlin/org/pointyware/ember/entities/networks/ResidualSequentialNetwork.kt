@@ -61,7 +61,7 @@ class ResidualSequentialNetwork(
 
         // LN = rms(a_1 + a_3)
         val residualSum = activation1 + activation3
-        norm = Tensor.zeros(jacobianSize)
+        norm = Tensor.zeros(jacobianSize, 1)
         normDerivative = Tensor.zeros(jacobianSize, jacobianSize)
         regularizer.forward(residualSum, norm, normDerivative)
 
@@ -98,7 +98,7 @@ class ResidualSequentialNetwork(
         val normError = Tensor(hidden3.biases.dimensions)
         output.backward(
             dCda_4,
-            activations[3], derivativeActivations[3],
+            activations[2], derivativeActivations[2],
             weightGradients[3], biasGradients[3],
             normError
         )
@@ -125,7 +125,7 @@ class ResidualSequentialNetwork(
         val hidden2Error = Tensor(hidden1.biases.dimensions)
         hidden3.backward(
             hidden3Error,
-            activations[2], derivativeActivations[2],
+            activations[1], derivativeActivations[1],
             weightGradients[2], biasGradients[2],
             hidden2Error
         )
@@ -141,7 +141,7 @@ class ResidualSequentialNetwork(
         val hidden1Error = Tensor(hidden1.biases.dimensions)
         hidden2.backward(
             hidden2Error,
-            activations[1], derivativeActivations[1],
+            activations[0], derivativeActivations[0],
             weightGradients[1], biasGradients[1],
             hidden1Error
         )
@@ -158,7 +158,7 @@ class ResidualSequentialNetwork(
         val inputError = Tensor.zeros(hidden1.weights.dimensions[0])
         hidden1.backward(
             hidden1Error,
-            activations[0], derivativeActivations[0],
+            input, Tensor.ones(input.dimensions),
             weightGradients[0], biasGradients[0],
             inputError
         )
