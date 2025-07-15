@@ -44,9 +44,11 @@ class SequentialStatistics(
 
     val errorSamples: MutableList<Pair<Int, Float>> = mutableListOf()
 
+    private var trainedSamples = 0
     private var epochError = 0.0
     override fun onEpochStart(epoch: Int) {
         epochError = 0.0
+        trainedSamples = 0
     }
 
     private var batchError = 0.0
@@ -71,17 +73,16 @@ class SequentialStatistics(
         batchError += sampleError
     }
 
-    private var batchSize = 0
     override fun onBatchEnd(batch: List<Exercise>) {
         epochError += batchError
-        batchSize = batch.size
+        trainedSamples += batch.size
     }
 
     var lastEpoch = 0
     override fun onEpochEnd(epoch: Int) {
         lastEpoch = epoch
-        val averageError = epochError / batchSize
-        accuracy.add(epoch.toFloat() to epochError.toFloat())
+        val averageError = epochError / trainedSamples
+        accuracy.add(epoch.toFloat() to averageError.toFloat())
     }
 
     override fun createSnapshot(): Snapshot {
