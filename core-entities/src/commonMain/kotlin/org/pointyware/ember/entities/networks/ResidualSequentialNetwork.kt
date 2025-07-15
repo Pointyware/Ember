@@ -12,7 +12,8 @@ class ResidualSequentialNetwork(
     val output: LinearLayer
 ): SequentialNetwork(listOf(hidden1, hidden2, hidden3, output)) {
 
-    private val regularizer: Regularizer = RmsNorm(hidden3.biases.dimensions[0])
+    private val jacobianSize = hidden3.biases.dimensions[0]
+    private val regularizer: Regularizer = RmsNorm(jacobianSize)
 
     override fun predict(input: Tensor): Tensor {
         val preactivation1 = hidden1.forward(input)
@@ -60,8 +61,8 @@ class ResidualSequentialNetwork(
 
         // LN = rms(a_1 + a_3)
         val residualSum = activation1 + activation3
-        norm = Tensor(residualSum.dimensions)
-        normDerivative = Tensor(residualSum.dimensions)
+        norm = Tensor.zeros(jacobianSize)
+        normDerivative = Tensor.zeros(jacobianSize, jacobianSize)
         regularizer.forward(residualSum, norm, normDerivative)
 
         // z_4 = W_4 * LN + B_4
