@@ -136,25 +136,27 @@ class TrainingControllerImpl(
                 val epochsBeforeTraining = state.value.epochsRemaining
                 val epochsToTrain = min(epochsBeforeTraining, trainingStep)
 
-                state.value.networks.forEach { networkTrainingState ->
-                    networkTrainingState.trainer.train(iterations = epochsToTrain)
+                val networkStatesPostTraining = state.value.networks.map {
+                    val trained = it.trainer.train(iterations = epochsToTrain)
+                    it.copy(
+                        elapsedEpochs = it.elapsedEpochs + trained,
+                        snapshot = it.trainer.statistics.createSnapshot()
+                    )
                 }
                 val remaining = epochsBeforeTraining - epochsToTrain
+
                 _state.update { currentState ->
-                    val elapsed = currentState.elapsedEpochs + epochsToTrain
                     if (remaining <= 0) {
                         currentState.copy(
                             isTraining = false,
-                            elapsedEpochs = elapsed,
                             epochsRemaining = 0,
-                            snapshot = trainer.statistics.createSnapshot()
+                            networks = networkStatesPostTraining
                         )
                     } else {
                         // Update the state to reflect remaining epochs
                         currentState.copy(
-                            elapsedEpochs = elapsed,
                             epochsRemaining = remaining,
-                            snapshot = trainer.statistics.createSnapshot()
+                            networks = networkStatesPostTraining
                         )
                     }
                 }
