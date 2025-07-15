@@ -155,7 +155,7 @@ class ResidualSequentialNetwork(
 //        val dCdw_1 = dCdz_1 * input
 //        // dCdb_1 = dCdz_1 * dz_1db_1
 //        val dCdb_1 = dCdz_1
-        val inputError = Tensor.zeros(hidden1.weights.dimensions[0])
+        val inputError = Tensor.zeros(input.dimensions[0], 1)
         hidden1.backward(
             hidden1Error,
             input, Tensor.ones(input.dimensions),
