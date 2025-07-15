@@ -86,7 +86,7 @@ class TrainingControllerImpl(
 
     private val spiralCases = SpiralExerciseGenerator(Problem.SpiralClassificationProblem(2f, 2f)).generate()
 
-    private val hiddenWidth = 7
+    private val hiddenWidth = 6
     // Create simple NN with 2 inputs, 1 hidden layer, and 1 output.
     private val _state = MutableStateFlow(TrainingState(
         isTraining = false,
