@@ -248,7 +248,9 @@ data class Tensor(
      * Adds two tensors element-wise. The tensors must have the same shape.
      */
     operator fun plus(other: Tensor): Tensor {
-        require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for addition." }
+        require(dimensions.contentEquals(other.dimensions)) {
+            "Tensors must have the same dimensions for addition. Found [${shapeString}], and [${other.shapeString}]"
+        }
         return zeros(*dimensions).mapEachFlatIndexed { index, _ ->
             this[index] + other[index]
         }
@@ -258,12 +260,16 @@ data class Tensor(
      * Performs in-place addition of this tensor by the given [other] tensor.
      */
     operator fun plusAssign(other: Tensor) {
-        require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for addition." }
+        require(dimensions.contentEquals(other.dimensions)) {
+            "Tensors must have the same dimensions for addition. Found [${shapeString}], and [${other.shapeString}]"
+        }
         mapEachFlatIndexed { index, value -> value + other[index] }
     }
 
     operator fun minus(other: Tensor): Tensor {
-        require(dimensions.contentEquals(other.dimensions)) { "Tensors must have the same dimensions for subtraction." }
+        require(dimensions.contentEquals(other.dimensions)) {
+            "Tensors must have the same dimensions for subtraction. Found [${shapeString}], and [${other.shapeString}]"
+        }
         return zeros(*dimensions).mapEachFlatIndexed { index, _ ->
             this[index] - other[index]
         }
