@@ -81,6 +81,58 @@ class ResidualSequentialNetwork(
         weightGradients: List<Tensor>,
         biasGradients: List<Tensor>
     ) {
-        // d
+        // when calculating normDerivative, it is a Jacobian matrix (dy/dx)^T. To find
+        //   input layer gradient from normalizing layer, multiply error attributed to
+        //   containing layer into transpose of jacobian to find error attributed
+        //   to normalizing layer, which can then be treated the same as other
+        //   errors propagated from simple layers.
+
+        // dCda_4 = error
+        val dCda_4 = error
+        // dCdz_4 = dCda_4 * da_4dz_4
+        val dCdz_4 = dCda_4 * derivativeActivations[3]
+//        // dCdw_4 = dCdz_4 * dz_4dw_4
+//        val dCdw_4 = dCdz_4 * activations[3]
+//        // dCdb_4 = dCdz_4 * dz_4db_4
+//        val dCdb_4 = dCdz_4
+        val normError = Tensor(hidden3.biases.dimensions)
+        val dCdN = output.backward(
+            dCda_4,
+            activations[3], derivativeActivations[3],
+            weightGradients[3], biasGradients[3],
+            normError
+        )
+
+        // dCdN = dCdz_4 * dz_4dN
+//        val dCdN = weights[3].transpose().matrixMultiply(dCdz_4)
+//        // dCdg = dCdN * dNdg
+//        val dCdg = dCdn * dNdg // TODO: calculate derivative of normal with respect to gain
+
+        // dCda_3 = dCdN * dNda_3
+//        val dCda_3 = normDerivative.transpose().matrixMultiply(dCdN)
+        // dCdz_3 = dCda_3 * da_3dz_3
+//        val dCdz_3 = dCda_3 * derivativeActivations[2]
+//        // dCdw_3 = dCdz_3 * dz_3dw_3
+//        val dCdw_3 = dCdz_3 * activations[2]
+//        // dCdb_3 = dCdz_3 * dz_3db_3
+//        val dCdb_3 = dCdz_3
+
+        // dCda_2 = dCdz_3 * dz_3da_2
+//        val dCda_2 = weights[2].transpose().matrixMultiply(dCdz_3)
+        // dCdz_2 = dCda_2 * da_2dz_2
+//        val dCdz_2 = dCda_2 * derivativeActivations[1]
+//        // dCdw_2 = dCdz_2 * dz_2dw_2
+//        val dCdw_2 = dCdz_2 * activations[1]
+//        // dCdb_2 = dCdz_2 * dz_2db_2
+//        val dCdb_2 = dCdz_2
+
+        // dCda_1 = dCdz_2 * dz_2da_1
+//        val dCda_1 = weights[1].transpose().matrixMultiply(dCdz_2)
+        // dCdz_1 = dCda_1 * da_1dz_1
+//        val dCdz_1 = dCda_1 * derivativeActivations[0]
+//        // dCdw_1 = dCdz_1 * dz_1dw_1
+//        val dCdw_1 = dCdz_1 * input
+//        // dCdb_1 = dCdz_1 * dz_1db_1
+//        val dCdb_1 = dCdz_1
     }
 }
