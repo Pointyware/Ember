@@ -8,12 +8,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.pointyware.ember.entities.activations.ReLU
 import org.pointyware.ember.entities.activations.Sigmoid
+import org.pointyware.ember.entities.layers.LinearLayer
 import org.pointyware.ember.entities.loss.MeanSquaredError
+import org.pointyware.ember.entities.networks.ResidualSequentialNetwork
 import org.pointyware.ember.entities.networks.SequentialNetwork
 import org.pointyware.ember.training.data.ExerciseRepository
 import org.pointyware.ember.training.data.Problem
+import org.pointyware.ember.training.data.SpiralExerciseGenerator
 import org.pointyware.ember.training.entities.Exercise
 import org.pointyware.ember.training.entities.SequentialStatistics
 import org.pointyware.ember.training.entities.SequentialTrainer
@@ -104,12 +106,13 @@ class TrainingControllerImpl(
 
             NetworkTrainingState(
                 trainer = SequentialTrainer(
-                    network = SequentialNetwork.create(
-                        input = 2,
-                        3 to Sigmoid,
-                        1 to ReLU,
+                    network = ResidualSequentialNetwork(
+                        hidden1 = LinearLayer.create(2, 8, Sigmoid),
+                        hidden2 = LinearLayer.create(8, 8, Sigmoid),
+                        hidden3 = LinearLayer.create(8, 8, Sigmoid),
+                        output = LinearLayer.create(8, 1, Sigmoid)
                     ),
-                    cases = exercises,
+                    cases = SpiralExerciseGenerator(Problem.SpiralClassificationProblem(2f, 2f)).generate(),
                     lossFunction = MeanSquaredError,
                     optimizer = GradientDescent(learningRate = 0.1f),
                     statistics = SequentialStatistics()
