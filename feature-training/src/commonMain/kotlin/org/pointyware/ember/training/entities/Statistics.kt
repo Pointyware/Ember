@@ -75,17 +75,3 @@ interface LayerStatistics: Statistics {
     fun onActivation()
     fun onGradient()
 }
-
-/**
- *
- */
-data class Measurement(
-    val name: String,
-    val unit: Subject
-) {
-    enum class Subject {
-        Error,
-        Accuracy,
-        Gradient,
-    }
-}
