@@ -25,8 +25,12 @@ import kotlin.math.min
  */
 data class TrainingState(
     val isTraining: Boolean = false,
-    val elapsedEpochs: Int = 0,
     val epochsRemaining: Int = 0,
+    val networks: List<NetworkTrainingState> = emptyList(),
+)
+
+data class NetworkTrainingState(
+    val elapsedEpochs: Int = 0,
     val trainer: SequentialTrainer,
     val snapshot: Snapshot
 ) {
@@ -78,22 +82,25 @@ class TrainingControllerImpl(
     private var exercises: List<Exercise> = exerciseRepository.getExercises(Problem.XorProblem(0f, 1))
 
     // Create simple NN with 2 inputs, 1 hidden layer, and 1 output.
-    val trainer = SequentialTrainer(
-        network = SequentialNetwork.create(
-            input = 2,
-            3 to Sigmoid,
-            1 to Sigmoid,
-        ),
-        cases = exercises,
-        lossFunction = MeanSquaredError,
-        optimizer = GradientDescent(learningRate = 0.1f),
-        statistics = SequentialStatistics()
-    )
     private val _state = MutableStateFlow(TrainingState(
         isTraining = false,
         epochsRemaining = 0,
-        trainer = trainer,
-        snapshot = Snapshot.empty
+        networks = listOf(
+            NetworkTrainingState(
+                trainer = SequentialTrainer(
+                    network = SequentialNetwork.create(
+                        input = 2,
+                        3 to Sigmoid,
+                        1 to Sigmoid,
+                    ),
+                    cases = exercises,
+                    lossFunction = MeanSquaredError,
+                    optimizer = GradientDescent(learningRate = 0.1f),
+                    statistics = SequentialStatistics()
+                ),
+                snapshot = Snapshot.empty
+            )
+        )
     ))
     override val state: StateFlow<TrainingState>
         get() = _state.asStateFlow()
@@ -128,7 +135,10 @@ class TrainingControllerImpl(
             while (state.value.isTraining) {
                 val epochsBeforeTraining = state.value.epochsRemaining
                 val epochsToTrain = min(epochsBeforeTraining, trainingStep)
-                trainer.train(iterations = epochsToTrain)
+
+                state.value.networks.forEach { networkTrainingState ->
+                    networkTrainingState.trainer.train(iterations = epochsToTrain)
+                }
                 val remaining = epochsBeforeTraining - epochsToTrain
                 _state.update { currentState ->
                     val elapsed = currentState.elapsedEpochs + epochsToTrain
