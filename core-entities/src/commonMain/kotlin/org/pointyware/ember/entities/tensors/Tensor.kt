@@ -386,6 +386,10 @@ data class Tensor(
             return Tensor(dimensions)
         }
 
+        fun ones(dimensions: IntArray): Tensor {
+            return Tensor(dimensions).mapEach { 1.0f }
+        }
+
         /**
          * Creates a tensor with the specified dimensions, initialized with random values.
          *
