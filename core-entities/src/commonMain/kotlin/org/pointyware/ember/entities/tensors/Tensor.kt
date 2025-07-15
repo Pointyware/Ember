@@ -199,7 +199,7 @@ data class Tensor(
     }
 
     fun assign(other: Tensor) {
-        require(dimensions.contentEquals(other.dimensions)) { "Dimensions must match." }
+        require(dimensions.contentEquals(other.dimensions)) { "Dimensions must match. Found [${shapeString}], and [${other.shapeString}]" }
         other.data.copyInto(data)
     }
 
