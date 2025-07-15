@@ -27,5 +27,5 @@ interface Trainer {
      *
      * @param iterations The number of epochs to train the model for. Defaults to 1.
      */
-    fun train(iterations: Int = 1) // TODO: add snapshot receiver
+    fun train(iterations: Int = 1): Int
 }

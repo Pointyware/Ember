@@ -25,7 +25,7 @@ class OrganicTrainer(
     override val snapshot: StateFlow<Snapshot>
         get() = TODO("Not yet implemented")
 
-    override fun train(iterations: Int) {
+    override fun train(iterations: Int): Int {
         TODO("Not yet implemented")
     }
 

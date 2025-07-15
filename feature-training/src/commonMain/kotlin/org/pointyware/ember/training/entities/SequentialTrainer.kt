@@ -47,7 +47,7 @@ class SequentialTrainer(
 
     private var tensorPool = TensorPool()
     private var epoch: Int = 0
-    override fun train(iterations: Int) {
+    override fun train(iterations: Int): Int {
 
         // W^L
         val weightGradients = network.layers.map { tensorPool.getObject(it.weights.dimensions) }
@@ -119,5 +119,7 @@ class SequentialTrainer(
 
             _snapshot.value = statistics.createSnapshot()
         }
+
+        return iterations // TODO: allow halting training early on convergence
     }
 }
