@@ -19,6 +19,8 @@ import org.pointyware.ember.training.entities.optimizers.Optimizer
  *   while others may sample a subset of cases.
  * **Iterations** - Some optimizers may update parameters multiple times per epoch,
  *   while others may only update once.
+ *
+ *   @param acceptableError Once the network reaches this level, it will stop training.
  */
 class SequentialTrainer(
     val network: SequentialNetwork,
@@ -26,7 +28,11 @@ class SequentialTrainer(
     val lossFunction: LossFunction,
     val optimizer: Optimizer,
     val statistics: Statistics,
+    private val acceptableError: Double = 1E-5
 ): Trainer {
+
+    private val errorMeasure = statistics.measurements.find { it.unit == Measurement.Subject.Error }
+    private var done = false
 
     constructor(
         network: SequentialNetwork,
@@ -48,6 +54,7 @@ class SequentialTrainer(
     private var tensorPool = TensorPool()
     private var epoch: Int = 0
     override fun train(iterations: Int): Int {
+        if (done) return 0
 
         // W^L
         val weightGradients = network.layers.map { tensorPool.getObject(it.weights.dimensions) }
@@ -60,7 +67,8 @@ class SequentialTrainer(
         // f'(z^L) = a'^L
         val derivativeActivations = network.layers.map { tensorPool.getObject(it.biases.dimensions) }
 
-        repeat(iterations) { _ ->
+        var latestSnapshot = snapshot.value
+        repeat(iterations) { index ->
             epoch++
             epochStatistics?.onEpochStart(epoch)
 
@@ -117,7 +125,13 @@ class SequentialTrainer(
             }
             epochStatistics?.onEpochEnd(epoch)
 
-            _snapshot.value = statistics.createSnapshot()
+            latestSnapshot = statistics.createSnapshot()
+            _snapshot.value = latestSnapshot
+
+            if (latestSnapshot.measurements[errorMeasure]!!.last().second < acceptableError) {
+                done = true
+                return index + 1
+            }
         }
 
         return iterations // TODO: allow halting training early on convergence
