@@ -84,9 +84,11 @@ class TrainingControllerImpl(
 
     private var exercises: List<Exercise> = exerciseRepository.getExercises(Problem.XorProblem(0f, 1))
 
-    private val spiralCases = SpiralExerciseGenerator(Problem.SpiralClassificationProblem(2f, 2f)).generate()
+    private val spiralCases = SpiralExerciseGenerator(Problem.SpiralClassificationProblem(
+        2f, 2f, 2f
+    )).generate()
 
-    private val hiddenWidth = 6
+    private val hiddenWidth = 3
     // Create simple NN with 2 inputs, 1 hidden layer, and 1 output.
     private val _state = MutableStateFlow(TrainingState(
         isTraining = false,
