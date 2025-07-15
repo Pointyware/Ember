@@ -62,7 +62,7 @@ fun TrainingView(
             )
             val elapsed = state.networks.sumOf { it.epochsTrained }
             Text(
-                text = "Elapsed Epochs: $elapsed}"
+                text = "Elapsed Epochs: $elapsed"
             )
         }
         Row(
