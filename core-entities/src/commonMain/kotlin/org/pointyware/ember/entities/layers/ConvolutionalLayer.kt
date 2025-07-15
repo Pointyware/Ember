@@ -46,7 +46,14 @@ data class ConvolutionalLayer(
         TODO("Not yet implemented")
     }
 
-    override fun backward() {
+    override fun backward(
+        error: Tensor,
+        priorActivation: Tensor,
+        priorActivationDerivative: Tensor,
+        weightGradient: Tensor,
+        biasGradient: Tensor,
+        priorError: Tensor,
+    ) {
         TODO("Not yet implemented")
     }
 }

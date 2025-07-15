@@ -53,8 +53,23 @@ class LinearLayer(
         activationFunction.calculate(preactivation, activation, derivative)
     }
 
-    override fun backward() {
-        TODO("Not yet implemented")
+    override fun backward(
+        error: Tensor,
+        priorActivation: Tensor,
+        priorActivationDerivative: Tensor,
+        weightGradient: Tensor,
+        biasGradient: Tensor,
+        priorError: Tensor,
+    ) {
+        weightGradient += error.matrixMultiply(priorActivation.transpose())
+        biasGradient += error
+
+        // Propagate the error to the previous layer
+        // ∂^l-1 = (f^l-1)' \dot (W^l)^T \dot; ∂^l
+        priorError.assign(
+            priorActivationDerivative *
+                    weights.transpose().matrixMultiply(error)
+        )
     }
 
     companion object {

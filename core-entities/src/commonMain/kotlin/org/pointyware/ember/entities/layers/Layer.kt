@@ -34,8 +34,24 @@ interface Layer {
     fun forward(input: Tensor, activation: Tensor, derivative: Tensor)
 
     /**
-     * Backward pass through the layer.
-     * TODO: add parameters from SequentialLayer logic
+     * Performs the layer-specific operations of the back pass. The layer takes in the
+     * error attributed to it, calculated at `l+1`, the downstream layer (for hidden layers),
+     * or the loss function (for output layers).
+     *
+     * In order to propagate the error backwards, the activations from the upstream layer `l-1`
+     * are provided. These are usually matrix multiplied with the weights
+     *
+     * @param priorActivation The activation from the upstream layer.
+     * @param error The upstream error tensor.
+     * @param priorActivationDerivative The derivative of the activation from the upstream layer.
+     * @param weightGradient The gradient of the loss with respect to the weights.
      */
-    fun backward()
+    fun backward(
+        error: Tensor,
+        priorActivation: Tensor,
+        priorActivationDerivative: Tensor,
+        weightGradient: Tensor,
+        biasGradient: Tensor,
+        priorError: Tensor,
+    )
 }
