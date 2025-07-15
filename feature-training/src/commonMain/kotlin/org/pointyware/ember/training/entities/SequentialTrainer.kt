@@ -28,7 +28,7 @@ class SequentialTrainer(
     val lossFunction: LossFunction,
     val optimizer: Optimizer,
     val statistics: Statistics,
-    private val acceptableError: Double = 1E-5
+    private val acceptableError: Double = .001
 ): Trainer {
 
     private val errorMeasure = statistics.measurements.find { it.unit == Measurement.Subject.Error }
