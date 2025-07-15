@@ -86,6 +86,7 @@ class TrainingControllerImpl(
 
     private val spiralCases = SpiralExerciseGenerator(Problem.SpiralClassificationProblem(2f, 2f)).generate()
 
+    private val hiddenWidth = 7
     // Create simple NN with 2 inputs, 1 hidden layer, and 1 output.
     private val _state = MutableStateFlow(TrainingState(
         isTraining = false,
@@ -94,10 +95,10 @@ class TrainingControllerImpl(
             NetworkTrainingState(
                 trainer = SequentialTrainer(
                     network = SequentialNetwork(listOf(
-                        LinearLayer.create(2, 8, Sigmoid),
-                        LinearLayer.create(8, 8, Sigmoid),
-                        LinearLayer.create(8, 8, Sigmoid),
-                        LinearLayer.create(8, 1, Sigmoid)
+                        LinearLayer.create(2, hiddenWidth, Sigmoid),
+                        LinearLayer.create(hiddenWidth, hiddenWidth, Sigmoid),
+                        LinearLayer.create(hiddenWidth, hiddenWidth, Sigmoid),
+                        LinearLayer.create(hiddenWidth, 1, Sigmoid)
                     )),
                     cases = spiralCases,
                     lossFunction = MeanSquaredError,
@@ -110,10 +111,10 @@ class TrainingControllerImpl(
             NetworkTrainingState(
                 trainer = SequentialTrainer(
                     network = ResidualSequentialNetwork(
-                        hidden1 = LinearLayer.create(2, 8, Sigmoid),
-                        hidden2 = LinearLayer.create(8, 8, Sigmoid),
-                        hidden3 = LinearLayer.create(8, 8, Sigmoid),
-                        output = LinearLayer.create(8, 1, Sigmoid)
+                        hidden1 = LinearLayer.create(2, hiddenWidth, Sigmoid),
+                        hidden2 = LinearLayer.create(hiddenWidth, hiddenWidth, Sigmoid),
+                        hidden3 = LinearLayer.create(hiddenWidth, hiddenWidth, Sigmoid),
+                        output = LinearLayer.create(hiddenWidth, 1, Sigmoid)
                     ),
                     cases = spiralCases,
                     lossFunction = MeanSquaredError,
