@@ -16,7 +16,7 @@ interface Statistics {
     fun measurementMaximum(key: Measurement): Float
     val measurementsMax: Float
     val epochCount: Int
-    fun data(key: Measurement): List<Pair<Float, Float>>
+    fun data(key: Measurement): List<Pair<Float, Float>> // TODO: replace with analyzed statistics to prevent UI data processing
 
     /**
      * Collects all measures into a single immutable object

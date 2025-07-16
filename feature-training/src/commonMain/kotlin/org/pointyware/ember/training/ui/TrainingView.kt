@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -32,7 +33,7 @@ fun TrainingView(
     modifier: Modifier = Modifier,
 ) {
     Column {
-        LazyColumn(
+        LazyRow(
             modifier = Modifier.weight(1f)
         ) {
             items(state.networks) { network ->

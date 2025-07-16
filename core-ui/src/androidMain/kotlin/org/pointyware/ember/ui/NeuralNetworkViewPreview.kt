@@ -3,7 +3,7 @@ package org.pointyware.ember.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import org.pointyware.ember.entities.activations.ReLU
-import org.pointyware.ember.entities.activations.Sigmoid
+import org.pointyware.ember.entities.activations.Logistic
 import org.pointyware.ember.ui.theme.EmberTheme
 import org.pointyware.ember.viewmodels.CenteredColorMap
 import org.pointyware.ember.viewmodels.LayerUiState
@@ -30,7 +30,7 @@ private fun NeuralNetworkViewPreview() {
                         colorMap = consistentScale,
                     ),
                     LayerUiState(
-                        activationFunction = Sigmoid,
+                        activationFunction = Logistic,
                         weights = listOf(
                             listOf(-0.7f, 0.8f),
                             listOf(-0.1f, -0.2f)
@@ -39,7 +39,7 @@ private fun NeuralNetworkViewPreview() {
                         colorMap = consistentScale,
                     ),
                     LayerUiState(
-                        activationFunction = Sigmoid,
+                        activationFunction = Logistic,
                         weights = listOf(
                             listOf(-0.7f, 0.8f),
                             listOf(-0.1f, -0.2f)

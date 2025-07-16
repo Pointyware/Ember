@@ -7,7 +7,7 @@ import kotlin.math.exp
  * Logistic function, also known as "the" sigmoid function; although,
  * a sigmoid function is any function that has an "S" shaped curve.
  */
-object Sigmoid: ScalarActivationFunction {
+object Logistic: ScalarActivationFunction {
     override fun scalarActivation(input: Float): Float {
         // Sigmoid function: f(x) = 1 / (1 + exp(-x))
         return 1.0f / (1.0f + exp(-input))
