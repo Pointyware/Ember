@@ -32,7 +32,7 @@ class SequentialTrainer(
     private val acceptableError: Double = .001
 ): Trainer {
 
-    private val errorMeasure = statistics.measurements.find { it.unit == Measurement.Subject.Error }
+    private val errorMeasure = Measurement.Loss
     private var done = false
 
     constructor(
