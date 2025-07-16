@@ -7,6 +7,7 @@ import org.pointyware.ember.entities.loss.LossFunction
 import org.pointyware.ember.entities.networks.SequentialNetwork
 import org.pointyware.ember.entities.tensors.TensorPool
 import org.pointyware.ember.training.entities.optimizers.Optimizer
+import org.pointyware.ember.training.entities.optimizers.StatisticalOptimizer
 
 /**
  * A trainer for a [SequentialNetwork] using a list of [Exercise] instances to evaluate
@@ -38,8 +39,8 @@ class SequentialTrainer(
         network: SequentialNetwork,
         cases: List<Exercise>,
         lossFunction: LossFunction,
-        optimizer: Optimizer,
-    ): this(network, cases, lossFunction, optimizer, optimizer as Statistics)
+        optimizer: StatisticalOptimizer,
+    ): this(network, cases, lossFunction, optimizer, optimizer)
 
     private var epochStatistics: EpochStatistics? = statistics as? EpochStatistics
     private var batchStatistics: BatchStatistics? = statistics as? BatchStatistics
