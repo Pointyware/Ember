@@ -19,6 +19,7 @@ object TrainingUiStateMapper: Mapper<TrainingState, TrainingUiState> {
 
         return TrainingUiState(
             epochsRemaining = input.epochsRemaining,
+            epochsElapsed = input.epochsElapsed,
             isTraining = input.isTraining,
             networks = input.networks.map { network ->
                 NetworkTrainingUiState(

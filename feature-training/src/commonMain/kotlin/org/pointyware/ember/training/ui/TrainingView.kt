@@ -61,7 +61,7 @@ fun TrainingView(
             Text(
                 text = "Training: ${if (state.isTraining) "In Progress" else "Not Started"}"
             )
-            val elapsed = state.networks.sumOf { it.epochsTrained }
+            val elapsed = state.epochsElapsed
             Text(
                 text = "Elapsed Epochs: $elapsed"
             )
