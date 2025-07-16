@@ -19,8 +19,8 @@ object DefaultColorMap : ColorMap {
 data class CenteredColorMap(
     val magnitudeClip: Float = 1.0f,
     val centerColor: Color = Color.Black,
-    val positiveColor: Color = Color.Green,
-    val negativeColor: Color = Color.Red,
+    val positiveColor: Color = Color.Yellow,
+    val negativeColor: Color = Color.Blue,
 ): ColorMap {
     init {
         require(magnitudeClip > 0) { "Magnitude clip must be greater than 0" }
