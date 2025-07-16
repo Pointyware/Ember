@@ -141,6 +141,17 @@ graph
     :app-android --> :app-shared
     :app-desktop --> :app-shared
     end
+    apps --> features
 
+    subgraph features
+    :feature-training --> :feature-simulation
+    :feature-simulation-training --> :feature-simulation
+    :feature-training
+    end
+    features --> core
+
+    subgraph core
+    :core-ui --> :core-viewmodels --> :core-interactors --> :core-data --> :core-entities --> :core-common
+    end
 ```
 
