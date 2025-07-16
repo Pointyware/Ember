@@ -7,12 +7,14 @@ package org.pointyware.ember.training.viewmodels
 data class TrainingUiState(
     val isTraining: Boolean,
     val epochsRemaining: Int,
+    val epochsElapsed: Int,
     val networks: List<NetworkTrainingUiState>
 ) {
     companion object {
         val Default = TrainingUiState(
             isTraining = false,
             epochsRemaining = 0,
+            epochsElapsed = 0,
             networks = emptyList()
         )
     }
