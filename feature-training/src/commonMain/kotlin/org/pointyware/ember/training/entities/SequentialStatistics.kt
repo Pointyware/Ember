@@ -11,7 +11,7 @@ private const val DEFAULT_MAX = 10f
 class SequentialStatistics(
 ): EpochStatistics, BatchStatistics, SampleStatistics {
 
-    private val errorMeasure = Measurement("Error", Measurement.Subject.Error)
+    private val errorMeasure = Measurement.Loss
     private val accuracy = mutableListOf<Pair<Float, Float>>()
     override val measurements: List<Measurement>
         get() = listOf(errorMeasure)
