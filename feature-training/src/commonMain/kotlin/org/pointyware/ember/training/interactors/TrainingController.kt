@@ -29,6 +29,7 @@ import kotlin.math.min
 data class TrainingState(
     val isTraining: Boolean = false,
     val epochsRemaining: Int = 0,
+    val epochsElapsed: Int = 0,
     val networks: List<NetworkTrainingState> = emptyList(),
 )
 
@@ -168,19 +169,23 @@ class TrainingControllerImpl(
                         snapshot = it.trainer.statistics.createSnapshot()
                     )
                 }
+
                 val remaining = epochsBeforeTraining - epochsToTrain
+                val totalEpochs = state.value.epochsElapsed + epochsToTrain
 
                 _state.update { currentState ->
                     if (remaining <= 0) {
                         currentState.copy(
                             isTraining = false,
                             epochsRemaining = 0,
+                            epochsElapsed = totalEpochs,
                             networks = networkStatesPostTraining
                         )
                     } else {
                         // Update the state to reflect remaining epochs
                         currentState.copy(
                             epochsRemaining = remaining,
+                            epochsElapsed = totalEpochs,
                             networks = networkStatesPostTraining
                         )
                     }
