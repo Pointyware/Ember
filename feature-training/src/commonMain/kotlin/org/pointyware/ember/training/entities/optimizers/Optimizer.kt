@@ -3,6 +3,7 @@ package org.pointyware.ember.training.entities.optimizers
 import org.pointyware.ember.entities.layers.Layer
 import org.pointyware.ember.entities.tensors.Tensor
 import org.pointyware.ember.training.entities.Exercise
+import org.pointyware.ember.training.entities.Statistics
 
 /**
  * A [Trainer][org.pointyware.ember.training.entities.Trainer] will track the activations
@@ -25,3 +26,5 @@ interface Optimizer {
      */
     fun update(layer: Layer, weightGradients: Tensor, biasGradients: Tensor)
 }
+
+interface StatisticalOptimizer: Statistics, Optimizer
