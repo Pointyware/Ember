@@ -37,10 +37,25 @@ class DataSeriesMapper(
         var id = 0
         return input.map { (measurement, data) ->
             DataSeries(
-                label = measurement.name,
+                label = MeasurementLabelMapper.map(measurement),
                 color = id++.toLong(),
                 dataPoints = data,
             )
+        }
+    }
+}
+
+object MeasurementLabelMapper: Mapper<Measurement, String> {
+    override fun map(input: Measurement): String {
+        return when (input) {
+            Measurement.Loss -> "Loss"
+            Measurement.Accuracy -> "Accuracy"
+            Measurement.Activation -> "Activation"
+            Measurement.AllParameters -> "All Parameters"
+            Measurement.Derivative -> "Derivative"
+            Measurement.Gradient -> "Gradient"
+            Measurement.Preactivation -> "Preactivation"
+            Measurement.Weights -> "Weights"
         }
     }
 }
