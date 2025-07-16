@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.pointyware.ember.entities.activations.Sigmoid
+import org.pointyware.ember.entities.activations.Logistic
 import org.pointyware.ember.entities.layers.LinearLayer
 import org.pointyware.ember.entities.loss.MeanSquaredError
 import org.pointyware.ember.entities.networks.ResidualSequentialNetwork
@@ -85,7 +85,7 @@ class TrainingControllerImpl(
     private var exercises: List<Exercise> = exerciseRepository.getExercises(Problem.XorProblem(0f, 1))
 
     private val spiralCases = SpiralExerciseGenerator(Problem.SpiralClassificationProblem(
-        2f, 2f, 2f
+        2f, 2f, 8f
     )).generate()
 
     private val hiddenWidth = 8
@@ -97,10 +97,10 @@ class TrainingControllerImpl(
             NetworkTrainingState(
                 trainer = SequentialTrainer(
                     network = SequentialNetwork(listOf(
-                        LinearLayer.create(2, hiddenWidth, Sigmoid),
-                        LinearLayer.create(hiddenWidth, hiddenWidth, Sigmoid),
-                        LinearLayer.create(hiddenWidth, hiddenWidth, Sigmoid),
-                        LinearLayer.create(hiddenWidth, 1, Sigmoid)
+                        LinearLayer.create(2, hiddenWidth, Logistic),
+                        LinearLayer.create(hiddenWidth, hiddenWidth, Logistic),
+                        LinearLayer.create(hiddenWidth, hiddenWidth, Logistic),
+                        LinearLayer.create(hiddenWidth, 1, Logistic)
                     )),
                     cases = spiralCases,
                     lossFunction = MeanSquaredError,
@@ -113,10 +113,10 @@ class TrainingControllerImpl(
             NetworkTrainingState(
                 trainer = SequentialTrainer(
                     network = ResidualSequentialNetwork(
-                        hidden1 = LinearLayer.create(2, hiddenWidth, Sigmoid),
-                        hidden2 = LinearLayer.create(hiddenWidth, hiddenWidth, Sigmoid),
-                        hidden3 = LinearLayer.create(hiddenWidth, hiddenWidth, Sigmoid),
-                        output = LinearLayer.create(hiddenWidth, 1, Sigmoid)
+                        hidden1 = LinearLayer.create(2, hiddenWidth, Logistic),
+                        hidden2 = LinearLayer.create(hiddenWidth, hiddenWidth, Logistic),
+                        hidden3 = LinearLayer.create(hiddenWidth, hiddenWidth, Logistic),
+                        output = LinearLayer.create(hiddenWidth, 1, Logistic)
                     ),
                     cases = spiralCases,
                     lossFunction = MeanSquaredError,

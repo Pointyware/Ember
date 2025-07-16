@@ -9,7 +9,7 @@ import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
 import org.pointyware.ember.entities.activations.ActivationFunction
 import org.pointyware.ember.entities.activations.ReLU
-import org.pointyware.ember.entities.activations.Sigmoid
+import org.pointyware.ember.entities.activations.Logistic
 
 enum class ActivationFunctionIndicator(
     val displayName: StringResource,
@@ -38,7 +38,7 @@ fun ActivationFunctionIndicatorView(
     value: ActivationFunction
 ) {
     val indicator: ActivationFunctionIndicator = remember(value) { when (value) {
-        is Sigmoid -> ActivationFunctionIndicator.SIGMOID
+        is Logistic -> ActivationFunctionIndicator.SIGMOID
         is ReLU -> ActivationFunctionIndicator.RELU
         else -> ActivationFunctionIndicator.UNKNOWN
     } }
