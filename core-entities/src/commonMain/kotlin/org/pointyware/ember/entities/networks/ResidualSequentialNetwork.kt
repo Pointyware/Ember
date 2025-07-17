@@ -5,14 +5,27 @@ import org.pointyware.ember.entities.regularizers.Regularizer
 import org.pointyware.ember.entities.regularizers.RmsNorm
 import org.pointyware.ember.entities.tensors.Tensor
 
+/**
+ * Takes in a list of layers and allows splitting output layer into two
+ * and joining them back together at a later layer.
+ */
 class ResidualSequentialNetwork(
-    val hidden1: LinearLayer,
-    val hidden2: LinearLayer,
-    val hidden3: LinearLayer,
-    val output: LinearLayer
-): SequentialNetwork(listOf(hidden1, hidden2, hidden3, output)) {
+    layers: List<LinearLayer>,
+    val residualSplit: Int,
+    val residualJoin: Int
+): SequentialNetwork(layers) {
 
-    private val jacobianSize = hidden3.biases.dimensions[0]
+    init {
+        require(residualSplit < residualJoin) {
+            "Residual split ($residualSplit) must be less than residual join ($residualJoin)"
+        }
+        require(residualJoin < layers.size) {
+            "Residual join ($residualJoin) must be less than number of layers (${layers.size})"
+        }
+    }
+
+    private lateinit var residualValue: Tensor
+    private val jacobianSize = layers[residualSplit].biases.dimensions[0]
     private val regularizer: Regularizer = RmsNorm(jacobianSize)
 
     override fun predict(input: Tensor): Tensor {
