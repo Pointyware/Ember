@@ -114,10 +114,12 @@ class TrainingControllerImpl(
             NetworkTrainingState(
                 trainer = SequentialTrainer(
                     network = ResidualSequentialNetwork(
-                        hidden1 = LinearLayer.create(2, hiddenWidth, Logistic),
-                        hidden2 = LinearLayer.create(hiddenWidth, hiddenWidth, Logistic),
-                        hidden3 = LinearLayer.create(hiddenWidth, hiddenWidth, Logistic),
-                        output = LinearLayer.create(hiddenWidth, 1, Logistic)
+                        listOf(
+                            LinearLayer.create(2, hiddenWidth, Logistic),
+                            LinearLayer.create(hiddenWidth, hiddenWidth, Logistic),
+                            LinearLayer.create(hiddenWidth, hiddenWidth, Logistic),
+                            LinearLayer.create(hiddenWidth, 1, Logistic),
+                        ), 0, 2
                     ),
                     cases = spiralCases,
                     lossFunction = MeanSquaredError,
