@@ -12,12 +12,12 @@ object StatisticsUiStateMapper: Mapper<Snapshot, StatisticsUiState> {
     override fun map(input: Snapshot): StatisticsUiState {
         val dataSeries = dataSeriesMapper.map(input.measurements)
         val max = if (dataSeries.isNotEmpty()) {
-            dataSeries.maxOf { series -> series.dataPoints.maxOf { it.second } }
+            dataSeries.maxOf { series -> if (series.dataPoints.isNotEmpty()) series.dataPoints.maxOf { it.second } else 0f }
         } else {
             10f
         }
         val min = if (dataSeries.isNotEmpty()) {
-            dataSeries.maxOf { series -> series.dataPoints.minOf { it.second } }
+            dataSeries.maxOf { series -> if (series.dataPoints.isNotEmpty()) series.dataPoints.minOf { it.second } else 0f }
         } else {
             0f
         }
