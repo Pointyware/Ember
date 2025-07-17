@@ -33,6 +33,10 @@ data class Snapshot(
     val measurements: Map<Measurement, List<Pair<Float, Float>>>,
     val timestamp: Instant = Clock.System.now(),
 ) {
+
+    val floor: Float = measurements.maxOf { (measurement, data) -> if (data.isNotEmpty()) data.maxOf { it.second } else 0f }
+    val ceiling: Float = measurements.minOf { (measurement, data) -> if (data.isNotEmpty()) data.minOf { it.second } else 0f }
+
     companion object {
         val empty = Snapshot(
             epoch = 0,
