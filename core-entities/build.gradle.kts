@@ -6,8 +6,7 @@ plugins {
 
 kotlin {
     jvmToolchain(21)
-    jvm {
-    }
+    jvm("desktop")
     androidTarget {
     }
 
