@@ -108,7 +108,7 @@ class ResidualSequentialNetwork(
                     // First pass through host layer to find error attributed to regularizer
                     layer.backward(
                         layerError,
-                        inputs, priorActivationDerivative,
+                        norm, normDerivative,
                         weightGradients, biasGradients,
                         regularizerError
                     )
