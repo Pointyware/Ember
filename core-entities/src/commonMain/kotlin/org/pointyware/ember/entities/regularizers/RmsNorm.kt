@@ -62,9 +62,18 @@ class RmsNorm(
 
     override fun backward(
         error: Tensor,
-        activation: Tensor,
+        priorActivation: Tensor,
+        priorActivationDerivative: Tensor,
         priorError: Tensor
     ) {
-        priorError.assign(jacobian.matrixMultiply(error))
+        // when calculating normDerivative, it is a Jacobian matrix. To find
+        //   input layer error from normalizing layer, multiply error attributed to
+        //   containing layer into transpose of jacobian to find error attributed
+        //   to normalizing layer, which can then be treated the same as other
+        //   errors propagated from simple, dense layers.
+        priorError.assign(
+            priorActivationDerivative *
+                    jacobian.transpose().matrixMultiply(error)
+        )
     }
 }

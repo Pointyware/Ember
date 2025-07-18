@@ -31,9 +31,16 @@ interface Regularizer {
     /**
      * @param error The error gradient attributed to this operation or pseudo-layer from
      * the upstream gradient.
-     * @param activation The original activation tensor produced in the forward pass.
+     * @param priorActivation The activation that fed into this regularizer.
+     * @param priorActivationDerivative The derivative of the activation that fed into this
+     * regularizer.
      * @param priorError The output tensor that receives the computation of this back pass
      * for the downstream gradient.
      */
-    fun backward(error: Tensor, activation: Tensor, priorError: Tensor)
+    fun backward(
+        error: Tensor,
+        priorActivation: Tensor,
+        priorActivationDerivative: Tensor,
+        priorError: Tensor
+    )
 }
