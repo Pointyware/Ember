@@ -2,7 +2,6 @@ package org.pointyware.ember.entities.networks
 
 import org.pointyware.ember.entities.layers.LinearLayer
 import org.pointyware.ember.entities.regularizers.Regularizer
-import org.pointyware.ember.entities.regularizers.RmsNorm
 import org.pointyware.ember.entities.tensors.Tensor
 
 /**
@@ -17,6 +16,9 @@ class ResidualSequentialNetwork(
 ): SequentialNetwork(layers) {
 
     init {
+        require(residualSplit >= 0) {
+            "Residual split ($residualSplit) must be greater than or equal to 0"
+        }
         require(residualSplit < residualJoin) {
             "Residual split ($residualSplit) must be less than residual join ($residualJoin)"
         }
