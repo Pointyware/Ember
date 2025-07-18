@@ -13,6 +13,7 @@ import org.pointyware.ember.entities.layers.LinearLayer
 import org.pointyware.ember.entities.loss.MeanSquaredError
 import org.pointyware.ember.entities.networks.ResidualSequentialNetwork
 import org.pointyware.ember.entities.networks.SequentialNetwork
+import org.pointyware.ember.entities.regularizers.RmsNorm
 import org.pointyware.ember.training.data.ExerciseRepository
 import org.pointyware.ember.training.data.Problem
 import org.pointyware.ember.training.data.SpiralExerciseGenerator
@@ -119,7 +120,7 @@ class TrainingControllerImpl(
                             LinearLayer.create(hiddenWidth, hiddenWidth, Logistic),
                             LinearLayer.create(hiddenWidth, hiddenWidth, Logistic),
                             LinearLayer.create(hiddenWidth, 1, Logistic),
-                        ), 0, 2
+                        ), 0, 2, RmsNorm(hiddenWidth)
                     ),
                     cases = spiralCases,
                     lossFunction = MeanSquaredError,
