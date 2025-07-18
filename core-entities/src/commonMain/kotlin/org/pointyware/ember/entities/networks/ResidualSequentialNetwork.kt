@@ -73,7 +73,6 @@ class ResidualSequentialNetwork(
                     layer.forward(previousLayer, activation, derivativeActivation)
                 }
             }
-            layer.forward(previousLayer, activation, derivativeActivation)
             activation
         }
     }
