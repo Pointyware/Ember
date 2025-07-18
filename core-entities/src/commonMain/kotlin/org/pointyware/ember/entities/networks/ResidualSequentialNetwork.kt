@@ -12,7 +12,8 @@ import org.pointyware.ember.entities.tensors.Tensor
 class ResidualSequentialNetwork(
     layers: List<LinearLayer>,
     val residualSplit: Int,
-    val residualJoin: Int
+    val residualJoin: Int,
+    val regularizer: Regularizer
 ): SequentialNetwork(layers) {
 
     init {
@@ -24,16 +25,13 @@ class ResidualSequentialNetwork(
         }
     }
 
-    private val jacobianSize = layers[residualSplit].biases.dimensions[0]
-    private val regularizer: Regularizer = RmsNorm(jacobianSize)
-
     override fun predict(input: Tensor): Tensor {
         lateinit var residualValue: Tensor
         return layers.foldIndexed(input) { index, acc, layer ->
-            val layerInput: Tensor = when (index) {
+            when (index) {
                 residualSplit -> {
-                    residualValue = acc
-                    acc
+                    residualValue = layer.activationFunction.calculate(layer.forward(acc))
+                    residualValue
                 }
                 residualJoin -> {
                     val residualInput = residualValue + acc
@@ -42,10 +40,9 @@ class ResidualSequentialNetwork(
                     output
                 }
                 else -> {
-                    acc
+                    layer.activationFunction.calculate(layer.forward(acc))
                 }
             }
-            layer.activationFunction.calculate(layer.forward(layerInput))
         }
     }
 
