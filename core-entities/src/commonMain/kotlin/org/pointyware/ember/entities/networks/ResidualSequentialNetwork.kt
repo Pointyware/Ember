@@ -88,7 +88,7 @@ class ResidualSequentialNetwork(
         lateinit var residualValueError: Tensor
         var layerError = error
         layers.indices.reversed().forEach back_pass@ { index ->
-            val inputs = if (index == 0) { input } else { activations[index - 1] }
+            val priorActivation = if (index == 0) { input } else { activations[index - 1] }
 
             // Skip the first layer as it has no previous layer to propagate error to
             val priorActivationDerivative = if (index == 0) {
@@ -96,7 +96,7 @@ class ResidualSequentialNetwork(
             } else {
                 derivativeActivations[index - 1]
             }
-            val priorError = Tensor(inputs.dimensions)
+            val priorError = Tensor(priorActivation.dimensions)
 
             val layer = layers[index]
             val derivativeActivation = derivativeActivations[index]
@@ -131,7 +131,7 @@ class ResidualSequentialNetwork(
 
                     layer.backward(
                         layerError,
-                        inputs, priorActivationDerivative,
+                        priorActivation, priorActivationDerivative,
                         weightGradients, biasGradients,
                         priorError
                     )
@@ -140,7 +140,7 @@ class ResidualSequentialNetwork(
                 else -> {
                     layer.backward(
                         layerError,
-                        inputs, priorActivationDerivative,
+                        priorActivation, priorActivationDerivative,
                         weightGradients, biasGradients,
                         priorError
                     )
