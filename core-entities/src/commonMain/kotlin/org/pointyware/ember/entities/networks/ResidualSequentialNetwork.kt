@@ -57,25 +57,21 @@ class ResidualSequentialNetwork(
         activations: List<Tensor>,
         derivativeActivations: List<Tensor>
     ) {
-        lateinit var residualValue: Tensor
-        layers.foldIndexed(input) { index, acc, layer ->
+        layers.foldIndexed(input) { index, previousLayer, layer ->
             val activation = activations[index]
             val derivativeActivation = derivativeActivations[index]
-            val layerInput: Tensor = when (index) {
-                residualSplit -> {
-                    residualValue = acc
-                    acc
-                }
+            when (index) {
                 residualJoin -> {
-                    residualSum = residualValue + acc
+                    residualSum = activations[residualSplit] + previousLayer
                     regularizer.forward(residualSum, norm, normDerivative)
-                    norm
+
+                    layer.forward(norm, activation, derivativeActivation)
                 }
-                else -> {
-                    acc
+                else -> { // residualSplit on forward pass does nothing special
+                    layer.forward(previousLayer, activation, derivativeActivation)
                 }
             }
-            layer.forward(layerInput, activation, derivativeActivation)
+            layer.forward(previousLayer, activation, derivativeActivation)
             activation
         }
     }
