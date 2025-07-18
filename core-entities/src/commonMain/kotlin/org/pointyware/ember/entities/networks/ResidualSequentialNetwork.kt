@@ -37,7 +37,7 @@ class ResidualSequentialNetwork(
                     val residualInput = residualValue + acc
                     val output = Tensor(residualInput.dimensions)
                     regularizer.predict(residualInput, output)
-                    output
+                    layer.activationFunction.calculate(layer.forward(output))
                 }
                 else -> {
                     layer.activationFunction.calculate(layer.forward(acc))
