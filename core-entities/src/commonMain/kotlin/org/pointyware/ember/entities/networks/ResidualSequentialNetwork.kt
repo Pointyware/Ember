@@ -60,6 +60,9 @@ class ResidualSequentialNetwork(
             when (index) {
                 residualJoin -> {
                     residualSum = activations[residualSplit] + previousLayer
+                    val layerSize = residualSum.dimensions[0]
+                    norm = Tensor.zeros(layerSize, 1)
+                    normDerivative = Tensor.zeros(layerSize, layerSize)
                     regularizer.forward(residualSum, norm, normDerivative)
 
                     layer.forward(norm, activation, derivativeActivation)
