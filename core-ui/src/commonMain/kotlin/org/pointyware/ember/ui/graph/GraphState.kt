@@ -26,6 +26,8 @@ data class GraphState(
  * Provides mapping functions between graph space and pixel space.
  */
 data class GraphSpaceMap(
+    val leftPadding: Float,
+    val bottomPadding: Float,
     val state: GraphState,
     val drawScope: DrawScope
 ) {
@@ -55,10 +57,10 @@ data class GraphSpaceMap(
     }
 
     fun xToPixel(x: Float, width: Float): Float {
-        return (x - state.left) / (state.right - state.left) * width
+        return leftPadding + (x - state.left) / (state.right - state.left) * (width - leftPadding)
     }
     fun yToPixel(y: Float, height: Float): Float {
-        return height - (y - state.bottom) / (state.top - state.bottom) * height
+        return (y - state.bottom) / (state.top - state.bottom) * (height - bottomPadding)
     }
 }
 
@@ -127,6 +129,6 @@ fun DrawScope.drawGraph(
     )
 
     // Draw Data Series
-    val graphSpaceMap = GraphSpaceMap(state, this)
+    val graphSpaceMap = GraphSpaceMap(leftPadding, bottomPadding, state, this)
     graphSpaceMap.content()
 }
