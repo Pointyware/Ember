@@ -66,10 +66,16 @@ class LinearLayer(
 
         // Propagate the error to the previous layer
         // ∂^l-1 = (f^l-1)' \dot (W^l)^T \dot; ∂^l
-        priorError.assign(
-            priorActivationDerivative *
-                    weights.transpose().matrixMultiply(error)
-        )
+        val backpropError = if (priorActivationDerivative.dimensions.size == 1 ||
+            priorActivationDerivative.dimensions[1] == 1) {
+            // Diagonal case: element-wise multiplication
+            priorActivationDerivative * weights.transpose().matrixMultiply(error)
+        } else {
+            // Full Jacobian case: matrix multiplication
+            priorActivationDerivative.matrixMultiply(weights.transpose().matrixMultiply(error))
+        }
+
+        priorError.assign(backpropError)
     }
 
     companion object {
