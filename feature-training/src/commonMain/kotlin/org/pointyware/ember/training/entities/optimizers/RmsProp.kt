@@ -9,7 +9,7 @@ import org.pointyware.ember.training.entities.Exercise
  */
 class RmsProp(
 
-): Optimizer {
+): SinglePassOptimizer {
     override fun batch(cases: List<Exercise>): List<List<Exercise>> {
         TODO("Not yet implemented")
     }

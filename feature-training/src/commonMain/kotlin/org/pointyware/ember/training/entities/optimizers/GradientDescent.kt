@@ -15,7 +15,7 @@ import kotlin.random.Random
 open class GradientDescent(
     val learningRate: LearningRateSchedule,
     val entropy: Random = Random.Default,
-): Optimizer {
+): SinglePassOptimizer {
 
     override fun batch(cases: List<Exercise>): List<List<Exercise>> {
         return listOf(cases)

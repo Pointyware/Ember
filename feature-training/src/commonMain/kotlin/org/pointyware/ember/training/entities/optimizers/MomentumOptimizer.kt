@@ -10,7 +10,7 @@ import org.pointyware.ember.training.entities.SampleStatistics
 import org.pointyware.ember.training.entities.Snapshot
 
 class MomentumOptimizer(
-): Optimizer, EpochStatistics, BatchStatistics, SampleStatistics {
+): SinglePassOptimizer, EpochStatistics, BatchStatistics, SampleStatistics {
     override val measurements: List<Measurement>
         get() = TODO("Not yet implemented")
 

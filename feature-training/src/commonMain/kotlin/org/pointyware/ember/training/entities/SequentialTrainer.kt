@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import org.pointyware.ember.entities.loss.LossFunction
 import org.pointyware.ember.entities.networks.SequentialNetwork
 import org.pointyware.ember.entities.tensors.TensorPool
-import org.pointyware.ember.training.entities.optimizers.Optimizer
+import org.pointyware.ember.training.entities.optimizers.SinglePassOptimizer
 import org.pointyware.ember.training.entities.optimizers.StatisticalOptimizer
 
 /**
@@ -27,7 +27,7 @@ class SequentialTrainer(
     val network: SequentialNetwork,
     val cases: List<Exercise>,
     val lossFunction: LossFunction,
-    val optimizer: Optimizer,
+    val optimizer: SinglePassOptimizer,
     val statistics: Statistics,
     private val acceptableError: Double = .001
 ): Trainer {

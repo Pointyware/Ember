@@ -3,7 +3,7 @@ package org.pointyware.ember.training.entities.optimizers
 import kotlin.math.pow
 
 /**
- * Allows an [Optimizer] to delegate the learning rate to increase composability of
+ * Allows an [SinglePassOptimizer] to delegate the learning rate to increase composability of
  * different optimizers.
  */
 interface LearningRateSchedule {
