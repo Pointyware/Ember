@@ -10,7 +10,7 @@ import org.pointyware.ember.training.entities.SampleStatistics
 import org.pointyware.ember.training.entities.Snapshot
 
 class AdaGrad(
-): Optimizer, EpochStatistics, BatchStatistics, SampleStatistics {
+): MultiPassOptimizer, EpochStatistics, BatchStatistics, SampleStatistics {
     override val measurements: List<Measurement>
         get() = TODO("Not yet implemented")
 
@@ -69,4 +69,6 @@ class AdaGrad(
     override fun update(layer: Layer, weightGradients: Tensor, biasGradients: Tensor) {
         TODO("Not yet implemented")
     }
+
+
 }

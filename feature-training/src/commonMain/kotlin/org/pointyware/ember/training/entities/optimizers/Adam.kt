@@ -15,7 +15,7 @@ data class Adam(
     val beta2: Double = 0.999,
     val epsilon: Double = 1e-8,
     val statistics: Statistics
-): Optimizer, Statistics by statistics {
+): SinglePassOptimizer, Statistics by statistics {
     // TODO: allow multiple passes over samples
     override fun batch(cases: List<Exercise>): List<List<Exercise>> {
         TODO("Not yet implemented")
