@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import org.pointyware.ember.entities.loss.LossFunction
 import org.pointyware.ember.entities.networks.SequentialNetwork
 import org.pointyware.ember.entities.tensors.TensorPool
+import org.pointyware.ember.training.entities.optimizers.MultiPassOptimizer
+import org.pointyware.ember.training.entities.optimizers.Optimizer
 import org.pointyware.ember.training.entities.optimizers.SinglePassOptimizer
 import org.pointyware.ember.training.entities.optimizers.StatisticalOptimizer
 
@@ -27,7 +29,7 @@ class SequentialTrainer(
     val network: SequentialNetwork,
     val cases: List<Exercise>,
     val lossFunction: LossFunction,
-    val optimizer: SinglePassOptimizer,
+    val optimizer: Optimizer,
     val statistics: Statistics,
     private val acceptableError: Double = .001
 ): Trainer {
@@ -47,6 +49,9 @@ class SequentialTrainer(
     private var sampleStatistics: SampleStatistics? = statistics as? SampleStatistics
     // TODO: create forward and backward graphs from network structure to collect each layer stage
     private var layerStatistics: LayerStatistics? = statistics as? LayerStatistics
+
+    private val singlePassOptimizer: SinglePassOptimizer? = optimizer as? SinglePassOptimizer
+    private val multiPassOptimizer: MultiPassOptimizer? = optimizer as? MultiPassOptimizer
 
     private val _snapshot = MutableStateFlow(Snapshot.empty)
     override val snapshot: StateFlow<Snapshot>
@@ -68,62 +73,90 @@ class SequentialTrainer(
         // f'(z^L) = a'^L
         val derivativeActivations = network.layers.map { tensorPool.getObject(it.biases.dimensions) }
 
-        var latestSnapshot = snapshot.value
+        var latestSnapshot: Snapshot
         repeat(iterations) { index ->
             epoch++
             epochStatistics?.onEpochStart(epoch)
+            var step = 0
+            do { // Sample Passes
+                step++
+                val sampleBatches = optimizer.batch(cases)
+                // Create Gradient tensors
+                weightGradients.forEach { it.zero() }
+                biasGradients.forEach { it.zero() }
 
-            val sampleBatches = optimizer.batch(cases)
-            // Create Gradient tensors
-            weightGradients.forEach { it.zero() }
-            biasGradients.forEach { it.zero() }
+                var aggregateLoss = 0.0
+                for (batch in sampleBatches) {
+                    batchStatistics?.onBatchStart(batch)
+                    val caseCount = batch.size.toFloat()
+                    batch.forEach { case ->
+                        // Zero tensors for activations, derivativeActivations, and errors
+                        activations.forEach { it.zero() }
+                        derivativeActivations.forEach { it.zero() }
 
-            var aggregateLoss = 0.0
+                        sampleStatistics?.onSampleStart(case)
+                        // Forward Pass - using tensors as gradient receivers
+                        network.forward(case.input, activations, derivativeActivations)
 
-            for (batch in sampleBatches) {
-                batchStatistics?.onBatchStart(batch)
-                val caseCount = batch.size.toFloat()
-                batch.forEach { case ->
-                    // Zero tensors for activations, derivativeActivations, and errors
-                    activations.forEach { it.zero() }
-                    derivativeActivations.forEach { it.zero() }
+                        // Calculate the loss for the current case
+                        val output = activations.last()
+                        val loss = lossFunction.compute(expected = case.output, actual = output)
+                        sampleStatistics?.onCost(loss)
+                        aggregateLoss += loss
+                        // $\nabla_{a_L} C$ is the gradient of the loss function with respect to the final layer's output
+                        val errorGradient =
+                            lossFunction.derivative(expected = case.output, actual = output)
 
-                    sampleStatistics?.onSampleStart(case)
-                    // Forward Pass - using tensors as gradient receivers
-                    network.forward(case.input, activations, derivativeActivations)
+                        // Backward Pass
+                        network.backward(
+                            case.input,
+                            errorGradient,
+                            activations,
+                            derivativeActivations,
+                            weightGradients,
+                            biasGradients
+                        )
+                        sampleStatistics?.onGradient()
 
-                    // Calculate the loss for the current case
-                    val output = activations.last()
-                    val loss = lossFunction.compute(expected = case.output, actual = output)
-                    sampleStatistics?.onCost(loss)
-                    aggregateLoss += loss
-                    // $\nabla_{a_L} C$ is the gradient of the loss function with respect to the final layer's output
-                    val errorGradient =
-                        lossFunction.derivative(expected = case.output, actual = output)
+                        sampleStatistics?.onSampleEnd(case)
+                    }
+                    // Average the gradients over all cases
+                    weightGradients.forEach { gradient -> gradient.mapEach { it / caseCount } }
+                    biasGradients.forEach { gradient -> gradient.mapEach { it / caseCount } }
 
-                    // Backward Pass
-                    network.backward(
-                        case.input,
-                        errorGradient,
-                        activations,
-                        derivativeActivations,
-                        weightGradients,
-                        biasGradients
-                    )
-                    sampleStatistics?.onGradient()
-
-                    sampleStatistics?.onSampleEnd(case)
+                    // Adjust parameters for all layers using the optimizers
+                    singlePassOptimizer?.let {
+                        network.layers.forEachIndexed { index, layer ->
+                            it.update(
+                                epoch,
+                                layer,
+                                weightGradients[index],
+                                biasGradients[index]
+                            )
+                        }
+                    }
+                    multiPassOptimizer?.let {
+                        network.layers.forEachIndexed { index, layer ->
+                            it.update(
+                                step,
+                                epoch,
+                                layer,
+                                weightGradients[index],
+                                biasGradients[index]
+                            )
+                        }
+                    }
+                    network.layers.forEachIndexed { index, layer ->
+                        singlePassOptimizer?.update(
+                            epoch,
+                            layer,
+                            weightGradients[index],
+                            biasGradients[index]
+                        )
+                    }
+                    batchStatistics?.onBatchEnd(batch)
                 }
-                // Average the gradients over all cases
-                weightGradients.forEach { gradient -> gradient.mapEach { it / caseCount } }
-                biasGradients.forEach { gradient -> gradient.mapEach { it / caseCount } }
-
-                // Adjust parameters for all layers using the optimizer
-                network.layers.forEachIndexed { index, layer ->
-                    optimizer.update(layer, weightGradients[index], biasGradients[index])
-                }
-                batchStatistics?.onBatchEnd(batch)
-            }
+            } while (multiPassOptimizer?.passAgain() == true)
             epochStatistics?.onEpochEnd(epoch)
 
             latestSnapshot = statistics.createSnapshot()
