@@ -47,10 +47,10 @@ class RmsNorm(
             val xi = input.data[i]
             for (j in 0 until count) {
                 jacobian[i, j] = if (i == j) {
-                    (xi * xi + nRmsSquared) * jacobianDenominator
+                    (nRmsSquared - xi * xi) * jacobianDenominator
                 } else {
                     val xj = input.data[j]
-                    (xi * xj) * jacobianDenominator
+                    - (xi * xj) * jacobianDenominator
                 }.toFloat()
             }
         }
