@@ -13,25 +13,24 @@ import kotlin.random.Random
  * All cases are grouped into a single batch.
  */
 open class GradientDescent(
-    val learningRate: Float,
+    val learningRate: LearningRateSchedule,
     val entropy: Random = Random.Default,
 ): Optimizer {
-    init {
-        require(learningRate > 0) { "Learning rate must be positive." }
-    }
 
     override fun batch(cases: List<Exercise>): List<List<Exercise>> {
         return listOf(cases)
     }
 
     override fun update(layer: Layer, weightGradients: Tensor, biasGradients: Tensor) {
+        val epoch = TODO("Pass In")
+        val currentLearningRate = learningRate.learningRate(epoch)
         when (layer) {
             is LinearLayer -> {
                 layer.weights.mapEachFlatIndexed { index, value ->
-                    value - learningRate * weightGradients[index]
+                    value - currentLearningRate * weightGradients[index]
                 }
                 layer.biases.mapEachFlatIndexed { index, value ->
-                    value - learningRate * biasGradients[index]
+                    value - currentLearningRate * biasGradients[index]
                 }
             }
 

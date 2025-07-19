@@ -14,7 +14,7 @@ import kotlin.random.Random
  */
 class StochasticGradientDescent(
     val batchSize: Int,
-    learningRate: Float,
+    learningRate: LearningRateSchedule,
     entropy: Random = Random.Default,
     val discardExtras: Boolean = false
 ): GradientDescent(learningRate, entropy) {

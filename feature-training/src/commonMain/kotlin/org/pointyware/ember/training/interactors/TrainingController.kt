@@ -22,6 +22,7 @@ import org.pointyware.ember.training.entities.SequentialStatistics
 import org.pointyware.ember.training.entities.SequentialTrainer
 import org.pointyware.ember.training.entities.Snapshot
 import org.pointyware.ember.training.entities.optimizers.GradientDescent
+import org.pointyware.ember.training.entities.optimizers.WarmRestartExponentialLearningRate
 import kotlin.math.min
 
 /**
@@ -106,7 +107,7 @@ class TrainingControllerImpl(
                     )),
                     cases = spiralCases,
                     lossFunction = MeanSquaredError,
-                    optimizer = GradientDescent(learningRate = 0.1f),
+                    optimizer = GradientDescent(learningRate = WarmRestartExponentialLearningRate(0.1f)),
                     statistics = SequentialStatistics()
                 ),
                 snapshot = Snapshot.empty
@@ -124,7 +125,7 @@ class TrainingControllerImpl(
                     ),
                     cases = spiralCases,
                     lossFunction = MeanSquaredError,
-                    optimizer = GradientDescent(learningRate = 0.1f),
+                    optimizer = GradientDescent(learningRate = WarmRestartExponentialLearningRate(0.1f)),
                     statistics = SequentialStatistics()
                 ),
                 snapshot = Snapshot.empty
