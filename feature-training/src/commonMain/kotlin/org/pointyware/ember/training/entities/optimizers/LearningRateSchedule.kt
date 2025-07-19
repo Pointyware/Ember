@@ -11,7 +11,7 @@ interface LearningRateSchedule {
 }
 
 interface StepLearningRateSchedule: LearningRateSchedule {
-    
+
 }
 
 data class ConstantLearningRate(val learningRate: Float): LearningRateSchedule {
@@ -27,6 +27,13 @@ data class WarmRestartExponentialLearningRate(
     val decayMax: Float = 100f,
     val decayPeriod: Int = 10000,
 ): LearningRateSchedule {
+
+    init {
+        require(initialLearningRate > 0) { "Learning rate must be positive." }
+        require(decayPeriod > 0) { "Decay period must be greater than 0" }
+        require(decayMax > 0) { "Decay max must be greater than 0" }
+    }
+
     override fun learningRate(epoch: Int): Float {
         val cyclePhase = epoch % decayPeriod
         return initialLearningRate / decayMax.pow(cyclePhase / decayPeriod.toFloat())
