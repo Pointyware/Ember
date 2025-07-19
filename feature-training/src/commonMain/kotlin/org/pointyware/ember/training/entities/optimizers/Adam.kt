@@ -24,4 +24,8 @@ data class Adam(
     override fun update(step: Int, epoch: Int, layer: Layer, weightGradients: Tensor, biasGradients: Tensor) {
         TODO("Not yet implemented")
     }
+
+    override fun passAgain(): Boolean {
+        TODO("Not yet implemented")
+    }
 }
