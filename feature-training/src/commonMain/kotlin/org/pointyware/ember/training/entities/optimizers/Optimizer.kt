@@ -28,3 +28,7 @@ interface Optimizer {
 }
 
 interface StatisticalOptimizer: Statistics, Optimizer
+
+interface MultiPassOptimizer: Optimizer {
+    // TODO: separate Optimizer from SinglePassOptimizer
+}
