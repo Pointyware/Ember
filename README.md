@@ -15,13 +15,14 @@ to `:core-entities`.
 - Tensors
 - Activation Functions
     - ReLU
-    - Sigmoid
+    - Logistic
     - Tanh
 - Layers
     - Linear (Fully Connected)
     - Exp: Convolutional
 - Networks
     - Sequential Networks
+    - Residual Networks
 - Loss Functions
     - Mean Squared Error
     - Cross Entropy
