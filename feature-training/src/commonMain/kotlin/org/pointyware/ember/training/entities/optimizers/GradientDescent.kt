@@ -21,7 +21,7 @@ open class GradientDescent(
         return listOf(cases)
     }
 
-    override fun update(layer: Layer, weightGradients: Tensor, biasGradients: Tensor) {
+    override fun update(epoch: Int, layer: Layer, weightGradients: Tensor, biasGradients: Tensor) {
         val epoch = TODO("Pass In")
         val currentLearningRate = learningRate.learningRate(epoch)
         when (layer) {

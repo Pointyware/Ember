@@ -66,7 +66,7 @@ class MomentumOptimizer(
         TODO("Not yet implemented")
     }
 
-    override fun update(layer: Layer, weightGradients: Tensor, biasGradients: Tensor) {
+    override fun update(epoch: Int, layer: Layer, weightGradients: Tensor, biasGradients: Tensor) {
         TODO("Not yet implemented")
     }
 }

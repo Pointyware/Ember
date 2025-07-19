@@ -40,7 +40,7 @@ interface SinglePassOptimizer: Optimizer {
  * An optimizer that performs multiple passes over training data, updating the model parameters
  * multiple times per epoch.
  */
-interface MultiPassOptimizer: πOptimizer {
+interface MultiPassOptimizer: Optimizer {
     /**
      * Updates the parameters of the model based on the outputs computed during the forward pass.
      *

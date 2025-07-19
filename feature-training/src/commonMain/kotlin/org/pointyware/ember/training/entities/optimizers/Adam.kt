@@ -15,13 +15,13 @@ data class Adam(
     val beta2: Double = 0.999,
     val epsilon: Double = 1e-8,
     val statistics: Statistics
-): SinglePassOptimizer, Statistics by statistics {
+): MultiPassOptimizer, Statistics by statistics {
     // TODO: allow multiple passes over samples
     override fun batch(cases: List<Exercise>): List<List<Exercise>> {
         TODO("Not yet implemented")
     }
 
-    override fun update(layer: Layer, weightGradients: Tensor, biasGradients: Tensor) {
+    override fun update(step: Int, epoch: Int, layer: Layer, weightGradients: Tensor, biasGradients: Tensor) {
         TODO("Not yet implemented")
     }
 }
