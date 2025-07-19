@@ -75,4 +75,8 @@ class AdaGrad(
     ) {
         TODO("Not yet implemented")
     }
+
+    override fun passAgain(): Boolean {
+        TODO("Not yet implemented")
+    }
 }

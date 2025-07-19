@@ -51,4 +51,9 @@ interface MultiPassOptimizer: Optimizer {
      * @param biasGradients The gradients of the biases computed during the backward pass.
      */
     fun update(step: Int, epoch: Int, layer: Layer, weightGradients: Tensor, biasGradients: Tensor)
+
+    /**
+     * Returns true if the optimizer should perform another pass over the training data.
+     */
+    fun passAgain(): Boolean
 }
