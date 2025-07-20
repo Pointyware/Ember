@@ -5,5 +5,5 @@ package org.pointyware.ember.entities.blocks
  * that performs a specific function.
  */
 interface Block {
-
+    // fun calculate(context: Map<Long, Tensor>): Tensor
 }
