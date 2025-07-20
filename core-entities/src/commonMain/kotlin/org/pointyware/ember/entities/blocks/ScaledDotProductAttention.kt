@@ -1,6 +1,6 @@
 package org.pointyware.ember.entities.blocks
 
-import org.pointyware.ember.entities.activations.SoftMax
+import org.pointyware.ember.entities.activations.SoftArgMax
 import org.pointyware.ember.entities.tensors.Tensor
 import kotlin.math.pow
 
@@ -23,7 +23,7 @@ class ScaledDotProductAttention(
     val mask: Tensor? = null
 ): Attention {
 
-    private val softmax = SoftMax()
+    private val softmax = SoftArgMax()
 
     private val scalingFactor = dimensionKey.toDouble().pow(-0.5).toFloat()
     override fun invoke(query: Tensor, key: Tensor, value: Tensor): Tensor {
