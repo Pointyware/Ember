@@ -33,6 +33,10 @@ class MultiHeadAttention(
         require(headCount == dV) { "The number of heads ($headCount) must match the number of value projections ($dV)." }
     }
 
+    override val parameterCount: Int
+        get() = heads.sumOf { it.parameterCount } + queryProjections.sumOf { it.totalSize } +
+                keyProjections.sumOf { it.totalSize } + valueProjections.sumOf { it.totalSize }
+
     override fun calculate(query: Tensor, key: Tensor, value: Tensor): Tensor {
         val projectedQuery = queryProjections.map { it.matrixMultiply(query) }
         val projectedKey = keyProjections.map { it.matrixMultiply(key) }

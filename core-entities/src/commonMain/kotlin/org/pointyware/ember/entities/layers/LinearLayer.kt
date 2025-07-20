@@ -15,6 +15,9 @@ class LinearLayer(
     val activationFunction: ActivationFunction
 ): PreactivationLayer {
 
+    override val parameterCount: Int
+        get() = weights.totalSize + biases.totalSize + activationFunction.parameterCount
+
     override fun preactivation(
         input: Tensor,
         output: Tensor

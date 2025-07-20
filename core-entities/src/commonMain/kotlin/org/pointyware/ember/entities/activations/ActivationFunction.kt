@@ -6,6 +6,7 @@ import org.pointyware.ember.entities.tensors.Tensor
  * An activation function takes the input to a neuron and produces an output.
  */
 interface ActivationFunction {
+    val parameterCount: Int
     /**
      * Calculates the output of the activation function for the given input tensor.
      */

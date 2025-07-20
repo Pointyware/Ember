@@ -15,6 +15,7 @@ import org.pointyware.ember.entities.tensors.Tensor
  * TODO: consider splitting concerns into Learning/TrainingNetwork and InferenceNetwork
  */
 interface Network {
+    val parameterCount: Int
 //
 //    /**
 //     * Returns a map of calculation tensors identified by [Long] ids. Ids usually

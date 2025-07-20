@@ -9,6 +9,8 @@ import org.pointyware.ember.entities.tensors.Tensor
  * TODO: consider splitting concerns into Learning/TrainingLayer and InferenceLayer?
  */
 interface Layer {
+    val parameterCount: Int
+
     /**
      * Forward pass through the layer.
      *

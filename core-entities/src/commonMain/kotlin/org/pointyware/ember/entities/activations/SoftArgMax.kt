@@ -9,6 +9,9 @@ import kotlin.math.exp
  * exponential of the raw output divided by the sum of the exponentials of all inputs.
  */
 class SoftArgMax: ActivationFunction {
+    override val parameterCount: Int
+        get() = 0
+
     override fun calculate(input: Tensor): Tensor {
         val exponentials = input.mapEach { exp(it) }
         val sum = exponentials.values.asSequence().sum()

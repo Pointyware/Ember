@@ -22,8 +22,9 @@ class ScaledDotProductAttention(
     val dimensionValue: Int,
     val mask: Tensor? = null
 ): Attention {
-
     private val softmax = SoftArgMax()
+    override val parameterCount: Int
+        get() = softmax.parameterCount
 
     private val scalingFactor = dimensionKey.toDouble().pow(-0.5).toFloat()
     override fun calculate(query: Tensor, key: Tensor, value: Tensor): Tensor {

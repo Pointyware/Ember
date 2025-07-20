@@ -5,5 +5,6 @@ package org.pointyware.ember.entities.blocks
  * that performs a specific function.
  */
 interface Block {
+    val parameterCount: Int
     // fun calculate(context: Map<Long, Tensor>): Tensor
 }

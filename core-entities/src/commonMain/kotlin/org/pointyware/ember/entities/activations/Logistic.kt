@@ -8,6 +8,9 @@ import kotlin.math.exp
  * a sigmoid function is any function that has an "S" shaped curve.
  */
 object Logistic: ScalarActivationFunction {
+    override val parameterCount: Int
+        get() = 0
+
     override fun scalarActivation(input: Float): Float {
         // Sigmoid function: f(x) = 1 / (1 + exp(-x))
         return 1.0f / (1.0f + exp(-input))
