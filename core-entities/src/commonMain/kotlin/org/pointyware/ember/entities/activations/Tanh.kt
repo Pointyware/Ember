@@ -7,6 +7,9 @@ import kotlin.math.tanh
  * Calculates the hyperbolic tangent of the input value.
  */
 object Tanh: ScalarActivationFunction {
+    override val parameterCount: Int
+        get() = 0
+
     override fun scalarActivation(input: Float): Float {
         return tanh(input)
     }

@@ -11,6 +11,9 @@ import org.pointyware.ember.entities.tensors.Tensor
 open class SequentialNetwork(
     val layers: List<LinearLayer>,
 ) : Network {
+    override val parameterCount: Int
+        get() = layers.sumOf { it.parameterCount }
+
     override fun predict(input: Tensor): Tensor {
         return layers.fold(input) { acc, layer ->
             layer.activationFunction.calculate(layer.forward(acc))

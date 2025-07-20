@@ -4,6 +4,9 @@ package org.pointyware.ember.entities.activations
  * Rectified Linear Unit (ReLU) activation function.
  */
 object ReLU: ScalarActivationFunction {
+    override val parameterCount: Int
+        get() = 0
+
     override fun scalarActivation(input: Float): Float {
         return if (input > 0) input else 0.0f
     }

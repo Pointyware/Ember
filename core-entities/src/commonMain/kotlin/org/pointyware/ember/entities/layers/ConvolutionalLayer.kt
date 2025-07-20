@@ -17,6 +17,9 @@ data class ConvolutionalLayer(
     val padding: Int = 0,
     val activationFunction: ScalarActivationFunction
 ): Layer {
+    override val parameterCount: Int
+        get() = kernel.totalSize + activationFunction.parameterCount
+
     override fun predict(
         input: Tensor,
         output: Tensor

@@ -15,6 +15,9 @@ class ResidualSequentialNetwork(
     val regularizer: Regularizer
 ): SequentialNetwork(layers) {
 
+    override val parameterCount: Int
+        get() = super.parameterCount + regularizer.parameterCount
+
     init {
         require(residualSplit >= 0) {
             "Residual split ($residualSplit) must be greater than or equal to 0"

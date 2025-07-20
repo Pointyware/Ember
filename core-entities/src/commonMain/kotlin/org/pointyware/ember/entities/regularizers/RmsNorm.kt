@@ -16,6 +16,8 @@ private const val EPSILON = 1E-8f
 class RmsNorm(
     val count: Int
 ): Regularizer {
+    override val parameterCount: Int
+        get() = 0 // TODO: replace with 1 when gain is implemented
 
     override fun predict(
         input: Tensor,

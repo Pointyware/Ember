@@ -9,6 +9,9 @@ import kotlin.test.assertEquals
 class LinearLayerUnitTest {
 
     private val errorOpActivation = object : ActivationFunction {
+        override val parameterCount: Int
+            get() = error("Should not be called in this test")
+
         override fun calculate(input: Tensor): Tensor {
             error("Should not be called in this test")
         }

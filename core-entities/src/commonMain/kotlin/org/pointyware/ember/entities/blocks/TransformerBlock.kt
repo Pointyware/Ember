@@ -42,6 +42,9 @@ class TransformerBlock(
         Decoder()
     }
 
+    override val parameterCount: Int
+        get() = encoders.sumOf { it.parameterCount } + decoders.sumOf { it.parameterCount }
+
     fun calculate(input: Tensor, shiftedOutputs: Tensor): Tensor {
         var encoderOutput: Tensor = input
         for (index in 0 until stackCount) {
@@ -59,7 +62,8 @@ class TransformerBlock(
 
     inner class Encoder(
         // positionalEncoding
-    ) {
+    ): Block {
+        override val parameterCount: Int get() = 0 // TODO: replace when implemented
         fun calculate(input: Tensor): Tensor {
             TODO("Implement as documented above")
         }
@@ -67,7 +71,8 @@ class TransformerBlock(
 
     inner class Decoder(
         // positionalEncoding
-    ) {
+    ): Block {
+        override val parameterCount: Int get() = 0 // TODO: replace when implemented
         fun calculate(input: Tensor, encoderOutput: Tensor): Tensor {
             TODO("Implement as documented above")
         }

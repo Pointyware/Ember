@@ -15,6 +15,8 @@ import org.pointyware.ember.entities.tensors.Tensor
  */
 interface Regularizer {
 
+    val parameterCount: Int
+
     /**
      * Performs a forward-pass retaining no intermediate calculations.
      */
