@@ -8,5 +8,5 @@ import org.pointyware.ember.entities.tensors.Tensor
  * the query and key.
  */
 interface Attention: Block {
-    fun invoke(query: Tensor, key: Tensor, value: Tensor): Tensor
+    fun calculate(query: Tensor, key: Tensor, value: Tensor): Tensor
 }

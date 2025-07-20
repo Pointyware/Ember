@@ -26,7 +26,7 @@ class ScaledDotProductAttention(
     private val softmax = SoftArgMax()
 
     private val scalingFactor = dimensionKey.toDouble().pow(-0.5).toFloat()
-    override fun invoke(query: Tensor, key: Tensor, value: Tensor): Tensor {
+    override fun calculate(query: Tensor, key: Tensor, value: Tensor): Tensor {
         val matMul = query.matrixMultiply(key)
         matMul.mapEach { it * scalingFactor }
         if (mask != null) {
