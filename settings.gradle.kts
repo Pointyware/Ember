@@ -32,6 +32,7 @@ include(
 )
 
 include(
+    ":feature-evolution",
     ":feature-simulation",
     ":feature-training",
 )
