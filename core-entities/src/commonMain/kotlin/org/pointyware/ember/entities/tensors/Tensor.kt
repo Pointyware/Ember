@@ -405,6 +405,23 @@ data class Tensor(
         fun random(mean: Float = 0.0f, stdDev: Float = 0.1f, vararg dimensions: Int): Tensor {
             return Tensor(dimensions).mapEach { _ -> mean + Marsaglia.getNormal().toFloat() * stdDev }
         }
+
+        fun concat(attention: List<Tensor>): Tensor {
+            val dimensionSum = attention.sumOf {
+                require(it.dimensions.size == 2) { "All tensors must be 2-dimensional." }
+                require(it.dimensions[1] == 1) { "The last dimension must be 1." }
+                it.dimensions[0]
+            }
+            val result = zeros(dimensionSum, 1)
+            var row = 0
+            for (tensor in attention) {
+                tensor.values.forEach {
+                    result[row] = it
+                    row++
+                }
+            }
+            return result
+        }
     }
 }
 
