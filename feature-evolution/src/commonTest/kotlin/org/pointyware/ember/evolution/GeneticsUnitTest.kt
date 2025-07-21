@@ -46,11 +46,16 @@ class GeneticsUnitTest {
         repeat(generations) {
             println("Generation $it")
             println(currentGenetics)
+
+
             val polypeptides = ribosome.translateModel(genetics)
+            println("Polypeptides:")
             polypeptides.forEach {
-                println(it)
+                println(it.joinToString { it.shortCode })
             }
+
             val model = dynamics.fold(polypeptides)
+            println("Model:")
             println(model)
             currentGenetics = currentGenetics.mutate(0.1)
         }
