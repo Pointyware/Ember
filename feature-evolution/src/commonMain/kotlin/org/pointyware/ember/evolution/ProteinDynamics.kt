@@ -10,7 +10,7 @@ class ProteinDynamics {
     /**
      *
      */
-    fun doTheThing(aminoAcidChains: List<List<AminoAcid>>): Network {
+    fun fold(aminoAcidChains: List<List<AminoAcid>>): Network {
         TODO("Implement")
     }
 }
