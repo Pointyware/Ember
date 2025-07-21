@@ -12,5 +12,10 @@ class ProteinDynamics {
      */
     fun fold(aminoAcidChains: List<List<AminoAcid>>): Network {
         TODO("Implement")
+        val blockProteins = aminoAcidChains.map {
+
+        }
+
+
     }
 }

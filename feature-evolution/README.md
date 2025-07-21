@@ -74,3 +74,15 @@ number of bases. For this system, that gives the numbers 0-63, which are then
 mapped to artificial amino acids. Once we have a sequence of amino acids, we
 replace the biological folding of proteins into complexes and organelles with
 an interpretation of the sequence into neural network architecture components.
+
+### Amino Acids and Protein Complexes
+Once a ribosome has translated genetics into a protein or set of proteins, the
+protein goes through a folding process into its final functional form, often
+guided by other proteins or RNA, even while the protein is still being synthesized.
+In our system, we only require the Ribosome to produce a list of lists of amino acids,
+with each sublist representing a protein sequence. Once each protein sequence is
+processed, the proteins are combined into one or more complexes, depending on the
+compatibility of each protein with its neighbors.
+
+In our system, we interpret amino acids as arguments and operators using reverse
+polish notation. 
