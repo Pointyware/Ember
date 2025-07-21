@@ -29,7 +29,7 @@ class Ribosome(
 
         var currentProtein: MutableList<AminoAcid>? = null
         while (position < finalPosition) {
-            // 1. Calculate codon at current window
+            // Calculate codon at current window
             val codon = toCodeIndex(genetics.modelSequence, position)
             // If codon is start codon, initiate protein sequence and skip forward to the next
             if (codon == startCodon) {
