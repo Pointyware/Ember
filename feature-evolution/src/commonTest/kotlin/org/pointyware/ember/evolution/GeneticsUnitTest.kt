@@ -23,7 +23,20 @@ class GeneticsUnitTest {
                 3 to AminoAcid.Alanine
             )
         )
-        val dynamics = ModelProteinDynamics()
+        // Determine body plan for inputs/outputs
+        /*
+        Inputs:
+          - Eye Spots x2: 2
+          - Lips: 8
+          - Feet: 8
+        Outputs:
+          - Legs x6: flex, extend: 12
+          - Feet Grippers x6: flex, release: 12
+         */
+        val dynamics = ModelProteinDynamics(
+            inputSize = 18,
+            outputSize = 12
+        )
 
         var currentGenetics = genetics
         repeat(generations) {
