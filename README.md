@@ -147,7 +147,9 @@ graph
     subgraph features
     :feature-training --> :feature-simulation
     :feature-simulation-training --> :feature-simulation
+    :feature-simulation-training --> :feature-training
     :feature-training
+    :feature-evolution --> :feature-simulation
     end
     features --> core
 
