@@ -17,7 +17,7 @@ class Genetics(
      */
     fun mutate(mutationRate: Double): Genetics {
         return Genetics(
-            ribosomeSequence = mutateBytes(ribosomeSequence, mutationRate),
+            ribosomeSequence = ribosomeSequence, // TODO: mutate once of interest
             modelSequence = mutateBytes(modelSequence, mutationRate)
         )
     }
