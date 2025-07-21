@@ -2,15 +2,13 @@ package org.pointyware.ember.evolution
 
 /**
  * The ribosome does the heavy-lifting.
+ *
+ * // TODO: depend on Genetics to define bases count and code size?
  */
 class Ribosome(
     val startCodon: Int,
     val aminoAcidMap: Map<Int, AminoAcid?>
 ) {
-
-    val baseSize: Int = 4
-    val codonSize = 3
-    val dynamics = ProteinDynamics()
 
     /**
      * Translates the given [Genetics] into a [Ribosome] using this
@@ -20,7 +18,6 @@ class Ribosome(
         // TODO: experiment with creating aminoAcidMap from genetics.ribosomeSequence
         return Ribosome(startCodon, aminoAcidMap)
     }
-
     /**
      * Naively begins at the beginning of the given [Genetics.modelSequence], looking
      * for the first [startCodon].
@@ -33,13 +30,7 @@ class Ribosome(
         var currentProtein: MutableList<AminoAcid>? = null
         while (position < finalPosition) {
             // 1. Calculate codon at current window
-            var codon = 0
-            for (p in 0 until codonSize) {
-                // shift left
-                codon *= baseSize
-                // add digit
-                codon += genetics.modelSequence[position + p]
-            }
+            val codon = toCodeIndex(genetics.modelSequence, position)
             // If codon is start codon, initiate protein sequence and skip forward to the next
             if (codon == startCodon) {
                 // Start coding proteins
@@ -63,5 +54,34 @@ class Ribosome(
         }
 
         return proteins.toList()
+    }
+
+    companion object {
+        const val baseCount: Int = 4
+        const val codonSize = 3
+
+        fun fromCodeIndex(index: Int): ByteArray {
+            val output = ByteArray(codonSize)
+            fromCodeIndex(index, output, 0)
+            return output
+        }
+        fun fromCodeIndex(index: Int, output: ByteArray, offset: Int) {
+            var remainder = index
+            for (p in codonSize - 1 downTo 0) {
+                output[offset + p] = (remainder % baseCount).toByte()
+                remainder /= baseCount
+            }
+        }
+
+        fun toCodeIndex(sequence: ByteArray, offset: Int): Int {
+            var codon = 0
+            for (p in 0 until codonSize) {
+                // shift left
+                codon *= baseCount
+                // add digit
+                codon += sequence[offset + p]
+            }
+            return codon
+        }
     }
 }
