@@ -48,7 +48,7 @@ class GeneticsUnitTest {
             println(currentGenetics)
 
 
-            val polypeptides = ribosome.translateModel(genetics)
+            val polypeptides = ribosome.translateModel(currentGenetics)
             println("Polypeptides:")
             polypeptides.forEach {
                 println(it.joinToString { it.shortCode })
