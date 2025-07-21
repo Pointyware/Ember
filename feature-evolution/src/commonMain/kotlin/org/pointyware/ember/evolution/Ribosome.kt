@@ -7,7 +7,7 @@ package org.pointyware.ember.evolution
  */
 class Ribosome(
     val startCodon: Int,
-    val aminoAcidMap: Map<Int, AminoAcid?>
+    val aminoAcidMap: (Int)->AminoAcid?
 ) {
 
     /**
@@ -39,7 +39,7 @@ class Ribosome(
                 position += codonSize
             } else if (currentProtein != null) {
                 // Translate codon to amino acid
-                aminoAcidMap[codon]?.let {
+                aminoAcidMap(codon)?.let {
                     // Append to current sequence
                     currentProtein.add(it)
                 } ?: run { // Null amino acid => Stop codon

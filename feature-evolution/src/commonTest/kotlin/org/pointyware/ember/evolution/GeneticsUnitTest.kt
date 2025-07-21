@@ -16,12 +16,16 @@ class GeneticsUnitTest {
         )
         val ribosome = Ribosome(
             startCodon = 0,
-            aminoAcidMap = mapOf(
-                0 to AminoAcid.Glycine,
-                1 to AminoAcid.GlutamicAcid,
-                2 to AminoAcid.AsparticAcid,
-                3 to AminoAcid.Alanine
-            )
+            aminoAcidMap = { code ->
+                val codeRemainder = code % 4
+                when (codeRemainder) {
+                    0 -> AminoAcid.Glycine
+                    1 -> AminoAcid.GlutamicAcid
+                    2 -> AminoAcid.AsparticAcid
+                    3 -> AminoAcid.Alanine
+                    else -> null
+                }
+            }
         )
         // Determine body plan for inputs/outputs
         /*
