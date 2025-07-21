@@ -52,6 +52,7 @@ class Ribosome(
                 position++
             }
         }
+        if (currentProtein != null) proteins.add(currentProtein)
 
         return proteins.toList()
     }
