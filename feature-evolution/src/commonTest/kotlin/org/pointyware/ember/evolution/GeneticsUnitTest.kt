@@ -17,12 +17,21 @@ class GeneticsUnitTest {
         val ribosome = Ribosome(
             startCodon = 0,
             aminoAcidMap = { code ->
-                val codeRemainder = code % 4
+                val codeRemainder = code % 11
                 when (codeRemainder) {
+                    // Weight Adjusters
                     0 -> AminoAcid.Glycine
                     1 -> AminoAcid.GlutamicAcid
                     2 -> AminoAcid.AsparticAcid
                     3 -> AminoAcid.Alanine
+                    // Bias Adjusters
+                    4 -> AminoAcid.Valine
+                    5 -> AminoAcid.Arginine
+                    // Output Adjusters
+                    6 -> AminoAcid.Cysteine
+                    7 -> AminoAcid.Leucine
+                    8 -> AminoAcid.Valine
+                    9 -> AminoAcid.Arginine
                     else -> null
                 }
             }
