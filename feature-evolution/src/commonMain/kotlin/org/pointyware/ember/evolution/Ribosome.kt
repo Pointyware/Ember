@@ -1,7 +1,5 @@
 package org.pointyware.ember.evolution
 
-import org.pointyware.ember.entities.networks.Network
-
 /**
  * The ribosome does the heavy-lifting.
  */
