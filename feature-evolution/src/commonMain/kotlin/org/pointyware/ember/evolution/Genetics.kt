@@ -30,23 +30,23 @@ class Genetics(
     private fun mutateBytes(sequence: ByteArray, mutationRate: Double): ByteArray {
         val mutationCount = (sequence.size * mutationRate).toInt()
 
-        val newSequence = sequence.copyOf()
+        val newSequence = sequence.toMutableList()
         for (i in 0 until mutationCount) {
             val mutationType = entropy.nextDouble(mutationError)
             val index = entropy.nextInt(0, sequence.size)
             when {
                 mutationType < insertionError -> {
-                    TODO("Implement insertion error")
+                    newSequence.add(index, insertionByte)
                 }
                 mutationType < deletionError -> {
-                    TODO("Implement deletion error")
+                    newSequence.removeAt(index)
                 }
                 else -> { // mutation < substitutionError
                     newSequence[index] = entropy.nextInt(from = 0, until = 4).toByte()
                 }
             }
         }
-        return newSequence
+        return newSequence.toByteArray()
     }
 
     companion object {
