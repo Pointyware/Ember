@@ -1,7 +1,8 @@
 package org.pointyware.ember.evolution
 
 /**
- * These names are included for user convenience.
+ * These names are included for user convenience. They are listed in GACU order.
+ * For example GGG, GGA, ..., ACA, ACC, ..., UUA, UUC, UUU.
  */
 enum class AminoAcid {
     Glycine,
@@ -28,5 +29,5 @@ enum class AminoAcid {
     Tyrosine,
     // Serine Duplicate Coding
     // Leucine Duplicate Coding
-    Phenylalanine,
+    Phenylalanine;
 }
