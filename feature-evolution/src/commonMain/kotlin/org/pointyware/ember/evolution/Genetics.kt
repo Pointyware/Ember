@@ -36,7 +36,7 @@ class Genetics(
             val index = entropy.nextInt(0, sequence.size)
             when {
                 mutationType < insertionError -> {
-                    newSequence.add(index, insertionByte)
+                    newSequence.add(index, entropy.nextInt(from = 0, until = 4).toByte())
                 }
                 mutationType < deletionError -> {
                     newSequence.removeAt(index)
@@ -47,6 +47,19 @@ class Genetics(
             }
         }
         return newSequence.toByteArray()
+    }
+
+    override fun toString(): String {
+        // Map byte arrays to GACU symbols
+        val modelString = modelSequence.joinToString(separator = "") {
+            when (it) {
+                0.toByte() -> "G"
+                1.toByte() -> "A"
+                2.toByte() -> "C"
+                else -> "U"
+            }
+        }
+        return "Genetics(modelSequence[${modelSequence.size}]='$modelString')"
     }
 
     companion object {
