@@ -1,9 +1,8 @@
-package org.pointyware.ember.networks
+package org.pointyware.ember.entities.networks
 
 import org.junit.Test
 import org.pointyware.ember.entities.activations.ReLU
 import org.pointyware.ember.entities.layers.LinearLayer
-import org.pointyware.ember.entities.networks.ResidualSequentialNetwork
 import org.pointyware.ember.entities.regularizers.RmsNorm
 import org.pointyware.ember.entities.tensors.Tensor.Companion.zeros
 import kotlin.test.assertContentEquals
