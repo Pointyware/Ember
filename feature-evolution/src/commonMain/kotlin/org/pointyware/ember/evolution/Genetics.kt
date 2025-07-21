@@ -33,7 +33,7 @@ class Genetics(
         val newSequence = sequence.toMutableList()
         for (i in 0 until mutationCount) {
             val mutationType = entropy.nextDouble(mutationError)
-            val index = entropy.nextInt(0, sequence.size)
+            val index = entropy.nextInt(sequence.size)
             when {
                 mutationType < insertionError -> {
                     newSequence.add(index, entropy.nextInt(from = 0, until = 4).toByte())
