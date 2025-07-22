@@ -27,7 +27,7 @@ genomes.
 Our virtual environment does not need to contend with the entropy of a
 biological environment, so we don't find a benefit in storing our codes
 as double-stranded, helical DNA structures. Normally DNA would be 
-transcribed inta messenger RNA (mRNA), which would then be translated
+transcribed into messenger RNA (mRNA), which would then be translated
 by ribosomes into proteins. Since we don't need the stability of DNA, we
 don't need the intermediate RNA or ribosomes; however, we are interested
 in the dynamics of ribosomes, genetically belonging to parents, being
