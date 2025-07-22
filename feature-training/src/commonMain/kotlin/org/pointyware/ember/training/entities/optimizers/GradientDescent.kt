@@ -1,7 +1,7 @@
 package org.pointyware.ember.training.entities.optimizers
 
 import org.pointyware.ember.entities.layers.Layer
-import org.pointyware.ember.entities.layers.LinearLayer
+import org.pointyware.ember.entities.layers.DenseLayer
 import org.pointyware.ember.entities.tensors.Tensor
 import org.pointyware.ember.training.entities.Exercise
 import kotlin.random.Random
@@ -25,7 +25,7 @@ open class GradientDescent(
         val epoch = TODO("Pass In")
         val currentLearningRate = learningRate.learningRate(epoch)
         when (layer) {
-            is LinearLayer -> {
+            is DenseLayer -> {
                 layer.weights.mapEachFlatIndexed { index, value ->
                     value - currentLearningRate * weightGradients[index]
                 }

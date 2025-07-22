@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.pointyware.ember.entities.activations.Logistic
-import org.pointyware.ember.entities.layers.LinearLayer
+import org.pointyware.ember.entities.layers.DenseLayer
 import org.pointyware.ember.entities.loss.MeanSquaredError
 import org.pointyware.ember.entities.networks.ResidualSequentialNetwork
 import org.pointyware.ember.entities.networks.SequentialNetwork
@@ -100,10 +100,10 @@ class TrainingControllerImpl(
             NetworkTrainingState(
                 trainer = SequentialTrainer(
                     network = SequentialNetwork(listOf(
-                        LinearLayer.create(2, hiddenWidth, Logistic),
-                        LinearLayer.create(hiddenWidth, hiddenWidth, Logistic),
-                        LinearLayer.create(hiddenWidth, hiddenWidth, Logistic),
-                        LinearLayer.create(hiddenWidth, 1, Logistic)
+                        DenseLayer.create(2, hiddenWidth, Logistic),
+                        DenseLayer.create(hiddenWidth, hiddenWidth, Logistic),
+                        DenseLayer.create(hiddenWidth, hiddenWidth, Logistic),
+                        DenseLayer.create(hiddenWidth, 1, Logistic)
                     )),
                     cases = spiralCases,
                     lossFunction = MeanSquaredError,
@@ -117,10 +117,10 @@ class TrainingControllerImpl(
                 trainer = SequentialTrainer(
                     network = ResidualSequentialNetwork(
                         listOf(
-                            LinearLayer.create(2, hiddenWidth, Logistic),
-                            LinearLayer.create(hiddenWidth, hiddenWidth, Logistic),
-                            LinearLayer.create(hiddenWidth, hiddenWidth, Logistic),
-                            LinearLayer.create(hiddenWidth, 1, Logistic),
+                            DenseLayer.create(2, hiddenWidth, Logistic),
+                            DenseLayer.create(hiddenWidth, hiddenWidth, Logistic),
+                            DenseLayer.create(hiddenWidth, hiddenWidth, Logistic),
+                            DenseLayer.create(hiddenWidth, 1, Logistic),
                         ), 0, 2, RmsNorm(hiddenWidth)
                     ),
                     cases = spiralCases,
