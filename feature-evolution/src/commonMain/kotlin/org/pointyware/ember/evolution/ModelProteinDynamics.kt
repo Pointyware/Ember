@@ -3,7 +3,7 @@ package org.pointyware.ember.evolution
 import org.pointyware.ember.entities.activations.Logistic
 import org.pointyware.ember.entities.activations.ReLU
 import org.pointyware.ember.entities.activations.Tanh
-import org.pointyware.ember.entities.layers.LinearLayer
+import org.pointyware.ember.entities.layers.DenseLayer
 import org.pointyware.ember.entities.networks.Network
 import org.pointyware.ember.entities.networks.SequentialNetwork
 import org.pointyware.ember.entities.tensors.Tensor
@@ -105,7 +105,7 @@ class ModelProteinDynamics(
                     1 -> Tanh
                     else -> ReLU
                 }
-                val layer = LinearLayer(
+                val layer = DenseLayer(
                     weights = weights,
                     biases = biases,
                     activationFunction = activationFunction
