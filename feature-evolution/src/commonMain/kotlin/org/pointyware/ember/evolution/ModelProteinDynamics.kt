@@ -34,8 +34,8 @@ class ModelProteinDynamics(
         AminoAcid.Leucine,
     )
     private val functionalAmines = setOf(
-        AminoAcid.Valine,
-        AminoAcid.Arginine,
+        AminoAcid.Tyrosine,
+        AminoAcid.Phenylalanine,
     )
     private val sensibleAmines = numericAmines + functionalAmines
     private val nonsenseAmines = AminoAcid.entries.toSet() - sensibleAmines
