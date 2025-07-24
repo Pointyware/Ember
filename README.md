@@ -8,9 +8,7 @@ they would make fantastic learning tools for others as well.
 
 Related: https://github.com/Pointyware/AI-Licensing
 
-## Features
-This content was migrated from the `:scratch` module and most will likely be moved 
-to `:core-entities`.
+## ML Primitives
 
 - Tensors
 - Activation Functions
