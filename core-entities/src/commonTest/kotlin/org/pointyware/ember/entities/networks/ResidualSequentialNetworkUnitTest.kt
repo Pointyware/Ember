@@ -2,7 +2,7 @@ package org.pointyware.ember.entities.networks
 
 import org.junit.Test
 import org.pointyware.ember.entities.activations.ReLU
-import org.pointyware.ember.entities.layers.LinearLayer
+import org.pointyware.ember.entities.layers.DenseLayer
 import org.pointyware.ember.entities.regularizers.RmsNorm
 import org.pointyware.ember.entities.tensors.Tensor.Companion.zeros
 import kotlin.test.assertContentEquals
@@ -15,7 +15,7 @@ class ResidualSequentialNetworkUnitTest {
         val regularizer = RmsNorm(hiddenWidth)
         val network = ResidualSequentialNetwork(
             listOf(
-                LinearLayer(
+                DenseLayer(
                     weights = zeros(hiddenWidth, 1).apply {
                         this[0, 0] = 1f
                         this[1, 0] = 2f
@@ -26,7 +26,7 @@ class ResidualSequentialNetworkUnitTest {
                     },
                     activationFunction = ReLU
                 ),
-                LinearLayer(
+                DenseLayer(
                     weights = zeros(hiddenWidth, hiddenWidth).apply {
                         this[0, 0] = 5f
                         this[0, 1] = 6f
@@ -39,7 +39,7 @@ class ResidualSequentialNetworkUnitTest {
                     },
                     activationFunction = ReLU
                 ),
-                LinearLayer(
+                DenseLayer(
                     weights = zeros(hiddenWidth, hiddenWidth).apply {
                         this[0, 0] = 11f
                         this[0, 1] = 12f
@@ -52,7 +52,7 @@ class ResidualSequentialNetworkUnitTest {
                     },
                     activationFunction = ReLU
                 ),
-                LinearLayer(
+                DenseLayer(
                     weights = zeros(1, hiddenWidth).apply {
                         this[0, 0] = 17f
                         this[0, 1] = 18f

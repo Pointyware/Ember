@@ -1,7 +1,7 @@
 package org.pointyware.ember.entities.networks
 
 import org.pointyware.ember.entities.activations.ActivationFunction
-import org.pointyware.ember.entities.layers.LinearLayer
+import org.pointyware.ember.entities.layers.DenseLayer
 import org.pointyware.ember.entities.tensors.Tensor
 
 /**
@@ -9,7 +9,7 @@ import org.pointyware.ember.entities.tensors.Tensor
  * without branches or skips.
  */
 open class SequentialNetwork(
-    val layers: List<LinearLayer>,
+    val layers: List<DenseLayer>,
 ) : Network {
     override val parameterCount: Int
         get() = layers.sumOf { it.parameterCount }
@@ -71,7 +71,7 @@ open class SequentialNetwork(
             require(layers.isNotEmpty()) { "At least one layer must be specified." }
             var inputSize = input
             val networkLayers = layers.map { (outputSize, activation) ->
-                LinearLayer.create(inputSize, outputSize, activation).also {
+                DenseLayer.create(inputSize, outputSize, activation).also {
                     inputSize = outputSize // Update input size for the next layer
                 }
             }

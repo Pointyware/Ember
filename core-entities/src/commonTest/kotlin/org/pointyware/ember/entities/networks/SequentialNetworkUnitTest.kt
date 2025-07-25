@@ -2,7 +2,7 @@ package org.pointyware.ember.entities.networks
 
 import org.junit.Test
 import org.pointyware.ember.entities.activations.ReLU
-import org.pointyware.ember.entities.layers.LinearLayer
+import org.pointyware.ember.entities.layers.DenseLayer
 import org.pointyware.ember.entities.tensors.Tensor
 import kotlin.test.assertContentEquals
 
@@ -10,7 +10,7 @@ class SequentialNetworkUnitTest {
 
     @Test
     fun sequential_network_passes_input_through_layers() {
-        val layer1 = LinearLayer(
+        val layer1 = DenseLayer(
             weights = Tensor.Companion.zeros(2, 3).apply {
                 this[0, 0] = 2.0f
                 this[0, 1] = 3.0f
@@ -25,7 +25,7 @@ class SequentialNetworkUnitTest {
             },
             activationFunction = ReLU
         )
-        val layer2 = LinearLayer(
+        val layer2 = DenseLayer(
             weights = Tensor.Companion.zeros(1, 2).apply {
                 this[0, 0] = 23.0f
                 this[0, 1] = 27.0f

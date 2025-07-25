@@ -1,6 +1,6 @@
 package org.pointyware.ember.entities.networks
 
-import org.pointyware.ember.entities.layers.LinearLayer
+import org.pointyware.ember.entities.layers.DenseLayer
 import org.pointyware.ember.entities.regularizers.Regularizer
 import org.pointyware.ember.entities.tensors.Tensor
 
@@ -9,7 +9,7 @@ import org.pointyware.ember.entities.tensors.Tensor
  * and joining them back together at a later layer.
  */
 class ResidualSequentialNetwork(
-    layers: List<LinearLayer>,
+    layers: List<DenseLayer>,
     val residualSplit: Int,
     val residualJoin: Int,
     val regularizer: Regularizer

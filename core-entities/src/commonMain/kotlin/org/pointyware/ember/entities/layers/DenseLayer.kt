@@ -9,7 +9,7 @@ import org.pointyware.ember.entities.tensors.Tensor
  * Given a vector 'x' as input, m x n matrix of weights W, m x 1 matrix of biases B,
  * the output 'y' is computed as: `y = W * x + B`
  */
-class LinearLayer(
+class DenseLayer(
     val weights: Tensor,
     val biases: Tensor,
     val activationFunction: ActivationFunction
@@ -81,14 +81,14 @@ class LinearLayer(
         priorError.assign(backpropError)
     }
 
-    companion object {
+    companion object Companion {
         /**
          * Creates a LinearLayer with the specified input and output dimensions.
          */
-        fun create(inputSize: Int, outputSize: Int, activation: ActivationFunction): LinearLayer {
+        fun create(inputSize: Int, outputSize: Int, activation: ActivationFunction): DenseLayer {
             val weights = Tensor.random(mean = 0.0f, stdDev = 0.1f, dimensions = intArrayOf(outputSize, inputSize))
             val biases = Tensor.zeros(outputSize, 1)
-            return LinearLayer(weights, biases, activation)
+            return DenseLayer(weights, biases, activation)
         }
     }
 }

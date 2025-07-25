@@ -8,9 +8,7 @@ they would make fantastic learning tools for others as well.
 
 Related: https://github.com/Pointyware/AI-Licensing
 
-## Features
-This content was migrated from the `:scratch` module and most will likely be moved 
-to `:core-entities`.
+## ML Primitives
 
 - Tensors
 - Activation Functions
@@ -158,3 +156,8 @@ graph
     end
 ```
 
+## Research Citations
+1. Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin. Attention is All You Need. *arXiv preprint arXiv:IDvN*, 2017
+2. Ravid Schwartz-Ziv, Naftali Tishby. Opening the Black Box of Deep Neural Networks via Information. *arXiv preprint arXiv:1703.00810v3*, 2017.
+3. 
+4. Author, Author. Title. *Publication*, Year.

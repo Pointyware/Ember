@@ -30,8 +30,9 @@ class GeneticsUnitTest {
                     // Output Adjusters
                     6 -> AminoAcid.Cysteine
                     7 -> AminoAcid.Leucine
-                    8 -> AminoAcid.Valine
-                    9 -> AminoAcid.Arginine
+                    // Functional
+                    8 -> AminoAcid.Tyrosine
+                    9 -> AminoAcid.Phenylalanine
                     else -> null
                 }
             }

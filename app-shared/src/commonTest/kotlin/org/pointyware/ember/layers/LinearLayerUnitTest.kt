@@ -2,7 +2,7 @@ package org.pointyware.ember.layers
 
 import org.junit.Test
 import org.pointyware.ember.entities.activations.ActivationFunction
-import org.pointyware.ember.entities.layers.LinearLayer
+import org.pointyware.ember.entities.layers.DenseLayer
 import org.pointyware.ember.entities.tensors.Tensor
 import kotlin.test.assertEquals
 
@@ -26,7 +26,7 @@ class LinearLayerUnitTest {
     @Test
     fun test_forward_pass() {
         // Given a LinearLayer with specific weights and biases
-        val layer = LinearLayer(
+        val layer = DenseLayer(
             weights = Tensor.zeros(2, 3).apply {
                 this[0, 0] = 2.0f
                 this[0, 1] = 3.0f
@@ -66,7 +66,7 @@ class LinearLayerUnitTest {
         val outputSize = 2
 
         // When a LinearLayer is created
-        val layer = LinearLayer.create(
+        val layer = DenseLayer.create(
             inputSize = inputSize,
             outputSize = outputSize,
             activation = errorOpActivation
