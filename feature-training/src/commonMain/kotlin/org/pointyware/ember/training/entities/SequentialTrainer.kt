@@ -68,15 +68,15 @@ class SequentialTrainer(
         if (done) return 0
 
         // W^L
-        val weightGradients = network.layers.map { tensorPool.getObject(it.weights.dimensions) }
+        val weightGradients = network.layers.map { tensorPool.getObject(it.weights.dimensions.toList()) }
         // b^L
-        val biasGradients = network.layers.map { tensorPool.getObject(it.biases.dimensions) }
+        val biasGradients = network.layers.map { tensorPool.getObject(it.biases.dimensions.toList()) }
         // x = z^0
         // z^L = W^L \dot a^(L-1) + b^L
         // f(z^L) = a^L
-        val activations = network.layers.map { tensorPool.getObject(it.biases.dimensions) }
+        val activations = network.layers.map { tensorPool.getObject(it.biases.dimensions.toList()) }
         // f'(z^L) = a'^L
-        val derivativeActivations = network.layers.map { tensorPool.getObject(it.biases.dimensions) }
+        val derivativeActivations = network.layers.map { tensorPool.getObject(it.biases.dimensions.toList()) }
 
         var latestSnapshot: Snapshot
         repeat(iterations) { index ->
