@@ -173,6 +173,11 @@ class SequentialTrainer(
             }
         }
 
+        weightGradients.forEach { tensorPool.returnObject(it) }
+        biasGradients.forEach { tensorPool.returnObject(it) }
+        activations.forEach { tensorPool.returnObject(it) }
+        derivativeActivations.forEach { tensorPool.returnObject(it) }
+
         return iterations // TODO: allow halting training early on convergence
     }
 }
