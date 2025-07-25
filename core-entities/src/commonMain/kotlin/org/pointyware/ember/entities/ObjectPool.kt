@@ -28,7 +28,7 @@ abstract class ObjectPool<K: Any, T: Any> {
         pool.getOrPut(key) {
             mutableListOf()
         }.let { list ->
-            list.add(list.lastIndex, obj)
+            list.add(list.size, obj)
         }
     }
 }
