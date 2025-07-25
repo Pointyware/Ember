@@ -30,4 +30,4 @@ jobs:
         uses: Pointyware/.github/.github/actions/checkout-java-gradle@69eb71701edc0705172789b1299946fd27fcadac
       - name: Build Desktop App
         run: |
-          ./gradlew :app-desktop:desktopTest
+          ./gradlew desktopTest
