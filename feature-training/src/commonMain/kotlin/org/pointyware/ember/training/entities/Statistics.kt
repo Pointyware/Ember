@@ -1,5 +1,6 @@
 package org.pointyware.ember.training.entities
 
+import org.pointyware.ember.entities.DataList
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 import kotlin.time.Instant
@@ -16,7 +17,7 @@ interface Statistics {
     fun measurementMaximum(key: Measurement): Float
     val measurementsMax: Float
     val epochCount: Int
-    fun data(key: Measurement): List<Pair<Float, Float>> // TODO: replace with analyzed statistics to prevent UI data processing
+    fun <I, O> data(key: Measurement): DataList<I, O>
 
     /**
      * Collects all measures into a single immutable object

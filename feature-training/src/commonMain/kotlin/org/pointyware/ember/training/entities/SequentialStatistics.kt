@@ -1,5 +1,7 @@
 package org.pointyware.ember.training.entities
 
+import org.pointyware.ember.entities.DataList
+import org.pointyware.ember.entities.ObjDataList
 import kotlin.time.ExperimentalTime
 
 private const val DEFAULT_MAX = 10f
@@ -9,37 +11,33 @@ private const val DEFAULT_MAX = 10f
  */
 @OptIn(ExperimentalTime::class)
 class SequentialStatistics(
+    override val measurements: List<Measurement> = listOf(Measurement.Loss)
 ): EpochStatistics, BatchStatistics, SampleStatistics {
 
-    private val errorMeasure = Measurement.Loss
-    private val accuracy = mutableListOf<Pair<Float, Float>>()
-    override val measurements: List<Measurement>
-        get() = listOf(errorMeasure)
+    private val measurementsSet = measurements.toSet()
 
-    private var maximum = 0f
-    private var maxDirty = true
+    private val errorMeasure = Measurement.Loss
+
+    private val measures = measurements.associate { measurement ->
+        measurement to ObjDataList("", 0f, 0f, 0f, 0f)
+    }.toMutableMap<Measurement, DataList<*, Float>>()
+    // private val epochMeasures = mutableMapOf<Measurement, DataList<Int, Float>>()
+    // private val batchMeasures = mutableMapOf<Measurement, DataList<Pair<Int, Int>, Float>>()
+    // private val sampleMeasures = mutableMapOf<Measurement, DataList<Triple<Int, Int, Int>, Float>>()
     override fun measurementMaximum(key: Measurement): Float {
-        if (key != errorMeasure)
-            throw IllegalArgumentException("Measurement key not recognized: $key")
-        if (maxDirty) {
-            maximum = if (accuracy.isEmpty()) {
-                DEFAULT_MAX
-            } else {
-                accuracy.maxOf { it.second }
-            }
-        }
-        return maximum
+        val measure = measures[key] ?: throw IllegalArgumentException("Measurement key not recognized: $key")
+        return measure.max
     }
 
     override val measurementsMax: Float
-        get() = measurementMaximum(errorMeasure)
+        get() = measures.maxOf { it.value.max }
     override val epochCount: Int
-        get() = accuracy.size
+        get() = measures.size
 
-    override fun data(key: Measurement): List<Pair<Float, Float>> {
-        if (key != errorMeasure)
-            throw IllegalArgumentException("Measurement key not recognized: $key")
-        return accuracy
+    override fun <I, O> data(key: Measurement): DataList<I, O> {
+        val dataList = measures[key] ?: throw IllegalArgumentException("Measurement key not recognized: $key")
+        @Suppress("UNCHECKED_CAST")
+        return dataList as DataList<I, O>
     }
 
     val errorSamples: MutableList<Pair<Int, Float>> = mutableListOf()
@@ -82,6 +80,7 @@ class SequentialStatistics(
     override fun onEpochEnd(epoch: Int) {
         lastEpoch = epoch
         val averageError = epochError / trainedSamples
+        // TODO: create separate statistics for each measurement to match cadence/collection characteristics?
         accuracy.add(epoch.toFloat() to averageError.toFloat())
     }
 
