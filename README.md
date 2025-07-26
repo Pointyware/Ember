@@ -11,25 +11,26 @@ Related: https://github.com/Pointyware/AI-Licensing
 ## ML Primitives
 
 - Tensors
+  - Pools to store and reuse tensors by dimension
 - Activation Functions
-    - ReLU
-    - Logistic
-    - Tanh
+  - ReLU
+  - Logistic
+  - Tanh
 - Layers
-    - Linear (Fully Connected)
-    - Exp: Convolutional
+  - Linear (Fully Connected)
+  - Exp: Convolutional
 - Networks
-    - Sequential Networks
-    - Residual Networks
+  - Sequential Networks
+  - Residual Networks
 - Loss Functions
-    - Mean Squared Error
-    - Cross Entropy
+  - Mean Squared Error
+  - Cross Entropy
 - Optimizers
-    - Stochastic (Gradient Descent)
-    - Exp: Adam
+  - Stochastic (Gradient Descent)
+  - Exp: Adam
 - Training
-    - Sequential Trainer
-    - Exp: Organic Trainer
+  - Sequential Trainer
+  - Exp: Organic Trainer
 
 ```mermaid
 classDiagram
