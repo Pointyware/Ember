@@ -54,7 +54,7 @@ class SequentialTrainer(
     private val singlePassOptimizer: SinglePassOptimizer? = optimizer as? SinglePassOptimizer
     private val multiPassOptimizer: MultiPassOptimizer? = optimizer as? MultiPassOptimizer
     init {
-        require(singlePassOptimizer == null && multiPassOptimizer == null) {
+        require(singlePassOptimizer != null || multiPassOptimizer != null) {
             "The given optimizer ($optimizer) must implement SinglePassOptimizer or MultiPassOptimizer."
         }
     }
