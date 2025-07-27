@@ -2,6 +2,7 @@ package org.pointyware.ember.training.entities
 
 import org.pointyware.ember.entities.DataList
 import org.pointyware.ember.entities.ObjDataList
+import kotlin.collections.toMutableMap
 import kotlin.time.ExperimentalTime
 
 private const val DEFAULT_MAX = 10f
@@ -11,20 +12,30 @@ private const val DEFAULT_MAX = 10f
  */
 @OptIn(ExperimentalTime::class)
 class SequentialStatistics(
-    override val measurements: List<Measurement> = listOf(Measurement.Loss)
+    val lossKey: ComputationKey<Float>,
+    override val measurements: List<Measurement<Float>> = listOf<Measurement<Float>>(Measurement.Intermediate("loss", lossKey)),
+    val computationList: List<Computation<*>>
 ): EpochStatistics, BatchStatistics, SampleStatistics {
 
     private val measurementsSet = measurements.toSet()
 
-    private val errorMeasure = Measurement.Loss
+//    private val errorMeasure = Measurement.Loss
 
-    private val measures = measurements.associate { measurement ->
-        measurement to ObjDataList("", 0f, 0f, 0f, 0f)
-    }.toMutableMap<Measurement, DataList<*, Float>>()
+    private val measures: MutableMap<Measurement<Float>, DataList<Float, Float>> = measurements.associateWith { measurement ->
+        ObjDataList<Float, Float>("", 0f, 0f, 0f, 0f)
+    }.toMutableMap()
+
+
+    private val computationsList = ComputationContext().also {
+        computationList.forEach { computation ->
+//            it.put(computation, null)
+            computation.compute(it)
+        }
+    }
     // private val epochMeasures = mutableMapOf<Measurement, DataList<Int, Float>>()
     // private val batchMeasures = mutableMapOf<Measurement, DataList<Pair<Int, Int>, Float>>()
     // private val sampleMeasures = mutableMapOf<Measurement, DataList<Triple<Int, Int, Int>, Float>>()
-    override fun measurementMaximum(key: Measurement): Float {
+    override fun measurementMaximum(key: Measurement<Float>): Float {
         val measure = measures[key] ?: throw IllegalArgumentException("Measurement key not recognized: $key")
         return measure.max
     }
@@ -34,10 +45,10 @@ class SequentialStatistics(
     override val epochCount: Int
         get() = measures.size
 
-    override fun <I, O> data(key: Measurement): DataList<I, O> {
+    override fun data(key: Measurement<Float>): DataList<Float, Float> {
         val dataList = measures[key] ?: throw IllegalArgumentException("Measurement key not recognized: $key")
         @Suppress("UNCHECKED_CAST")
-        return dataList as DataList<I, O>
+        return dataList //  as DataList<I, O>
     }
 
     val errorSamples: MutableList<Pair<Int, Float>> = mutableListOf()
@@ -85,11 +96,10 @@ class SequentialStatistics(
     }
 
     override fun createSnapshot(): Snapshot {
+
         return Snapshot(
             epoch = lastEpoch,
-            measurements = mapOf(
-                errorMeasure to accuracy.toList()
-            )
+            measurements = measurements.associateWith { it -> measures[it]!! }
         )
     }
 }

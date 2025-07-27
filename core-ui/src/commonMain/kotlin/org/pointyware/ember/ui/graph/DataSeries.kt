@@ -11,5 +11,5 @@ import org.pointyware.ember.entities.DataList
 data class DataSeries(
     val label: String,
     val color: Long,
-    val dataPoints: DataList<Number, Float>,
+    val dataPoints: DataList<Float, Float>,
 )

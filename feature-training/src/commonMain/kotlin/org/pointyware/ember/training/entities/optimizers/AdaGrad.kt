@@ -13,10 +13,10 @@ import org.pointyware.ember.training.entities.Snapshot
 class AdaGrad(
 ): MultiPassOptimizer, EpochStatistics, BatchStatistics, SampleStatistics {
 
-    override val measurements: List<Measurement>
+    override val measurements: List<Measurement<Float>>
         get() = TODO("Not yet implemented")
 
-    override fun measurementMaximum(key: Measurement): Float {
+    override fun measurementMaximum(key: Measurement<Float>): Float {
         TODO("Not yet implemented")
     }
 
@@ -29,7 +29,7 @@ class AdaGrad(
         TODO("Not yet implemented")
     }
 
-    override fun <I, O> data(key: Measurement): DataList<I, O> {
+    override fun data(key: Measurement<Float>): DataList<Float, Float> {
         TODO("Not yet implemented")
     }
     override fun onEpochStart(epoch: Int) {
