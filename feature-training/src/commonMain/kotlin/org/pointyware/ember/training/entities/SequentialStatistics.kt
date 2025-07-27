@@ -74,7 +74,9 @@ class SequentialStatistics(
 
         return Snapshot(
             epoch = lastEpoch,
-            measurements = measurements.associateWith { it -> measures[it]!! }
+            measurements = measurements.associateWith { it -> measures[it]!!.let { measure ->
+                measure.view(measure.start, measure.end)
+            } }
         )
     }
 }

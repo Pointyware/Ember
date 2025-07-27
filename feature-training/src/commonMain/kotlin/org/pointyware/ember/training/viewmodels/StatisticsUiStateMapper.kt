@@ -23,8 +23,8 @@ object StatisticsUiStateMapper: Mapper<Snapshot, StatisticsUiState> {
 
 class DataSeriesMapper(
     // TODO: inject color mapper
-): Mapper<Map<Measurement<Float>, DataList<Float, Float>>, List<DataSeries>> {
-    override fun map(input: Map<Measurement<Float>, DataList<Float, Float>>): List<DataSeries> {
+): Mapper<Map<Measurement<Float>, Map<Float, Float>>, List<DataSeries>> {
+    override fun map(input: Map<Measurement<Float>, Map<Float, Float>>): List<DataSeries> {
         var id = 0
         return input.map { (measurement, data) ->
             DataSeries(
