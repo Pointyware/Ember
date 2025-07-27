@@ -4,7 +4,7 @@ package org.pointyware.ember.entities
  * @param I The type of independent variable.
  * @param D The type of dependent variable.
  */
-interface DataList<I, D> {
+interface DataList<I: Number, D: Comparable<D>> {
     val label: String
     val size: Int
     val start: I
@@ -15,7 +15,7 @@ interface DataList<I, D> {
     fun view(start: I, end: I): Map<I, D>
 }
 
-data class ObjDataList<I: Comparable<I>, D: Comparable<D>>(
+data class ObjDataList<I: Number, D: Comparable<D>>(
     override val label: String,
     val initialStart: I,
     val initialEnd: I,
@@ -36,8 +36,8 @@ data class ObjDataList<I: Comparable<I>, D: Comparable<D>>(
 
     override fun put(index: I, data: D) {
         // Domain Check
-        if (index < start) start = index
-        else if (index > end) end = index
+        if (index.toDouble() < start.toDouble()) start = index
+        else if (index.toDouble() > end.toDouble()) end = index
         // Range Check
         if (data < min) min = data
         else if (data > max) max = data
@@ -46,8 +46,8 @@ data class ObjDataList<I: Comparable<I>, D: Comparable<D>>(
     }
 
     override fun view(start: I, end: I): Map<I, D> {
-        val range = start..end
-        return data.filter { (key, _) -> key in range }
+        val range = start.toDouble()..end.toDouble()
+        return data.filter { (key, _) -> key.toDouble() in range }
     }
 }
 
@@ -58,7 +58,7 @@ data class ObjDataList<I: Comparable<I>, D: Comparable<D>>(
  * @param min The minimum value reported when data does not lie outside the range.
  * @param max The maximum value reported when data does not lie outside the range.
  */
-inline fun<reified I: Comparable<I>, reified D: Comparable<D>> dataList(
+inline fun<reified I: Number, reified D: Comparable<D>> dataList(
     label: String,
     start: I, end: I,
     min: D, max: D
