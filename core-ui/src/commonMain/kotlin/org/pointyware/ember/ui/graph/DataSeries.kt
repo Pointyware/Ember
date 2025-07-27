@@ -1,5 +1,7 @@
 package org.pointyware.ember.ui.graph
 
+import org.pointyware.ember.entities.DataList
+
 /**
  * A single series of data points to be plotted on a graph.
  *
@@ -9,5 +11,5 @@ package org.pointyware.ember.ui.graph
 data class DataSeries(
     val label: String,
     val color: Long,
-    val dataPoints: List<Pair<Float, Float>>,
+    val dataPoints: DataList<*, Float>,
 )
