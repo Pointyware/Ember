@@ -17,7 +17,7 @@ interface Statistics {
     fun measurementMaximum(key: Measurement): Float
     val measurementsMax: Float
     val epochCount: Int
-    fun <I, O> data(key: Measurement): DataList<I, O>
+    fun <I: Number, O: Comparable<O>> data(key: Measurement): DataList<I, O>
 
     /**
      * Collects all measures into a single immutable object
@@ -31,15 +31,15 @@ interface Statistics {
 @OptIn(ExperimentalTime::class)
 data class Snapshot(
     val epoch: Int,
-    val measurements: Map<Measurement, List<Pair<Float, Float>>>,
+    val measurements: Map<Measurement, DataList<Number, Float>>,
     val timestamp: Instant = Clock.System.now(),
 ) {
 
     val floor: Float = if (measurements.isNotEmpty()) {
-        measurements.maxOf { (measurement, data) -> if (data.isNotEmpty()) data.maxOf { it.second } else 0f }
+        measurements.maxOf { (measurement, data) -> data.max }
     } else 0f
     val ceiling: Float = if (measurements.isNotEmpty()) {
-        measurements.minOf { (measurement, data) -> if (data.isNotEmpty()) data.minOf { it.second } else 0f }
+        measurements.minOf { (measurement, data) -> data.min }
     } else 0f
 
     companion object {

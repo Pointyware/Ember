@@ -1,6 +1,7 @@
 package org.pointyware.ember.training.viewmodels
 
 import org.pointyware.artes.common.Mapper
+import org.pointyware.ember.entities.DataList
 import org.pointyware.ember.training.entities.Measurement
 import org.pointyware.ember.training.entities.Snapshot
 import org.pointyware.ember.ui.graph.DataSeries
@@ -22,8 +23,8 @@ object StatisticsUiStateMapper: Mapper<Snapshot, StatisticsUiState> {
 
 class DataSeriesMapper(
     // TODO: inject color mapper
-): Mapper<Map<Measurement, List<Pair<Float, Float>>>, List<DataSeries>> {
-    override fun map(input: Map<Measurement, List<Pair<Float, Float>>>): List<DataSeries> {
+): Mapper<Map<Measurement, DataList<Number, Float>>, List<DataSeries>> {
+    override fun map(input: Map<Measurement, DataList<Number, Float>>): List<DataSeries> {
         var id = 0
         return input.map { (measurement, data) ->
             DataSeries(
