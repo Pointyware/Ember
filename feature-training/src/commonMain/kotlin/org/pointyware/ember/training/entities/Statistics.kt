@@ -32,15 +32,15 @@ interface Statistics {
 @OptIn(ExperimentalTime::class)
 data class Snapshot(
     val epoch: Int,
-    val measurements: Map<Measurement<Float>, DataList<Float, Float>>,
+    val measurements: Map<Measurement<Float>, Map<Float, Float>>,
     val timestamp: Instant = Clock.System.now(),
 ) {
 
     val floor: Float = if (measurements.isNotEmpty()) {
-        measurements.maxOf { (measurement, data) -> data.max }
+        measurements.maxOf { it.value.values.max() }
     } else 0f
     val ceiling: Float = if (measurements.isNotEmpty()) {
-        measurements.minOf { (measurement, data) -> data.min }
+        measurements.minOf { it.value.values.min() }
     } else 0f
 
     companion object {
