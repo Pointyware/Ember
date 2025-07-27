@@ -14,12 +14,8 @@ class SequentialStatistics(
     override val measurements: List<Measurement<Float>>,
 ): EpochStatistics, BatchStatistics, SampleStatistics {
 
-    private val measurementsSet = measurements.toSet()
-
-//    private val errorMeasure = Measurement.Loss
-
     private val measures: MutableMap<Measurement<Float>, DataList<Float, Float>> = measurements.associateWith { measurement ->
-        ObjDataList<Float, Float>("", 0f, 0f, 0f, 0f)
+        ObjDataList("", 0f, 0f, 0f, 0f)
     }.toMutableMap()
 
     // private val epochMeasures = mutableMapOf<Measurement, DataList<Int, Float>>()
@@ -41,27 +37,16 @@ class SequentialStatistics(
         return dataList //  as DataList<I, O>
     }
 
-    val errorSamples: MutableList<Pair<Int, Float>> = mutableListOf()
-
-    private var trainedSamples = 0
-    private var epochError = 0.0
     override fun onEpochStart(epoch: Int, context: ComputationContext) {
-        epochError = 0.0
-        trainedSamples = 0
     }
 
-    private var batchError = 0.0
     override fun onBatchStart(batch: List<Exercise>) {
-        batchError = 0.0
     }
 
-    private var sampleError = 0.0
     override fun onSampleStart(sample: Exercise) {
-        sampleError = 0.0
     }
 
     override fun onCost(cost: Double) {
-        sampleError += cost
     }
 
     override fun onGradient() {
@@ -69,18 +54,14 @@ class SequentialStatistics(
     }
 
     override fun onSampleEnd(sample: Exercise) {
-        batchError += sampleError
     }
 
     override fun onBatchEnd(batch: List<Exercise>) {
-        epochError += batchError
-        trainedSamples += batch.size
     }
 
     var lastEpoch = 0
     override fun onEpochEnd(epoch: Int, context: ComputationContext) {
         lastEpoch = epoch
-        val averageError = epochError / trainedSamples // TODO: move error calculation to trainer
 
         val epochFloat = epoch.toFloat()
         measures.forEach { (measurement, dataList) ->
