@@ -1,7 +1,6 @@
 package org.pointyware.ember.training.viewmodels
 
 import org.pointyware.artes.common.Mapper
-import org.pointyware.ember.entities.DataList
 import org.pointyware.ember.training.entities.Measurement
 import org.pointyware.ember.training.entities.Snapshot
 import org.pointyware.ember.ui.graph.DataSeries
