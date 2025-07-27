@@ -1,5 +1,6 @@
 package org.pointyware.ember.training.entities.optimizers
 
+import org.pointyware.ember.entities.DataList
 import org.pointyware.ember.entities.layers.Layer
 import org.pointyware.ember.entities.tensors.Tensor
 import org.pointyware.ember.training.entities.BatchStatistics
@@ -27,7 +28,7 @@ class MomentumOptimizer(
         TODO("Not yet implemented")
     }
 
-    override fun data(key: Measurement): List<Pair<Float, Float>> {
+    override fun <I, O> data(key: Measurement): DataList<I, O> {
         TODO("Not yet implemented")
     }
     override fun onEpochStart(epoch: Int) {
