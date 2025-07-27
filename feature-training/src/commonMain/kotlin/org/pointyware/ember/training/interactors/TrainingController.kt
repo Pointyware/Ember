@@ -21,6 +21,7 @@ import org.pointyware.ember.training.entities.Exercise
 import org.pointyware.ember.training.entities.SequentialStatistics
 import org.pointyware.ember.training.entities.SequentialTrainer
 import org.pointyware.ember.training.entities.Snapshot
+import org.pointyware.ember.training.entities.key
 import org.pointyware.ember.training.entities.optimizers.GradientDescent
 import org.pointyware.ember.training.entities.optimizers.WarmRestartExponentialLearningRate
 import kotlin.math.min
@@ -77,6 +78,8 @@ interface TrainingController {
     suspend fun test(case: Exercise): Double
 }
 
+val lossKey = 100L.key<Float>()
+
 /**
  *
  */
@@ -108,7 +111,7 @@ class TrainingControllerImpl(
                     cases = spiralCases,
                     lossFunction = MeanSquaredError,
                     optimizer = GradientDescent(learningRate = WarmRestartExponentialLearningRate(0.1f)),
-                    statistics = SequentialStatistics()
+                    statistics = SequentialStatistics(lossKey, TODO(), TODO())
                 ),
                 snapshot = Snapshot.empty
             ),
@@ -126,7 +129,7 @@ class TrainingControllerImpl(
                     cases = spiralCases,
                     lossFunction = MeanSquaredError,
                     optimizer = GradientDescent(learningRate = WarmRestartExponentialLearningRate(0.1f)),
-                    statistics = SequentialStatistics()
+                    statistics = SequentialStatistics(lossKey, TODO(), TODO())
                 ),
                 snapshot = Snapshot.empty
             )
