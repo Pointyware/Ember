@@ -23,8 +23,8 @@ fun DrawScope.drawLineGraph(
         state = state.graphState,
         textMeasurer = textMeasurer
     ) {
-        state.series.forEach {
-            plotSeries(it.dataPoints)
+        state.series.forEach { series ->
+            plotSeries(series.dataPoints.view(series.dataPoints.start, series.dataPoints.end).map { (x, y) -> x.toFloat() to y })
         }
     }
 }
