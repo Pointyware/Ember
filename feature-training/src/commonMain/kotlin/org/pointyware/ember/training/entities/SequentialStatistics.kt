@@ -2,7 +2,6 @@ package org.pointyware.ember.training.entities
 
 import org.pointyware.ember.entities.DataList
 import org.pointyware.ember.entities.ObjDataList
-import kotlin.collections.toMutableMap
 import kotlin.time.ExperimentalTime
 
 private const val DEFAULT_MAX = 10f
