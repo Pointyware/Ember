@@ -18,6 +18,7 @@ import org.pointyware.ember.training.data.ExerciseRepository
 import org.pointyware.ember.training.data.Problem
 import org.pointyware.ember.training.data.SpiralExerciseGenerator
 import org.pointyware.ember.training.entities.Exercise
+import org.pointyware.ember.training.entities.Measurement
 import org.pointyware.ember.training.entities.SequentialStatistics
 import org.pointyware.ember.training.entities.SequentialTrainer
 import org.pointyware.ember.training.entities.Snapshot
@@ -78,7 +79,8 @@ interface TrainingController {
     suspend fun test(case: Exercise): Double
 }
 
-val lossKey = 100L.key<Float>()
+val lossKey = 100L.key<Float>() // TODO: create separate statistics for each measurement to match cadence/collection characteristics?
+val defaultMeasurements = listOf<Measurement<Float>>(Measurement.Intermediate("loss", lossKey))
 
 /**
  *
@@ -111,7 +113,7 @@ class TrainingControllerImpl(
                     cases = spiralCases,
                     lossFunction = MeanSquaredError,
                     optimizer = GradientDescent(learningRate = WarmRestartExponentialLearningRate(0.1f)),
-                    statistics = SequentialStatistics(lossKey, TODO(), TODO())
+                    statistics = SequentialStatistics(defaultMeasurements)
                 ),
                 snapshot = Snapshot.empty
             ),
@@ -129,7 +131,7 @@ class TrainingControllerImpl(
                     cases = spiralCases,
                     lossFunction = MeanSquaredError,
                     optimizer = GradientDescent(learningRate = WarmRestartExponentialLearningRate(0.1f)),
-                    statistics = SequentialStatistics(lossKey, TODO(), TODO())
+                    statistics = SequentialStatistics(defaultMeasurements)
                 ),
                 snapshot = Snapshot.empty
             )
