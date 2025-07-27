@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.pointyware.ember.entities.loss.LossFunction
 import org.pointyware.ember.entities.networks.SequentialNetwork
+import org.pointyware.ember.entities.tensors.Tensor
 import org.pointyware.ember.entities.tensors.TensorPool
 import org.pointyware.ember.training.entities.optimizers.MultiPassOptimizer
 import org.pointyware.ember.training.entities.optimizers.Optimizer
@@ -67,6 +68,13 @@ class SequentialTrainer(
     override fun train(iterations: Int): Int {
         if (done) return 0
 
+        val computationContext = ComputationContext()
+
+        val weightGradientsKey = 0L.key<List<Tensor>>()
+        val biasGradientsKey = 1L.key<List<Tensor>>()
+        val activationsKey = 2L.key<List<Tensor>>()
+        val derivativeActivationsKey = 3L.key<List<Tensor>>()
+
         // W^L
         val weightGradients = network.layers.map { tensorPool.getObject(it.weights.dimensions.toList()) }
         // b^L
@@ -77,6 +85,11 @@ class SequentialTrainer(
         val activations = network.layers.map { tensorPool.getObject(it.biases.dimensions.toList()) }
         // f'(z^L) = a'^L
         val derivativeActivations = network.layers.map { tensorPool.getObject(it.biases.dimensions.toList()) }
+
+        computationContext.put(weightGradientsKey, weightGradients)
+        computationContext.put(biasGradientsKey, biasGradients)
+        computationContext.put(activationsKey, activations)
+        computationContext.put(derivativeActivationsKey, derivativeActivations)
 
         var latestSnapshot: Snapshot
         repeat(iterations) { index ->
