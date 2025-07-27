@@ -39,14 +39,10 @@ class DataSeriesMapper(
 object MeasurementLabelMapper: Mapper<Measurement, String> {
     override fun map(input: Measurement): String {
         return when (input) {
-            Measurement.Loss -> "Loss"
-            Measurement.Accuracy -> "Accuracy"
-            Measurement.Activation -> "Activation"
-            Measurement.AllParameters -> "All Parameters"
-            Measurement.Derivative -> "Derivative"
-            Measurement.Gradient -> "Gradient"
-            Measurement.Preactivation -> "Preactivation"
-            Measurement.Weights -> "Weights"
+            is Measurement.Given<*> -> input.label
+            is Measurement.Intermediate<*> -> input.label
+            is Measurement.Analytical<*> -> input.label
+            else -> "Deprecated" // TODO: remove after deprecation
         }
     }
 }

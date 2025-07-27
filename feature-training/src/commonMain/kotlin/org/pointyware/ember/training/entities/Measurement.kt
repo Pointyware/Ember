@@ -12,41 +12,28 @@ sealed class Measurement(
 //    val name: String
 ) {
     /**
-     * Collects the weights of the model for an epoch.
+     * Collects the parameters of the model for an epoch.
+     *
+     * Weights, biases,
      */
-    data object Weights: Measurement()
-    /**
-     * Collects all biases of the model for an epoch.
-     */
-    data object AllParameters: Measurement()
+    data class Given<T: Any>(val label: String, val key: ComputationKey<T>): Measurement()
 
     /**
-     * Collects the weighted and biased inputs of the model, for each sample in the epoch. `z = Wx + b`
+     * Collects intermediate information for an epoch.
+     *
+     * Pre-activations, activations, derivatives, loss, gradients, etc.
      */
-    data object Preactivation: Measurement()
+    data class Intermediate<T: Any>(val label: String, val key: ComputationKey<T>): Measurement()
 
     /**
-     * Collects the activations of the model, for each sample in the epoch. `a = f(z)`
+     * Collects analytical information for an epoch.
+     *
+     * Accuracy, shannon-entropy, mutual-information, etc.
      */
-    data object Activation: Measurement()
-
-    /**
-     * Collects the derivatives of the model. `df/dz`
-     */
-    data object Derivative: Measurement()
+    data class Analytical<T: Any>(val label: String, val key: ComputationKey<T>): Measurement()
 
     /**
      * Collects the loss, a.k.a. cost, of the model, averaged across an epoch. `∑C(a, y)/N`
      */
     data object Loss: Measurement()
-
-    /**
-     * Collects the accuracy of the model, averaged across an epoch. `∑A(a, y)/N`
-     */
-    data object Accuracy: Measurement()
-
-    /**
-     * Collects the gradients of the model, averaged across an epoch. `df/dw`
-     */
-    data object Gradient: Measurement()
 }
