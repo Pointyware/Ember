@@ -11,6 +11,7 @@ import org.pointyware.ember.training.entities.optimizers.MultiPassOptimizer
 import org.pointyware.ember.training.entities.optimizers.Optimizer
 import org.pointyware.ember.training.entities.optimizers.SinglePassOptimizer
 import org.pointyware.ember.training.entities.optimizers.StatisticalOptimizer
+import org.pointyware.ember.training.interactors.lossKey
 
 /**
  * A trainer for a [SequentialNetwork] using a list of [Exercise] instances to evaluate
@@ -35,7 +36,6 @@ class SequentialTrainer(
     private val acceptableError: Double = .001
 ): Trainer {
 
-    private val errorMeasure = Measurement.Loss
     private var done = false
 
     constructor(
@@ -94,7 +94,7 @@ class SequentialTrainer(
         var latestSnapshot: Snapshot
         repeat(iterations) { index ->
             epoch++
-            epochStatistics?.onEpochStart(epoch)
+            epochStatistics?.onEpochStart(epoch, computationContext)
             var step = 0
             do { // Sample Passes
                 step++
@@ -175,12 +175,14 @@ class SequentialTrainer(
                     batchStatistics?.onBatchEnd(batch)
                 }
             } while (multiPassOptimizer?.passAgain() == true)
-            epochStatistics?.onEpochEnd(epoch)
+            epochStatistics?.onEpochEnd(epoch, computationContext)
 
             latestSnapshot = statistics.createSnapshot()
             _snapshot.value = latestSnapshot
 
-            if (latestSnapshot.measurements[errorMeasure]!!.last().second < acceptableError) {
+            // TODO: ensure error is put in context; move stopping condition to optimizer?
+            val error = computationContext.get(lossKey)
+            if (error < acceptableError) {
                 done = true
                 return index + 1
             }

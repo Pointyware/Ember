@@ -4,6 +4,7 @@ import org.pointyware.ember.entities.DataList
 import org.pointyware.ember.entities.layers.Layer
 import org.pointyware.ember.entities.tensors.Tensor
 import org.pointyware.ember.training.entities.BatchStatistics
+import org.pointyware.ember.training.entities.ComputationContext
 import org.pointyware.ember.training.entities.EpochStatistics
 import org.pointyware.ember.training.entities.Exercise
 import org.pointyware.ember.training.entities.Measurement
@@ -32,7 +33,7 @@ class AdaGrad(
     override fun data(key: Measurement<Float>): DataList<Float, Float> {
         TODO("Not yet implemented")
     }
-    override fun onEpochStart(epoch: Int) {
+    override fun onEpochStart(epoch: Int, context: ComputationContext) {
         TODO("Not yet implemented")
     }
 
@@ -60,7 +61,7 @@ class AdaGrad(
         TODO("Not yet implemented")
     }
 
-    override fun onEpochEnd(epoch: Int) {
+    override fun onEpochEnd(epoch: Int, context: ComputationContext) {
         TODO("Not yet implemented")
     }
 

@@ -12,9 +12,7 @@ private const val DEFAULT_MAX = 10f
  */
 @OptIn(ExperimentalTime::class)
 class SequentialStatistics(
-    val lossKey: ComputationKey<Float>,
-    override val measurements: List<Measurement<Float>> = listOf<Measurement<Float>>(Measurement.Intermediate("loss", lossKey)),
-    val computationList: List<Computation<*>>
+    override val measurements: List<Measurement<Float>>,
 ): EpochStatistics, BatchStatistics, SampleStatistics {
 
     private val measurementsSet = measurements.toSet()
@@ -25,13 +23,6 @@ class SequentialStatistics(
         ObjDataList<Float, Float>("", 0f, 0f, 0f, 0f)
     }.toMutableMap()
 
-
-    private val computationsList = ComputationContext().also {
-        computationList.forEach { computation ->
-//            it.put(computation, null)
-            computation.compute(it)
-        }
-    }
     // private val epochMeasures = mutableMapOf<Measurement, DataList<Int, Float>>()
     // private val batchMeasures = mutableMapOf<Measurement, DataList<Pair<Int, Int>, Float>>()
     // private val sampleMeasures = mutableMapOf<Measurement, DataList<Triple<Int, Int, Int>, Float>>()
@@ -55,7 +46,7 @@ class SequentialStatistics(
 
     private var trainedSamples = 0
     private var epochError = 0.0
-    override fun onEpochStart(epoch: Int) {
+    override fun onEpochStart(epoch: Int, context: ComputationContext) {
         epochError = 0.0
         trainedSamples = 0
     }
@@ -88,11 +79,15 @@ class SequentialStatistics(
     }
 
     var lastEpoch = 0
-    override fun onEpochEnd(epoch: Int) {
+    override fun onEpochEnd(epoch: Int, context: ComputationContext) {
         lastEpoch = epoch
-        val averageError = epochError / trainedSamples
-        // TODO: create separate statistics for each measurement to match cadence/collection characteristics?
-        accuracy.add(epoch.toFloat() to averageError.toFloat())
+        val averageError = epochError / trainedSamples // TODO: move error calculation to trainer
+
+        val epochFloat = epoch.toFloat()
+        measures.forEach { (measurement, dataList) ->
+            val value = context.get(measurement.key)
+            dataList.put(epochFloat, value)
+        }
     }
 
     override fun createSnapshot(): Snapshot {

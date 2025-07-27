@@ -55,8 +55,8 @@ data class Snapshot(
  *
  */
 interface EpochStatistics: Statistics {
-    fun onEpochStart(epoch: Int)
-    fun onEpochEnd(epoch: Int)
+    fun onEpochStart(epoch: Int, context: ComputationContext)
+    fun onEpochEnd(epoch: Int, context: ComputationContext)
 }
 
 /**
