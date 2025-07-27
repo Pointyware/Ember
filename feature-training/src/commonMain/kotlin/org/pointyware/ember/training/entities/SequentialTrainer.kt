@@ -96,6 +96,7 @@ class SequentialTrainer(
             epoch++
             epochStatistics?.onEpochStart(epoch, computationContext)
             var step = 0
+            var epochLossSum = 0.0
             do { // Sample Passes
                 step++
                 val sampleBatches = optimizer.batch(cases)
@@ -103,10 +104,11 @@ class SequentialTrainer(
                 weightGradients.forEach { it.zero() }
                 biasGradients.forEach { it.zero() }
 
-                var aggregateLoss = 0.0
+                var batchLossSum = 0.0
                 for (batch in sampleBatches) {
                     batchStatistics?.onBatchStart(batch)
                     val caseCount = batch.size.toFloat()
+                    var sampleLossSum = 0.0
                     batch.forEach { case ->
                         // Zero tensors for activations, derivativeActivations, and errors
                         activations.forEach { it.zero() }
@@ -118,9 +120,9 @@ class SequentialTrainer(
 
                         // Calculate the loss for the current case
                         val output = activations.last()
-                        val loss = lossFunction.compute(expected = case.output, actual = output)
-                        sampleStatistics?.onCost(loss)
-                        aggregateLoss += loss
+                        val sampleLoss = lossFunction.compute(expected = case.output, actual = output)
+                        sampleStatistics?.onCost(sampleLoss)
+                        sampleLossSum += sampleLoss
                         // $\nabla_{a_L} C$ is the gradient of the loss function with respect to the final layer's output
                         val errorGradient =
                             lossFunction.derivative(expected = case.output, actual = output)
@@ -172,9 +174,17 @@ class SequentialTrainer(
                             biasGradients[index]
                         )
                     }
+                    val averageSampleLoss = sampleLossSum / batch.size
+                    batchLossSum += averageSampleLoss
                     batchStatistics?.onBatchEnd(batch)
                 }
+                val averageBatchLoss = batchLossSum / sampleBatches.size
+                epochLossSum += averageBatchLoss
             } while (multiPassOptimizer?.passAgain() == true)
+
+            val averageLoss = epochLossSum / step
+            computationContext.put(lossKey, averageLoss.toFloat())
+
             epochStatistics?.onEpochEnd(epoch, computationContext)
 
             latestSnapshot = statistics.createSnapshot()
