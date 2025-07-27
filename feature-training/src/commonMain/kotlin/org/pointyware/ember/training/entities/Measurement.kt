@@ -8,32 +8,28 @@ package org.pointyware.ember.training.entities
  * - Intermediate information, a.k.a. calculations, such as pre-activations, activations, derivatives, loss, gradients, etc.
  * - Analytical information, a.k.a. calculations on calculations, such as
  */
-sealed class Measurement(
+sealed class Measurement<T: Any>(
 //    val name: String
+    val key: ComputationKey<T>
 ) {
     /**
      * Collects the parameters of the model for an epoch.
      *
      * Weights, biases,
      */
-    data class Given<T: Any>(val label: String, val key: ComputationKey<T>): Measurement()
+    class Given<T: Any>(val label: String, key: ComputationKey<T>): Measurement<T>(key)
 
     /**
      * Collects intermediate information for an epoch.
      *
      * Pre-activations, activations, derivatives, loss, gradients, etc.
      */
-    data class Intermediate<T: Any>(val label: String, val key: ComputationKey<T>): Measurement()
+    class Intermediate<T: Any>(val label: String, key: ComputationKey<T>): Measurement<T>(key)
 
     /**
      * Collects analytical information for an epoch.
      *
      * Accuracy, shannon-entropy, mutual-information, etc.
      */
-    data class Analytical<T: Any>(val label: String, val key: ComputationKey<T>): Measurement()
-
-    /**
-     * Collects the loss, a.k.a. cost, of the model, averaged across an epoch. `∑C(a, y)/N`
-     */
-    data object Loss: Measurement()
+    class Analytical<T: Any>(val label: String, key: ComputationKey<T>): Measurement<T>(key)
 }
