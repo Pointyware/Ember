@@ -15,6 +15,7 @@ import kotlin.random.Random
 open class GradientDescent(
     val learningRate: LearningRateSchedule,
     val entropy: Random = Random.Default,
+    // TODO: pass in value keys for retrieval from computation context
 ): SinglePassOptimizer {
 
     override fun batch(cases: List<Exercise>): List<List<Exercise>> {
@@ -22,7 +23,7 @@ open class GradientDescent(
     }
 
     override fun update(epoch: Int, layer: Layer, weightGradients: Tensor, biasGradients: Tensor) {
-        val epoch = TODO("Pass In")
+//        val epoch = TODO("Pass In ComputationContext")
         val currentLearningRate = learningRate.learningRate(epoch)
         when (layer) {
             is DenseLayer -> {
